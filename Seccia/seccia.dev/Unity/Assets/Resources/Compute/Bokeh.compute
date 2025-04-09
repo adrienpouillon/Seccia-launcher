@@ -1,0 +1,116 @@
+﻿#pragma kernel Main
+
+struct Shape
+{
+	uint pos;
+	uint posInDepth;
+};
+
+cbuffer CB : register(b0)
+{
+	uint g_width;
+	uint g_height;
+	int g_shapeCount;
+	float g_shapeWidth;
+	float g_shapeHeight;
+};
+
+StructuredBuffer<Shape> g_shapes;
+Texture2D<float4> g_input;
+Texture2D<float4> g_depth;
+RWTexture2D<float4> g_output;
+
+float2 UnpackPos(int packedPos)
+{
+	// signed int16
+	int x = (packedPos << 16) >> 16;
+	int y = ((packedPos >> 16) << 16) >> 16;
+	return float2(x, y);
+}
+
+bool IsInsideOval(float2 pos, float2 center)
+{
+	float x = (pos.x - center.x) / g_shapeWidth;
+	float y = (pos.y - center.y) / g_shapeHeight;
+	float2 norm = float2(x, y);
+	return dot(norm, norm) <= 1.0;
+}
+
+float4 OverBlend(float4 src, float4 dst)
+{
+	// src must be premultiplied
+	float outA = src.a + dst.a * (1.0 - src.a);
+	float3 outRGB = src.rgb + dst.rgb * (1.0 - src.a);
+	return float4(outRGB, outA);
+}
+
+float3 ForceLuminance(float3 color, float threshold)
+{
+	float luminance = dot(color, float3(0.299, 0.587, 0.114));
+	if (luminance < threshold )
+	{
+		if (luminance < 0.0001)
+			return float3(threshold, threshold, threshold);
+		else
+		{
+			float scale = threshold / luminance;
+			return saturate(color * scale);
+		}
+	}
+	else
+	{
+		return color;
+	}
+}
+
+float4 Sample(int2 uv)
+{
+	float count = 0;
+	float4 color = 0;
+	for (int x = uv.x - 1; x <= uv.x + 1; x++)
+	{
+		if (x < 0 || x >= (int) g_width)
+			continue;
+		for (int y = uv.y - 1; y <= uv.y + 1; y++)
+		{
+			if (y < 0 || y >= (int) g_height)
+				continue;
+			color += g_input.Load(int3(x, y, 0));
+			count += 1.0;
+		}
+	}
+	color /= count;
+	return color;
+}
+
+[numthreads(8, 8, 1)]
+void Main(uint3 id : SV_DispatchThreadID)
+{
+	if ( id.x>=g_width || id.y>=g_height )
+		return;
+	
+	int2 pixelCoord = int2(id.xy);
+	//float2 pixelCenter = float2(pixelCoord) + 0.5;
+	float2 pixelCenter = float2(pixelCoord);
+	float4 accumulatedColor = float4(0, 0, 0, 0);
+	for (int i = 0; i < g_shapeCount; i++)
+	{
+		Shape shape = g_shapes[i];
+		float2 center = UnpackPos(shape.pos);
+		if (IsInsideOval(pixelCenter, center))
+		{
+			float2 centerInDepth = UnpackPos(shape.posInDepth);
+			float alpha = g_depth.Load(int3(centerInDepth.xy, 0)).a;
+			if (alpha > 0.5)
+			{
+				float4 color = Sample(center.xy);
+				color.rgb = ForceLuminance(color.rgb, 0.7);
+				color.a = 0.7;
+				color.rgb *= color.a;
+				accumulatedColor = OverBlend(color, accumulatedColor);
+			}
+		}
+	}
+	accumulatedColor = saturate(accumulatedColor); 
+	g_output[pixelCoord] = accumulatedColor;
+}

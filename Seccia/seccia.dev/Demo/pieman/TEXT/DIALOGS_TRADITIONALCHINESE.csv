@@ -1,0 +1,104 @@
+﻿Name,ID,Sub,"TraditionalChinese",Reference
+
+__OBJECTS__
+
+O_BEDROOM_DRAWER,"0,0,0",,"抽屜","Drawer"
+O_BOTUL,"0,0,0",,"Botul","Botul"
+O_CAFE_CAR,"0,0,0",,"汽車","Car"
+O_CAFE_CHAIR,"0,0,0",,"夾克","Jacket"
+O_CAMERAMAN,"0,0,0",,"攝影師","Cameraman"
+O_GLUE,"0,0,0",,"膠","Glue"
+O_GUARD,"0,0,0",,"警衛","Security Guard"
+O_HERO,"0,0,0",,"擔","Dan"
+O_HOME_DOOR,"0,0,0",,"門","Door"
+O_HOME_FLIES,"0,0,0",,"蒼蠅","Flies"
+O_HOME_PHONE,"0,0,0",,"電話","Phone"
+O_PHOTO,"0,0,0",,"身份證照片","ID photo"
+O_PHOTOGLUE,"0,0,0",,"粘貼ID照片","Sticky ID Photo"
+O_PIE,"0,0,0",,"餡餅","Pie"
+O_PRESSCARD,"0,0,0",,"新聞卡","Press card"
+O_PRESSCARD2,"0,0,0",,"新聞卡已更改","Press card changed"
+O_REPORTER,"0,0,0",,"記者","Reporter"
+
+__SCENES__
+
+S_BEDROOM
+,"0,7,0","DOOR","家","Home"
+,"1,6,0","NOTE","筆記","Notes"
+S_HOME
+,"0,10,0","BEDROOM","臥室","Bedroom"
+
+__TIMELINES__
+
+
+__DIALOGS__
+
+D_BEDROOM
+,"0,1,0",O_HERO,"這些是提醒。","These are reminders."
+,"0,2,0",O_HERO,"有我的卡號這是4978 5471...","There is my card number. It's 4978 5471..."
+,"0,3,0",O_HERO,"我把所有東西都放在這個抽屜裡。","I put everything and anything in this drawer."
+,"0,3,0",O_HERO,"這是非常有用的東西。","This is very useful to find something."
+,"0,4,0",O_HERO,"那是最後一個。","That's the last one."
+D_CAFE
+,"0,1,0",O_REPORTER,"呃孩子，別碰我的夾克。","Eh kid, don't touch my jacket."
+,"0,2,0",O_HERO,"這是記者的夾克。","It's the reporter's jacket."
+,"0,3,0",O_HERO,"他的新聞卡會做得很好。","His press card will do nicely."
+,"0,5,0",O_HERO,"我無法接觸他。","I can't reach him."
+,"0,6,0",O_HERO,"它是[O_BOTUL]...最美麗的哲學家。","It's [O_BOTUL]... the most beautiful philosopher."
+,"0,8,0",O_GUARD,"你不能通過","You can't pass."
+,"0,9,0",O_GUARD,"需要許可。","Permission is required."
+,"0,10,0",O_GUARD,"我有訂單，我的訂單很明確：只有記者可以越過線。","I have orders, and my orders are clear: only reporters can cross the line."
+,"0,11,0",O_HERO,"他很認真","He's serious."
+,"0,12,0",O_GUARD,"沒關係，你可以通過。","It's okay, you can pass."
+,"0,14,0",O_HERO,"他好像很忙","He seems busy."
+,"0,15,0",O_HERO,"我最好不要打擾他了","I'd better not disturb him anymore."
+D_GUARD
+,"0,9,0",CHOICE,"我會問他一張簽名。我可以去嗎？","I would ask him for an autograph. Can I go?"
+,"0,10,0",O_GUARD,"負。","Negative."
+,"0,1,0",CHOICE,"你知道Botul嗎","Do you know Botul?"
+,"0,12,0",O_GUARD,"只有他的名字。","Only his name."
+,"0,13,0",CHOICE,"似乎這個傢伙是一個偉大的哲學家。","It seems that this guy is a great philosopher."
+,"0,14,0",O_GUARD,"我以為也聽到了。","I thought also hear it."
+,"0,15,0",CHOICE,"他是救了利比亞的人。","He's the man who saved Libya."
+,"0,16,0",O_GUARD,"我不笨","I ain't stupid."
+,"0,19,0",CHOICE,"祝你今天愉快。","Have a nice day."
+,"0,20,0",O_GUARD,"你也是。","You too."
+D_HERO
+,"0,1,0",O_HERO,"這不是一個好主意","It's not a good idea."
+,"0,1,1",O_HERO,"什麼？","What?"
+,"0,1,2",O_HERO,"不。","Nope."
+,"0,1,3",O_HERO,"我不明白我怎麼可以一起使用這些。","I don't understand how I could use these both together."
+,"0,5,0",O_HERO,"只有我堅持在一個立場上。","It only remains for me to stick it on a stand."
+,"0,6,0",O_HERO,"它像簡單的法國記者","Voilà... it's as simple as that to be a french reporter :)"
+D_HOME
+,"0,1,0",O_HERO,"他們似乎很開心。","They seem to have fun."
+,"0,2,0",O_HERO,"我現在不想處理我有更好的事情要做","I did not want to deal with now. I have better things to do."
+,"0,3,0",O_HERO,"是的，這很快！","Yes... it's very quick!"
+D_PHONE
+,"0,4,0",O_OPERATOR,"糕點當歸，你好我能為你做什麼？","Patisserie Angelica, hello. What can I do for you?"
+,"0,5,0",CHOICE,"你知道...我真的想把一個餡餅給Botul。","You know... I really want to throw a pie to Botul."
+,"0,6,0",O_HERO,"你知道嗎？","You know... uh... if you deliver?"
+,"0,7,0",O_OPERATOR,"是的，先生，我們甚至有一個快速的服務。","Yes sir, we even have a quick service."
+,"0,3,0",CHOICE,"我想訂一個餡餅，大量的奶油。","I'd like to order a pie with lots of whipped cream please."
+,"0,8,0",O_OPERATOR,"好的，先生。你可以給我你的信用卡號碼嗎？","Well sir. Could you give me your credit card number?"
+,"0,18,0",CHOICE,"我失去了信用卡。","I lost my credit card."
+,"0,18,1",CHOICE,"信用卡？","Credit card?"
+,"0,20,0",O_OPERATOR,"我無法處理您的訂單沒有付款。","I can not process your order without payment."
+,"0,22,0",O_HERO,"我看著我的筆記，我打電話給你。","I look at my notes and I call you back."
+,"0,19,0",CHOICE,"是的，4978 5471 ...","Yes, 4978 5471..."
+,"0,16,0",O_OPERATOR,"那麼先生，你的訂單是註冊的。祝你美好的一天。","Well sir, your order is registered. I wish you a good day."
+,"0,12,0",CHOICE,"我能和當歸說話嗎？","Could I speak to Angelica?"
+,"0,13,0",O_OPERATOR,"抱歉？","Sorry?"
+,"0,14,0",O_HERO,"沒關係。","Nevermind."
+,"0,10,0",O_HERO,"謝謝再見。","Thanks, bye."
+D_REPORTER
+,"0,3,0",CHOICE,"你好。","Hello."
+,"0,4,0",O_REPORTER,"我很忙。","I'm busy."
+,"0,5,0",CHOICE,"他是你的朋友嗎？","Botul, is he your friend?"
+,"0,6,0",O_REPORTER,"請不要打擾我","Please don't disturb me."
+,"0,7,0",CHOICE,"Botul，你喜歡他嗎？","Botul, do you like him?"
+,"0,8,0",O_REPORTER,"我打電話了...走開了！","I'm calling... go away!"
+,"0,9,0",CHOICE,"我覺得他很可笑，不是嗎？","I think he's ridiculous, don't you?"
+,"0,10,0",O_REPORTER,"我很無聊你","I'm bored you."
+,"0,12,0",CHOICE,"嗯，看你吧","Well, see ya."
+,"0,14,0",CHOICE,"謝謝。"

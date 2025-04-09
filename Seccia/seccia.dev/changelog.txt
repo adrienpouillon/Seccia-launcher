@@ -1,0 +1,302 @@
+	• 2.0.21 (Unity 6000.0.44f1)
+
+Dialog fixed after changing scene
+Unity build fixed
+
+	• 2.0.20 (Unity 6000.0.42f1)
+
+Scenario: logical boxes fixed
+Debug cable improved
+
+	• 2.0.19 (Unity 6000.0.42f1)
+
+Debug mode fixed
+
+	• 2.0.18 (Unity 6000.0.42f1)
+
+Debug mode added
+Role: execution order added
+WebGL: Blur added
+
+	• 2.0.17 (Unity 6000.0.41f1)
+
+Runtime: Blur effect faster (Compute Shader)
+Runtime: Bokeh effect faster (Compute Shader)
+IDE: Solidify feature faster (Compute Shader)
+
+	• 2.0.16 (Unity 6000.0.35f1)
+
+Sound bug fixed
+Dialog: Task property added
+
+	• 2.0.15 (Unity 6000.0.33f1)
+
+Beacon effect added
+
+	• 2.0.14 (Unity 6000.0.32f1)
+
+Persistent GUI states fixed
+Label text scale fixed
+
+	• 2.0.13 (Unity 6000.0.28f1)
+
+Object: rebuild button added
+Object: play feature fixed
+Effect: deletion confirmation added
+IDE: 13 MB saved
+
+	• 2.0.12 (Unity 6000.0.27f1)
+
+Pieman effect fixed
+
+	• 2.0.11 (Unity 6000.0.27f1)
+
+New project fixed
+Snapshots removed
+Bokeh image added
+Bokeh improved
+Role: Camera fixed
+Scene: Add bokeh coords fixed
+Scene: Bokeh selection fixed
+Scene: select locked items with shift
+Effect: properties fixed
+
+	• 2.0.10 (Unity 6000.0.26f1)
+
+Balloon property added
+Tutorial page fixed
+
+	• 2.0.9 (Unity 6000.0.23f1)
+
+Function category added in help page
+Tutorial page added
+
+	• 2.0.8 (Unity 6000.0.23f1)
+
+Animation preview improved
+Clone still as object
+Delete asset fixed
+Still menu fixed
+Tool tip improved
+
+	• 2.0.7 (Unity 6000.0.21f1)
+
+Tool tip fixed
+Rename asset fixed
+
+	• 2.0.6 (Unity 6000.0.20f1)
+
+set_ambient function added
+
+	• 2.0.5 (Unity 6000.0.20f1)
+
+Bokeh added
+Monochrome tint improved
+
+	• 2.0.4 (Unity 6000.0.19f1)
+
+Blur effect improved
+fx_blur function added
+Lens removed
+
+	• 2.0.3 (Unity 6000.0.19f1)
+
+'show' box improved
+'on say' box improved
+set_base function replaced by set_anchor
+sub_choice function replaced by _choice variable
+shutup function added
+
+	• 2.0.2 (Unity 6000.0.19f1)
+
+Project v15
+Destiny replaced by logical OR
+Roles updated after renaming puzzles
+Export scenario fixed
+Curve effect fixed
+
+	• 2.0.1 (Unity 6000.0.18f1)
+
+Renaming assets bug fix
+
+	• 2.0.0 (Unity 6000.0.16f1)
+
+Controller improved
+Maggnify fixed
+Parent fixed
+song box improved
+sentence function added
+get_sentence function renamed
+set_light_diffuse function fixed
+set_tint function fixed
+play_song function removed
+crossfade_song function removed
+crossfade_last_song function removed
+stop_song function removed
+
+	• 1.9.16 (Unity 6000.0.10f1)
+
+Parallax shader added
+Still crash fixed
+Layer size improved
+Solidify process during Release build
+
+	• 1.9.15 (Unity 6000.0.2f1)
+
+Unity logo removed (Unity 6)
+File association in prefs
+
+	• 1.9.14 (Unity 2023.2.15f1)
+
+Library Store added
+Float format conversion fixed
+get_scale and get_zoom fixed
+
+	• 1.9.13 (Unity 2023.2.15f1)
+
+Build fixed
+
+	• 1.9.12 (Unity 2023.2.15f1)
+
+Magnify feature on Touch Screen
+Scene editor: group selection added
+Role editor: fit feature added
+set_scale function added
+get_scale function added
+get_zoom function added
+fsqrt function added
+pow function added
+Parent entity savegame fixed
+
+	• 1.9.11 (Unity 2023.2.14f1)
+
+Label parent fixed
+Justify text fixed
+get_angle function returns a normalized angle
+math_norm_angle function added
+
+	• 1.9.10 (Unity 2023.2.13f1)
+
+Parent bug fixed in Scene Editor
+Justify label added
+lerp function added
+flerp function added
+clamp function added
+fclamp function added
+math_position function added
+list_set function modified
+list_add function added
+turn function added
+left function removed
+right function removed
+front function removed
+back function removed
+
+
+	• 1.9.9 (Unity 2023.2.12f1)
+
+'on click' box fixed
+'animate' box fixed and improved
+'walk' box improved
+Scene editor: shader view fixed
+
+	• 1.9.8 (Unity 2023.2.10f1)
+
+Sentence tags added
+'select' box added
+'on say' box improved
+'on show' box improved
+'talk' box improved
+'dialog is' box improved
+'dialog has' box improved
+'set_sentence_tag' function added
+'get_sentence_tag' function added
+'sentence_tag' function added
+'talk' function removed
+'shutup' function removed
+'select' function removed
+
+	• 1.9.7 (Unity 2023.2.10f1)
+
+Tags added in Dialog Editor
+'on enter dialog' box added
+'on exit dialog' box added
+'on say' box improved
+Scripts removed in Dialog Editor
+
+	• 1.9.6 (Unity 2023.2.10f1)
+
+'interpolate' box added
+'camera' box improved
+'walk' box improved
+'set_zoom' function added
+'shake' function renamed
+'wave' function renamed
+'time' function renamed
+'delta_time' function renamed
+'shot' box removed
+'walk' functon removed
+'fade' function removed
+'shot' function removed
+'zoom' function removed
+'vary_opacity' function removed
+
+	• 1.9.5 (Unity 2023.2.9f1)
+
+Savegame fixed
+Timeline restored after loading
+timeline function removed
+
+	• 1.9.4 (Unity 2023.2.9f1)
+
+'on succes's box added
+'take' box fixed
+'show' box fixed
+'task' box fixed
+'is result' box fixed
+'player has' box fixed
+set_label_color function added
+length function added
+substr function added
+keyboard function fixed
+mouse function added
+show_bag function added
+hide_bag function added
+'Never hide' option fixed
+Missing puzzle fixed
+Savegame fixed
+Blur effect added
+
+	• 1.9.3 (Unity 2023.2.7f1)
+
+Dialog bug fixed
+Section crash fixed
+Clipboard image flipped fixed
+Use Label event fixed
+
+	• 1.9.2 (Unity 2023.2.5f1)
+
+Library interface improved
+
+	• 1.9.1 (Unity 2023.2.5f1)
+
+get_sentence function added
+French manual updated
+
+	• 1.9.0 (Unity 2023.1.16f1)
+
+Role Editor v2
+Savegame v2
+New view in Scene Editor
+Still added
+AI added
+Adjustments added
+Rotation fixed
+Object frame format changed (_000.png)
+Animation playback added
+Undo feature added for Assisted Scripting
+drag_in_pixels function added
+Hover added for drag & drop
+fadd, fsub, fmul, fdiv, round functions added
+list_sort function added
+math functions added

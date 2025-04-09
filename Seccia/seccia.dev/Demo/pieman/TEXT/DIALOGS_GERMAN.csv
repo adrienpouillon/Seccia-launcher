@@ -1,0 +1,104 @@
+﻿Name,ID,Sub,"German",Reference
+
+__OBJECTS__
+
+O_BEDROOM_DRAWER,"0,0,0",,"Kommode","Drawer"
+O_BOTUL,"0,0,0",,"Botul","Botul"
+O_CAFE_CAR,"0,0,0",,"Auto","Car"
+O_CAFE_CHAIR,"0,0,0",,"Jacke","Jacket"
+O_CAMERAMAN,"0,0,0",,"Kameramann","Cameraman"
+O_GLUE,"0,0,0",,"Klebstoff","Glue"
+O_GUARD,"0,0,0",,"Sicherheitsmann","Security Guard"
+O_HERO,"0,0,0",,"Dan","Dan"
+O_HOME_DOOR,"0,0,0",,"Tür","Door"
+O_HOME_FLIES,"0,0,0",,"Fliegen","Flies"
+O_HOME_PHONE,"0,0,0",,"Telefon","Phone"
+O_PHOTO,"0,0,0",,"Passbild","ID photo"
+O_PHOTOGLUE,"0,0,0",,"Klebriges Passbild","Sticky ID Photo"
+O_PIE,"0,0,0",,"Kuchen","Pie"
+O_PRESSCARD,"0,0,0",,"Presseausweis","Press card"
+O_PRESSCARD2,"0,0,0",,"Veränderter Presseausweis","Press card changed"
+O_REPORTER,"0,0,0",,"Reporter","Reporter"
+
+__SCENES__
+
+S_BEDROOM
+,"0,7,0","DOOR","Wohnzimmer","Home"
+,"1,6,0","NOTE","Notizen","Notes"
+S_HOME
+,"0,10,0","BEDROOM","Schlafzimmer","Bedroom"
+
+__TIMELINES__
+
+
+__DIALOGS__
+
+D_BEDROOM
+,"0,1,0",O_HERO,"Das sind Merkzettel.","These are reminders."
+,"0,2,0",O_HERO,"Da steht meine Kreditkartennummer. 4978 5471...","There is my card number. It's 4978 5471..."
+,"0,3,0",O_HERO,"In diese Kommode packe ich wirklich alles.","I put everything and anything in this drawer."
+,"0,3,0",O_HERO,"Das ist sehr hilfreich, um etwas zu finden.","This is very useful to find something."
+,"0,4,0",O_HERO,"Das Letzte.","That's the last one."
+D_CAFE
+,"0,1,0",O_REPORTER,"He Junge, Finger weg von meiner Jacke.","Eh kid, don't touch my jacket."
+,"0,2,0",O_HERO,"Das ist die Jacke des Reporters.","It's the reporter's jacket."
+,"0,3,0",O_HERO,"Sein Presseausweis wird sicher nützlich sein.","His press card will do nicely."
+,"0,5,0",O_HERO,"Ich kann ihn nicht erreichen.","I can't reach him."
+,"0,6,0",O_HERO,"[O_BOTUL]... der bewundernswerteste aller Philosophen.","It's [O_BOTUL]... the most beautiful philosopher."
+,"0,8,0",O_GUARD,"Sie dürfen nicht vorbei.","You can't pass."
+,"0,9,0",O_GUARD,"Sie benötigen eine Erlaubnis.","Permission is required."
+,"0,10,0",O_GUARD,"Ich habe Anweisungen und diese Anweisungen sind eindeutig: nur Reporter dürfen vorbei.","I have orders, and my orders are clear: only reporters can cross the line."
+,"0,11,0",O_HERO,"Er meint das ernst.","He's serious."
+,"0,12,0",O_GUARD,"In Ordnung, Sie dürfen vorbei.","It's okay, you can pass."
+,"0,14,0",O_HERO,"Er scheint beschäftigt zu sein.","He seems busy."
+,"0,15,0",O_HERO,"Ich störe ihn besser nicht mehr.","I'd better not disturb him anymore."
+D_GUARD
+,"0,9,0",CHOICE,"Ich würde ihn gerne um ein Autogramm bitten. Darf ich vorbei?","I would ask him for an autograph. Can I go?"
+,"0,10,0",O_GUARD,"Negativ.","Negative."
+,"0,1,0",CHOICE,"Kennen Sie Botul?","Do you know Botul?"
+,"0,12,0",O_GUARD,"Nur seinen Namen.","Only his name."
+,"0,13,0",CHOICE,"Es scheint, er ist ein großartiger Philosoph.","It seems that this guy is a great philosopher."
+,"0,14,0",O_GUARD,"Das habe ich auch gehört.","I thought also hear it."
+,"0,15,0",CHOICE,"Er ist der Mann, der Libyen gerettet hat.","He's the man who saved Libya."
+,"0,16,0",O_GUARD,"Ich bin nicht dumm.","I ain't stupid."
+,"0,19,0",CHOICE,"Schönen Tag noch.","Have a nice day."
+,"0,20,0",O_GUARD,"Ihnen auch.","You too."
+D_HERO
+,"0,1,0",O_HERO,"Das ist keine gute Idee.","It's not a good idea."
+,"0,1,1",O_HERO,"Was?","What?"
+,"0,1,2",O_HERO,"Nein.","Nope."
+,"0,1,3",O_HERO,"Ich habe keine Ahnung, wie ich das kombinieren soll.","I don't understand how I could use these both together."
+,"0,5,0",O_HERO,"Jetzt muss ich es nur noch in einen Rahmen kleben.","It only remains for me to stick it on a stand."
+,"0,6,0",O_HERO,"Voilà... so leicht wird man ein französischer Reporter :)","Voilà... it's as simple as that to be a french reporter :)"
+D_HOME
+,"0,1,0",O_HERO,"Sie scheinen Spaß zu haben.","They seem to have fun."
+,"0,2,0",O_HERO,"Ich will mich jetzt nicht damit befassen. Ich habe Wichtigeres zu tun.","I did not want to deal with now. I have better things to do."
+,"0,3,0",O_HERO,"Ja... das war sehr schnell!","Yes... it's very quick!"
+D_PHONE
+,"0,4,0",O_OPERATOR,"Patisserie Angelica hier. Wie kann ich Ihnen helfen?","Patisserie Angelica, hello. What can I do for you?"
+,"0,5,0",CHOICE,"Wissen Sie... ich würde wirklich gerne mit einem Kuchen nach Botul werfen.","You know... I really want to throw a pie to Botul."
+,"0,6,0",O_HERO,"Wissen Sie... ähm... liefern Sie auch?","You know... uh... if you deliver?"
+,"0,7,0",O_OPERATOR,"Ja, wir haben sogar einen Schnell-Service.","Yes sir, we even have a quick service."
+,"0,3,0",CHOICE,"Ich würde gerne einen Kuchen mit extra viel Schlagsahne bestellen.","I'd like to order a pie with lots of whipped cream please."
+,"0,8,0",O_OPERATOR,"Gerne. Sagen Sie mir bitte Ihre Kreditkartennummer?","Well sir. Could you give me your credit card number?"
+,"0,18,0",CHOICE,"Ich habe meine Kreditkarte verloren.","I lost my credit card."
+,"0,18,1",CHOICE,"Kreditkarte?","Credit card?"
+,"0,20,0",O_OPERATOR,"Ich kann ohne Bezahlung keine Bestellung annehmen.","I can not process your order without payment."
+,"0,22,0",O_HERO,"Ich sehe in meinen Notizen nach und rufe Sie nochmal an.","I look at my notes and I call you back."
+,"0,19,0",CHOICE,"Ja, 4978 5471...","Yes, 4978 5471..."
+,"0,16,0",O_OPERATOR,"Vielen Dank, Ihre Bestellung wurde aufgenommen. Ich wünsche Ihnen noch einen schönen Tag.","Well sir, your order is registered. I wish you a good day."
+,"0,12,0",CHOICE,"Könnte ich bitte mit Angelica sprechen?","Could I speak to Angelica?"
+,"0,13,0",O_OPERATOR,"Wie bitte?","Sorry?"
+,"0,14,0",O_HERO,"Schon gut.","Nevermind."
+,"0,10,0",O_HERO,"Vielen Dank, auf Wiederhören.","Thanks, bye."
+D_REPORTER
+,"0,3,0",CHOICE,"Hallo.","Hello."
+,"0,4,0",O_REPORTER,"Ich bin beschäftigt.","I'm busy."
+,"0,5,0",CHOICE,"Ist Botul Ihr Freund?","Botul, is he your friend?"
+,"0,6,0",O_REPORTER,"Bitte stören Sie mich nicht.","Please don't disturb me."
+,"0,7,0",CHOICE,"Mögen Sie Botul?","Botul, do you like him?"
+,"0,8,0",O_REPORTER,"Ich telefoniere... gehen Sie weiter!","I'm calling... go away!"
+,"0,9,0",CHOICE,"Ich finde ihn lächerlich, Sie nicht?","I think he's ridiculous, don't you?"
+,"0,10,0",O_REPORTER,"Sie langweilen mich.","I'm bored you."
+,"0,12,0",CHOICE,"Man sieht sich.","Well, see ya."
+,"0,14,0",CHOICE,"Danke."

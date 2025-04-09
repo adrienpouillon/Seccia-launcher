@@ -1,0 +1,104 @@
+﻿Name,ID,Sub,"Italian",Reference
+
+__OBJECTS__
+
+O_BEDROOM_DRAWER,"0,0,0",,"Dresser","Drawer"
+O_BOTUL,"0,0,0",,"Botul","Botul"
+O_CAFE_CAR,"0,0,0",,"Macchina","Car"
+O_CAFE_CHAIR,"0,0,0",,"Giacca","Jacket"
+O_CAMERAMAN,"0,0,0",,"Cameraman","Cameraman"
+O_GLUE,"0,0,0",,"Colla","Glue"
+O_GUARD,"0,0,0",,"Veglia","Security Guard"
+O_HERO,"0,0,0",,"Dan","Dan"
+O_HOME_DOOR,"0,0,0",,"Porta anteriore","Door"
+O_HOME_FLIES,"0,0,0",,"Mosche","Flies"
+O_HOME_PHONE,"0,0,0",,"Telefono","Phone"
+O_PHOTO,"0,0,0",,"Foto","ID photo"
+O_PHOTOGLUE,"0,0,0",,"Foto appiccicoso","Sticky ID Photo"
+O_PIE,"0,0,0",,"Torta","Pie"
+O_PRESSCARD,"0,0,0",,"Tessera di giornalista","Press card"
+O_PRESSCARD2,"0,0,0",,"Tessera modificato","Press card changed"
+O_REPORTER,"0,0,0",,"Giornalista","Reporter"
+
+__SCENES__
+
+S_BEDROOM
+,"0,7,0","DOOR","Mostra","Home"
+,"1,6,0","NOTE","Note","Notes"
+S_HOME
+,"0,10,0","BEDROOM","Camera da letto","Bedroom"
+
+__TIMELINES__
+
+
+__DIALOGS__
+
+D_BEDROOM
+,"0,1,0",O_HERO,"Sono delle note.","These are reminders."
+,"0,2,0",O_HERO,"Il mio numero della carta è scritto qui : E 4978 5471...","There is my card number. It's 4978 5471..."
+,"0,3,0",O_HERO,"Metto tutto in questo tiretto.","I put everything and anything in this drawer."
+,"0,3,0",O_HERO,"E molto pratico per ritrovare une coas. Deve essere dentro.","This is very useful to find something."
+,"0,4,0",O_HERO,"E l'ultima.","That's the last one."
+D_CAFE
+,"0,1,0",O_REPORTER,"Dimmi piccolo, non toccare la mia giacca.","Eh kid, don't touch my jacket."
+,"0,2,0",O_HERO,"E la giacca del giornalista.","It's the reporter's jacket."
+,"0,3,0",O_HERO,"La sua carta di stampa sarà sufficente.","His press card will do nicely."
+,"0,5,0",O_HERO,"Non posso toccarlo.","I can't reach him."
+,"0,6,0",O_HERO,"E [O_BOTUL] in persona... il vero... l'unico... il più bello filosofo.","It's [O_BOTUL]... the most beautiful philosopher."
+,"0,8,0",O_GUARD,"Voi non potete passare.","You can't pass."
+,"0,9,0",O_GUARD,"Ci vuole una autorizzazione.","Permission is required."
+,"0,10,0",O_GUARD,"Io rispondo agli ordini e gli ordini sono di non far passare nessun individuo che non è giornalista.","I have orders, and my orders are clear: only reporters can cross the line."
+,"0,11,0",O_HERO,"Lui, è serio.","He's serious."
+,"0,12,0",O_GUARD,"Va bene, potete passare.","It's okay, you can pass."
+,"0,14,0",O_HERO,"Mi sembra che è occupato.","He seems busy."
+,"0,15,0",O_HERO,"Faro meglio di non annoiarlo più.","I'd better not disturb him anymore."
+D_GUARD
+,"0,9,0",CHOICE,"Vorrei chiedergli un autografo. Posso venire ?","I would ask him for an autograph. Can I go?"
+,"0,10,0",O_GUARD,"No !","Negative."
+,"0,1,0",CHOICE,"Conoscete Botul ?","Do you know Botul?"
+,"0,12,0",O_GUARD,"Di nome.","Only his name."
+,"0,13,0",CHOICE,"Pare che sia un grande filosofo.","It seems that this guy is a great philosopher."
+,"0,14,0",O_GUARD,"Mi sembra di saperlo.","I thought also hear it."
+,"0,15,0",CHOICE,"E lui che ha salvato la Libia.","He's the man who saved Libya."
+,"0,16,0",O_GUARD,"Non sono stupido.","I ain't stupid."
+,"0,19,0",CHOICE,"Buongiorno.","Have a nice day."
+,"0,20,0",O_GUARD,"Anche a voi.","You too."
+D_HERO
+,"0,1,0",O_HERO,"Non è una buona idea.","It's not a good idea."
+,"0,1,1",O_HERO,"E una cosa qualunque.","What?"
+,"0,1,2",O_HERO,"Nan.","Nope."
+,"0,1,3",O_HERO,"Non so come potrei utilizzare questi due oggetti.","I don't understand how I could use these both together."
+,"0,5,0",O_HERO,"Mi resta soltanto a incollarla su un supporto.","It only remains for me to stick it on a stand."
+,"0,6,0",O_HERO,"Dunque è simplice d'essere giornalista in Francia.","Voilà... it's as simple as that to be a french reporter :)"
+D_HOME
+,"0,1,0",O_HERO,"Loro hanno l'aria di distrarsi molto.","They seem to have fun."
+,"0,2,0",O_HERO,"Non ho voglia d'occuparmi per il momento. Ho qualcosa di meglio da fare.","I did not want to deal with now. I have better things to do."
+,"0,3,0",O_HERO,"Quindi... è molto rapido.","Yes... it's very quick!"
+D_PHONE
+,"0,4,0",O_OPERATOR,"Pasticceria Angelica, buongiorno. Che posso fare per voi ?","Patisserie Angelica, hello. What can I do for you?"
+,"0,5,0",CHOICE,"Vi avverto che ho voglia di gettare una torta in faccia di Botul.","You know... I really want to throw a pie to Botul."
+,"0,6,0",O_HERO,"Voi sapete... euh... se voi portate ?","You know... uh... if you deliver?"
+,"0,7,0",O_OPERATOR,"Si, signore, noi abbiamo anche una formula espresso.","Yes sir, we even have a quick service."
+,"0,3,0",CHOICE,"Vorrei ordinare una torta con molta crema per favore.","I'd like to order a pie with lots of whipped cream please."
+,"0,8,0",O_OPERATOR,"Molto bene signore. Potete darmi il numero della vostra carta di credito ?","Well sir. Could you give me your credit card number?"
+,"0,18,0",CHOICE,"Ho perduto la mia carta di credito.","I lost my credit card."
+,"0,18,1",CHOICE,"Carta di credito ?","Credit card?"
+,"0,20,0",O_OPERATOR,"Non posso procedere all'ordine senza pagamento.","I can not process your order without payment."
+,"0,22,0",O_HERO,"Vado a consultare le mie note e vi richiamo.","I look at my notes and I call you back."
+,"0,19,0",CHOICE,"Si è 4978 5471...","Yes, 4978 5471..."
+,"0,16,0",O_OPERATOR,"Va bene signore, l'ordine è registrato. Vi auguro una buona giornata.","Well sir, your order is registered. I wish you a good day."
+,"0,12,0",CHOICE,"Potrei parlare a Angelica ?","Could I speak to Angelica?"
+,"0,13,0",O_OPERATOR,"Come ?","Sorry?"
+,"0,14,0",O_HERO,"No, niente.","Nevermind."
+,"0,10,0",O_HERO,"Grazie e arrivederci.","Thanks, bye."
+D_REPORTER
+,"0,3,0",CHOICE,"Buongiorno.","Hello."
+,"0,4,0",O_REPORTER,"Sono occupato.","I'm busy."
+,"0,5,0",CHOICE,"E un amico vostro, Botul ?","Botul, is he your friend?"
+,"0,6,0",O_REPORTER,"Non mi annoiate, per favore.","Please don't disturb me."
+,"0,7,0",CHOICE,"Vi piace molto il Botul ?","Botul, do you like him?"
+,"0,8,0",O_REPORTER,"Non vedi che telefono ?","I'm calling... go away!"
+,"0,9,0",CHOICE,"Lo vedo ridicolo questo Botul, è voi ?","I think he's ridiculous, don't you?"
+,"0,10,0",O_REPORTER,"Tu mi annoi.","I'm bored you."
+,"0,12,0",CHOICE,"Va bene, vi lascio.","Well, see ya."
+,"0,14,0",CHOICE,"Grazie."

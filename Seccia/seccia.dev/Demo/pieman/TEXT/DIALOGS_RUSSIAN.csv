@@ -1,0 +1,104 @@
+﻿Name,ID,Sub,"Russian",Reference
+
+__OBJECTS__
+
+O_BEDROOM_DRAWER,"0,0,0",,"Ящик комода","Drawer"
+O_BOTUL,"0,0,0",,"Ботюль","Botul"
+O_CAFE_CAR,"0,0,0",,"Автомобиль","Car"
+O_CAFE_CHAIR,"0,0,0",,"Пиджак","Jacket"
+O_CAMERAMAN,"0,0,0",,"Оператор","Cameraman"
+O_GLUE,"0,0,0",,"Клей","Glue"
+O_GUARD,"0,0,0",,"Охранник","Security Guard"
+O_HERO,"0,0,0",,"Дэн","Dan"
+O_HOME_DOOR,"0,0,0",,"Дверь","Door"
+O_HOME_FLIES,"0,0,0",,"Мухи","Flies"
+O_HOME_PHONE,"0,0,0",,"Телефон","Phone"
+O_PHOTO,"0,0,0",,"Фото на документы","ID photo"
+O_PHOTOGLUE,"0,0,0",,"Клейкое фото на документы","Sticky ID Photo"
+O_PIE,"0,0,0",,"Пирог","Pie"
+O_PRESSCARD,"0,0,0",,"Удостоверение прессы","Press card"
+O_PRESSCARD2,"0,0,0",,"Фальшивое удостоверение прессы","Press card changed"
+O_REPORTER,"0,0,0",,"Корреспондент","Reporter"
+
+__SCENES__
+
+S_BEDROOM
+,"0,7,0","DOOR","В гостиную","Home"
+,"1,6,0","NOTE","Для заметок","Notes"
+S_HOME
+,"0,10,0","BEDROOM","В спальню","Bedroom"
+
+__TIMELINES__
+
+
+__DIALOGS__
+
+D_BEDROOM
+,"0,1,0",O_HERO,"Здесь заметки, полезные и нет.","These are reminders."
+,"0,2,0",O_HERO,"На уголке записан номер моей карты. 4978 5471.","There is my card number. It's 4978 5471..."
+,"0,3,0",O_HERO,"В этом ящике лежит все, что у меня когда-либо было.","I put everything and anything in this drawer."
+,"0,3,0",O_HERO,"Лучшее место для того, чтобы что-нибудь найти.","This is very useful to find something."
+,"0,4,0",O_HERO,"Сделал на днях.","That's the last one."
+D_CAFE
+,"0,1,0",O_REPORTER,"Эй, не трогай мой пиджак!","Eh kid, don't touch my jacket."
+,"0,2,0",O_HERO,"Это пиджак журналиста.","It's the reporter's jacket."
+,"0,3,0",O_HERO,"Его удостоверение - это то, что надо.","His press card will do nicely."
+,"0,5,0",O_HERO,"Отсюда его не достать.","I can't reach him."
+,"0,6,0",O_HERO,"Это Ботюль. Прекраснейший из философов.","It's [O_BOTUL]... the most beautiful philosopher."
+,"0,8,0",O_GUARD,"Охраняемая территория.","You can't pass."
+,"0,9,0",O_GUARD,"У вас отсутствует пропуск.","Permission is required."
+,"0,10,0",O_GUARD,"У меня четкий приказ. Доступ разрешен только для прессы.","I have orders, and my orders are clear: only reporters can cross the line."
+,"0,11,0",O_HERO,"Выглядит внушительно","He's serious."
+,"0,12,0",O_GUARD,"Все в порядке. Доступ разрешен.","It's okay, you can pass."
+,"0,14,0",O_HERO,"Выглядит занятым.","He seems busy."
+,"0,15,0",O_HERO,"Мне лучше к нему не приставать.","I'd better not disturb him anymore."
+D_GUARD
+,"0,9,0",CHOICE,"Я мечтаю заполучить его автограф. Можно подойти на минутку?","I would ask him for an autograph. Can I go?"
+,"0,10,0",O_GUARD,"Охраняемая территория.","Negative."
+,"0,1,0",CHOICE,"А вы хорошо знаете Ботюля?","Do you know Botul?"
+,"0,12,0",O_GUARD,"Я хорошо знаю его фамилию.","Only his name."
+,"0,13,0",CHOICE,"Говорят, он великий философ.","It seems that this guy is a great philosopher."
+,"0,14,0",O_GUARD,"Я тоже об этом слышал.","I thought also hear it."
+,"0,15,0",CHOICE,"Он человек, спасший Ливию.","He's the man who saved Libya."
+,"0,16,0",O_GUARD,"Не держите меня за дурака.","I ain't stupid."
+,"0,19,0",CHOICE,"Приятного вам дня.","Have a nice day."
+,"0,20,0",O_GUARD,"Аналогично.","You too."
+D_HERO
+,"0,1,0",O_HERO,"Не лучшая идея.","It's not a good idea."
+,"0,1,1",O_HERO,"Что-что?","What?"
+,"0,1,2",O_HERO,"Неа.","Nope."
+,"0,1,3",O_HERO,"Я никак не могу поддержать эту без сомнения прекрасную затею.","I don't understand how I could use these both together."
+,"0,5,0",O_HERO,"Осталось найти, куда ее приклеить.","It only remains for me to stick it on a stand."
+,"0,6,0",O_HERO,"Нет ничего проще, чем стать французским журналистом.","Voilà... it's as simple as that to be a french reporter :)"
+D_HOME
+,"0,1,0",O_HERO,"Кажется, им там весело.","They seem to have fun."
+,"0,2,0",O_HERO,"Сейчас есть дела поважнее.","I did not want to deal with now. I have better things to do."
+,"0,3,0",O_HERO,"Да, вот это скорость!","Yes... it's very quick!"
+D_PHONE
+,"0,4,0",O_OPERATOR,"Кондитерская Анжелика, привет. Что я могу сделать для вас?","Patisserie Angelica, hello. What can I do for you?"
+,"0,5,0",CHOICE,"Знаете, у меня непреодолимое желание швырнуть пирогом в Ботюля.","You know... I really want to throw a pie to Botul."
+,"0,6,0",O_HERO,"Знаете, ээм.., а у вас есть доставка?","You know... uh... if you deliver?"
+,"0,7,0",O_OPERATOR,"Конечно, мы будем рады доставить ваш заказ так быстро, как сможем.","Yes sir, we even have a quick service."
+,"0,3,0",CHOICE,"Я хотел бы заказать пирог с огромным количеством взбитых сливок.","I'd like to order a pie with lots of whipped cream please."
+,"0,8,0",O_OPERATOR,"Конечно. Продиктуйте номер вашей кредитной карты, пожалуйста.","Well sir. Could you give me your credit card number?"
+,"0,18,0",CHOICE,"Я потерял свою кредитку.","I lost my credit card."
+,"0,18,1",CHOICE,"Кредитной карты?","Credit card?"
+,"0,20,0",O_OPERATOR,"Я не могу принять ваш заказ без оплаты.","I can not process your order without payment."
+,"0,22,0",O_HERO,"Ох, я пороюсь в своих заметках и перезвоню.","I look at my notes and I call you back."
+,"0,19,0",CHOICE,"Да, конечно, 4978 5471.","Yes, 4978 5471..."
+,"0,16,0",O_OPERATOR,"Ваш заказ принят. Приятного вам дня.","Well sir, your order is registered. I wish you a good day."
+,"0,12,0",CHOICE,"Могу я поговорить с Анжеликой?","Could I speak to Angelica?"
+,"0,13,0",O_OPERATOR,"Извините?","Sorry?"
+,"0,14,0",O_HERO,"Ничего, это я так.","Nevermind."
+,"0,10,0",O_HERO,"Спасибо, до свидания.","Thanks, bye."
+D_REPORTER
+,"0,3,0",CHOICE,"Привет.","Hello."
+,"0,4,0",O_REPORTER,"Я занят.","I'm busy."
+,"0,5,0",CHOICE,"А вы дружите с Ботюлем?","Botul, is he your friend?"
+,"0,6,0",O_REPORTER,"Пожалуйста, не отвлекайте меня.","Please don't disturb me."
+,"0,7,0",CHOICE,"А Ботюль вам вообще нравится?","Botul, do you like him?"
+,"0,8,0",O_REPORTER,"У меня важный звонок, пойдите прочь!","I'm calling... go away!"
+,"0,9,0",CHOICE,"По мне он нелеп, а вам как кажется?","I think he's ridiculous, don't you?"
+,"0,10,0",O_REPORTER,"Я вас умоляю.","I'm bored you."
+,"0,12,0",CHOICE,"Ну, увидимся.","Well, see ya."
+,"0,14,0",CHOICE,"Спасибо."

@@ -1,0 +1,134 @@
+{
+	"version": "1.1.7",
+	"zip": "1a25ab5c3b0f72fafcc4a2edf8114136",
+	"apps": [
+		{
+			"name": "Berzingue",
+			"year": "2022",
+			"version": "1.0.4",
+			"id": "WjQUZRFs",
+			"type": "game",
+			"game": true,
+			"md5": "be89d27548c770a65f6f8a0340afd511",
+			"folder": "berzingue",
+			"exe": "Berzingue.exe"
+		},
+		{
+			"name": "Deadly Weaponz",
+			"year": "2001",
+			"version": "1.1.2",
+			"id": "NJCZJJgM",
+			"type": "game",
+			"game": true,
+			"md5": "58048d99779e113d4c44ad937695c2b1",
+			"folder": "dwz",
+			"exe": "DeadlyWeaponz.exe"
+		},
+		{
+			"name": "Désiré",
+			"year": "2016",
+			"version": "1.0.34",
+			"id": "dAxscSbx",
+			"type": "game",
+			"game": true,
+			"md5": "cac435d68c317dfcd3031c1fbd9537db",
+			"folder": "desire",
+			"exe": "Desire.exe"
+		},
+		{
+			"name": "God won't Bless America",
+			"year": "2010",
+			"version": "1.2.2",
+			"id": "74idapSp",
+			"type": "game",
+			"game": true,
+			"md5": "96bb2c7616a2511c7d39b5efa2d1d307",
+			"folder": "gwba",
+			"exe": "GWBA.exe"
+		},
+		{
+			"name": "Gunbot",
+			"year": "2009",
+			"version": "1.2.2",
+			"id": "KYewmVno",
+			"type": "game",
+			"game": true,
+			"md5": "0ad2f7213765858538065c2950073649",
+			"folder": "gunbot",
+			"exe": "Gunbot.exe"
+		},
+		{
+			"name": "JukeBox",
+			"version": "1.0.31",
+			"id": "ezh386qM",
+			"type": "soft",
+			"md5": "a722fdfd1a7bb26b3775e0ee2c4e4fdc",
+			"folder": "jukebox",
+			"exe": "JukeBox.exe"
+		},
+		{
+			"name": "Morbleu",
+			"year": "2022",
+			"version": "1.0.7",
+			"id": "pscOpihh",
+			"type": "game",
+			"game": true,
+			"md5": "4b94ad176bc98299c26e8c8f299e9279",
+			"folder": "morbleu",
+			"exe": "Morbleu.exe"
+		},
+		{
+			"name": "Pi",
+			"year": "2011",
+			"version": "1.2.3",
+			"id": "27dvKbZq",
+			"type": "game",
+			"game": true,
+			"md5": "34a9d6ebef84a317b2ddf40146fa950e",
+			"folder": "pi",
+			"exe": "Pi.exe"
+		},
+		{
+			"name": "seccia.dev",
+			"version": "2.0.21",
+			"id": "u70uUJEE",
+			"type": "soft",
+			"md5": "0315dcc977e3bb870942c0d712cb7956",
+			"folder": "seccia.dev",
+			"exe": "seccia.exe"
+		},
+		{
+			"name": "Vive le Roi",
+			"year": "2017",
+			"version": "1.0.31",
+			"id": "okcceaKa",
+			"type": "game",
+			"game": true,
+			"md5": "ec70e6b432a96def4a29c297c3b752c2",
+			"folder": "vlr",
+			"exe": "ViveleRoi.exe"
+		},
+		{
+			"name": "Vive le Roi 2",
+			"year": "2018",
+			"version": "1.2.5",
+			"id": "ZY8AOBYP",
+			"type": "game",
+			"game": true,
+			"md5": "7cbf2af219eb1e5abe62b98f7ad42884",
+			"folder": "vlr2",
+			"exe": "Vive le Roi 2.exe"
+		},
+		{
+			"name": "Vive le Roi 3",
+			"year": "2021",
+			"version": "1.0.9",
+			"id": "QpZeVkp0",
+			"type": "game",
+			"game": true,
+			"md5": "f4bb0b40a3bf6f6e1ab26556096190f0",
+			"folder": "vlr3",
+			"exe": "Vive le Roi 3.exe"
+		}
+	]
+}

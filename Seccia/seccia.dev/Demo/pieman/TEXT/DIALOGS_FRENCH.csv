@@ -1,0 +1,104 @@
+﻿Name,ID,Sub,"French",Reference
+
+__OBJECTS__
+
+O_BEDROOM_DRAWER,"0,0,0",,"Commode","Drawer"
+O_BOTUL,"0,0,0",,"Botul","Botul"
+O_CAFE_CAR,"0,0,0",,"Voiture","Car"
+O_CAFE_CHAIR,"0,0,0",,"Veste","Jacket"
+O_CAMERAMAN,"0,0,0",,"Cameraman","Cameraman"
+O_GLUE,"0,0,0",,"Colle","Glue"
+O_GUARD,"0,0,0",,"Vigile","Security Guard"
+O_HERO,"0,0,0",,"Dan","Dan"
+O_HOME_DOOR,"0,0,0",,"Porte d'entrée","Door"
+O_HOME_FLIES,"0,0,0",,"Mouches","Flies"
+O_HOME_PHONE,"0,0,0",,"Téléphone","Phone"
+O_PHOTO,"0,0,0",,"Photo d'identité","ID photo"
+O_PHOTOGLUE,"0,0,0",,"Photo d'identité collante","Sticky ID Photo"
+O_PIE,"0,0,0",,"Tarte","Pie"
+O_PRESSCARD,"0,0,0",,"Carte de Presse","Press card"
+O_PRESSCARD2,"0,0,0",,"Carte de Presse modifiée","Press card changed"
+O_REPORTER,"0,0,0",,"Journaleux","Reporter"
+
+__SCENES__
+
+S_BEDROOM
+,"0,7,0","DOOR","Salon","Home"
+,"1,6,0","NOTE","Notes","Notes"
+S_HOME
+,"0,10,0","BEDROOM","Chambre","Bedroom"
+
+__TIMELINES__
+
+
+__DIALOGS__
+
+D_BEDROOM
+,"0,1,0",O_HERO,"Ce sont des pense-bêtes.","These are reminders."
+,"0,2,0",O_HERO,"Mon numéro de carte est inscrit dessus. C'est 4978 5471...","There is my card number. It's 4978 5471..."
+,"0,3,0",O_HERO,"Je range tout et n'importe quoi dans ce tiroir.","I put everything and anything in this drawer."
+,"0,3,0",O_HERO,"C'est très pratique pour retrouver un truc. C'est forcément dedans.","This is very useful to find something."
+,"0,4,0",O_HERO,"C'est la dernière.","That's the last one."
+D_CAFE
+,"0,1,0",O_REPORTER,"Eh petit, ne touche pas ma veste.","Eh kid, don't touch my jacket."
+,"0,2,0",O_HERO,"C'est la veste du journaliste.","It's the reporter's jacket."
+,"0,3,0",O_HERO,"Sa carte de presse fera très bien l'affaire.","His press card will do nicely."
+,"0,5,0",O_HERO,"Je ne peux pas l'atteindre.","I can't reach him."
+,"0,6,0",O_HERO,"C'est [O_BOTUL] en personne... le vrai... l'unique... le plus beau philosophe.","It's [O_BOTUL]... the most beautiful philosopher."
+,"0,8,0",O_GUARD,"Vous ne pouvez pas passer !","You can't pass."
+,"0,9,0",O_GUARD,"Il faut une autorisation.","Permission is required."
+,"0,10,0",O_GUARD,"Moi, je réponds aux ordres, et les ordres c'est de faire passer aucun individu qui ne serait pas journaliste.","I have orders, and my orders are clear: only reporters can cross the line."
+,"0,11,0",O_HERO,"Lui, il est sérieux.","He's serious."
+,"0,12,0",O_GUARD,"C'est bon, vous pouvez passer.","It's okay, you can pass."
+,"0,14,0",O_HERO,"Il a l'air occupé.","He seems busy."
+,"0,15,0",O_HERO,"Je ferais mieux de ne plus le déranger.","I'd better not disturb him anymore."
+D_GUARD
+,"0,9,0",CHOICE,"J'aimerais lui demander un autographe. Je peux passer ?","I would ask him for an autograph. Can I go?"
+,"0,10,0",O_GUARD,"Négatif.","Negative."
+,"0,1,0",CHOICE,"Vous connaissez Botul ?","Do you know Botul?"
+,"0,12,0",O_GUARD,"De nom.","Only his name."
+,"0,13,0",CHOICE,"Il parait que c'est un grand philosophe.","It seems that this guy is a great philosopher."
+,"0,14,0",O_GUARD,"J'ai cru aussi entendre ça.","I thought also hear it."
+,"0,15,0",CHOICE,"C'est lui qui a sauvé la Libye.","He's the man who saved Libya."
+,"0,16,0",O_GUARD,"Je ne suis pas stupide.","I ain't stupid."
+,"0,19,0",CHOICE,"Bonne journée.","Have a nice day."
+,"0,20,0",O_GUARD,"A vous aussi.","You too."
+D_HERO
+,"0,1,0",O_HERO,"Ce n'est pas une bonne idée.","It's not a good idea."
+,"0,1,1",O_HERO,"N'importe quoi !","What?"
+,"0,1,2",O_HERO,"Nan.","Nope."
+,"0,1,3",O_HERO,"Je ne vois pas comment je pourrais utiliser ces deux objets ensemble.","I don't understand how I could use these both together."
+,"0,5,0",O_HERO,"Il ne me reste plus qu'à la coller sur un support.","It only remains for me to stick it on a stand."
+,"0,6,0",O_HERO,"Voilà... c'est aussi simple que ça d'être journaliste en France :)","Voilà... it's as simple as that to be a french reporter :)"
+D_HOME
+,"0,1,0",O_HERO,"Elles ont l'air de bien s'amuser.","They seem to have fun."
+,"0,2,0",O_HERO,"Je n'ai pas envie de m'en occuper pour l'instant. J'ai mieux à faire.","I did not want to deal with now. I have better things to do."
+,"0,3,0",O_HERO,"En effet... c'est très rapide !","Yes... it's very quick!"
+D_PHONE
+,"0,4,0",O_OPERATOR,"Patisserie Angelica, bonjour. Que puis-je faire pour vous ?","Patisserie Angelica, hello. What can I do for you?"
+,"0,5,0",CHOICE,"Vous savez... j'ai trop envie d'entarter Botul.","You know... I really want to throw a pie to Botul."
+,"0,6,0",O_HERO,"Vous savez... euh... si vous livrez?","You know... uh... if you deliver?"
+,"0,7,0",O_OPERATOR,"Oui Monsieur, nous avons même une formule express.","Yes sir, we even have a quick service."
+,"0,3,0",CHOICE,"Je souhaiterais commander une tarte avec beaucoup de crème fouettée SVP.","I'd like to order a pie with lots of whipped cream please."
+,"0,8,0",O_OPERATOR,"Très bien Monsieur. Pourriez-vous me donner votre numéro de carte de crédit ?","Well sir. Could you give me your credit card number?"
+,"0,18,0",CHOICE,"J'ai paumé ma carte de crédit.","I lost my credit card."
+,"0,18,1",CHOICE,"Carte de crédit ?","Credit card?"
+,"0,20,0",O_OPERATOR,"Je ne peux pas traiter votre commande sans paiement.","I can not process your order without payment."
+,"0,22,0",O_HERO,"Je consulte mes notes et je vous rappelle.","I look at my notes and I call you back."
+,"0,19,0",CHOICE,"Oui, c'est 4978 5471...","Yes, 4978 5471..."
+,"0,16,0",O_OPERATOR,"Très bien Monsieur, votre commande est enregistrée. Je vous souhaite une bonne journée.","Well sir, your order is registered. I wish you a good day."
+,"0,12,0",CHOICE,"Pourrais-je parler à Angelica ?","Could I speak to Angelica?"
+,"0,13,0",O_OPERATOR,"Pardon ?","Sorry?"
+,"0,14,0",O_HERO,"Non rien.","Nevermind."
+,"0,10,0",O_HERO,"Merci, au revoir.","Thanks, bye."
+D_REPORTER
+,"0,3,0",CHOICE,"Bonjour.","Hello."
+,"0,4,0",O_REPORTER,"Je suis occupé.","I'm busy."
+,"0,5,0",CHOICE,"C'est un ami à vous, Botul ?","Botul, is he your friend?"
+,"0,6,0",O_REPORTER,"Ne me dérange pas stp.","Please don't disturb me."
+,"0,7,0",CHOICE,"Vous l'aimez bien le Botul ?","Botul, do you like him?"
+,"0,8,0",O_REPORTER,"Tu vois pas que je télépone ?","I'm calling... go away!"
+,"0,9,0",CHOICE,"Je le trouve ridicule ce Botul, pas vous ?","I think he's ridiculous, don't you?"
+,"0,10,0",O_REPORTER,"Tu me gonfles.","I'm bored you."
+,"0,12,0",CHOICE,"Bon, je vous laisse.","Well, see ya."
+,"0,14,0",CHOICE,"Merci."

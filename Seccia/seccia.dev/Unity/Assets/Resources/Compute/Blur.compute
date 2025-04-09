@@ -1,0 +1,84 @@
+﻿#pragma kernel HorizontalBlur
+#pragma kernel VerticalBlur
+
+Texture2D<float4> g_texture;
+RWTexture2D<float4> g_output;
+
+cbuffer BlurParams
+{
+	uint g_width;
+	uint g_height;
+	int g_radius;
+	float g_data;
+	float g_data2;
+};
+
+float GaussianWeight(float i)
+{
+	return g_data * exp(-(i * i) / g_data2);
+}
+
+float4 Sample(int2 uv)
+{
+	uv.x = clamp(uv.x, 0, int(g_width) - 1);
+	uv.y = clamp(uv.y, 0, int(g_height) - 1);
+	return g_texture.Load(int3(uv, 0));
+}
+
+[numthreads(8, 8, 1)]
+void HorizontalBlur(uint3 id : SV_DispatchThreadID)
+{
+	if (id.x >= g_width || id.y >= g_height)
+		return;
+
+	float colorWeight = 0.0;
+	float alphaWeight = 0.0;
+	float4 color = float4(0, 0, 0, 0);
+	for (int i = -g_radius; i <= g_radius; i++)
+	{
+		int2 uv = int2(id.x + i, id.y);
+		float4 sample = Sample(uv);
+		float weight = GaussianWeight(i);
+		alphaWeight += weight;
+		if ( sample.a>0.0 )
+		{
+			color.a += sample.a * weight;
+			color.rgb += sample.rgb * weight;
+			colorWeight += weight;
+		}
+	}
+	if (colorWeight > 0)
+		color.rgb /= colorWeight;
+	if (alphaWeight > 0)
+		color.a /= alphaWeight;
+	g_output[id.xy] = color;
+}
+
+[numthreads(8, 8, 1)]
+void VerticalBlur(uint3 id : SV_DispatchThreadID)
+{
+	if (id.x >= g_width || id.y >= g_height)
+		return;
+
+	float colorWeight = 0.0;
+	float alphaWeight = 0.0;
+	float4 color = float4(0, 0, 0, 0);
+	for (int i = -g_radius; i <= g_radius; i++)
+	{
+		int2 uv = int2(id.x, id.y + i);
+		float4 sample = Sample(uv);
+		float weight = GaussianWeight(i);
+		alphaWeight += weight;
+		if (sample.a > 0.0)
+		{
+			color.a += sample.a * weight;
+			color.rgb += sample.rgb * weight;
+			colorWeight += weight;
+		}
+	}
+	if (colorWeight>0)
+		color.rgb /= colorWeight;
+	if (alphaWeight > 0)
+		color.a /= alphaWeight;
+	g_output[id.xy] = color;
+}

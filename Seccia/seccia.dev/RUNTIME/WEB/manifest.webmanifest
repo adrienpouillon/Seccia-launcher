@@ -1,0 +1,15 @@
+{
+    "name": "Adventure Game Engine Application",
+    "short_name": "Adventure Game Engine Application",
+    "start_url": "index.html",
+    "display": "fullscreen",
+    "background_color": "#231F20",
+    "theme_color": "#000",
+    "description": "age_webgl_product",
+    "icons": [{
+      "src": "TemplateData/icons/unity-logo-dark.png",
+      "sizes": "144x144",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }]
+  }

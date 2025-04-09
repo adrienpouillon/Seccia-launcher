@@ -1,0 +1,24 @@
+Server for Cross-platform Savegame
+——————————————————————————————————
+							v1.0.1
+
+Website with php 5.5 required
+Database NOT required
+HTTPS is required
+
+You can use the scripts for all your games made with AGE.
+
+First installation:
+
+1. Edit api.php and admin.php
+2. Upload the content of the 'public' folder to your website
+3. Change permissions of the 'users' folder (700)
+4. In project settings, set the server url (e.g. https://www.domain.com/account/)
+5. In project settings, set the game name (same name stored in "games/")
+6. Enjoy!
+
+ADMIN for admin
+admin.php?pass=admin
+
+ADMIN for user
+admin.php?pass=user
