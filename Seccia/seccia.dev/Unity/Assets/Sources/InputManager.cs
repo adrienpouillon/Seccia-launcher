@@ -25,7 +25,7 @@ m_arrowTime = 0.0f;
 m_isAltDown = false;
 m_isAltDownTime = 0.0f;
 }
-public bool __368()
+public bool __367()
 {
 return m_isDown && G.m_game.m_time-m_isDownTime>G.SKIP_DELAY;
 }
@@ -293,42 +293,42 @@ if ( G.m_game.m_cursorObj.m_icons[i] )
 G.m_game.m_cursorObj.m_icons[i].Set(ref G.m_game.m_rcCursor);
 }
 }
-if ( touchScrollAvailable && G.m_game.m_cursorObj && m_layout.Get(LAYOUT_CTRL.ITEMS).m_hasArrows && m_layout.Get(LAYOUT_CTRL.ITEMS).__428() && G.m_game.m_time-m_arrowTime>0.75f )
+if ( touchScrollAvailable && G.m_game.m_cursorObj && m_layout.Get(LAYOUT_CTRL.ITEMS).m_hasArrows && m_layout.Get(LAYOUT_CTRL.ITEMS).__427() && G.m_game.m_time-m_arrowTime>0.75f )
 {
 Player player = G.m_game.__293();
 if ( player )
 {
-if ( m_layout.Get(LAYOUT_CTRL.ITEMS).__430(G.m_game.m_cursorViewX, G.m_game.m_cursorViewY) )
+if ( m_layout.Get(LAYOUT_CTRL.ITEMS).__429(G.m_game.m_cursorViewX, G.m_game.m_cursorViewY) )
 {
 player.m_scroll--;
-player.__486();
+player.__485();
 m_arrowTime = G.m_game.m_time;
 }
-if ( m_layout.Get(LAYOUT_CTRL.ITEMS).__431(G.m_game.m_cursorViewX, G.m_game.m_cursorViewY) )
+if ( m_layout.Get(LAYOUT_CTRL.ITEMS).__430(G.m_game.m_cursorViewX, G.m_game.m_cursorViewY) )
 {
 player.m_scroll++;
-player.__486();
+player.__485();
 m_arrowTime = G.m_game.m_time;
 }
 }
 }
 if ( dropRequest )
 {
-__329();
+__328();
 return;
 }
 if ( callAction )
-__458(isTouchBegin);
+__457(isTouchBegin);
 else if ( callAltAction )
 OnAltAction();
 if ( MessageBox.m_instance.__38() )
 return;
 if ( skipDialog )
 {
-G.m_game.m_menuDialog.m_speaker.__655();
+G.m_game.m_menuDialog.m_speaker.__649();
 G.m_game.m_menuDialog.m_iScroll = -1;
 }
-if ( G.m_game.m_cinematicPlayer.__38() && G.m_game.m_cinematicPlayer.m_cinematic.m_skip==CINEMATICSKIP.DELAY && __368() )
+if ( G.m_game.m_cinematicPlayer.__38() && G.m_game.m_cinematicPlayer.m_cinematic.m_skip==CINEMATICSKIP.DELAY && __367() )
 G.m_game.m_cinematicPlayer.__41();
 Router routerHud = G.m_game.__296();
 if ( routerHud )
@@ -339,16 +339,16 @@ if ( player && player.m_hasShowPath && player.m_sceneObj )
 if ( G.m_rcView.Contains(G.m_game.m_cursorViewX, G.m_game.m_cursorViewY) )
 {
 if ( callAction || callAltAction || isMove )
-__369();
-else if ( player.m_sceneObj.m_routeStatus==Router.FOUND && player.m_sceneObj.__656()==false && player.m_sceneObj.m_routeTurn==false )
-__369();
+__368();
+else if ( player.m_sceneObj.m_routeStatus==Router.FOUND && player.m_sceneObj.__650()==false && player.m_sceneObj.m_routeTurn==false )
+__368();
 }
 else
-routerHud.__515();
+routerHud.__514();
 }
 }
 }
-public void __369()
+public void __368()
 {
 Router routerHud = G.m_game.__296();
 if ( routerHud==null )
@@ -360,22 +360,21 @@ if ( G.m_rcView.Contains(G.m_game.m_cursorViewX, G.m_game.m_cursorViewY)==false 
 return;
 Vec2 pt = G.m_game.__299();
 bool exist;
-SceneCell cell = player.m_sceneObj.__639(pt.x, pt.y, out exist);
+SceneCell cell = player.m_sceneObj.__633(pt.x, pt.y, out exist);
 if ( cell==null )
 return;
 {
-if ( routerHud.__516(player.m_sceneObj.__35(), player.m_sceneObj.__36(), cell.__35(), cell.__36())==Router.FOUND )
+if ( routerHud.__515(player.m_sceneObj.__35(), player.m_sceneObj.__36(), cell.__35(), cell.__36())==Router.FOUND )
 {
 }
 }
 }
-private void __458(bool isTouchBegin)
+private void __457(bool isTouchBegin)
 {
-bool abort = false;
 if ( MessageBox.m_instance.__38() )
 {
 if ( isTouchBegin==false )
-MessageBox.m_instance.__458(G.m_game.m_cursorViewX, G.m_game.m_cursorViewY);
+MessageBox.m_instance.__457(G.m_game.m_cursorViewX, G.m_game.m_cursorViewY);
 return;
 }
 if ( G.m_game.m_cinematicPlayer.__38() )
@@ -387,17 +386,17 @@ return;
 if ( G.m_game.m_menuGame.__38() )
 {
 if ( isTouchBegin==false )
-G.m_game.m_menuGame.__458(G.m_game.m_cursorViewX, G.m_game.m_cursorViewY);
+G.m_game.m_menuGame.__457(G.m_game.m_cursorViewX, G.m_game.m_cursorViewY);
 return;
 }
 if ( G.m_game.m_menuDialog.__38() )
 {
 if ( isTouchBegin==false )
-G.m_game.m_menuDialog.__458(G.m_game.m_cursorViewX, G.m_game.m_cursorViewY);
+G.m_game.m_menuDialog.__457(G.m_game.m_cursorViewX, G.m_game.m_cursorViewY);
 return;
 }
 if ( isTouchBegin==false )
-G.m_game.__324();
+G.m_game.__323();
 Scene scene = G.m_game.__291();
 if ( scene==null )
 return;
@@ -420,13 +419,13 @@ Player player = G.m_game.__293();
 if ( player==null || player.m_sceneObj==null )
 return;
 SceneObj playerSceneObj = player.m_sceneObj;
-if ( m_layout.__426(LAYOUT_CTRL.MENU, G.m_game.m_cursorViewX, G.m_game.m_cursorViewY) )
+if ( m_layout.__425(LAYOUT_CTRL.MENU, G.m_game.m_cursorViewX, G.m_game.m_cursorViewY) )
 {
 if ( isTouchBegin==false )
 G.m_game.__257();
 return;
 }
-if ( m_layout.m_bagLocked==false && m_layout.__426(LAYOUT_CTRL.BAG, G.m_game.m_cursorViewX, G.m_game.m_cursorViewY) )
+if ( m_layout.m_bagLocked==false && m_layout.__425(LAYOUT_CTRL.BAG, G.m_game.m_cursorViewX, G.m_game.m_cursorViewY) )
 {
 if ( isTouchBegin==false )
 {
@@ -435,7 +434,7 @@ G.m_game.__314();
 }
 return;
 }
-if ( m_layout.__426(LAYOUT_CTRL.DETACH, G.m_game.m_cursorViewX, G.m_game.m_cursorViewY) )
+if ( m_layout.__425(LAYOUT_CTRL.DETACH, G.m_game.m_cursorViewX, G.m_game.m_cursorViewY) )
 {
 if ( isTouchBegin==false && G.m_game.m_cursorObj )
 {
@@ -446,21 +445,21 @@ return;
 }
 for ( int i=0 ; i<8 ; i++ )
 {
-if ( m_layout.__426(LAYOUT_CTRL.USER1+i, G.m_game.m_cursorViewX, G.m_game.m_cursorViewY) )
+if ( m_layout.__425(LAYOUT_CTRL.USER1+i, G.m_game.m_cursorViewX, G.m_game.m_cursorViewY) )
 {
 if ( isTouchBegin==false )
-G.m_game.__323(RoleBoxEventLayout.ID, (i+1).ToString());
+G.m_game.__322(RoleBoxEventLayout.ID, (i+1).ToString());
 return;
 }
 }
 bool emptyCell;
-Obj objHit = player.__432(G.m_game.m_cursorViewX, G.m_game.m_cursorViewY, out emptyCell);
+Obj objHit = player.__431(G.m_game.m_cursorViewX, G.m_game.m_cursorViewY, out emptyCell);
 if ( objHit )
 {
 if ( G.m_game.m_cursorObj==null )
 {
 if ( G.m_game.m_useLocked )
-G.m_game.__325(objHit, null);
+G.m_game.__324(objHit, null);
 else
 {
 G.m_game.m_cursorObj = objHit;
@@ -486,25 +485,25 @@ return;
 }
 if ( emptyCell )
 return;
-if ( m_layout.Get(LAYOUT_CTRL.ITEMS).__430(G.m_game.m_cursorViewX, G.m_game.m_cursorViewY) )
+if ( m_layout.Get(LAYOUT_CTRL.ITEMS).__429(G.m_game.m_cursorViewX, G.m_game.m_cursorViewY) )
 {
 if ( isTouchBegin==false )
 {
 player.m_scroll--;
-player.__486();
+player.__485();
 }
 return;
 }
-if ( m_layout.Get(LAYOUT_CTRL.ITEMS).__431(G.m_game.m_cursorViewX, G.m_game.m_cursorViewY) )
+if ( m_layout.Get(LAYOUT_CTRL.ITEMS).__430(G.m_game.m_cursorViewX, G.m_game.m_cursorViewY) )
 {
 if ( isTouchBegin==false )
 {
 player.m_scroll++;
-player.__486();
+player.__485();
 }
 return;
 }
-Player playerHit = m_layout.__427(G.m_game.m_cursorViewX, G.m_game.m_cursorViewY);
+Player playerHit = m_layout.__426(G.m_game.m_cursorViewX, G.m_game.m_cursorViewY);
 if ( playerHit )
 {
 if ( isTouchBegin==false )
@@ -516,21 +515,21 @@ CallUseEvent(player, G.m_game.m_cursorObj, playerHit.m_obj, null, null, false, n
 }
 return;
 }
-if ( m_layout.Get(LAYOUT_CTRL.PLAYERS).__430(G.m_game.m_cursorViewX, G.m_game.m_cursorViewY) )
+if ( m_layout.Get(LAYOUT_CTRL.PLAYERS).__429(G.m_game.m_cursorViewX, G.m_game.m_cursorViewY) )
 {
 if ( isTouchBegin==false )
 {
 m_layout.m_playerScroll--;
-m_layout.__420();
+m_layout.__419();
 }
 return;
 }
-if ( m_layout.Get(LAYOUT_CTRL.PLAYERS).__431(G.m_game.m_cursorViewX, G.m_game.m_cursorViewY) )
+if ( m_layout.Get(LAYOUT_CTRL.PLAYERS).__430(G.m_game.m_cursorViewX, G.m_game.m_cursorViewY) )
 {
 if ( isTouchBegin==false )
 {
 m_layout.m_playerScroll++;
-m_layout.__420();
+m_layout.__419();
 }
 return;
 }
@@ -540,32 +539,32 @@ if ( G.m_game.m_dragObj==null )
 {
 SceneEntity dragEntity;
 SubObj dragSub;
-scene.__426(out dragEntity, out dragSub, G.m_game.m_cursorViewX, G.m_game.m_cursorViewY, true, DRAG.SOURCE);
+scene.__425(out dragEntity, out dragSub, G.m_game.m_cursorViewX, G.m_game.m_cursorViewY, true, DRAG.SOURCE);
 if ( dragEntity )
-G.m_game.__328((SceneObj)dragEntity, dragSub);
+G.m_game.__327((SceneObj)dragEntity, dragSub);
 }
 return;
 }
 m_layout.m_bagOpened = false;
 SceneEntity entity;
 SubObj sub;
-if ( scene.__426(out entity, out sub, G.m_game.m_cursorViewX, G.m_game.m_cursorViewY, G.m_game.m_cursorObj==null, DRAG.NONE)==false )
+if ( scene.__425(out entity, out sub, G.m_game.m_cursorViewX, G.m_game.m_cursorViewY, G.m_game.m_cursorObj==null, DRAG.NONE)==false )
 return;
 if ( entity==null && G.m_game.m_dragObj==null )
 {
 SceneEntity dragEntity;
 SubObj dragSub;
-if ( scene.__426(out dragEntity, out dragSub, G.m_game.m_cursorViewX, G.m_game.m_cursorViewY, true, DRAG.SOURCE)==false )
+if ( scene.__425(out dragEntity, out dragSub, G.m_game.m_cursorViewX, G.m_game.m_cursorViewY, true, DRAG.SOURCE)==false )
 return;
 if ( dragEntity )
 {
-G.m_game.__328((SceneObj)dragEntity, dragSub);
+G.m_game.__327((SceneObj)dragEntity, dragSub);
 return;
 }
 }
 if ( entity )
 {
-if ( entity.__606() )
+if ( entity.__602() )
 {
 SceneObj sceneObj = (SceneObj)entity;
 if ( sceneObj==playerSceneObj )
@@ -580,11 +579,18 @@ else
 {
 if ( G.m_game.m_cursorObj==null )
 {
-SceneCell cell = playerSceneObj.__642(sceneObj);
+SceneCell cell = playerSceneObj.__636(sceneObj);
 if ( cell==null )
 {
-playerSceneObj.__651();
-G.m_game.__325(sceneObj.m_obj, sub);
+playerSceneObj.__645();
+G.m_game.__324(sceneObj.m_obj, sub);
+}
+else
+{
+Message curMsg = playerSceneObj.m_message;
+if ( sceneObj.m_skip && curMsg && curMsg.m_type==Message.SELECT && curMsg.m_sceneObj==sceneObj )
+{
+G.m_game.__324(sceneObj.m_obj, sub, true, true);
 }
 else
 {
@@ -593,18 +599,16 @@ msg.m_type = Message.SELECT;
 msg.m_player = player;
 msg.m_sceneObj = sceneObj;
 msg.m_subObj = sub;
-SceneCellLink link = cell.__604(LINK.SELECT);
-if ( link.m_puzzle==0 || G.m_game.m_scenario.__522(link.m_puzzle) )
-{
+SceneCellLink link = cell.__600(LINK.SELECT);
 msg.m_dist = link.m_dist;
 if ( msg.m_dist==0.0f )
 {
-msg.m_anim = player.m_obj.__471(ref link.m_anim);
+msg.m_anim = player.m_obj.__470(ref link.m_anim);
 msg.m_dir = link.m_dir;
 }
-}
 msg.m_state = Message.S_MOVE;
-playerSceneObj.__649(cell.__35(), cell.__36(), msg);
+playerSceneObj.__643(cell.__35(), cell.__36(), msg);
+}
 }
 }
 else
@@ -619,11 +623,18 @@ else
 SceneLabel label = (SceneLabel)entity;
 if ( G.m_game.m_cursorObj==null )
 {
-SceneCell cell = playerSceneObj.__642(label);
+SceneCell cell = playerSceneObj.__636(label);
 if ( cell==null )
 {
-playerSceneObj.__651();
-scene.__561(label);
+playerSceneObj.__645();
+scene.__558(label);
+}
+else
+{
+Message curMsg = playerSceneObj.m_message;
+if ( label.m_skip && curMsg && curMsg.m_type==Message.LABEL && curMsg.m_label==label )
+{
+scene.__558(label, true);
 }
 else
 {
@@ -631,23 +642,21 @@ Message msg = new Message();
 msg.m_player = player;
 msg.m_type = Message.LABEL;
 msg.m_label = label;
-SceneCellLink link = cell.__604(LINK.LABEL);
-if ( link.m_puzzle==0 || G.m_game.m_scenario.__522(link.m_puzzle) )
-{
+SceneCellLink link = cell.__600(LINK.LABEL);
 msg.m_dist = link.m_dist;
-msg.m_anim = player.m_obj.__471(ref link.m_anim);
+if ( msg.m_dist==0.0f )
+{
+msg.m_anim = player.m_obj.__470(ref link.m_anim);
 msg.m_dir = link.m_dir;
 }
 msg.m_state = Message.S_MOVE;
-playerSceneObj.__649(cell.__35(), cell.__36(), msg);
+playerSceneObj.__643(cell.__35(), cell.__36(), msg);
+}
 }
 }
 else
 {
-if ( label.__473() )
 CallUseEvent(player, G.m_game.m_cursorObj, null, null, null, false, label);
-else
-G.m_game.m_cursorObj = null;
 }
 return;
 }
@@ -657,49 +666,12 @@ if ( G.m_game.m_cursorObj )
 G.m_game.m_cursorObj = null;
 return;
 }
-SceneDoor door = scene.__546(ref abort, G.m_game.m_cursorViewX, G.m_game.m_cursorViewY);
-if ( abort )
-return;
-if ( door )
-{
-SceneCell cell = playerSceneObj.__642(door);
-if ( cell==null )
-{
-playerSceneObj.__651();
-scene.__563(door);
-}
-else
-{
-Message curMsg = playerSceneObj.m_message;
-if ( curMsg && curMsg.m_type==Message.DOOR && curMsg.m_door==door )
-{
-scene.__563(door, true);
-}
-else
-{
-Message msg = new Message();
-msg.m_player = player;
-msg.m_type = Message.DOOR;
-msg.m_door = door;
-SceneCellLink link = cell.__604(LINK.DOOR);
-if ( link.m_puzzle==0 || G.m_game.m_scenario.__522(link.m_puzzle) )
-{
-msg.m_dist = link.m_dist;
-msg.m_anim = player.m_obj.__471(ref link.m_anim);
-msg.m_dir = link.m_dir;
-}
-msg.m_state = Message.S_MOVE;
-playerSceneObj.__649(cell.__35(), cell.__36(), msg);
-}
-}
-return;
-}
 Vec2 pt = G.m_game.__299();
-if ( scene.__560(pt.x, pt.y) )
+if ( scene.__557(pt.x, pt.y) )
 return;
 Player curPlayer = G.m_game.__293();
 if ( curPlayer==player && curPlayer.m_sceneObj==playerSceneObj )
-playerSceneObj.__649(pt.x, pt.y);
+playerSceneObj.__643(pt.x, pt.y);
 }
 private void OnAltAction()
 {
@@ -718,11 +690,11 @@ G.m_game.m_menuDialog.Quit();
 }
 else
 {
-G.m_game.m_menuDialog.__458(G.m_game.m_cursorViewX, G.m_game.m_cursorViewY);
+G.m_game.m_menuDialog.__457(G.m_game.m_cursorViewX, G.m_game.m_cursorViewY);
 }
 return;
 }
-G.m_game.__324(true);
+G.m_game.__323(true);
 Scene scene = G.m_game.__291();
 if ( scene==null )
 return;
@@ -734,7 +706,7 @@ return;
 if ( m_layout.m_bagLocked==false && m_layout.Get(LAYOUT_CTRL.BAG).m_rightClick )
 m_layout.m_bagOpened = !m_layout.m_bagOpened;
 }
-private void __329()
+private void __328()
 {
 SceneObj dragObj = G.m_game.m_dragObj;
 G.m_game.m_dropPos.x = dragObj.__35();
@@ -748,19 +720,19 @@ return;
 }
 SceneEntity dropEntity;
 SubObj dropSub;
-if ( scene.__426(out dropEntity, out dropSub, G.m_game.m_cursorViewX, G.m_game.m_cursorViewY, false, DRAG.TARGET)==false )
+if ( scene.__425(out dropEntity, out dropSub, G.m_game.m_cursorViewX, G.m_game.m_cursorViewY, false, DRAG.TARGET)==false )
 {
 G.m_game.m_dragging = false;
 return;
 }
 if ( dropEntity )
 {
-if ( dropEntity.__606() )
+if ( dropEntity.__602() )
 {
 SceneObj dropObj = (SceneObj)dropEntity;
 if ( dropObj!=dragObj )
 {
-G.m_game.__326(dragObj.m_obj, dropObj.m_obj, dropSub, false);
+G.m_game.__325(dragObj.m_obj, dropObj.m_obj, dropSub, false);
 G.m_game.m_dragging = false;
 return;
 }
@@ -768,32 +740,32 @@ return;
 else
 {
 SceneLabel dropLabel = (SceneLabel)dropEntity;
-scene.__562(dragObj.m_obj, dropLabel);
+scene.__559(dragObj.m_obj, dropLabel);
 G.m_game.m_dragging = false;
 return;
 }
 }
-G.m_game.__329(dragObj.m_obj);
+G.m_game.__328(dragObj.m_obj);
 G.m_game.m_dragging = false;
 }
 private void CallUseEvent(Player player, Obj objCursor, Obj objTrg, SceneObj sceneObjTrg, SubObj subObjTrg, bool bothFromInventory, SceneLabel labelTrg)
 {
 SceneCell cell = null;
 if ( objTrg )
-cell = player.m_sceneObj.__643(objTrg, objCursor);
+cell = player.m_sceneObj.__637(objTrg, objCursor);
 else
-cell = player.m_sceneObj.__643(labelTrg, objCursor);
+cell = player.m_sceneObj.__637(labelTrg, objCursor);
 if ( cell==null )
 {
-player.m_sceneObj.__651();
+player.m_sceneObj.__645();
 G.m_game.m_cursorObj = null;
 if ( objTrg )
-G.m_game.__326(objCursor, objTrg, subObjTrg, bothFromInventory);
+G.m_game.__325(objCursor, objTrg, subObjTrg, bothFromInventory);
 else
 {
 Scene scene = G.m_game.__291();
 if ( scene )
-scene.__562(objCursor, labelTrg);
+scene.__559(objCursor, labelTrg);
 }
 }
 else
@@ -808,25 +780,22 @@ msg.m_objB = objTrg;
 msg.m_label = labelTrg;
 msg.m_bothFromInventory = bothFromInventory;
 G.m_game.m_cursorObj = null;
-SceneCellLink link = cell.__604(objTrg==null ? LINK.USELABEL : LINK.USE);
-if ( link.m_puzzle==0 || G.m_game.m_scenario.__522(link.m_puzzle) )
-{
+SceneCellLink link = cell.__600(objTrg==null ? LINK.USELABEL : LINK.USE);
 msg.m_dist = link.m_dist;
-msg.m_anim = player.m_obj.__471(ref link.m_anim);
+msg.m_anim = player.m_obj.__470(ref link.m_anim);
 msg.m_dir = link.m_dir;
-}
 msg.m_state = Message.S_MOVE;
-player.m_sceneObj.__649(cell.__35(), cell.__36(), msg);
+player.m_sceneObj.__643(cell.__35(), cell.__36(), msg);
 }
 }
 private void CallDetachEvent(Player player, Obj obj)
 {
-SceneCell cell = player.m_sceneObj.__644(obj);
+SceneCell cell = player.m_sceneObj.__638(obj);
 if ( cell==null )
 {
-player.m_sceneObj.__651();
+player.m_sceneObj.__645();
 G.m_game.m_cursorObj = null;
-G.m_game.__327(obj);
+G.m_game.__326(obj);
 }
 else
 {
@@ -840,15 +809,12 @@ msg.m_objB = null;
 msg.m_label = null;
 msg.m_bothFromInventory = false;
 G.m_game.m_cursorObj = null;
-SceneCellLink link = cell.__604(LINK.DETACH);
-if ( link.m_puzzle==0 || G.m_game.m_scenario.__522(link.m_puzzle) )
-{
+SceneCellLink link = cell.__600(LINK.DETACH);
 msg.m_dist = link.m_dist;
-msg.m_anim = player.m_obj.__471(ref link.m_anim);
+msg.m_anim = player.m_obj.__470(ref link.m_anim);
 msg.m_dir = link.m_dir;
-}
 msg.m_state = Message.S_MOVE;
-player.m_sceneObj.__649(cell.__35(), cell.__36(), msg);
+player.m_sceneObj.__643(cell.__35(), cell.__36(), msg);
 }
 }
 }

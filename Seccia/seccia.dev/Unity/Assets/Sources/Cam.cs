@@ -61,7 +61,7 @@ case CAMERA.AUTO_SCALE:
 SceneObj playerSceneObj = G.m_game.__295();
 if ( playerSceneObj==null )
 return 1.0f;
-return playerSceneObj.__628();
+return playerSceneObj.__622();
 }
 case CAMERA.AUTO_POS:
 {

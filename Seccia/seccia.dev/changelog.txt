@@ -1,4 +1,48 @@
-	• 2.0.21 (Unity 6000.0.44f1)
+	• 2.1.0 (Unity 6000.1.1f1)
+
+DOOR replaced by LABEL
+Project: version changed
+Scene: preview in grid/path/still mode
+Scene: move selected cells fixed
+Scene: add still crash fixed
+Scene: apply default position fixed
+Scene: playing animation fixed
+Scene: ended timeline fixed
+Scene: timeline camera movement fixed
+Scene: split segments menu added
+Scene: 'if resolved' condition removed
+Scene: door and skip properties added
+Object: default anim loop count fixed
+Dialog: popup menu fixed
+Dialog: puzzles removed
+Effect: fire and rain improved
+Build: missing MENU.png and CURSOR.png fixed
+Build: multithreading solidify init fixed
+Role: interface improved
+Role: schedule box fixed
+Role: links with several events fixed
+Role: popup menu position fixed
+Role: 'on select' improved
+Role: 'on label' improved
+Game: missing scene message added
+Game: brightness value between -100 and 100 (hud excluded)
+Game: fading color added
+Game: first sentence position fixed
+IDE: title added in message box 
+list functions improved
+'and' function added
+'or' function added
+'cut' function added
+'flat_index' function added
+'unflat_index' function added
+'list_and' function added
+'list_clear' function added
+'list_or' function added
+'set_speed' function added
+'store_pos' function removed
+'restore_pos' function removed
+
+	• 2.0.21 (Unity 6000.0.43f1)
 
 Dialog fixed after changing scene
 Unity build fixed

@@ -152,7 +152,6 @@ public Dictionary<string, string> m_gameValues;
 public Dictionary<string, Variable> m_variables;
 public Variable m_sysVarArg;
 public Variable m_sysVarChoice;
-public Variable m_sysVarDoor;
 public Variable m_sysVarLabel;
 public Variable m_sysVarObj;
 public Variable m_sysVarObj2;
@@ -161,7 +160,6 @@ public Variable m_sysVarPlayer;
 public Variable m_sysVarPlayer2;
 public Variable m_sysVarRes;
 public Variable m_sysVarSub;
-public List<Sentence> m_onSuccessSentences;
 public MenuGame m_menuGame = new MenuGame();
 public MenuDialog m_menuDialog = new MenuDialog();
 public CinematicPlayer m_cinematicPlayer = new CinematicPlayer();
@@ -250,12 +248,12 @@ public float m_time;
 public float m_elapsed;
 private float m_internalElapsed;
 public static implicit operator bool(AgeGame inst) { return inst!=null; }
-public void __79()
+public void __78()
 {
 m_optionResolution = -1;
 m_optionFullscreen = G.m_nativeScreenFull;
 m_resolutionList.Clear();
-if ( G.__87() && G.__88()==false )
+if ( G.__86() && G.__87()==false )
 {
 Resolution[] resolutions = Screen.resolutions;
 for ( int i=0 ; i<resolutions.Length ; i++ )
@@ -291,7 +289,7 @@ m_logoTexture = (Texture2D)Resources.Load("Textures/logo", typeof(Texture2D));
 m_logoMaterial = G.__165(SHADER.TEXTURE32);
 m_logoMaterial.mainTexture = m_logoTexture;
 }
-public bool __65()
+public bool __64()
 {
 m_lutTexture = (Texture2D)Resources.Load("Textures/Lut", typeof(Texture2D));
 TextAsset file = (TextAsset)Resources.Load("Texts/Lut", typeof(TextAsset));
@@ -302,7 +300,7 @@ m_lutNames = new Dictionary<string, int>();
 m_lutNames.Add("Grayscale", 0);
 for ( int i=0 ; i<result.Length ; i++ )
 m_lutNames.Add(result[i], i+1);
-if ( __90()==false )
+if ( __89()==false )
 return false;
 __240();
 if ( m_portrait )
@@ -319,7 +317,7 @@ G.m_rcWindow.height = old;
 __219(true);
 return true;
 }
-public void __66()
+public void __65()
 {
 m_lutTexture = null;
 }
@@ -454,10 +452,10 @@ bool opened = false;
 if ( assetGraphics==null )
 {
 opened = true;
-assetGraphics = G.__96(G.m_pathGraphics);
+assetGraphics = G.__95(G.m_pathGraphics);
 }
 if ( lang.m_cjkFont )
-lang.m_cjkFont.__469(assetGraphics);
+lang.m_cjkFont.__468(assetGraphics);
 if ( opened )
 assetGraphics.Close();
 }
@@ -466,14 +464,14 @@ public void __219(bool atStart = false)
 m_menuGame.m_resolutionChanged = false;
 float width = G.m_rcWindow.width;
 float height = G.m_rcWindow.height;
-if ( G.__87() && G.__88()==false )
+if ( G.__86() && G.__87()==false )
 {
 if ( m_optionResolution!=-1 )
 {
 string resolution = m_resolutionList[m_optionResolution];
 string[] values = resolution.Split('x');
-width = G.__114(ref values[0]);
-height = G.__114(ref values[1]);
+width = G.__113(ref values[0]);
+height = G.__113(ref values[1]);
 if ( atStart==false || m_forceNativeFullscreen )
 Screen.SetResolution((int)width, (int)height, m_optionFullscreen);
 }
@@ -621,13 +619,13 @@ break;
 }
 public void __221(Asset assetGraphics = null)
 {
-Asset asset = assetGraphics==null ? G.__96(G.m_pathGraphics) : assetGraphics;
+Asset asset = assetGraphics==null ? G.__95(G.m_pathGraphics) : assetGraphics;
 if ( asset==null )
 return;
 for ( int i=0 ; i<m_menuSplashSprites.Length ; i++ )
 __237(asset, m_menuSplashSprites[i]);
 __237(asset, m_menuHelpSprite);
-m_layout.__417(asset);
+m_layout.__416(asset);
 __237(asset, m_uiDialogBack);
 __237(asset, m_menuBack);
 __237(asset, m_uiCursor.init);
@@ -652,28 +650,28 @@ for ( int i=0 ; i<m_players.Length ; i++ )
 Player player = m_players[i];
 if ( player==null )
 continue;
-__237(asset, player.__454());
+__237(asset, player.__453());
 }
 Scene scene = __291();
 if ( scene )
 {
-scene.m_backLayer.__469(asset);
+scene.m_backLayer.__468(asset);
 for ( int i=0 ; i<G.MASK_COUNT ; i++ )
 {
 if ( scene.m_maskLayers[i] )
-scene.m_maskLayers[i].__469(asset);
+scene.m_maskLayers[i].__468(asset);
 }
 for ( int i=0 ; i<G.FAR_COUNT ; i++ )
 {
 if ( scene.m_farLayers[i] )
-scene.m_farLayers[i].__469(asset);
+scene.m_farLayers[i].__468(asset);
 }
 for ( int iObj=0 ; iObj<scene.m_objects.Length ; iObj++ )
 {
 Obj obj = scene.m_objects[iObj].m_obj;
 if ( obj==null )
 continue;
-__237(asset, obj.__454());
+__237(asset, obj.__453());
 for ( int i=0 ; i<obj.m_sprites.Length ; i++ )
 __237(asset, obj.m_sprites[i]);
 }
@@ -692,28 +690,28 @@ if ( obj==null )
 return false;
 if ( animName.Length==0 )
 animName = "STOP";
-Anim anim = obj.__471(ref animName);
+Anim anim = obj.__470(ref animName);
 if ( anim==null )
 return false;
 AnimDir dir = anim.m_defaultDir;
 if ( dirIndex!=-1 )
 {
-if ( anim.__475(dirIndex) )
+if ( anim.__474(dirIndex) )
 dir = anim.m_dirs[dirIndex];
 }
-if ( dir==null || dir.__476()==0 )
+if ( dir==null || dir.__475()==0 )
 return false;
 return Examine(roleBox, dir.m_frames[0], scale, opacity);
 }
 public bool Examine(RoleBox roleBox, Frame frame, float scale = 0.0f, float opacity = 0.0f)
 {
 __223();
-if ( frame.m_sprite.__995()==false )
+if ( frame.m_sprite.__988()==false )
 {
-Asset asset = G.__96(G.m_pathGraphics);
+Asset asset = G.__95(G.m_pathGraphics);
 if ( asset==null )
 return false;
-frame.m_sprite.__469(asset);
+frame.m_sprite.__468(asset);
 asset.Close();
 m_examineToBeFree = true;
 }
@@ -733,7 +731,7 @@ public bool __223(bool callEvent = false)
 if ( callEvent )
 {
 if ( m_examineRoleBox )
-m_examineRoleBox.__458(m_examineRoleBoxToken);
+m_examineRoleBox.__457(m_examineRoleBoxToken);
 }
 __314();
 if ( m_examine==null )
@@ -760,18 +758,18 @@ if ( m_savegameServerUser.Length==0 || m_savegameServerPass.Length==0 )
 return false;
 return true;
 }
-public bool __90()
+public bool __89()
 {
-Asset asset = G.__96(G.m_pathGame);
+Asset asset = G.__95(G.m_pathGame);
 if ( asset==null )
 return false;
-Asset assetConfig = G.__96(G.m_pathConfig, true);
+Asset assetConfig = G.__95(G.m_pathConfig, true);
 if ( assetConfig==null )
 {
 asset.Close();
 return false;
 }
-Asset assetGraphics = G.__96(G.m_pathGraphics);
+Asset assetGraphics = G.__95(G.m_pathGraphics);
 if ( assetGraphics==null )
 {
 assetConfig.Close();
@@ -790,11 +788,11 @@ m_gameSignatureAuto = asset.__10();
 m_gameSignatureValue = asset.__15();
 int licenseWarning = asset.__12();
 #if UNITY_STANDALONE_WIN
-m_licenseWarning = G.__102(licenseWarning, 0x01);
+m_licenseWarning = G.__101(licenseWarning, 0x01);
 #elif UNITY_ANDROID
-m_licenseWarning = G.__102(licenseWarning, 0x02);
+m_licenseWarning = G.__101(licenseWarning, 0x02);
 #elif UNITY_WEBGL
-m_licenseWarning = G.__102(licenseWarning, 0x04);
+m_licenseWarning = G.__101(licenseWarning, 0x04);
 #endif
 m_configLive = asset.__12()!=0;
 m_configDebug = asset.__12()!=0;
@@ -836,7 +834,7 @@ for ( int i=0 ; i<16 ; i++ )
 G.m_colors[i] = new Color(asset.__12()/255.0f, asset.__12()/255.0f, asset.__12()/255.0f);
 m_portrait = asset.__10();
 m_forceNativeFullscreen = asset.__10();
-if ( m_forceNativeFullscreen && (G.__87()==false || G.__88() || G.__89()) )
+if ( m_forceNativeFullscreen && (G.__86()==false || G.__87() || G.__88()) )
 m_forceNativeFullscreen = false;
 if ( m_forceNativeFullscreen )
 {
@@ -858,7 +856,7 @@ m_noLowQuality = asset.__10();
 m_fontSizeOption = asset.__10();
 m_storeUrl = asset.__18();
 m_menuUserButtonPos = asset.__18();
-m_menuUserButtonSize = G.__115(asset.__18());
+m_menuUserButtonSize = G.__114(asset.__18());
 m_forceLowQuality = assetConfig.__10();
 m_forceLowQualityMemory = assetConfig.__13();
 m_defaultFontSize = assetConfig.__12();
@@ -866,7 +864,7 @@ m_cursorSize = assetConfig.__13();
 m_cursorHalfSize = m_cursorSize*0.5f;
 string storeUrl = assetConfig.__18();
 m_rateUrl = assetConfig.__18();
-float menuUserButtonSize = G.__115(assetConfig.__18());
+float menuUserButtonSize = G.__114(assetConfig.__18());
 m_hasSongs = assetConfig.__10();
 m_hasVideos = assetConfig.__10();
 m_hasVoices = assetConfig.__10();
@@ -941,7 +939,7 @@ break;
 }
 }
 }
-Localization.__65(asset);
+Localization.__64(asset);
 if ( m_forceLowQuality && m_noLowQuality==false )
 m_optionQuality = QUALITY.LOW;
 for ( int iLang=0 ; iLang<m_languages.Length ; iLang++ )
@@ -979,8 +977,8 @@ G.m_bokehWidth++;
 if ( G.m_rcGame.height%G.BOKEH_DIVIDER!=0 )
 G.m_bokehHeight++;
 m_font = new Police();
-m_font.__65(asset, m_fontScale);
-m_font.__469(assetGraphics);
+m_font.__64(asset, m_fontScale);
+m_font.__468(assetGraphics);
 m_colorText = asset.__23(255, 255, 255);
 m_colorTextHighlight = asset.__23(87, 230, 87);
 m_colorTextDoor = asset.__23(87, 230, 87);
@@ -998,7 +996,7 @@ m_balloon = asset.__10();
 float balloonImageWidth = (float)asset.__13();
 float balloonImageHeight = (float)asset.__13();
 m_balloonImageMargin = asset.__32();
-m_balloonImageMargin01 = m_balloonImageMargin.__449(balloonImageWidth, balloonImageHeight);
+m_balloonImageMargin01 = m_balloonImageMargin.__448(balloonImageWidth, balloonImageHeight);
 m_balloonTextMargin = asset.__32();
 m_choiceFrame = asset.__10();
 m_choiceFrameSize = G.Clamp((float)asset.__13(), 1.0f, 10000.0f, 300.0f);
@@ -1012,7 +1010,7 @@ m_hasMenuMusic = asset.__10();
 m_options = asset.__10();
 m_subtitleOption = asset.__10();
 m_layout = new Layout();
-m_layout.__65(asset);
+m_layout.__64(asset);
 m_input.m_layout = m_layout;
 m_lightBaked = asset.__10();
 m_lightAmbient = asset.__12()/255;
@@ -1074,9 +1072,9 @@ Dictionary<string, string> medias = new Dictionary<string, string>();
 System.IO.Stream fileMd5 = G.OpenFile(G.m_pathMd5);
 if ( fileMd5!=null )
 {
-int mediaCount = (int)G.__82(fileMd5);
+int mediaCount = (int)G.__81(fileMd5);
 for ( int i=0 ; i<mediaCount ; i++ )
-medias.Add(G.__84(fileMd5), G.__84(fileMd5));
+medias.Add(G.__83(fileMd5), G.__83(fileMd5));
 fileMd5.Close();
 }
 fileMd5 = G.NewFile(G.m_pathMd5);
@@ -1094,7 +1092,7 @@ string name = assetConfig.__18();
 string md5 = assetConfig.__18();
 string cur;
 string path = G.m_folderContent + name;
-if ( medias.TryGetValue(name, out cur)==false || cur!=md5 || G.__91(path)==false )
+if ( medias.TryGetValue(name, out cur)==false || cur!=md5 || G.__90(path)==false )
 {
 ok = false;
 int index;
@@ -1115,8 +1113,8 @@ ok = true;
 }
 if ( ok && fileMd5!=null )
 {
-G.__85(fileMd5, name);
-G.__85(fileMd5, md5);
+G.__84(fileMd5, name);
+G.__84(fileMd5, md5);
 }
 }
 if ( fileMd5!=null )
@@ -1128,10 +1126,9 @@ fileObb.Close();
 WebForm.m_instance.Disable();
 #endif
 m_initScript = asset.__26();
-m_onSuccessSentences = new List<Sentence>();
 m_variables = new Dictionary<string, Variable>(StringComparer.OrdinalIgnoreCase);
 m_scenario = new Scenario();
-m_scenario.__65(asset);
+m_scenario.__64(asset);
 __226(asset);
 while ( true )
 {
@@ -1139,14 +1136,14 @@ int iLang = __205(asset.__18());
 if ( iLang==-1 )
 break;
 m_languages[iLang].m_cjkFont = new Police();
-m_languages[iLang].m_cjkFont.__65(asset, m_fontScale);
+m_languages[iLang].m_cjkFont.__64(asset, m_fontScale);
 }
 for ( int i=0 ; i<m_menuSplashSprites.Length ; i++ )
 {
 m_menuSplashSprites[i] = asset.__27();
 m_menuSplashDurations[i] = (float)asset.__12();
 if ( m_menuSplashSprites[i] )
-m_menuSplashSprites[i].__469(assetGraphics);
+m_menuSplashSprites[i].__468(assetGraphics);
 }
 m_menuHelpSprite = asset.__27();
 __236(asset, assetGraphics, ref m_uiDialogBack);
@@ -1193,7 +1190,7 @@ m_menuUserButtonSprites[i] = asset.__27();
 m_menuUserButtonUrls[i] = asset.__18();
 m_menuUserButtonVisibilities[i] = asset.__10();
 if ( m_menuUserButtonSprites[i] )
-m_menuUserButtonSprites[i].__469(assetGraphics);
+m_menuUserButtonSprites[i].__468(assetGraphics);
 }
 bool preloadSounds = asset.__12()==1;
 #if UNITY_WEBGL
@@ -1211,7 +1208,7 @@ m_menuEffect.Init(__282(asset.__18()));
 m_effect.Init(__282(asset.__18()));
 if ( G.m_font )
 {
-G.m_font.__66();
+G.m_font.__65();
 G.m_font = null;
 }
 __249(assetGraphics);
@@ -1466,10 +1463,10 @@ sceneObj.m_local.Init(new Vec2((float)asset.__13(), (float)asset.__13()));
 sceneObj.m_angle.Init(asset.__14());
 sceneObj.m_speedX = (float)asset.__13();
 if ( sceneObj.m_speedX==0.0f )
-sceneObj.m_speedX = sceneObj.m_obj.m_speedX;
+sceneObj.m_speedX = sceneObj.m_obj.m_speedX.cur;
 sceneObj.m_speedY = (float)asset.__13();
 if ( sceneObj.m_speedY==0.0f )
-sceneObj.m_speedY = sceneObj.m_obj.m_speedY;
+sceneObj.m_speedY = sceneObj.m_obj.m_speedY.cur;
 sceneObj.m_elevator.Init((float)asset.__13());
 sceneObj.m_elevatorScaling = asset.__10();
 sceneObj.m_elevatorRotation = asset.__10();
@@ -1490,6 +1487,8 @@ case 84: sceneObj.m_drag = DRAG.TARGET; break;
 case 66: sceneObj.m_drag = DRAG.BOTH; break;
 }
 sceneObj.m_cheat.Init(asset.__10());
+sceneObj.m_door = asset.__10();
+sceneObj.m_skip = asset.__10();
 sceneObj.m_light = asset.__10();
 if ( sceneObj.m_light )
 {
@@ -1570,7 +1569,6 @@ grid.m_mapCellByEnterFromLink = new Dictionary<string, SceneCell>();
 grid.m_mapCellByEnterToLink = new Dictionary<string, SceneCell>();
 grid.m_mapCellBySelectLink = new Dictionary<string, SceneCell>();
 grid.m_mapCellByLabelLink = new Dictionary<string, SceneCell>();
-grid.m_mapCellByDoorLink = new Dictionary<string, SceneCell>();
 grid.m_mapCellByUseLink = new Dictionary<string, SceneCell>();
 grid.m_mapCellByUseLabelLink = new Dictionary<string, SceneCell>();
 grid.m_mapCellByDetachLink = new Dictionary<string, SceneCell>();
@@ -1589,7 +1587,7 @@ for ( int iCell=0 ; iCell<grid.m_cells.Length ; iCell++ )
 SceneCell cell = new SceneCell();
 grid.m_cells[iCell] = cell;
 int header = asset.__14();
-if ( G.__102(header, 0x0001) )
+if ( G.__101(header, 0x0001) )
 {
 cell.m_col = asset.__12();
 cell.m_row = asset.__12();
@@ -1599,8 +1597,8 @@ else
 cell.m_col = asset.__13();
 cell.m_row = asset.__13();
 }
-uint index = G.__99(cell.m_col, cell.m_row);
-int indexRouter = grid.m_router.__392(cell.m_col, cell.m_row);
+uint index = G.__98(cell.m_col, cell.m_row);
+int indexRouter = grid.m_router.__391(cell.m_col, cell.m_row);
 if ( grid.m_mapCellByIndex.ContainsKey(index)==false )
 grid.m_mapCellByIndex.Add(index, cell);
 bool walkable = true;
@@ -1608,23 +1606,23 @@ int bridgeCount = 0;
 if ( header>0x0001 )
 {
 cell.m_data = new SceneCellData();
-cell.m_data.m_event = G.__102(header, 0x0002);
+cell.m_data.m_event = G.__101(header, 0x0002);
 if ( cell.m_data.m_event )
 {
 if ( grid.m_mapEventCellByIndex.ContainsKey(index)==false )
 grid.m_mapEventCellByIndex.Add(index, cell);
 }
-cell.m_data.m_magnet = G.__102(header, 0x0004);
-if ( G.__102(header, 0x0008) )
+cell.m_data.m_magnet = G.__101(header, 0x0004);
+if ( G.__101(header, 0x0008) )
 walkable = false;
 cell.m_data.m_walkable = walkable;
-if ( G.__102(header, 0x0010) )
+if ( G.__101(header, 0x0010) )
 cell.m_data.m_name = asset.__18();
-if ( G.__102(header, 0x0020) )
+if ( G.__101(header, 0x0020) )
 cell.m_data.m_flag = (sbyte)asset.__12();
 else
 cell.m_data.m_flag = -1;
-if ( G.__102(header, 0x0040) )
+if ( G.__101(header, 0x0040) )
 {
 cell.m_data.m_speedFactorX = asset.__13()/100.0f;
 cell.m_data.m_speedFactorY = asset.__13()/100.0f;
@@ -1638,7 +1636,7 @@ cell.m_data.m_scaleFactor = 1.0f;
 }
 if ( cell.m_data.m_name!=null && cell.m_data.m_name.Length>0 && grid.m_mapCellByName.ContainsKey(cell.m_data.m_name)==false )
 grid.m_mapCellByName.Add(cell.m_data.m_name, cell);
-if ( G.__102(header, 0x0080) )
+if ( G.__101(header, 0x0080) )
 {
 bridgeCount = asset.__12();
 if ( bridgeCount>0 )
@@ -1657,7 +1655,7 @@ bridgeBackTrgs.Add(index);
 }
 }
 }
-if ( G.__102(header, 0x0100) )
+if ( G.__101(header, 0x0100) )
 {
 cell.m_data.m_walkAnim = asset.__18();
 string walkAnimDirs = asset.__18();
@@ -1677,14 +1675,14 @@ cell.m_data.m_walkAnimDirs[AnimDir.BR] = walkAnimDirs[AnimDir.BR]=='1';
 }
 if ( bridgeCount==0 )
 {
-if ( grid.m_router.__513(indexRouter) )
+if ( grid.m_router.__512(indexRouter) )
 grid.m_router.m_mapWalkable[indexRouter] = walkable;
-if ( grid.m_routerHud && grid.m_routerHud.__513(indexRouter) )
+if ( grid.m_routerHud && grid.m_routerHud.__512(indexRouter) )
 grid.m_routerHud.m_mapWalkable[indexRouter] = walkable;
 }
 else
 {
-if ( grid.m_router.__513(indexRouter) )
+if ( grid.m_router.__512(indexRouter) )
 {
 grid.m_router.m_mapWalkable[indexRouter] = walkable;
 if ( cell.m_data && cell.m_data.m_bridges!=null )
@@ -1695,7 +1693,7 @@ for ( int i=0 ; i<cell.m_data.m_bridges.Count ; i++ )
 bridge.m_cells.Add(cell.m_data.m_bridges[i]);
 }
 }
-if ( grid.m_routerHud && grid.m_routerHud.__513(indexRouter) )
+if ( grid.m_routerHud && grid.m_routerHud.__512(indexRouter) )
 {
 grid.m_routerHud.m_mapWalkable[indexRouter] = walkable;
 if ( cell.m_data && cell.m_data.m_bridges!=null )
@@ -1711,7 +1709,7 @@ header = asset.__12();
 if ( header!=0 )
 {
 cell.m_data.m_links = new SceneCellLink[(int)LINK.COUNT];
-if ( G.__102(header, 0x01) )
+if ( G.__101(header, 0x01) )
 {
 SceneCellLink link = new SceneCellLink();
 cell.m_data.m_links[(int)LINK.ENTER] = link;
@@ -1731,12 +1729,11 @@ link.m_anim = asset.__18();
 link.m_dir = (sbyte)asset.__11();
 }
 }
-if ( G.__102(header, 0x02) )
+if ( G.__101(header, 0x02) )
 {
 SceneCellLink link = new SceneCellLink();
 cell.m_data.m_links[(int)LINK.SELECT] = link;
 string name = asset.__18();
-link.m_puzzle = asset.__15();
 link.m_dist = asset.__20();
 if ( link.m_dist==0.0f )
 {
@@ -1746,12 +1743,11 @@ link.m_dir = (sbyte)asset.__11();
 if ( grid.m_mapCellBySelectLink.ContainsKey(name)==false )
 grid.m_mapCellBySelectLink.Add(name, cell);
 }
-if ( G.__102(header, 0x04) )
+if ( G.__101(header, 0x04) )
 {
 SceneCellLink link = new SceneCellLink();
 cell.m_data.m_links[(int)LINK.LABEL] = link;
 string name = asset.__18();
-link.m_puzzle = asset.__15();
 link.m_dist = asset.__20();
 if ( link.m_dist==0.0f )
 {
@@ -1761,28 +1757,12 @@ link.m_dir = (sbyte)asset.__11();
 if ( grid.m_mapCellByLabelLink.ContainsKey(name)==false )
 grid.m_mapCellByLabelLink.Add(name, cell);
 }
-if ( G.__102(header, 0x08) )
-{
-SceneCellLink link = new SceneCellLink();
-cell.m_data.m_links[(int)LINK.DOOR] = link;
-string name = asset.__18();
-link.m_puzzle = asset.__15();
-link.m_dist = asset.__20();
-if ( link.m_dist==0.0f )
-{
-link.m_anim = asset.__18();
-link.m_dir = (sbyte)asset.__11();
-}
-if ( grid.m_mapCellByDoorLink.ContainsKey(name)==false )
-grid.m_mapCellByDoorLink.Add(name, cell);
-}
-if ( G.__102(header, 0x10) )
+if ( G.__101(header, 0x08) )
 {
 SceneCellLink link = new SceneCellLink();
 cell.m_data.m_links[(int)LINK.USE] = link;
 string name = asset.__18();
 string name2 = asset.__18();
-link.m_puzzle = asset.__15();
 link.m_dist = asset.__20();
 if ( link.m_dist==0.0f )
 {
@@ -1792,13 +1772,12 @@ link.m_dir = (sbyte)asset.__11();
 if ( grid.m_mapCellByUseLink.ContainsKey(name+"+"+name2)==false )
 grid.m_mapCellByUseLink.Add(name+"+"+name2, cell);
 }
-if ( G.__102(header, 0x20) )
+if ( G.__101(header, 0x10) )
 {
 SceneCellLink link = new SceneCellLink();
 cell.m_data.m_links[(int)LINK.USELABEL] = link;
 string name = asset.__18();
 string name2 = asset.__18();
-link.m_puzzle = asset.__15();
 link.m_dist = asset.__20();
 if ( link.m_dist==0.0f )
 {
@@ -1808,12 +1787,11 @@ link.m_dir = (sbyte)asset.__11();
 if ( grid.m_mapCellByUseLabelLink.ContainsKey(name+"+"+name2)==false )
 grid.m_mapCellByUseLabelLink.Add(name+"+"+name2, cell);
 }
-if ( G.__102(header, 0x40) )
+if ( G.__101(header, 0x20) )
 {
 SceneCellLink link = new SceneCellLink();
 cell.m_data.m_links[(int)LINK.DETACH] = link;
 string name = asset.__18();
-link.m_puzzle = asset.__15();
 link.m_dist = asset.__20();
 if ( link.m_dist==0.0f )
 {
@@ -1827,7 +1805,7 @@ grid.m_mapCellByDetachLink.Add(name, cell);
 }
 for ( int i=0 ; i<bridgeBackSrcs.Count ; i++ )
 {
-int indexRouter = grid.m_router.__392(G.__100(bridgeBackSrcs[i]), G.__101(bridgeBackSrcs[i]));
+int indexRouter = grid.m_router.__391(G.__99(bridgeBackSrcs[i]), G.__100(bridgeBackSrcs[i]));
 if ( grid.m_router.m_mapBridge[indexRouter]==null )
 grid.m_router.m_mapBridge[indexRouter] = new Router.Bridge();
 grid.m_router.m_mapBridge[indexRouter].m_cells.Add(bridgeBackTrgs[i]);
@@ -1906,6 +1884,8 @@ case 84: item.m_drag = DRAG.TARGET; break;
 case 66: item.m_drag = DRAG.BOTH; break;
 }
 item.m_cheat.Init(asset.__10());
+item.m_door = asset.__10();
+item.m_skip = asset.__10();
 if ( scene.m_labelsByName.ContainsKey(item.m_name)==false )
 scene.m_labelsByName.Add(item.m_name, item);
 scene.m_labelsByID.Add(item.m_sid, item);
@@ -1913,28 +1893,6 @@ int iPlacement = (int)item.m_placement.cur;
 if ( scene.m_sortedLabels[iPlacement]==null )
 scene.m_sortedLabels[iPlacement] = new List<SceneLabel>();
 scene.m_sortedLabels[iPlacement].Add(item);
-}
-scene.m_doors = new SceneDoor[asset.__13()];
-scene.m_doorsByName = new Dictionary<string, SceneDoor>(scene.m_doors.Length);
-scene.m_doorsByID = new Dictionary<int, SceneDoor>(scene.m_doors.Length);
-for ( int i=0 ; i<scene.m_doors.Length ; i++ )
-{
-SceneDoor item = new SceneDoor();
-scene.m_doors[i] = item;
-item.m_scene = scene;
-item.m_name = asset.__18();
-item.m_sid = asset.__13();
-item.m_tags = asset.ReadTags();
-item.m_x = (float)asset.__13();
-item.m_y = (float)asset.__13();
-item.m_width = (float)asset.__13();
-item.m_height = (float)asset.__13();
-item.m_title = asset.__21();
-item.m_visible.Init(asset.__10());
-item.m_cheat.Init(asset.__10());
-if ( scene.m_doorsByName.ContainsKey(item.m_name)==false )
-scene.m_doorsByName.Add(item.m_name, item);
-scene.m_doorsByID.Add(item.m_sid, item);
 }
 scene.m_shots = new SceneShot[asset.__13()];
 scene.m_shotsByName = new Dictionary<string, SceneShot>(scene.m_shots.Length);
@@ -2071,8 +2029,8 @@ obj.m_enabled.Init(asset.__10());
 obj.m_subEnabled.Init(asset.__10());
 obj.m_bboxDetection = asset.__10();
 obj.m_tolerance = asset.__12();
-obj.m_speedX = (float)asset.__13();
-obj.m_speedY = (float)asset.__13();
+obj.m_speedX.Init((float)asset.__13());
+obj.m_speedY.Init((float)asset.__13());
 if ( obj.m_uidClone.Length>0 )
 return obj;
 obj.m_animation = (ANIMATION)asset.__12();
@@ -2204,7 +2162,7 @@ sprite.m_packGroupScene = asset.__18();
 else if ( sprite.m_packGroupType==PACKGROUP.FLY || sprite.m_packGroupType==PACKGROUP.FLY_LOW )
 {
 string name = asset.__18();
-Anim anim = obj.__471(ref name);
+Anim anim = obj.__470(ref name);
 if ( anim )
 {
 if ( anim.m_sprites==null )
@@ -2238,7 +2196,6 @@ for ( int iFrame=0 ; iFrame<frames.Count ; iFrame++ )
 if ( frames[iFrame].m_index2!=-1 )
 {
 int j = frames[iFrame].m_index2;
-Debug.Log(j);
 frames[iFrame].m_sprite = frames[j].m_sprite;
 frames[iFrame].m_layer = frames[j].m_layer;
 frames[iFrame].m_source = frames[j].m_source;
@@ -2282,9 +2239,6 @@ sentence.m_lookat = asset.__18();
 sentence.m_keepDir = asset.__10();
 sentence.m_anim = asset.__18();
 sentence.m_keepAnim = asset.__10();
-sentence.m_onSay = asset.__15();
-sentence.m_onShow = asset.__15();
-sentence.m_onSuccess = asset.__15();
 sentence.m_task = asset.__10();
 if ( sentence.m_task )
 {
@@ -2292,8 +2246,6 @@ sentence.m_taskRole = asset.__18();
 sentence.m_taskName = asset.__18();
 sentence.m_taskArg = asset.__18();
 }
-if ( sentence.m_onSuccess!=0 )
-m_onSuccessSentences.Add(sentence);
 int mutualShowCount = asset.__12();
 if ( mutualShowCount!=0 )
 {
@@ -2458,7 +2410,7 @@ public Effect __234(Asset asset, int sid, string uid)
 Effect effect = new Effect();
 effect.m_sid = sid;
 effect.m_uid = uid;
-effect.__65(asset);
+effect.__64(asset);
 return effect;
 }
 public Role __235(Asset asset, int sid, string uid)
@@ -2466,19 +2418,19 @@ public Role __235(Asset asset, int sid, string uid)
 Role role = new Role();
 role.m_sid = sid;
 role.m_uid = uid;
-role.__65(asset);
+role.__64(asset);
 return role;
 }
 public void __236(Asset asset, Asset assetGraphics, ref Sprite sprite, SHADER shaderDef = SHADER.TEXTURE32)
 {
 sprite = asset.__27();
 if ( sprite )
-sprite.__469(assetGraphics, shaderDef);
+sprite.__468(assetGraphics, shaderDef);
 }
 public void __237(Asset asset, Sprite sprite, SHADER shaderDef = SHADER.TEXTURE32)
 {
-if ( sprite && sprite.__995() )
-sprite.__469(asset, shaderDef);
+if ( sprite && sprite.__988() )
+sprite.__468(asset, shaderDef);
 }
 public bool __238(string domain, string[] domains)
 {
@@ -2542,7 +2494,6 @@ variables = null;
 m_variables.Clear();
 m_sysVarArg = __288("_arg");
 m_sysVarChoice = __288("_choice");
-m_sysVarDoor = __288("_door");
 m_sysVarLabel = __288("_label");
 m_sysVarObj = __288("_obj");
 m_sysVarObj2 = __288("_obj2");
@@ -2554,7 +2505,7 @@ m_sysVarSub = __288("_sub");
 m_menuDialog.Reset();
 m_scenario.Reset();
 m_layout.Reset();
-m_layout.__418(new string[0]);
+m_layout.__417(new string[0]);
 m_started = false;
 m_isGameOver = false;
 m_menuScene = null;
@@ -2599,7 +2550,7 @@ string path = G.m_folderSavegame + "debug.txt";
 System.IO.Stream file = G.NewFile(path);
 if ( file!=null )
 {
-G.__95(file, "New Game");
+G.__94(file, "New Game");
 file.Close();
 }
 }
@@ -2610,12 +2561,12 @@ IDE.Post(IDE_MSG.RESET);
 public void __241(bool newgame = true)
 {
 if ( newgame )
-m_scenario.__518();
+m_scenario.__517();
 Player player = __293();
 if ( player )
-player.__469();
+player.__468();
 if ( m_initScript )
-m_initScript.__690();
+m_initScript.__684();
 if ( newgame )
 {
 for ( int i=0 ; i<m_roles.Length ; i++ )
@@ -2624,7 +2575,7 @@ if ( m_roles[i].m_autoStart )
 m_roles[i].Start();
 }
 }
-if ( m_configDebug && m_scenario.__519().m_debugResolved )
+if ( m_configDebug && m_scenario.__518().m_debugResolved )
 {
 m_scenario.__42(SCENARIO.DEBUG_START);
 m_scenario.__42(SCENARIO.DEBUG_UPDATE);
@@ -2643,12 +2594,12 @@ m_gameValues.Clear();
 JsonObj json = G.__183(G.__185());
 if ( json==null )
 return false;
-JsonArray jsonValues = json.__395("values");
+JsonArray jsonValues = json.__394("values");
 if ( jsonValues==null )
 return false;
-for ( int i=0 ; i<jsonValues.__67() ; i++ )
+for ( int i=0 ; i<jsonValues.__66() ; i++ )
 {
-JsonObj jsonItem = jsonValues.__394(i);
+JsonObj jsonItem = jsonValues.__393(i);
 if ( jsonItem )
 m_gameValues.Add(jsonItem.GetString("k"), jsonItem.GetString("v"));
 }
@@ -2661,26 +2612,26 @@ G.__186();
 }
 public bool __245(string name, string value)
 {
-if ( G.__105(ref name)==false )
+if ( G.__104(ref name)==false )
 return false;
 if ( m_gameValues.ContainsKey(name) )
 m_gameValues[name] = value;
 else
 m_gameValues.Add(name, value);
-JsonObj json = Json.__374();
-JsonArray jsonValues = json.__390("values");
+JsonObj json = Json.__373();
+JsonArray jsonValues = json.__389("values");
 foreach ( var val in m_gameValues )
 {
-JsonObj jsonItem = jsonValues.__389();
-jsonItem.__381("k", val.Key);
-jsonItem.__381("v", val.Value);
+JsonObj jsonItem = jsonValues.__388();
+jsonItem.__380("k", val.Key);
+jsonItem.__380("v", val.Value);
 }
 G.__184(json, G.__185());
 return true;
 }
 public string __246(string name)
 {
-if ( G.__105(ref name)==false )
+if ( G.__104(ref name)==false )
 return "";
 string value;
 if ( m_gameValues.TryGetValue(name, out value)==false )
@@ -2689,96 +2640,102 @@ return value;
 }
 public void __46(int index)
 {
-JsonObj json = Json.__374();
-JsonObj jSystem = json.__389("system");
-jSystem.__382("version", G.SAVEGAME_VERSION);
-jSystem.__381("game_version", m_gameVersion);
-jSystem.__385("game_sign_auto", m_gameSignatureAuto);
-jSystem.__382("game_sign_value", m_gameSignatureValue);
+JsonObj json = Json.__373();
+JsonObj jSystem = json.__388("system");
+jSystem.__381("version", G.SAVEGAME_VERSION);
+jSystem.__380("game_version", m_gameVersion);
+jSystem.__384("game_sign_auto", m_gameSignatureAuto);
+jSystem.__381("game_sign_value", m_gameSignatureValue);
 string stamp = DateTime.Now.ToString();
-jSystem.__381("name", stamp);
-JsonArray jVars = json.__390("vars");
+jSystem.__380("name", stamp);
+JsonArray jVars = json.__389("vars");
 foreach ( var variable in m_variables )
 {
-JsonObj jVar = jVars.__389();
-jVar.__381("k", variable.Value.m_name);
-jVar.__381("v", variable.Value.m_value);
+JsonObj jVar = jVars.__388();
+jVar.__380("k", variable.Value.m_name);
+jVar.__380("v", variable.Value.m_value);
+if ( variable.Value.m_list!=null )
+{
+JsonArray jList = jVar.__389("l");
+for ( int i=0 ; i<variable.Value.m_list.Count ; i++ )
+jList.__380(variable.Value.m_list[i]);
 }
-JsonObj jGame = json.__389("game");
-jGame.__382("brightness", (int)m_brightness);
-jGame.__383("scene", m_iScene==-1 ? 0 : m_scenes[m_iScene].m_sid);
-jGame.__383("old_scene", m_iOldScene==-1 ? 0 : m_scenes[m_iOldScene].m_sid);
-jGame.__383("player", m_iPlayer==-1 ? 0 : m_players[m_iPlayer].m_sid);
-JsonArray jGamePlayers = jGame.__390("item_players");
+}
+JsonObj jGame = json.__388("game");
+jGame.__383("brightness", m_brightness);
+jGame.__382("scene", m_iScene==-1 ? 0 : m_scenes[m_iScene].m_sid);
+jGame.__382("old_scene", m_iOldScene==-1 ? 0 : m_scenes[m_iOldScene].m_sid);
+jGame.__382("player", m_iPlayer==-1 ? 0 : m_players[m_iPlayer].m_sid);
+JsonArray jGamePlayers = jGame.__389("item_players");
 for ( int i=0 ; i<m_layout.m_players.Length ; i++ )
-jGamePlayers.__383(m_layout.m_players[i].m_sid);
-jGame.__385("gesture_bag_locked", m_gestureBagLocked);
-jGame.__385("gesture_menu_locked", m_gestureMenuLocked);
-jGame.__385("use_locked", m_useLocked);
-jGame.__385("bag_locked", m_layout.m_bagLocked);
-jGame.__385("bag_hidden", m_layout.m_bagForceHidden);
+jGamePlayers.__382(m_layout.m_players[i].m_sid);
+jGame.__384("gesture_bag_locked", m_gestureBagLocked);
+jGame.__384("gesture_menu_locked", m_gestureMenuLocked);
+jGame.__384("use_locked", m_useLocked);
+jGame.__384("bag_locked", m_layout.m_bagLocked);
+jGame.__384("bag_hidden", m_layout.m_bagForceHidden);
 if ( m_menuEffect.modified )
-json.__383("menu_effect", m_menuEffect.cur.m_sid);
+json.__382("menu_effect", m_menuEffect.cur.m_sid);
 if ( m_effect.modified )
-json.__383("effect", m_effect.cur.m_sid);
-jGame.__381("cursor", m_cursorCustom);
-JsonObj jTimeline = json.__389("timeline");
+json.__382("effect", m_effect.cur.m_sid);
+jGame.__380("cursor", m_cursorCustom);
+JsonObj jTimeline = json.__388("timeline");
 if ( m_timeline )
 {
-jTimeline.__383("id", m_timeline.m_sid);
-jTimeline.__384("time", m_timeline.m_time);
-jTimeline.__383("role", m_timeline.m_roleBox.m_parent.m_sid);
-jTimeline.__382("box", m_timeline.m_roleBox.m_id);
+jTimeline.__382("id", m_timeline.m_sid);
+jTimeline.__383("time", m_timeline.m_time);
+jTimeline.__382("role", m_timeline.m_roleBox.m_parent.m_sid);
+jTimeline.__381("box", m_timeline.m_roleBox.m_id);
 }
-JsonArray jPlayers = json.__390("players");
+JsonArray jPlayers = json.__389("players");
 for ( int i=0 ; i<m_players.Length ; i++ )
 {
-JsonObj jPlayer = jPlayers.__389();
+JsonObj jPlayer = jPlayers.__388();
 m_players[i].__46(jPlayer);
 }
-JsonArray jObjects = json.__390("objects");
+JsonArray jObjects = json.__389("objects");
 for ( int i=0 ; i<m_objects.Length ; i++ )
 {
-JsonObj jObject = jObjects.__389();
+JsonObj jObject = jObjects.__388();
 m_objects[i].__46(jObject);
 }
-JsonArray jScenes = json.__390("scenes");
+JsonArray jScenes = json.__389("scenes");
 for ( int i=0 ; i<m_scenes.Length ; i++ )
 {
-JsonObj jScene = jScenes.__389();
+JsonObj jScene = jScenes.__388();
 m_scenes[i].__46(jScene);
 }
-JsonArray jDialogs = json.__390("dialogs");
+JsonArray jDialogs = json.__389("dialogs");
 for ( int i=0 ; i<m_dialogs.Length ; i++ )
 {
-JsonObj jDialog = jDialogs.__389();
+JsonObj jDialog = jDialogs.__388();
 m_dialogs[i].__46(jDialog);
 }
-JsonArray jRoles = json.__390("roles");
+JsonArray jRoles = json.__389("roles");
 for ( int i=0 ; i<m_roles.Length ; i++ )
 {
-JsonObj jRole = jRoles.__389();
+JsonObj jRole = jRoles.__388();
 m_roles[i].__46(jRole);
 }
-JsonObj jScenario = json.__389("scenario");
+JsonObj jScenario = json.__388("scenario");
 m_scenario.__46(jScenario);
 for ( int i=0 ; i<G.CHANNEL_COUNT ; i++ )
 {
-JsonObj jSong = json.__389(i==0 ? "song" : "song_"+(i+1).ToString());
+JsonObj jSong = json.__388(i==0 ? "song" : "song_"+(i+1).ToString());
 if ( m_songs[i].m_current==null )
 {
-jSong.__381("name", "");
-jSong.__382("volume", 0);
+jSong.__380("name", "");
+jSong.__381("volume", 0);
 }
 else
 {
-jSong.__381("name", m_songs[i].m_current.m_name);
-jSong.__382("volume", (int)(m_songs[i].m_current.m_volume*100.0f));
+jSong.__380("name", m_songs[i].m_current.m_name);
+jSong.__381("volume", (int)(m_songs[i].m_current.m_volume*100.0f));
 }
-jSong = json.__389(i==0 ? "last_song" : "last_song_"+(i+1).ToString());
-jSong.__381("name", m_songs[i].m_lastName);
-jSong.__382("volume", (int)(m_songs[i].m_lastVolume*100.0f));
-jSong.__385("loop", m_songs[i].m_lastLoop);
+jSong = json.__388(i==0 ? "last_song" : "last_song_"+(i+1).ToString());
+jSong.__380("name", m_songs[i].m_lastName);
+jSong.__381("volume", (int)(m_songs[i].m_lastVolume*100.0f));
+jSong.__384("loop", m_songs[i].m_lastLoop);
 }
 G.__184(json, G.__188(index));
 }
@@ -2789,7 +2746,7 @@ return false;
 int version = js.GetInt("version");
 if ( version<1 )
 return false;
-if ( js.__401("game_sign_auto")!=m_gameSignatureAuto )
+if ( js.__400("game_sign_auto")!=m_gameSignatureAuto )
 return false;
 if ( js.GetInt("game_sign_value")!=m_gameSignatureValue )
 return false;
@@ -2804,11 +2761,11 @@ if ( isChapter )
 (int, int) pair;
 if ( m_chapters.TryGetValue(index, out pair)==false )
 return false;
-Asset asset = G.__96(G.m_pathGame);
+Asset asset = G.__95(G.m_pathGame);
 if ( asset==null )
 return false;
 asset.__3(pair.Item2);
-jAsset = Json.__376(Json.__373(asset.__9(pair.Item1)));
+jAsset = Json.__375(Json.__372(asset.__9(pair.Item1)));
 asset.Close();
 }
 else
@@ -2817,7 +2774,7 @@ jAsset = G.__183(G.__188(index));
 }
 if ( jAsset==null )
 return false;
-JsonObj jSystem = jAsset.__394("system");
+JsonObj jSystem = jAsset.__393("system");
 if ( jSystem==null )
 return false;
 if ( __247(jSystem)==false )
@@ -2828,16 +2785,16 @@ Timeline timeline = null;
 RoleBox timelineBox = null;
 float timelineTime = 0.0f;
 Scene timelineScene = __291();
-JsonObj jTimeline = jAsset.__394("timeline");
+JsonObj jTimeline = jAsset.__393("timeline");
 if ( jTimeline && timelineScene )
 {
-timeline = timelineScene.__543(jTimeline.GetInt("id"));
+timeline = timelineScene.__541(jTimeline.GetInt("id"));
 if ( timeline )
 {
 Role role = __283(jTimeline.GetInt("role"));
 if ( role )
 {
-timelineBox = role.__497(jTimeline.GetInt("box"));
+timelineBox = role.__496(jTimeline.GetInt("box"));
 timelineTime = jTimeline.GetFloat("time");
 }
 }
@@ -2847,7 +2804,7 @@ __241(false);
 Scene scene = __291();
 if ( scene )
 {
-scene.__509("LOAD");
+scene.__508("LOAD");
 if ( timelineBox )
 __272(timeline, timelineBox, timelineTime);
 }
@@ -2855,105 +2812,112 @@ return true;
 }
 public bool __47(JsonObj jAsset)
 {
-JsonArray jVars = jAsset.__395("vars");
+JsonArray jVars = jAsset.__394("vars");
 if ( jVars )
 {
-for ( int i=0 ; i<jVars.__67() ; i++ )
+for ( int i=0 ; i<jVars.__66() ; i++ )
 {
-JsonObj jVar = jVars.__394(i);
+JsonObj jVar = jVars.__393(i);
 if ( jVar )
 {
 Variable variable = new Variable();
 variable.m_name = jVar.GetString("k");
 variable.m_value = jVar.GetString("v");
+JsonArray jList = jVar.__394("l");
+if ( jList!=null )
+{
+variable.m_list = new List<string>();
+for ( int j=0 ; j<jList.__66() ; j++ )
+variable.m_list.Add(jList.GetString(j));
+}
 if ( m_variables.ContainsKey(variable.m_name)==false )
 m_variables.Add(variable.m_name, variable);
 }
 }
 }
 string[] players = null;
-JsonObj jGame = jAsset.__394("game");
+JsonObj jGame = jAsset.__393("game");
 if ( jGame )
 {
-m_brightness = (float)jGame.GetInt("brightness");
+m_brightness = G.Clamp(jGame.GetFloat("brightness"), -1.0f, 1.0f);
 m_iScene = __275(jGame.GetInt("scene"));
 m_iOldScene = __275(jGame.GetInt("old_scene"));
 m_iPlayer = __280(jGame.GetInt("player"));
-JsonArray jGamePlayers = jGame.__395("item_players");
+JsonArray jGamePlayers = jGame.__394("item_players");
 if ( jGamePlayers )
 {
-players = new string[jGamePlayers.__67()];
-for ( int i=0 ; i<jGamePlayers.__67() ; i++ )
+players = new string[jGamePlayers.__66()];
+for ( int i=0 ; i<jGamePlayers.__66() ; i++ )
 {
 Player player = __279(jGamePlayers.GetInt(i));
 players[i] = player==null ? "" : player.m_uid;
 }
 }
-m_gestureBagLocked = jGame.__401("gesture_bag_locked");
-m_gestureMenuLocked = jGame.__401("gesture_menu_locked");
-m_useLocked = jGame.__401("use_locked");
-m_layout.m_bagLocked = jGame.__401("bag_locked");
-m_layout.m_bagForceHidden = jGame.__401("bag_hidden");
-if ( jGame.__391("menu_effect") )
+m_gestureBagLocked = jGame.__400("gesture_bag_locked");
+m_gestureMenuLocked = jGame.__400("gesture_menu_locked");
+m_useLocked = jGame.__400("use_locked");
+m_layout.m_bagLocked = jGame.__400("bag_locked");
+m_layout.m_bagForceHidden = jGame.__400("bag_hidden");
+if ( jGame.__390("menu_effect") )
 m_menuEffect.Set(__282(jGame.GetInt("menu_effect")));
-if ( jGame.__391("effect") )
+if ( jGame.__390("effect") )
 m_effect.Set(__282(jGame.GetInt("effect")));
 __298(jGame.GetString("cursor"));
 }
-JsonArray jPlayers = jAsset.__395("players");
+JsonArray jPlayers = jAsset.__394("players");
 if ( jPlayers )
 {
-for ( int i=0 ; i<jPlayers.__67() ; i++ )
+for ( int i=0 ; i<jPlayers.__66() ; i++ )
 {
-JsonObj jPlayer = jPlayers.__394(i);
+JsonObj jPlayer = jPlayers.__393(i);
 int sid = jPlayer==null ? 0 : jPlayer.GetInt("sid");
 Player player = __279(sid);
 if ( player )
 player.__47(jPlayer);
 }
 }
-JsonArray jObjects = jAsset.__395("objects");
+JsonArray jObjects = jAsset.__394("objects");
 if ( jObjects )
 {
-for ( int i=0 ; i<jObjects.__67() ; i++ )
+for ( int i=0 ; i<jObjects.__66() ; i++ )
 {
-JsonObj jObject = jObjects.__394(i);
+JsonObj jObject = jObjects.__393(i);
 int sid = jObject==null ? 0 : jObject.GetInt("sid");
 Obj obj = __277(sid);
 if ( obj )
 obj.__47(jObject);
 }
 }
-JsonArray jScenes = jAsset.__395("scenes");
+JsonArray jScenes = jAsset.__394("scenes");
 if ( jScenes )
 {
-for ( int i=0 ; i<jScenes.__67() ; i++ )
+for ( int i=0 ; i<jScenes.__66() ; i++ )
 {
-JsonObj jScene = jScenes.__394(i);
+JsonObj jScene = jScenes.__393(i);
 int sid = jScene==null ? 0 : jScene.GetInt("sid");
 Scene scene = __274(sid);
 if ( scene )
 scene.__47(jScene);
 }
 }
-JsonArray jDialogs = jAsset.__395("dialogs");
+JsonArray jDialogs = jAsset.__394("dialogs");
 if ( jDialogs )
 {
-for ( int i=0 ; i<jDialogs.__67() ; i++ )
+for ( int i=0 ; i<jDialogs.__66() ; i++ )
 {
-JsonObj jDialog = jDialogs.__394(i);
+JsonObj jDialog = jDialogs.__393(i);
 int sid = jDialog==null ? 0 : jDialog.GetInt("sid");
 Dialog dialog = __278(sid);
 if ( dialog )
 dialog.__47(jDialog);
 }
 }
-JsonArray jRoles = jAsset.__395("roles");
+JsonArray jRoles = jAsset.__394("roles");
 if ( jRoles )
 {
-for ( int i=0 ; i<jRoles.__67() ; i++ )
+for ( int i=0 ; i<jRoles.__66() ; i++ )
 {
-JsonObj jRole = jRoles.__394(i);
+JsonObj jRole = jRoles.__393(i);
 int sid = jRole==null ? 0 : jRole.GetInt("sid");
 Role role = __283(sid);
 if ( role )
@@ -2963,16 +2927,16 @@ return false;
 }
 }
 }
-JsonObj jScenario = jAsset.__394("scenario");
+JsonObj jScenario = jAsset.__393("scenario");
 if ( jScenario )
 {
 if ( m_scenario.__47(jScenario)==false )
 return false;
 }
-m_layout.__418(players);
+m_layout.__417(players);
 for ( int i=0 ; i<G.CHANNEL_COUNT ; i++ )
 {
-JsonObj jSong = jAsset.__394(i==0 ? "song" : "song_"+(i+1).ToString());
+JsonObj jSong = jAsset.__393(i==0 ? "song" : "song_"+(i+1).ToString());
 if ( jSong )
 {
 string name = jSong.GetString("name");
@@ -2980,12 +2944,12 @@ float volume = jSong.GetInt("volume")/100.0f;
 if ( name.Length>0 )
 __264(i, name, volume);
 }
-jSong = jAsset.__394(i==0 ? "last_song" : "last_song_"+(i+1).ToString());
+jSong = jAsset.__393(i==0 ? "last_song" : "last_song_"+(i+1).ToString());
 if ( jSong )
 {
 m_songs[i].m_lastName = jSong.GetString("name");
 m_songs[i].m_lastVolume = jSong.GetInt("volume")/100.0f;
-m_songs[i].m_lastLoop = jSong.__401("loop");
+m_songs[i].m_lastLoop = jSong.__400("loop");
 }
 }
 return true;
@@ -2996,7 +2960,7 @@ if ( G.m_pathSettings.Length==0 )
 return;
 JsonObj json = new JsonObj();
 json.SetInt("version", 1);
-JsonObj jConfig = json.__389("config");
+JsonObj jConfig = json.__388("config");
 jConfig.SetString("audio_lang", m_languages[m_optionLanguageAudio].m_name);
 jConfig.SetString("text_lang", m_languages[m_optionLanguageText].m_name);
 jConfig.SetInt("subtitle", (int)m_optionSubtitle);
@@ -3019,7 +2983,7 @@ JsonObj json = G.__183(G.m_pathSettings);
 if ( json==null )
 return;
 string value;
-JsonObj jConfig = json.__394("config");
+JsonObj jConfig = json.__393("config");
 if ( jConfig==null )
 return;
 value = jConfig.GetString("audio_lang");
@@ -3077,7 +3041,7 @@ string path = G.m_folderSavegame + "debug.txt";
 System.IO.Stream stream = new System.IO.FileStream(path, System.IO.FileMode.Append, System.IO.FileAccess.Write);
 if ( stream!=null )
 {
-G.__95(stream, msg);
+G.__94(stream, msg);
 stream.Close();
 }
 }
@@ -3100,7 +3064,7 @@ text += "{" + scene.m_uid + "," + scene.m_width + "," + scene.m_height + "} ";
 text += "{";
 text += msg;
 text += "}";
-G.__95(stream, text);
+G.__94(stream, text);
 stream.Close();
 }
 }
@@ -3279,7 +3243,7 @@ if ( fadeDuration>0.0f )
 song.m_fadeMode = 1;
 song.m_fadeTime = 0.0f;
 song.m_fadeDuration = fadeDuration;
-song.m_fadeVolBeg = song.m_current.__994();
+song.m_fadeVolBeg = song.m_current.__987();
 song.m_fadeVolEnd = 0.0f;
 }
 else
@@ -3302,12 +3266,12 @@ if ( fadeDuration>0.0f )
 song.m_fadeMode = 2;
 song.m_fadeTime = 0.0f;
 song.m_fadeDuration = fadeDuration;
-song.m_fadeVolBeg = song.m_current.__994();
+song.m_fadeVolBeg = song.m_current.__987();
 song.m_fadeVolEnd = volume;
 }
 else
 {
-song.m_current.__993(volume);
+song.m_current.__986(volume);
 }
 }
 public bool __264(int channel, string name, float volume = 1.0f, bool loop = true)
@@ -3326,17 +3290,17 @@ string url = G.m_folderContentSongs + name + G.m_audioExtension;
 for ( int i=0 ; i<G.m_downloadedSongs.Count ; i++ )
 {
 if ( G.__148(ref G.m_downloadedSongs[i].m_url, ref url) )
-return G.m_downloadedSongs[i].__990(null, "");
+return G.m_downloadedSongs[i].__983(null, "");
 }
 Sound sound = new Sound(Sound.TYPE.MUSIC);
 G.m_downloadedSongs.Add(sound);
 sound.m_name = name;
 sound.m_loop = loop;
-return sound.__989(volume, channel);
+return sound.__982(volume, channel);
 #else
 song.m_sound.m_name = name;
 song.m_sound.m_loop = loop;
-return song.m_sound.__989(volume, channel);
+return song.m_sound.__982(volume, channel);
 #endif
 }
 return false;
@@ -3378,17 +3342,17 @@ string url = G.m_folderContentSongs + name + G.m_audioExtension;
 for ( int i=0 ; i<G.m_downloadedSongs.Count ; i++ )
 {
 if ( G.__148(ref G.m_downloadedSongs[i].m_url, ref url) )
-return G.m_downloadedSongs[i].__990(null, "");
+return G.m_downloadedSongs[i].__983(null, "");
 }
 Sound sound = new Sound(Sound.TYPE.MUSIC);
 G.m_downloadedSongs.Add(sound);
 sound.m_name = name;
 sound.m_loop = true;
-return sound.__989(volume, channel);
+return sound.__982(volume, channel);
 #else
 song.m_sound.m_name = name;
 song.m_sound.m_loop = loop;
-hasNew = song.m_sound.__989(0.0f, channel);
+hasNew = song.m_sound.__982(0.0f, channel);
 #endif
 }
 if ( hasOld==false && hasNew==false )
@@ -3410,7 +3374,7 @@ __266();
 if ( name.Length>0 )
 {
 m_voice.m_name = name;
-return m_voice.__989(1.0f);
+return m_voice.__982(1.0f);
 }
 return false;
 }
@@ -3422,12 +3386,12 @@ m_playingSounds[m_playingSounds.Count-1].Stop();
 public void __269()
 {
 for ( int i=0 ; i<m_playingSounds.Count ; i++ )
-m_playingSounds[i].__992();
+m_playingSounds[i].__985();
 }
 public void __270()
 {
 for ( int i=0 ; i<m_playingSounds.Count ; i++ )
-m_playingSounds[i].__991();
+m_playingSounds[i].__984();
 }
 public Sound __271(string name)
 {
@@ -3670,7 +3634,7 @@ if ( m_effects!=null )
 {
 for ( int i=0 ; i<m_effects.Length ; i++ )
 {
-if ( m_effects[i].__67()>0 )
+if ( m_effects[i].__66()>0 )
 {
 for ( int j=0 ; j<m_effects[i].m_items.Length ; j++ )
 {
@@ -3696,17 +3660,17 @@ return m_effect.cur;
 public Effect __285(FXO fxo)
 {
 Effect effect = __285();
-if ( effect && effect.__68(fxo)>0 )
+if ( effect && effect.__67(fxo)>0 )
 return effect;
 return null;
 }
 public Variable __286(ref string eval)
 {
-string name = G.__97(ref eval);
+string name = G.__96(ref eval);
 Variable var = __287(ref name);
 if ( var )
 return var;
-if ( G.__105(ref name) )
+if ( G.__104(ref name) )
 {
 Variable newVar = new Variable();
 newVar.m_name = name;
@@ -3730,7 +3694,7 @@ public Variable __288(ref string name)
 Variable var = __287(ref name);
 if ( var )
 return var;
-if ( G.__105(ref name) )
+if ( G.__104(ref name) )
 {
 Variable newVar = new Variable();
 newVar.m_name = name;
@@ -3818,10 +3782,10 @@ if ( m_uiCursorDoor.cur && m_uiCursorDoor.cur!=m_uiCursorDoor.init )
 m_uiCursorDoor.cur.End();
 if ( m_uiCursorBusy.cur && m_uiCursorBusy.cur!=m_uiCursorBusy.init )
 m_uiCursorBusy.cur.End();
-m_uiCursor.__78();
-m_uiCursorObj.__78();
-m_uiCursorDoor.__78();
-m_uiCursorBusy.__78();
+m_uiCursor.__77();
+m_uiCursorObj.__77();
+m_uiCursorDoor.__77();
+m_uiCursorBusy.__77();
 m_cursorCustom = "";
 }
 public void __298(string uid)
@@ -3833,49 +3797,49 @@ __297();
 return;
 }
 bool ok = false;
-Asset asset = G.__96(G.m_pathGraphics);
+Asset asset = G.__95(G.m_pathGraphics);
 if ( asset==null )
 {
 __297();
 return;
 }
-Sprite sprite = obj.__454(0);
+Sprite sprite = obj.__453(0);
 if ( sprite )
 {
 m_uiCursor.cur = sprite;
 if ( sprite!=m_uiCursor.init )
 {
-sprite.__469(asset);
+sprite.__468(asset);
 ok = true;
 }
 }
-sprite = obj.__454(1);
+sprite = obj.__453(1);
 if ( sprite )
 {
 m_uiCursorObj.cur = sprite;
 if ( sprite!=m_uiCursorObj.init )
 {
-sprite.__469(asset);
+sprite.__468(asset);
 ok = true;
 }
 }
-sprite = obj.__454(2);
+sprite = obj.__453(2);
 if ( sprite )
 {
 m_uiCursorDoor.cur = sprite;
 if ( sprite!=m_uiCursorDoor.init )
 {
-sprite.__469(asset);
+sprite.__468(asset);
 ok = true;
 }
 }
-sprite = obj.__454(3);
+sprite = obj.__453(3);
 if ( sprite )
 {
 m_uiCursorBusy.cur = sprite;
 if ( sprite!=m_uiCursorBusy.init )
 {
-sprite.__469(asset);
+sprite.__468(asset);
 ok = true;
 }
 }
@@ -3897,7 +3861,7 @@ if ( scene==null )
 return pt;
 pt.x = m_cursorViewX;
 pt.y = m_cursorViewY;
-scene.__556(ref pt);
+scene.__553(ref pt);
 return pt;
 }
 public void __300()
@@ -3918,7 +3882,7 @@ m_fadeRoleBox = null;
 m_fadeRoleBoxToken = 0;
 m_fadeEvent = FADING.CLOSED;
 }
-public bool Jump(RoleBox roleBox, string scene, float durationOut = 0.0f, float durationWait = 0.0f, float durationIn = 0.0f)
+public bool Jump(RoleBox roleBox, string scene, Color color, float durationOut = 0.0f, float durationWait = 0.0f, float durationIn = 0.0f)
 {
 if ( m_liveScene.Length>0 )
 return false;
@@ -3951,7 +3915,8 @@ m_fadeRoleBoxToken = roleBox==null ? 0 : roleBox.m_parent.m_token;
 m_fadeOutDuration = G.__133(durationOut);
 m_fadeWaitDuration = G.__133(durationWait);
 m_fadeInDuration = G.__133(durationIn);
-m_fadeColor = black ? Color.black : new Color(0.0f, 0.0f, 0.0f, 0.0f);
+m_fadeColor = color;
+m_fadeColor.a = black ? 1.0f : 0.0f;
 m_fade = black ? FADING.CLOSED : FADING.CLOSING;
 return true;
 }
@@ -3964,72 +3929,82 @@ if ( m_iScene!=-1 )
 {
 Scene nextScene = index==-1 ? null : m_scenes[index];
 if ( callEnterExitEvents )
-m_scenes[m_iScene].__521();
+m_scenes[m_iScene].__520();
 m_scenes[m_iScene].End(nextScene);
 }
 m_brightness = 1.0f;
 m_iOldScene = m_iScene;
 m_iScene = index;
+Scene scene = null;
 if ( m_iScene!=-1 )
-m_scenes[m_iScene].__469();
+{
+scene = m_scenes[m_iScene];
+scene.__468();
+}
 Player player = __293();
 if ( player )
 {
 if ( m_iScene==-1 )
 player.m_sceneObj = null;
 else
-player.m_sceneObj = m_scenes[m_iScene].__277(player.m_obj);
+player.m_sceneObj = scene.__277(player.m_obj);
 }
-if ( m_iScene!=-1 && player && player.m_sceneObj )
-__306(m_scenes[m_iScene].m_uid, player.m_sceneObj.m_obj.m_uid, true);
-G.m_game.m_menuDialog.__456();
-if ( m_iScene!=-1 )
-m_scenes[m_iScene].__574();
-if ( m_iScene!=-1 )
+if ( scene && player && player.m_sceneObj )
+__306(scene.m_uid, player.m_sceneObj.m_obj.m_uid, true);
+if ( scene )
+{
+scene.__570();
+if ( scene.m_role )
+scene.m_role.Start();
+}
+G.m_game.m_menuDialog.__455();
+if ( scene )
 {
 if ( callEnterExitEvents )
 {
-m_scenes[m_iScene].__509("JUMP");
+scene.__508("JUMP");
 if ( m_iOldScene!=-1 && player.m_sceneObj )
 {
 Scene oldScene = m_scenes[m_iOldScene];
-SceneCell cellTo = player.m_sceneObj.__641(oldScene);
+SceneCell cellTo = player.m_sceneObj.__635(oldScene);
 if ( cellTo==null )
 {
-SceneCell cellFrom = player.m_sceneObj.__640(oldScene);
+SceneCell cellFrom = player.m_sceneObj.__634(oldScene);
 if ( cellFrom )
 player.m_sceneObj.Move(cellFrom.__35(), cellFrom.__36());
 }
 else
 {
-SceneCellLink link = cellTo.__604(LINK.ENTER);
-SceneCell cellFrom = player.m_sceneObj.__640(oldScene);
+SceneCellLink link = cellTo.__600(LINK.ENTER);
+SceneCell cellFrom = player.m_sceneObj.__634(oldScene);
 if ( cellFrom )
 player.m_sceneObj.Move(cellFrom.__35(), cellFrom.__36());
 Message msg = new Message();
 msg.m_type = Message.WALK;
-msg.m_anim = player.m_sceneObj.m_obj.__471(ref link.m_anim);
+msg.m_anim = player.m_sceneObj.m_obj.__470(ref link.m_anim);
 msg.m_dir = link.m_dir;
 msg.m_state = Message.S_MOVE;
 msg.m_enter = true;
-msg.m_enterCell = cellTo.__393();
-player.m_sceneObj.__649(cellTo.__35(), cellTo.__36(), msg, true);
+msg.m_enterCell = cellTo.__392();
+player.m_sceneObj.__643(cellTo.__35(), cellTo.__36(), msg, true);
 }
 }
 }
 if ( callSwitchEvent )
-m_scenes[m_iScene].__509("SWITCH");
+scene.__508("SWITCH");
 }
-if ( m_iScene!=-1 )
+if ( scene )
 {
-Cam cam = m_scenes[m_iScene].__479();
+Cam cam = scene.__478();
 if ( cam && cam.__33() )
 {
 cam.m_scrollSmoothInitialized = false;
 cam.m_zoomSmoothInitialized = false;
 }
-m_scenes[m_iScene].__575(true);
+scene.__571(true);
 }
+if ( player && player.m_sceneObj )
+player.m_sceneObj.__601();
 }
 public void __302(string uid)
 {
@@ -4040,15 +4015,15 @@ if ( scene==m_menuScene )
 return;
 if ( m_menuScene )
 {
-m_menuScene.__521();
+m_menuScene.__520();
 m_menuScene.End(scene);
 }
 m_menuScene = scene;
 if ( m_menuScene==null )
 return;
-m_menuScene.__469();
-m_menuScene.__575(true);
-m_menuScene.__509("JUMP");
+m_menuScene.__468();
+m_menuScene.__571(true);
+m_menuScene.__508("JUMP");
 }
 public void __303()
 {
@@ -4088,8 +4063,8 @@ m_players[m_iPlayer].m_lastY = G.INVALIDCOORD;
 }
 else
 {
-if ( m_players[m_iPlayer].m_sceneObj.__657() )
-m_players[m_iPlayer].m_sceneObj.__651();
+if ( m_players[m_iPlayer].m_sceneObj.__651() )
+m_players[m_iPlayer].m_sceneObj.__645();
 m_players[m_iPlayer].m_lastX = m_players[m_iPlayer].m_sceneObj.__35();
 m_players[m_iPlayer].m_lastY = m_players[m_iPlayer].m_sceneObj.__36();
 }
@@ -4097,10 +4072,10 @@ m_players[m_iPlayer].m_sceneObj = null;
 }
 m_iPlayer = index;
 m_layout.m_bagOpened = false;
-m_players[m_iPlayer].__469();
+m_players[m_iPlayer].__468();
 m_players[m_iPlayer].m_sceneObj = sceneObj;
 if ( callEvent )
-__330(prevPlayer);
+__329(prevPlayer);
 if ( callEvent && sceneObj && sceneObj.m_scene!=scene )
 {
 __300();
@@ -4117,9 +4092,9 @@ m_fade = FADING.CLOSING;
 else
 {
 if ( scene )
-scene.__571(m_players[m_iPlayer]);
+scene.__567(m_players[m_iPlayer]);
 }
-m_layout.__419();
+m_layout.__418();
 return true;
 }
 public bool __305(string uidPlayer, string uidObj)
@@ -4128,7 +4103,7 @@ if ( m_menuScene )
 return false;
 SceneObj playerSceneObj = __295();
 if ( playerSceneObj )
-playerSceneObj.__651();
+playerSceneObj.__645();
 Player player = __279(uidPlayer);
 if ( player==null )
 return false;
@@ -4138,8 +4113,8 @@ Scene scene = __291();
 if ( scene && player==__293() && player.m_obj )
 {
 player.m_sceneObj = scene.__277(player.m_obj);
-player.m_sceneObj.__651();
-scene.__571(player);
+player.m_sceneObj.__645();
+scene.__567(player);
 }
 return true;
 }
@@ -4169,17 +4144,17 @@ return;
 }
 if ( obj.m_killed.cur )
 return;
-if ( obj.__293() && obj.__293().__478()==false )
+if ( obj.__293() && obj.__293().__477()==false )
 return;
 sceneObj.m_visible.Set(true);
 if ( obj.__293() )
-obj.__293().__481(obj);
+obj.__293().__480(obj);
 }
 public SceneObj __307(string uid)
 {
 string uidScene = "";
 string uidObj = "";
-G.__98(uid, ref uidScene, ref uidObj);
+G.__97(uid, ref uidScene, ref uidObj);
 return __307(uidScene, uidObj);
 }
 public SceneObj __307(string uidScene, string uidObj)
@@ -4198,7 +4173,7 @@ Dialog dlg = __278(uid);
 if ( dlg==null )
 return false;
 if ( roleBox )
-m_menuDialog.__450(dlg, roleBox, roleBoxSentence);
+m_menuDialog.__449(dlg, roleBox, roleBoxSentence);
 m_menuDialog.m_sentence = dlg.__49(idSentence);
 if ( m_menuDialog.m_sentence==null )
 m_menuDialog.m_sentence = dlg.m_root;
@@ -4212,7 +4187,7 @@ m_menuDialog.m_sentence = dlg.__49(id);
 }
 m_menuDialog.m_callCount++;
 m_menuDialog.m_dialog = dlg;
-G.m_game.__323(RoleBoxEventEnterDialog.ID, dlg.m_uid);
+G.m_game.__322(RoleBoxEventEnterDialog.ID, dlg.m_uid);
 m_menuDialog.Next(m_menuDialog.m_sentence, true, true);
 return true;
 }
@@ -4252,7 +4227,7 @@ sceneObj = __295();
 if ( sceneObj==null )
 return;
 }
-Vec2 pt = sceneObj.__665();
+Vec2 pt = sceneObj.__659();
 Taker taker = new Taker();
 taker.m_obj = obj;
 taker.m_x = pt.x;
@@ -4334,30 +4309,14 @@ if ( nameOrTag[0]=='@' )
 Scene scene = __291();
 if ( scene==null )
 return false;
-SceneLabel label = scene.__538(name);
+SceneLabel label = scene.__536(name);
 if ( label==null )
 return false;
 return G.__149(label.m_tags, nameOrTag.Substring(1));
 }
 return G.__148(ref name, ref nameOrTag);
 }
-public bool __321(ref string name, ref string nameOrTag)
-{
-if ( nameOrTag.Length==0 )
-return false;
-if ( nameOrTag[0]=='@' )
-{
-Scene scene = __291();
-if ( scene==null )
-return false;
-SceneDoor door = scene.__537(name);
-if ( door==null )
-return false;
-return G.__149(door.m_tags, nameOrTag.Substring(1));
-}
-return G.__148(ref name, ref nameOrTag);
-}
-public bool __322(ref string sub)
+public bool __321(ref string sub)
 {
 if ( sub=="ANY" )
 {
@@ -4376,31 +4335,31 @@ return false;
 }
 return true;
 }
-public int __323(int id, Variable result = null)
+public int __322(int id, Variable result = null)
 {
 Event evt = new Event();
 evt.id = id;
 evt.result = result;
-return __323(evt);
+return __322(evt);
 }
-public int __323(int id, string p1, Variable result = null)
+public int __322(int id, string p1, Variable result = null)
 {
 Event evt = new Event();
 evt.id = id;
 evt.p1 = p1;
 evt.result = result;
-return __323(evt);
+return __322(evt);
 }
-public int __323(int id, string p1, string p2, Variable result = null)
+public int __322(int id, string p1, string p2, Variable result = null)
 {
 Event evt = new Event();
 evt.id = id;
 evt.p1 = p1;
 evt.p2 = p2;
 evt.result = result;
-return __323(evt);
+return __322(evt);
 }
-public int __323(int id, string p1, string p2, string p3, Variable result = null)
+public int __322(int id, string p1, string p2, string p3, Variable result = null)
 {
 Event evt = new Event();
 evt.id = id;
@@ -4408,9 +4367,9 @@ evt.p1 = p1;
 evt.p2 = p2;
 evt.p3 = p3;
 evt.result = result;
-return __323(evt);
+return __322(evt);
 }
-public int __323(int id, string p1, string p2, string p3, string p4, Variable result = null)
+public int __322(int id, string p1, string p2, string p3, string p4, Variable result = null)
 {
 Event evt = new Event();
 evt.id = id;
@@ -4419,9 +4378,9 @@ evt.p2 = p2;
 evt.p3 = p3;
 evt.p4 = p4;
 evt.result = result;
-return __323(evt);
+return __322(evt);
 }
-public int __323(Event evt)
+public int __322(Event evt)
 {
 if ( evt.result )
 evt.result.m_value = "0";
@@ -4432,7 +4391,7 @@ for ( int i=0 ; i<m_roles.Length ; i++ )
 {
 if ( m_roles[i].m_running )
 {
-count += m_roles[i].__323(evt);
+count += m_roles[i].__322(evt);
 if ( evt.consume )
 break;
 }
@@ -4461,36 +4420,39 @@ role.Task(ref name, ref value, ref result);
 }
 return result;
 }
-public void __324(bool alt = false)
+public void __323(bool alt = false)
 {
-__323(RoleBoxEventInput.ID, alt ? "ALT" : "MAIN");
+__322(RoleBoxEventInput.ID, alt ? "ALT" : "MAIN");
 }
-public void __325(Obj obj, SubObj subObj, bool byUser = true)
+public void __324(Obj obj, SubObj subObj, bool byUser = true, bool skip = false)
 {
 m_sysVarSub.m_value = subObj==null ? "" : subObj.m_name;
 m_lastEventSubObj = subObj;
 m_lastEventByUser = byUser;
-__323(RoleBoxEventSelect.ID, obj.m_uid);
+if ( skip )
+__322(RoleBoxEventSelect.ID, obj.m_uid, "SKIP");
+else
+__322(RoleBoxEventSelect.ID, obj.m_uid, "WALK");
 m_lastEventByUser = true;
 m_lastEventSubObj = null;
 }
-public void __326(Obj objA, Obj objB, SubObj subObj, bool bothFromInventory)
+public void __325(Obj objA, Obj objB, SubObj subObj, bool bothFromInventory)
 {
 m_sysVarSub.m_value = subObj==null ? "" : subObj.m_name;
 m_lastEventSubObj = subObj;
-__323(RoleBoxEventUse.ID, objA.m_uid, objB.m_uid, bothFromInventory ? "1" : "");
+__322(RoleBoxEventUse.ID, objA.m_uid, objB.m_uid, bothFromInventory ? "1" : "");
 m_lastEventSubObj = null;
 }
-public void __327(Obj obj)
+public void __326(Obj obj)
 {
-__323(RoleBoxEventDetach.ID, obj.m_uid);
+__322(RoleBoxEventDetach.ID, obj.m_uid);
 }
-public void __328(SceneObj sceneObj, SubObj subObj)
+public void __327(SceneObj sceneObj, SubObj subObj)
 {
 Variable var = new Variable();
 m_sysVarSub.m_value = subObj==null ? "" : subObj.m_name;
 m_lastEventSubObj = subObj;
-__323(RoleBoxEventDrag.ID, sceneObj.m_obj.m_uid, var);
+__322(RoleBoxEventDrag.ID, sceneObj.m_obj.m_uid, var);
 m_lastEventSubObj = null;
 if ( var.m_value=="0" )
 {
@@ -4498,35 +4460,37 @@ m_dragging = true;
 m_dragObj = sceneObj;
 }
 else
-__325(sceneObj.m_obj, subObj);
+__324(sceneObj.m_obj, subObj);
 }
-public void __329(Obj obj)
+public void __328(Obj obj)
 {
-__323(RoleBoxEventDrop.ID, obj.m_uid);
+__322(RoleBoxEventDrop.ID, obj.m_uid);
 }
-public void __330(Player prevPlayer)
+public void __329(Player prevPlayer)
 {
 if ( prevPlayer==null )
-__323(RoleBoxEventSwitch.ID, __293().m_uid);
+__322(RoleBoxEventSwitch.ID, __293().m_uid);
 else
-__323(RoleBoxEventSwitch.ID, __293().m_uid, prevPlayer.m_uid);
+__322(RoleBoxEventSwitch.ID, __293().m_uid, prevPlayer.m_uid);
 }
-public void __331(string name)
+public void __330(string name)
 {
-__323(RoleBoxEventSong.ID, name);
+__322(RoleBoxEventSong.ID, name);
 }
-public void __332(Sentence sentence, int iPara)
+public void __331(Sentence sentence, int iPara)
 {
 m_sysVarChoice.m_value = sentence.m_choice ? "" : iPara.ToString();
-__323(RoleBoxEventSay.ID, sentence.m_dialog.m_uid, sentence.m_sid.ToString(), sentence.m_visited.ToString(), m_sysVarChoice.m_value);
+__322(RoleBoxEventSay.ID, sentence.m_dialog.m_uid, sentence.m_sid.ToString(), sentence.m_visited.ToString(), m_sysVarChoice.m_value);
 }
-public void __333(Sentence sentence)
+public void __332(Sentence sentence)
 {
-int onShow = sentence.m_onShow;
-__323(RoleBoxEventShow.ID, sentence.m_dialog.m_uid, sentence.m_sid.ToString());
-G.Success(onShow);
+if ( sentence.m_unlocked==false )
+{
+sentence.m_unlocked = true;
+__322(RoleBoxEventChoice.ID, sentence.m_dialog.m_uid, sentence.m_sid.ToString());
 }
-public void __334(string name, POPUPANSWER answer, string[] values)
+}
+public void __333(string name, POPUPANSWER answer, string[] values)
 {
 switch ( name )
 {
@@ -4554,7 +4518,7 @@ case "upload5":
 {
 if ( answer==POPUPANSWER.YES )
 {
-int index = G.__114(name.Substring(name.Length-1));
+int index = G.__113(name.Substring(name.Length-1));
 SavegameBehavior.m_instance.Upload(index);
 }
 break;
@@ -4572,7 +4536,7 @@ if ( answer==POPUPANSWER.YES )
 m_savegameServerUser = "";
 m_savegameServerPass = "";
 __248();
-m_menuGame.__459();
+m_menuGame.__458();
 }
 break;
 }
@@ -4705,7 +4669,7 @@ for ( int i=0 ; i<m_playingSounds.Count ; i++ )
 if ( m_playingSounds[i].__42() )
 i--;
 }
-__335();
+__334();
 m_input.__42();
 if ( MessageBox.m_instance.__38() )
 MessageBox.m_instance.__42();
@@ -4725,17 +4689,17 @@ if ( m_iScene!=-1 )
 m_scenes[m_iScene].__42();
 int repeatEventCount = 0;
 for ( int i=0 ; i<m_roles.Length ; i++ )
-repeatEventCount += m_roles[i].__502();
+repeatEventCount += m_roles[i].__501();
 if ( repeatEventCount>0 )
-__323(RoleBoxEventRepeat.ID);
+__322(RoleBoxEventRepeat.ID);
 for ( int i=0 ; i<m_roles.Length ; i++ )
 m_roles[i].__42();
 if ( m_iScene!=-1 )
-m_scenes[m_iScene].__583();
+m_scenes[m_iScene].__579();
 }
 return true;
 }
-public void __335()
+public void __334()
 {
 Scene scene = __291();
 Player player = __293();
@@ -4747,9 +4711,9 @@ m_fadeTime += m_elapsed;
 if ( m_fadeTime>=m_fadeOutDuration )
 m_fadeTime = m_fadeOutDuration;
 if ( m_fadeOutDuration!=0.0f )
-m_fadeColor = new Color(0.0f, 0.0f, 0.0f, G.__138(m_fadeTime/m_fadeOutDuration));
+m_fadeColor.a = G.__138(m_fadeTime/m_fadeOutDuration);
 else
-m_fadeColor = Color.black;
+m_fadeColor.a = 1.0f;
 if ( m_fadeTime==m_fadeOutDuration )
 {
 m_fade++;
@@ -4768,27 +4732,27 @@ if ( player.m_sceneObj )
 {
 if ( player.m_lastX!=G.INVALIDCOORD )
 {
-player.m_sceneObj.__617(player.m_lastX);
+player.m_sceneObj.__613(player.m_lastX);
 player.m_sceneObj.m_lightMeshChanged = true;
 }
 if ( player.m_lastY!=G.INVALIDCOORD )
 {
-player.m_sceneObj.__618(player.m_lastY);
+player.m_sceneObj.__614(player.m_lastY);
 player.m_sceneObj.m_lightMeshChanged = true;
 }
 }
 if ( scene )
-scene.__571(player);
+scene.__567(player);
 }
 }
 if ( m_fadeEvent==m_fade )
 {
 if ( m_fadeRoleBox )
-m_fadeRoleBox.__458(m_fadeRoleBoxToken);
+m_fadeRoleBox.__457(m_fadeRoleBoxToken);
 m_fadeRoleBox = null;
 m_fadeRoleBoxToken = 0;
 }
-m_fadeColor = Color.black;
+m_fadeColor.a = 1.0f;
 m_fade++;
 m_fadeTime = 0.0f;
 break;
@@ -4798,7 +4762,7 @@ case FADING.BLACK:
 m_fadeTime += m_elapsed;
 if ( m_fadeTime>=m_fadeWaitDuration )
 m_fadeTime = m_fadeWaitDuration;
-m_fadeColor = Color.black;
+m_fadeColor.a = 1.0f;
 if ( m_fadeTime==m_fadeWaitDuration )
 {
 m_fade++;
@@ -4812,7 +4776,7 @@ m_fadeTime += m_elapsed;
 if ( m_fadeTime>=m_fadeInDuration )
 m_fade++;
 else
-m_fadeColor = new Color(0.0f, 0.0f, 0.0f, 1.0f-G.__138(m_fadeTime/m_fadeInDuration));
+m_fadeColor.a = 1.0f - G.__138(m_fadeTime/m_fadeInDuration);
 break;
 }
 case FADING.OPENED:
@@ -4820,7 +4784,7 @@ case FADING.OPENED:
 if ( m_fadeEvent==m_fade )
 {
 if ( m_fadeRoleBox )
-m_fadeRoleBox.__458(m_fadeRoleBoxToken);
+m_fadeRoleBox.__457(m_fadeRoleBoxToken);
 m_fadeRoleBox = null;
 m_fadeRoleBoxToken = 0;
 }
@@ -4829,7 +4793,7 @@ break;
 }
 }
 }
-public void __336()
+public void __335()
 {
 RenderTexture rt = G.__168();
 if ( rt==null )
@@ -4840,8 +4804,8 @@ __43();
 if ( m_licenseWarning )
 {
 float size = Mathf.Min(G.m_rcView.width, G.m_rcView.height)*0.1f;
-Rect rc = new Rect(G.m_rcView.x, G.m_rcView.__438()-size, size, size);
-G.m_graphics.__355(m_logoMaterial, ref rc);
+Rect rc = new Rect(G.m_rcView.x, G.m_rcView.__437()-size, size, size);
+G.m_graphics.__354(m_logoMaterial, ref rc);
 }
 if ( m_alert.Length>0 )
 {
@@ -4851,12 +4815,12 @@ Vec2[] positions = new Vec2[lines.Length];
 for ( int i=0 ; i<positions.Length ; i++ )
 {
 positions[i].x = G.m_rcViewUI.x + G.HUD_MARGIN;
-positions[i].y = G.m_rcViewUI.y + G.HUD_MARGIN + i*font.__447();
+positions[i].y = G.m_rcViewUI.y + G.HUD_MARGIN + i*font.__446();
 }
 FontDrawInfo info = new FontDrawInfo(lines, positions, ref G.m_colorWhite);
-font.__71(ref info);
+font.__70(ref info);
 }
-G.m_graphics.__352();
+G.m_graphics.__351();
 }
 public void __43()
 {
@@ -4865,8 +4829,8 @@ if ( m_menuGame.__38() )
 m_menuGame.__43();
 if ( MessageBox.m_instance.__38() )
 MessageBox.m_instance.__43();
-if ( m_menuGame.__462() && m_uiCursor.cur.m_material && G.m_controller!=CONTROLLER.TOUCH )
-G.m_graphics.__355(m_uiCursor.cur.m_material, ref m_rcCursor);
+if ( m_menuGame.__461() && m_uiCursor.cur.m_material && G.m_controller!=CONTROLLER.TOUCH )
+G.m_graphics.__354(m_uiCursor.cur.m_material, ref m_rcCursor);
 return;
 }
 if ( m_interludeLock )
@@ -4882,28 +4846,35 @@ return;
 Scene scene = __291();
 if ( scene )
 scene.__43();
+else
+{
+if ( m_configDebug )
+G.__194().__492("No active scene", ref G.m_colorWhite, G.m_rcWindow.width);
+}
 if ( m_examine )
 {
 if ( m_examineColor.a!=1.0f )
 G.FillScreen(m_examineColor);
 float examineHeight = G.m_rcViewUI.height * m_examineScale;
 float examineWidth = examineHeight * m_examine.m_rcTrim.width / m_examine.m_rcTrim.height;
-Rect rcExamine = new Rect(G.m_rcViewUI.__440()-examineWidth*0.5f, G.m_rcViewUI.__441()-examineHeight*0.5f, examineWidth, examineHeight);
-G.m_graphics.__355(m_examine.m_sprite.m_material, ref rcExamine);
+Rect rcExamine = new Rect(G.m_rcViewUI.__439()-examineWidth*0.5f, G.m_rcViewUI.__440()-examineHeight*0.5f, examineWidth, examineHeight);
+G.m_graphics.__354(m_examine.m_sprite.m_material, ref rcExamine);
 }
+if ( m_brightness!=1.0f && m_brightness>=0.0f )
+G.FillScreen(new Color(0.0f, 0.0f, 0.0f, 1.0f-m_brightness));
 bool isPlayable = __253();
 m_layout.__43(isPlayable);
 Player player = __293();
 if ( player )
 player.__43();
-__337();
+__336();
 string legend = "";
 bool hasLegend = false;
 SceneLabel labelLegend = null;
 Obj objLegend = null;
 SubObj subObjLegend = null;
+SceneObj sceneObjLegend = null;
 Player playerLegend = null;
-SceneDoor doorLegend = null;
 bool isDetach = false;
 if ( m_cursor && __256()==false && m_dragObj==null )
 {
@@ -4914,14 +4885,14 @@ if ( active )
 {
 SceneEntity entity;
 SubObj sub;
-if ( scene.__426(out entity, out sub, m_cursorViewX, m_cursorViewY, m_cursorObj==null, DRAG.ANY)==false )
+if ( scene.__425(out entity, out sub, m_cursorViewX, m_cursorViewY, m_cursorObj==null, DRAG.ANY)==false )
 break;
 if ( entity==null )
 {
 if ( player )
 {
 bool empty;
-objLegend = player.__432(m_cursorViewX, m_cursorViewY, out empty);
+objLegend = player.__431(m_cursorViewX, m_cursorViewY, out empty);
 if ( objLegend )
 {
 legend = objLegend.m_title.Get();
@@ -4932,9 +4903,10 @@ break;
 }
 else
 {
-if ( entity.__606() )
+if ( entity.__602() )
 {
-objLegend = ((SceneObj)entity).m_obj;
+sceneObjLegend = (SceneObj)entity;
+objLegend = sceneObjLegend.m_obj;
 subObjLegend = sub;
 legend = subObjLegend==null ? objLegend.m_title.Get() : subObjLegend.m_title.Get();
 }
@@ -4949,7 +4921,7 @@ break;
 }
 if ( active )
 {
-playerLegend = m_layout.__427(m_cursorViewX, m_cursorViewY);
+playerLegend = m_layout.__426(m_cursorViewX, m_cursorViewY);
 if ( playerLegend && playerLegend.m_obj )
 {
 legend = playerLegend.m_obj.m_title.Get();
@@ -4957,23 +4929,10 @@ hasLegend = true;
 break;
 }
 }
-if ( m_layout.__426(LAYOUT_CTRL.DETACH, m_cursorViewX, m_cursorViewY) )
+if ( m_layout.__425(LAYOUT_CTRL.DETACH, m_cursorViewX, m_cursorViewY) )
 {
 isDetach = true;
 break;
-}
-if ( active )
-{
-bool abort = false;
-doorLegend = scene.__546(ref abort, m_cursorViewX, m_cursorViewY);
-if ( abort )
-break;
-if ( doorLegend )
-{
-legend = doorLegend.m_title.Get();
-hasLegend = true;
-break;
-}
 }
 } while ( false );
 }
@@ -4992,17 +4951,26 @@ cursorMaterial = m_uiCursor.cur.m_material;
 }
 else if ( m_dragObj )
 cursorMaterial = null;
-else if ( doorLegend )
+else if ( labelLegend )
+{
+if ( labelLegend.m_door )
 cursorMaterial = m_uiCursorDoor.cur ? m_uiCursorDoor.cur.m_material : m_uiCursor.cur.m_material;
-else if ( objLegend || labelLegend )
+else
 cursorMaterial = m_uiCursorObj.cur ? m_uiCursorObj.cur.m_material : m_uiCursor.cur.m_material;
+}
+else if ( objLegend )
+{
+if ( sceneObjLegend && sceneObjLegend.m_door )
+cursorMaterial = m_uiCursorDoor.cur ? m_uiCursorDoor.cur.m_material : m_uiCursor.cur.m_material;
+else
+cursorMaterial = m_uiCursorObj.cur ? m_uiCursorObj.cur.m_material : m_uiCursor.cur.m_material;
+}
 else
 cursorMaterial = m_uiCursor.cur.m_material;
 }
 else if ( m_cursor )
 {
 bool useAltIcon = false;
-doorLegend = null;
 if ( hasLegend==false )
 legend = Localization.m_wordUse.Get() + " \xAB\x01" + m_cursorObj.m_title.Get() + "\x01\xBB " + Localization.m_wordWith.Get();
 else if ( objLegend && objLegend!=m_cursorObj )
@@ -5027,20 +4995,24 @@ legend = Localization.m_wordDetach.Get() + " \xAB\x01" + m_cursorObj.m_title.Get
 }
 else
 legend = Localization.m_wordUse.Get() + " \xAB\x01" + m_cursorObj.m_title.Get() + "\x01\xBB " + Localization.m_wordWith.Get();
-Sprite icon = m_cursorObj.__454();
+Sprite icon = m_cursorObj.__453();
 cursorMaterial = icon.m_material;
 cursorRectangle = icon.m_rc;
 if ( useAltIcon )
-cursorRectangle.__442(ref m_timeAltIcon, ref m_iRenderAltIcon);
+cursorRectangle.__441(ref m_timeAltIcon, ref m_iRenderAltIcon);
 }
 if ( m_userCursorVisible && m_cursorVisible && cursorMaterial && m_cursorObj )
-G.m_graphics.__355(cursorMaterial, ref cursorRectangle);
-G.m_graphics.__353(FXO.SCENE_HUD);
-if ( m_layout.Get(LAYOUT_CTRL.LEGEND).__428() )
+G.m_graphics.__354(cursorMaterial, ref cursorRectangle);
+G.m_graphics.__352(FXO.SCENE_HUD);
+if ( m_layout.Get(LAYOUT_CTRL.LEGEND).__427() )
 {
 const float legendDuration = 0.4f;
 bool drawLegend = false;
-Color legendColor = doorLegend==null ? m_colorText : m_colorTextDoor;
+Color legendColor;
+if ( (labelLegend && labelLegend.m_door) || (sceneObjLegend && sceneObjLegend.m_door) )
+legendColor = m_colorTextDoor;
+else
+legendColor = m_colorText;
 if ( isPlayable==false )
 {
 m_legendTime = -1.0f;
@@ -5065,20 +5037,20 @@ if ( G.__135(G.Clamp(m_legendTime/legendDuration), 1.0f, 0.0f)==0.0f )
 m_legendTime = -1.0f;
 }
 if ( drawLegend )
-__215().__494(legend, legendColor);
+__215().__493(legend, legendColor);
 }
 if ( scene )
-scene.__589();
+scene.__585();
 m_menuDialog.__43();
-G.m_graphics.__353(FXO.SCENE_TEXT);
+G.m_graphics.__352(FXO.SCENE_TEXT);
 if ( m_timeline )
 {
 float fade = m_timeline.m_camFade;
 if ( fade!=1.0f )
 G.FillScreen(new Color(0.0f, 0.0f, 0.0f, fade));
 }
-if ( m_brightness!=1.0f )
-G.FillScreen(new Color(0.0f, 0.0f, 0.0f, 1.0f-m_brightness));
+if ( m_brightness!=-1.0f && m_brightness<=0.0f )
+G.FillScreen(new Color(0.0f, 0.0f, 0.0f, 1.0f+m_brightness));
 if ( m_fade!=FADING.NONE )
 G.FillScreen(m_fadeColor);
 for ( int i=0 ; i<G.CHANNEL_COUNT ; i++ )
@@ -5092,8 +5064,8 @@ song.m_fadeTime += m_elapsed;
 if ( song.m_fadeTime>=song.m_fadeDuration )
 song.m_fadeTime = song.m_fadeDuration;
 float scale = song.m_fadeTime/song.m_fadeDuration;
-song.m_sound.__993(song.m_fadeVolEnd*scale);
-song.m_crossfade.__993(song.m_fadeVolBeg*(1.0f-scale));
+song.m_sound.__986(song.m_fadeVolEnd*scale);
+song.m_crossfade.__986(song.m_fadeVolBeg*(1.0f-scale));
 if ( song.m_fadeTime==song.m_fadeDuration )
 {
 song.m_crossfade.Stop();
@@ -5111,7 +5083,7 @@ if ( song.m_fadeTime>=song.m_fadeDuration )
 song.m_fadeTime = song.m_fadeDuration;
 float scale = song.m_fadeTime/song.m_fadeDuration;
 float vol = song.m_fadeVolBeg + (song.m_fadeVolEnd-song.m_fadeVolBeg)*scale;
-song.m_current.__993(vol);
+song.m_current.__986(vol);
 if ( song.m_fadeTime==song.m_fadeDuration )
 {
 if ( song.m_fadeMode==1 )
@@ -5133,28 +5105,28 @@ if ( m_autoSaveIconRatio<0.1f )
 opacity = m_autoSaveIconRatio/0.1f;
 else if ( m_autoSaveIconRatio>0.9f )
 opacity = 1.0f - (m_autoSaveIconRatio-0.9f)/0.1f;
-G.m_graphics.__355(m_layout.m_spriteAutoSave.m_material, ref m_layout.Get(LAYOUT_CTRL.AUTOSAVE).m_rcView, opacity);
+G.m_graphics.__354(m_layout.m_spriteAutoSave.m_material, ref m_layout.Get(LAYOUT_CTRL.AUTOSAVE).m_rcView, opacity);
 }
 if ( MessageBox.m_instance.__38() )
 {
 MessageBox.m_instance.__43();
 if ( m_uiCursor.cur.m_material && G.m_controller!=CONTROLLER.TOUCH )
-G.m_graphics.__355(m_uiCursor.cur.m_material, ref m_rcCursor);
+G.m_graphics.__354(m_uiCursor.cur.m_material, ref m_rcCursor);
 return;
 }
 if ( __255() && m_timeline.m_skip && G.m_game.m_input.m_isDown )
-G.m_graphics.__367();
+G.m_graphics.__366();
 if ( m_userCursorVisible && m_cursorVisible && cursorMaterial && m_cursorObj==null && __255()==false )
-G.m_graphics.__355(cursorMaterial, ref cursorRectangle);
-__338();
+G.m_graphics.__354(cursorMaterial, ref cursorRectangle);
+__337();
 }
-public void __337()
+public void __336()
 {
 for ( int iTaker=0 ; iTaker<m_takers.Count ; iTaker++ )
 {
 bool toRemove = false;
 Taker taker = m_takers[iTaker];
-Sprite icon = taker.m_obj.__454();
+Sprite icon = taker.m_obj.__453();
 if ( icon.m_texture==null )
 {
 toRemove = true;
@@ -5170,7 +5142,7 @@ float y = taker.m_y + (m_layout.m_takerY-taker.m_y)*ratio;
 float width = m_cursorSize*2.0f*scale;
 float height = m_cursorSize*2.0f*scale;
 Rect rc = new Rect(x-width*0.5f, y-height*0.5f, width, height);
-G.m_graphics.__355(icon.m_material, ref rc, opacity);
+G.m_graphics.__354(icon.m_material, ref rc, opacity);
 if ( ratio==1.0f )
 toRemove = true;
 }
@@ -5196,7 +5168,7 @@ iTaker--;
 }
 }
 }
-public void __338()
+public void __337()
 {
 if ( m_input.m_hasMagnify==false )
 return;
@@ -5209,20 +5181,20 @@ rcSrc.y = G.m_game.m_cursorViewY - rcSrc.height*0.5f;
 RenderTexture rt = G.__168((int)magnify.m_rcView.width, (int)magnify.m_rcView.height);
 RenderTexture old = G.__173(rt);
 G.__172();
-G.m_graphics.__356(old, ref rcSrc);
+G.m_graphics.__355(old, ref rcSrc);
 G.__173(old);
 Rect rcTrg = magnify.m_rcView;
 G.m_materialTexture32.mainTexture = rt;
-G.m_graphics.__355(G.m_materialTexture32, ref rcTrg);
+G.m_graphics.__354(G.m_materialTexture32, ref rcTrg);
 G.m_materialTexture32.mainTexture = null;
 G.__170(rt);
 if ( G.m_game.m_layout.m_spriteMagnify )
 {
-rcTrg.__443(1.02f);
-G.m_graphics.__355(G.m_game.m_layout.m_spriteMagnify.m_material, ref rcTrg);
+rcTrg.__442(1.02f);
+G.m_graphics.__354(G.m_game.m_layout.m_spriteMagnify.m_material, ref rcTrg);
 }
 }
-/*public void __338()
+/*public void __337()
 {
 if ( G.m_game.m_input.m_hasMagnify==false )
 return;
@@ -5236,7 +5208,7 @@ rcSrc.y = G.m_game.m_cursorViewY - size*0.5f;
 RenderTexture rt = G.__168((int)texSize, (int)texSize);
 RenderTexture old = G.__173(rt);
 G.__172();
-G.m_graphics.__356(old, ref rcSrc);
+G.m_graphics.__355(old, ref rcSrc);
 G.__173(old);
 Rect rcTrg;
 rcTrg.x = 0.0f;
@@ -5244,21 +5216,21 @@ rcTrg.y = 0.0f;
 rcTrg.width = texSize;
 rcTrg.height = texSize;
 G.m_materialTexture32.mainTexture = rt;
-G.m_graphics.__355(G.m_materialTexture32, ref rcTrg);
+G.m_graphics.__354(G.m_materialTexture32, ref rcTrg);
 G.m_materialTexture32.mainTexture = null;
 G.__170(rt);
 if ( G.m_game.m_layout.m_spriteMagnify )
 {
-rcTrg.__443(1.02f);
-G.m_graphics.__355(G.m_game.m_layout.m_spriteMagnify.m_material, ref rcTrg);
+rcTrg.__442(1.02f);
+G.m_graphics.__354(G.m_game.m_layout.m_spriteMagnify.m_material, ref rcTrg);
 }
 }*/
-public void __339(bool pause)
+public void __338(bool pause)
 {
 if ( pause )
 G.__179();
 }
-public void __340()
+public void __339()
 {
 #if UNITY_STANDALONE_WIN
 if ( m_configRun )

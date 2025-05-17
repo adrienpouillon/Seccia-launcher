@@ -118,7 +118,7 @@ G.Popup("play", Localization.m_wordMenuAccountDownload.Get(), Localization.m_wor
 else
 {
 G.m_game.__47(G.SAVEGAME_INDEX_AUTO);
-G.m_game.m_menuGame.__460(MenuGame.ID_MAIN);
+G.m_game.m_menuGame.__459(MenuGame.ID_MAIN);
 }
 return;
 }
@@ -143,7 +143,7 @@ switch ( error )
 {
 case ERROR_NONE:
 {
-G.m_game.m_menuGame.__460(MenuGame.ID_ACCOUNT);
+G.m_game.m_menuGame.__459(MenuGame.ID_ACCOUNT);
 break;
 }
 case ERROR_LOGIN:
@@ -167,7 +167,7 @@ case ERROR_NONE:
 G.m_game.m_savegameServerUser = user;
 G.m_game.m_savegameServerPass = pass;
 G.m_game.__248();
-G.m_game.m_menuGame.__459();
+G.m_game.m_menuGame.__458();
 break;
 }
 case ERROR_LOGIN:
@@ -188,7 +188,7 @@ switch ( error )
 {
 case ERROR_NONE:
 {
-G.m_game.m_menuGame.__459();
+G.m_game.m_menuGame.__458();
 G.Popup("", Localization.m_wordMenuAccountCreate.Get(), Localization.m_wordMenuAccountEmailSent.Get());
 break;
 }
@@ -239,7 +239,7 @@ case ERROR_NONE:
 G.m_game.m_savegameServerUser = "";
 G.m_game.m_savegameServerPass = "";
 G.m_game.__248();
-G.m_game.m_menuGame.__459();
+G.m_game.m_menuGame.__458();
 G.Popup("", Localization.m_wordMenuAccountDelete.Get(), Localization.m_wordMenuAccountEmailSent.Get());
 break;
 }
@@ -272,7 +272,7 @@ m_busy = false;
 OnDownload(ERROR_UNKNOWN, null);
 yield break;
 }
-JsonObj json = Json.__376(Json.__373(www.downloadHandler.data));
+JsonObj json = Json.__375(Json.__372(www.downloadHandler.data));
 if ( json==null )
 {
 OnDownload(ERROR_UNKNOWN, null);
@@ -315,7 +315,7 @@ m_busy = false;
 OnUpload(ERROR_UNKNOWN);
 yield break;
 }
-JsonObj json = Json.__376(Json.__373(www.downloadHandler.data));
+JsonObj json = Json.__375(Json.__372(www.downloadHandler.data));
 if ( json==null )
 {
 m_busy = false;
@@ -347,7 +347,7 @@ m_busy = false;
 OnConnect(ERROR_UNKNOWN, user, pass);
 yield break;
 }
-JsonObj json = Json.__376(Json.__373(www.downloadHandler.data));
+JsonObj json = Json.__375(Json.__372(www.downloadHandler.data));
 if ( json==null )
 {
 m_busy = false;
@@ -382,7 +382,7 @@ m_busy = false;
 OnSignup(ERROR_UNKNOWN, user);
 yield break;
 }
-JsonObj json = Json.__376(Json.__373(www.downloadHandler.data));
+JsonObj json = Json.__375(Json.__372(www.downloadHandler.data));
 if ( json==null )
 {
 m_busy = false;
@@ -415,7 +415,7 @@ m_busy = false;
 OnResetPassword(ERROR_UNKNOWN, user);
 yield break;
 }
-JsonObj json = Json.__376(Json.__373(www.downloadHandler.data));
+JsonObj json = Json.__375(Json.__372(www.downloadHandler.data));
 if ( json==null )
 {
 m_busy = false;
@@ -448,7 +448,7 @@ m_busy = false;
 OnDeleteAccount(ERROR_UNKNOWN, user);
 yield break;
 }
-JsonObj json = Json.__376(Json.__373(www.downloadHandler.data));
+JsonObj json = Json.__375(Json.__372(www.downloadHandler.data));
 if ( json==null )
 {
 m_busy = false;

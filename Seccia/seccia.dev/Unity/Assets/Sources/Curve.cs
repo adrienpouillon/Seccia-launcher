@@ -25,10 +25,10 @@ else if ( m_count==1 )
 {
 m_x = new float[2];
 m_y = new float[2];
-m_x[0] = G.__111(asset.__16());
-m_y[0] = G.__111(asset.__16());
-m_x[1] = G.__111(asset.__16());
-m_y[1] = G.__111(asset.__16());
+m_x[0] = G.__110(asset.__16());
+m_y[0] = G.__110(asset.__16());
+m_x[1] = G.__110(asset.__16());
+m_y[1] = G.__110(asset.__16());
 }
 else
 {
@@ -40,15 +40,15 @@ m_x2 = new float[m_count];
 m_y2 = new float[m_count];
 for ( int i=0 ; i<m_count ; i++ )
 {
-m_x[i] = G.__111(asset.__16());
-m_y[i] = G.__111(asset.__16());
-m_x1[i] = G.__111(asset.__16());
-m_y1[i] = G.__111(asset.__16());
-m_x2[i] = G.__111(asset.__16());
-m_y2[i] = G.__111(asset.__16());
+m_x[i] = G.__110(asset.__16());
+m_y[i] = G.__110(asset.__16());
+m_x1[i] = G.__110(asset.__16());
+m_y1[i] = G.__110(asset.__16());
+m_x2[i] = G.__110(asset.__16());
+m_y2[i] = G.__110(asset.__16());
 }
-m_x[m_count] = G.__111(asset.__16());
-m_y[m_count] = G.__111(asset.__16());
+m_x[m_count] = G.__110(asset.__16());
+m_y[m_count] = G.__110(asset.__16());
 }
 }
 public float GetValue(float ratio)

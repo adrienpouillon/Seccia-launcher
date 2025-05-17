@@ -73,7 +73,7 @@ public static Term m_wordMenuAccountCheckboxAccount;
 public static Term m_wordMenuAccountCheckboxNewsletter;
 public static Term m_wordMenuAccountLegal1;
 public static Term m_wordMenuAccountLegal2;
-public static void __65(Asset asset)
+public static void __64(Asset asset)
 {
 if ( m_loaded )
 return;
@@ -139,7 +139,7 @@ m_wordMenuAccountCheckboxNewsletter = asset.__21();
 m_wordMenuAccountLegal1 = asset.__21();
 m_wordMenuAccountLegal2 = asset.__21();
 }
-public static float __433(int wordCount)
+public static float __432(int wordCount)
 {
 float duration = 0.0f;
 SUBTITLE mode = G.m_game.m_optionSubtitle;

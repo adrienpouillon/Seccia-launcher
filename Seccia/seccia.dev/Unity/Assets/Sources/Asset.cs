@@ -396,7 +396,7 @@ int count = __13();
 if ( count==0 )
 return null;
 Script script = new Script();
-script.__65(this, count);
+script.__64(this, count);
 return script;
 }
 public Sprite __27()

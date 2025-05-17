@@ -10,7 +10,7 @@ void Awake()
 {
 #if UNITY_WEBGL
 #else
-G.__79(Screen.width, Screen.height, Screen.fullScreen);
+G.__78(Screen.width, Screen.height, Screen.fullScreen);
 m_startTime = Time.time;
 #endif
 }
@@ -25,7 +25,7 @@ m_state++;
 }
 private void OnDestroy()
 {
-Scene.__533();
+Scene.__532();
 }
 void Update()
 {
@@ -47,7 +47,7 @@ break;
 case 3:
 {
 m_state++;
-if ( G.__90() )
+if ( G.__89() )
 {
 m_startTime = Time.time;
 m_state++;
@@ -80,11 +80,11 @@ if ( file!=null )
 if ( G.m_obbOffset>0 )
 file.Seek(G.m_obbOffset, System.IO.SeekOrigin.Begin);
 int index = 0;
-while ( G.__82(file)==0x04034B50 )
+while ( G.__81(file)==0x04034B50 )
 {
 file.Position += 18;
-uint size = G.__82(file);
-ushort len = G.__81(file);
+uint size = G.__81(file);
+ushort len = G.__80(file);
 file.Position += 2;
 string name = "";
 for ( ushort i=0 ; i<len ; i++ )
@@ -114,11 +114,11 @@ m_state++;
 void OnApplicationPause(bool pause)
 {
 if ( G.m_game )
-G.m_game.__339(pause);
+G.m_game.__338(pause);
 }
 void OnApplicationQuit()
 {
 if ( G.m_game )
-G.m_game.__340();
+G.m_game.__339();
 }
 }

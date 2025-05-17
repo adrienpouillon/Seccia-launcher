@@ -48,10 +48,10 @@ for ( int iShot=0 ; iShot<count ; iShot++ )
 {
 float time = asset.__13()/10.0f;
 TimelineShot shot = new TimelineShot();
-shot.m_shot = m_scene.__539(asset.__13());
+shot.m_shot = m_scene.__537(asset.__13());
 shot.m_start = time;
 shot.m_end = time + asset.__13()/10.0f;
-shot.m_shotNext = m_scene.__539(asset.__13());
+shot.m_shotNext = m_scene.__537(asset.__13());
 if ( shot.m_shotNext )
 {
 shot.m_cutStart = asset.__13()/10.0f;
@@ -107,18 +107,23 @@ m_isPlaying = true;
 else
 {
 m_sound.m_name = song;
-if ( m_sound.__989(1.0f, 0, startTime) )
+if ( m_sound.__982(1.0f, 0, startTime) )
 m_isWaitingAudio = true;
 }
-m_scene.__572(CAMERA.TIMELINE);
+m_scene.__568(CAMERA.TIMELINE);
 }
 public void Stop()
 {
-m_scene.__573(CAMERA.TIMELINE);
+RoleBox roleBox = m_roleBox;
+int roleToken = m_roleBoxToken;
+m_scene.__569(CAMERA.TIMELINE);
+m_scene.__570(true);
 m_sound.Stop();
 Reset();
+if ( roleBox!=null )
+roleBox.__457(roleToken);
 }
-public TimelineShot __999()
+public TimelineShot __992()
 {
 while ( m_iShot<m_shots.Length )
 {
@@ -141,7 +146,7 @@ m_iShot++;
 }
 return null;
 }
-public TimelineTitle __1000()
+public TimelineTitle __993()
 {
 while ( m_iTitle<m_titles.Length )
 {
@@ -165,23 +170,24 @@ m_isPlaying = true;
 }
 if ( m_isPlaying==false )
 return;
-if ( m_sound.m_audioSource==null || m_sound.__528()==false )
+if ( m_sound.m_audioSource==null || m_sound.__527()==false )
 m_time += G.m_game.m_elapsed;
 else
 m_time = m_sound.m_audioSource.time;
-if ( m_time>=m_duration || (m_skip && G.m_game.m_input.__368()) )
+if ( m_time>=m_duration || (m_skip && G.m_game.m_input.__367()) )
 {
-RoleBox roleBox = m_roleBox;
-int roleBoxToken = m_roleBoxToken;
+__994();
 G.m_game.__273();
-if ( roleBox )
-m_roleBox.__458(roleBoxToken);
 return;
 }
-TimelineShot shot = __999();
+TimelineShot shot = __992();
 if ( shot )
-shot.__1002(this);
-m_titleToDraw = __1000();
+shot.__996(this);
+m_titleToDraw = __993();
+__994();
+}
+public void __994()
+{
 while ( m_iScript<m_scripts.Length )
 {
 TimelineScript script = m_scripts[m_iScript];
@@ -189,17 +195,17 @@ if ( m_time<script.m_start )
 break;
 m_iScript++;
 if ( script.m_script )
-script.m_script.__690();
+script.m_script.__684();
 }
 }
-public void __1001()
+public void __995()
 {
 if ( G.m_game.m_optionSubtitle==SUBTITLE.NONE )
 return;
 if ( m_isPlaying==false )
 return;
 if ( m_titleToDraw )
-G.m_game.__215().__493(m_titleToDraw.m_text.Get(), ref G.m_colorWhite, G.m_rcViewUI.width*G.SUBTITLE_WIDTH, G.m_game.m_subtitleMargin);
+G.m_game.__215().__492(m_titleToDraw.m_text.Get(), ref G.m_colorWhite, G.m_rcViewUI.width*G.SUBTITLE_WIDTH, G.m_game.m_subtitleMargin);
 }
 }
 public class TimelineShot
@@ -213,7 +219,7 @@ public float m_cutStart;
 public float m_cutEnd;
 public Curve[] m_curves;
 public static implicit operator bool(TimelineShot inst) { return inst!=null; }
-public void __1002(Timeline timeline)
+public void __996(Timeline timeline)
 {
 if ( m_shot==null )
 {

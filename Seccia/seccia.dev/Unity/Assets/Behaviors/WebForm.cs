@@ -74,7 +74,7 @@ case 3:
 if ( m_assetGame && m_assetGraphics && m_assetSounds && m_assetConfig )
 {
 m_state++;
-G.__90();
+G.__89();
 m_state++;
 }
 break;
@@ -121,7 +121,7 @@ if ( url.Length==0 )
 G.m_webURL = Application.dataPath + "/Content/";
 else
 G.m_webURL = url;
-G.__79(Screen.width, Screen.height, false);
+G.__78(Screen.width, Screen.height, false);
 G.m_webReady = true;
 }
 IEnumerator DownloadAssetSizes()
@@ -129,16 +129,16 @@ IEnumerator DownloadAssetSizes()
 UnityWebRequest web;
 web = UnityWebRequest.Head(G.m_pathGame);
 yield return web.SendWebRequest();
-m_gameSize = G.__114(web.GetResponseHeader("Content-Length"));
+m_gameSize = G.__113(web.GetResponseHeader("Content-Length"));
 web = UnityWebRequest.Head(G.m_pathGraphics);
 yield return web.SendWebRequest();
-m_graphicsSize = G.__114(web.GetResponseHeader("Content-Length"));
+m_graphicsSize = G.__113(web.GetResponseHeader("Content-Length"));
 web = UnityWebRequest.Head(G.m_pathSounds);
 yield return web.SendWebRequest();
-m_soundsSize = G.__114(web.GetResponseHeader("Content-Length"));
+m_soundsSize = G.__113(web.GetResponseHeader("Content-Length"));
 web = UnityWebRequest.Head(G.m_pathConfig);
 yield return web.SendWebRequest();
-m_configSize = G.__114(web.GetResponseHeader("Content-Length"));
+m_configSize = G.__113(web.GetResponseHeader("Content-Length"));
 m_state++;
 }
 IEnumerator DownloadGameAsset()

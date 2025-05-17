@@ -12,11 +12,11 @@ public Vec2(float xx, float yy)
 x = xx;
 y = yy;
 }
-public float __434()
+public float __433()
 {
 return Mathf.Sqrt(x*x + y*y);
 }
-public bool __435()
+public bool __434()
 {
 float len = Mathf.Sqrt(x*x + y*y);
 if ( G.__129(len) )
@@ -25,7 +25,7 @@ x /= len;
 y /= len;
 return true;
 }
-public bool __435(float len)
+public bool __434(float len)
 {
 if ( G.__129(len) )
 return false;
@@ -33,7 +33,7 @@ x /= len;
 y /= len;
 return true;
 }
-public void __436(float s)
+public void __435(float s)
 {
 x *= s;
 y *= s;
@@ -71,7 +71,7 @@ x = xx;
 y = yy;
 z = zz;
 }
-public void __435()
+public void __434()
 {
 float len = Mathf.Sqrt(x*x + y*y + z*z);
 if ( G.__129(len) )
@@ -111,28 +111,28 @@ height = h;
 }
 public void Set(ref Obb obb)
 {
-x = obb.__444();
-y = obb.__445();
-width = obb.__437() - x;
-height = obb.__438() - y;
+x = obb.__443();
+y = obb.__444();
+width = obb.__436() - x;
+height = obb.__437() - y;
 }
-public float __437()
+public float __436()
 {
 return x + width;
 }
-public float __438()
+public float __437()
 {
 return y + height;
 }
-public Vec2 __439()
+public Vec2 __438()
 {
 return new Vec2(x+width*0.5f, y+height*0.5f);
 }
-public float __440()
+public float __439()
 {
 return x + width*0.5f;
 }
-public float __441()
+public float __440()
 {
 return y + height*0.5f;
 }
@@ -142,7 +142,7 @@ if ( xx>=x && xx<x+width && yy>=y && yy<y+height )
 return true;
 return false;
 }
-public void __442(ref float time, ref uint frame)
+public void __441(ref float time, ref uint frame)
 {
 if ( frame+1!=CameraBehavior.s_iRender )
 time = 0.0f;
@@ -157,7 +157,7 @@ height *= scale;
 x -= width*0.5f;
 y -= height*0.5f;
 }
-public void __443(float scale)
+public void __442(float scale)
 {
 float w = width;
 float h = height;
@@ -184,14 +184,14 @@ public void Set(ref Rect rc)
 {
 pts[0].x = rc.x;
 pts[0].y = rc.y;
-pts[1].x = rc.__437();
+pts[1].x = rc.__436();
 pts[1].y = rc.y;
-pts[2].x = rc.__437();
-pts[2].y = rc.__438();
+pts[2].x = rc.__436();
+pts[2].y = rc.__437();
 pts[3].x = rc.x;
-pts[3].y = rc.__438();
+pts[3].y = rc.__437();
 }
-public float __444()
+public float __443()
 {
 float val = float.MaxValue;
 for ( int i=0 ; i<4 ; i++ )
@@ -201,7 +201,7 @@ val = pts[i].x;
 }
 return val;
 }
-public float __445()
+public float __444()
 {
 float val = float.MaxValue;
 for ( int i=0 ; i<4 ; i++ )
@@ -211,7 +211,7 @@ val = pts[i].y;
 }
 return val;
 }
-public float __437()
+public float __436()
 {
 float val = -float.MaxValue;
 for ( int i=0 ; i<4 ; i++ )
@@ -221,7 +221,7 @@ val = pts[i].x;
 }
 return val;
 }
-public float __438()
+public float __437()
 {
 float val = -float.MaxValue;
 for ( int i=0 ; i<4 ; i++ )
@@ -231,11 +231,11 @@ val = pts[i].y;
 }
 return val;
 }
-public Vec2 __439()
+public Vec2 __438()
 {
 Vec2 v;
-v.x = (__444()+__437())*0.5f;
-v.y = (__445()+__438())*0.5f;
+v.x = (__443()+__436())*0.5f;
+v.y = (__444()+__437())*0.5f;
 return v;
 }
 public void Move(float x, float y)
@@ -271,7 +271,7 @@ return false;
 sign = G.__158(x, y, pts[3].x, pts[3].y, pts[0].x, pts[0].y);
 return sign>=0.0f;
 }
-public void __442(ref float time, ref uint frame, float cx, float cy)
+public void __441(ref float time, ref uint frame, float cx, float cy)
 {
 if ( frame+1!=CameraBehavior.s_iRender )
 time = 0.0f;
@@ -311,21 +311,21 @@ top = 0.0f;
 right = 0.0f;
 bottom = 0.0f;
 }
-public float __446()
+public float __445()
 {
 return left + right;
 }
-public float __447()
+public float __446()
 {
 return top + bottom;
 }
-public void __448()
+public void __447()
 {
 float tmp = left;
 left = right;
 right = tmp;
 }
-public Margin __449(float width, float height)
+public Margin __448(float width, float height)
 {
 if ( width<=0.0f || height<=0.0f )
 return Zero;

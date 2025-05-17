@@ -156,7 +156,7 @@ if ( m_iInput==index )
 return  "« " + text + " »";
 return text;
 }
-public void __468(POPUPANSWER answer)
+public void __467(POPUPANSWER answer)
 {
 m_iInput = -1;
 string name = m_name;
@@ -169,14 +169,14 @@ if ( name.Length==0 )
 if ( roleBox )
 {
 RoleBoxActionPopup popup = (RoleBoxActionPopup)roleBox;
-if ( popup.__458(roleBoxToken) )
+if ( popup.__457(roleBoxToken) )
 popup.m_answer = answer;
 }
 return;
 }
-G.m_game.__334(name, answer, values);
+G.m_game.__333(name, answer, values);
 }
-public void __458(float x, float y)
+public void __457(float x, float y)
 {
 if ( KeyboardBehavior.m_instance.IsBusy() )
 {
@@ -190,7 +190,7 @@ switch ( m_inputTypes[i] )
 {
 case FIELD.EDIT:
 {
-if ( G.__87() )
+if ( G.__86() )
 m_iInput = i;
 else
 {
@@ -215,15 +215,15 @@ switch ( m_id )
 case POPUP.DEFAULT:
 {
 if ( m_rcCross.Contains(x, y) )
-__468(POPUPANSWER.OK);
+__467(POPUPANSWER.OK);
 break;
 }
 case POPUP.QUESTION:
 {
 if ( m_rcCheck.Contains(x, y) )
-__468(POPUPANSWER.YES);
+__467(POPUPANSWER.YES);
 else if ( m_rcCross.Contains(x, y) )
-__468(POPUPANSWER.NO);
+__467(POPUPANSWER.NO);
 break;
 }
 case POPUP.EMAIL:
@@ -233,10 +233,10 @@ case POPUP.LOGIN:
 if ( m_rcCheck.Contains(x, y) )
 {
 if ( m_inputValues[0].Length>0 )
-__468(POPUPANSWER.YES);
+__467(POPUPANSWER.YES);
 }
 else if ( m_rcCross.Contains(x, y) )
-__468(POPUPANSWER.NO);
+__467(POPUPANSWER.NO);
 break;
 }
 case POPUP.SIGNUP:
@@ -244,10 +244,10 @@ case POPUP.SIGNUP:
 if ( m_rcCheck.Contains(x, y) )
 {
 if ( m_inputValues[0].Length>0 && m_inputChecks[1] )
-__468(POPUPANSWER.YES);
+__467(POPUPANSWER.YES);
 }
 else if ( m_rcCross.Contains(x, y) )
-__468(POPUPANSWER.NO);
+__467(POPUPANSWER.NO);
 break;
 }
 }
@@ -261,7 +261,7 @@ m_inputValues[param] = text;
 }
 public void __42()
 {
-if ( G.__87() )
+if ( G.__86() )
 {
 if ( m_iInput==-1 )
 return;
@@ -312,10 +312,10 @@ public void __43()
 {
 const int space = 4;
 Police font = G.m_game.__215();
-bool leftToRight = font.__490();
+bool leftToRight = font.__489();
 int maxWidth = (int)(G.m_rcViewUI.width*0.8);
-Vec2 center = G.m_rcViewUI.__439();
-m_checkboxSize = font.__492("O").y;
+Vec2 center = G.m_rcViewUI.__438();
+m_checkboxSize = font.__491("O").y;
 Color okColor = new Color(1.0f, 1.0f, 1.0f);
 Color yesColor = new Color(1.0f, 1.0f, 1.0f);
 Color noColor = new Color(1.0f, 0.0f, 0.0f);
@@ -340,7 +340,7 @@ BreakTextInfo btiMessage = new BreakTextInfo();
 G.__161(btiMessage, m_message, font, maxWidth, msgScale);
 float messageWidth = 0.0f;
 float messageHeight = 0.0f;
-for ( int i=0 ; i<btiMessage.__67() ; i++ )
+for ( int i=0 ; i<btiMessage.__66() ; i++ )
 {
 if ( btiMessage.m_paraSizes[i].x>messageWidth )
 messageWidth = btiMessage.m_paraSizes[i].x;
@@ -370,8 +370,8 @@ if ( isEdit )
 btiInputs[i].__201();
 btiInputs[i].__203(font);
 }
-m_inputRects[i] = new Rect(0.0f, 0.0f, inputWidth, inputHeight*btiInputs[i].__67());
-bodyHeight += inputHeight*btiInputs[i].__67() + space*2.0f;
+m_inputRects[i] = new Rect(0.0f, 0.0f, inputWidth, inputHeight*btiInputs[i].__66());
+bodyHeight += inputHeight*btiInputs[i].__66() + space*2.0f;
 }
 if ( inputWidth>bodyWidth )
 bodyWidth = inputWidth;
@@ -388,57 +388,57 @@ borderHeight += space*2.0f;
 }
 Rect rcBorder = new Rect(center.x-borderWidth*0.5f, center.y-borderHeight*0.5f, borderWidth, borderHeight);
 Rect rcTitle = new Rect(rcBorder.x+space, rcBorder.y+space, rcBorder.width-space*2.0f, titleHeight);
-Rect rcMessage = new Rect(rcTitle.x, rcTitle.__438(), rcTitle.width, messageHeight);
+Rect rcMessage = new Rect(rcTitle.x, rcTitle.__437(), rcTitle.width, messageHeight);
 for ( int i=0 ; i<m_inputValues.Count ; i++ )
 {
 Rect rc = m_inputRects[i];
 rc.x = center.x - inputWidth*0.5f;
 if ( i==0 )
-rc.y = m_showMessageAtTop ? rcMessage.__438() : rcTitle.__438()+space*2.0f;
+rc.y = m_showMessageAtTop ? rcMessage.__437() : rcTitle.__437()+space*2.0f;
 else
-rc.y = m_inputRects[i-1].__438() + space*2.0f;
+rc.y = m_inputRects[i-1].__437() + space*2.0f;
 m_inputRects[i] = rc;
 }
 if ( m_showMessageAtTop==false && m_inputValues.Count>0 )
-rcMessage.y = m_inputRects[m_inputValues.Count-1].__438();
-Rect rcBody = new Rect(rcTitle.x, rcTitle.__438(), bodyWidth, bodyHeight);
+rcMessage.y = m_inputRects[m_inputValues.Count-1].__437();
+Rect rcBody = new Rect(rcTitle.x, rcTitle.__437(), bodyWidth, bodyHeight);
 m_material.color = viewColor;
-G.m_graphics.__355(m_material, ref G.m_rcViewUI);
+G.m_graphics.__354(m_material, ref G.m_rcViewUI);
 m_material.color = borderColor;
-G.m_graphics.__355(m_material, ref rcBorder);
+G.m_graphics.__354(m_material, ref rcBorder);
 m_material.color = titleBackColor;
-G.m_graphics.__355(m_material, ref rcTitle);
+G.m_graphics.__354(m_material, ref rcTitle);
 m_material.color = bodyBackColor;
-G.m_graphics.__355(m_material, ref rcBody);
+G.m_graphics.__354(m_material, ref rcBody);
 for ( int i=0 ; i<m_inputValues.Count ; i++ )
 {
 m_material.color = inputBackColor;
 Rect rc = m_inputRects[i];
-G.m_graphics.__355(m_material, ref rc);
+G.m_graphics.__354(m_material, ref rc);
 }
 if ( leftToRight )
-font.__71(btiTitle.m_texts[0], center.x-btiTitle.m_lineRects[0].width*0.5f, rcTitle.y+space, ref titleTextColor);
+font.__70(btiTitle.m_texts[0], center.x-btiTitle.m_lineRects[0].width*0.5f, rcTitle.y+space, ref titleTextColor);
 else
-font.__71(btiTitle.m_texts[0], center.x+btiTitle.m_lineRects[0].width*0.5f, rcTitle.y+space, ref titleTextColor);
-for ( int i=0 ; i<btiMessage.__67() ; i++ )
+font.__70(btiTitle.m_texts[0], center.x+btiTitle.m_lineRects[0].width*0.5f, rcTitle.y+space, ref titleTextColor);
+for ( int i=0 ; i<btiMessage.__66() ; i++ )
 {
 float x = leftToRight ? center.x-btiMessage.m_lineRects[i].width*0.5f : center.x+btiMessage.m_lineRects[i].width*0.5f;
 float y = rcMessage.y + space*2.0f + btiMessage.m_lineRects[i].y;
-font.__71(btiMessage.m_texts[i], x, y, ref messageTextColor, msgScale);
+font.__70(btiMessage.m_texts[i], x, y, ref messageTextColor, msgScale);
 }
 for ( int i=0 ; i<btiInputs.Length ; i++ )
 {
 Color color = HasDefaultInputText(i) ? inputTextAltColor : inputTextColor;
 BreakTextInfo btiInput = btiInputs[i];
-for ( int j=0 ; j<btiInput.__67() ; j++ )
+for ( int j=0 ; j<btiInput.__66() ; j++ )
 {
 float x = center.x - inputWidth*0.5f + btiInput.m_lineRects[j].x;
 if ( leftToRight==false )
-x = center.x + inputWidth*0.5f - (inputWidth-btiInput.m_lineRects[j].__437());
+x = center.x + inputWidth*0.5f - (inputWidth-btiInput.m_lineRects[j].__436());
 if ( m_inputTypes[i]==FIELD.CHECKBOX )
 x += m_checkboxSize + space*2.0f;
 float y = m_inputRects[i].y + btiInput.m_lineRects[j].y;
-font.__71(btiInput.m_texts[j], x, y, ref color);
+font.__70(btiInput.m_texts[j], x, y, ref color);
 }
 }
 for ( int i=0 ; i<btiInputs.Length ; i++ )
@@ -451,15 +451,15 @@ rc.width = m_checkboxSize;
 rc.y += space;
 rc.height = m_checkboxSize;
 m_material.color = bodyBackColor;
-G.m_graphics.__355(m_material, ref rc);
+G.m_graphics.__354(m_material, ref rc);
 if ( m_inputChecks[i] )
 {
 m_materialIcon.color = inputTextColor;
 m_materialIcon.mainTexture = m_textureCheck;
-G.m_graphics.__355(m_materialIcon, ref rc);
+G.m_graphics.__354(m_materialIcon, ref rc);
 }
 }
-float iconsY = rcBody.__438() - ICONSIZE - space*2.0f;
+float iconsY = rcBody.__437() - ICONSIZE - space*2.0f;
 switch ( m_id )
 {
 case POPUP.DEFAULT:
@@ -468,7 +468,7 @@ m_rcCross.x = center.x - ICONSIZE*0.5f;
 m_rcCross.y = iconsY;
 m_materialIcon.color = okColor;
 m_materialIcon.mainTexture = m_textureCross;
-G.m_graphics.__355(m_materialIcon, ref m_rcCross);
+G.m_graphics.__354(m_materialIcon, ref m_rcCross);
 break;
 }
 case POPUP.QUESTION:
@@ -507,10 +507,10 @@ break;
 }
 m_materialIcon.color = showYes ? yesColor : disableColor;
 m_materialIcon.mainTexture = m_textureCheck;
-G.m_graphics.__355(m_materialIcon, ref m_rcCheck);
+G.m_graphics.__354(m_materialIcon, ref m_rcCheck);
 m_materialIcon.color = noColor;
 m_materialIcon.mainTexture = m_textureCross;
-G.m_graphics.__355(m_materialIcon, ref m_rcCross);
+G.m_graphics.__354(m_materialIcon, ref m_rcCross);
 break;
 }
 }

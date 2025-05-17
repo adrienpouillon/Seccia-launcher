@@ -29,7 +29,7 @@ public List<RoleBox> m_stackFrame = new List<RoleBox>();
 public RoleBox m_startRoleBox = null;
 public int m_startRoleBoxToken = 0;
 public static implicit operator bool(Role inst) { return inst!=null; }
-public void __65(Asset asset)
+public void __64(Asset asset)
 {
 m_crc32 = asset.__16();
 m_autoStart = asset.__10();
@@ -101,9 +101,9 @@ case RoleBoxConditionScene.ID:			box = new RoleBoxConditionScene();			break;
 case RoleBoxConditionSceneItem.ID:		box = new RoleBoxConditionSceneItem();		break;
 case RoleBoxConditionSequence.ID:		box = new RoleBoxConditionSequence();		break;
 case RoleBoxEventCell.ID:				box = new RoleBoxEventCell();				break;
+case RoleBoxEventChoice.ID:				box = new RoleBoxEventChoice();				break;
 case RoleBoxEventClick.ID:				box = new RoleBoxEventClick();				break;
 case RoleBoxEventDetach.ID:				box = new RoleBoxEventDetach();				break;
-case RoleBoxEventDoor.ID:				box = new RoleBoxEventDoor();				break;
 case RoleBoxEventDrag.ID:				box = new RoleBoxEventDrag();				break;
 case RoleBoxEventDrop.ID:				box = new RoleBoxEventDrop();				break;
 case RoleBoxEventEnterDialog.ID:		box = new RoleBoxEventEnterDialog();		break;
@@ -117,7 +117,6 @@ case RoleBoxEventPuzzle.ID:				box = new RoleBoxEventPuzzle();				break;
 case RoleBoxEventRepeat.ID:				box = new RoleBoxEventRepeat();				break;
 case RoleBoxEventSay.ID:				box = new RoleBoxEventSay();				break;
 case RoleBoxEventSelect.ID:				box = new RoleBoxEventSelect();				break;
-case RoleBoxEventShow.ID:				box = new RoleBoxEventShow();				break;
 case RoleBoxEventSong.ID:				box = new RoleBoxEventSong();				break;
 case RoleBoxEventSpot.ID:				box = new RoleBoxEventSpot();				break;
 case RoleBoxEventSwitch.ID:				box = new RoleBoxEventSwitch();				break;
@@ -204,9 +203,9 @@ plug.m_indexes[i] = asset.__12();
 }
 }
 }
-box.__65(asset);
+box.__64(asset);
 if ( box.m_base==RoleBox.BASE.EVENT )
-box.__503(asset);
+box.__502(asset);
 if ( box.m_base==RoleBox.BASE.TASK )
 {
 RoleBoxTask task = (RoleBoxTask)box;
@@ -223,7 +222,7 @@ for ( int j=0 ; j<m_boxes[i].m_plugs.Length ; j++ )
 RolePlug plug = m_boxes[i].m_plugs[j];
 for ( int k=0 ; k<plug.m_boxes.Length ; k++ )
 {
-RoleBox box = __497(plug.m_ids[k]);
+RoleBox box = __496(plug.m_ids[k]);
 if ( box )
 plug.m_boxes[k] = box;
 }
@@ -252,58 +251,58 @@ IDE.Post(IDE_MSG.ROLE_RESET, m_sid);
 }
 public void __46(JsonObj json)
 {
-json.__382("crc", (int)m_crc32);
-json.__383("sid", m_sid);
-json.__385("running", m_running);
-json.__382("token", m_token);
-json.__382("roleBox", m_startRoleBox==null ? 0 : m_startRoleBox.m_id);
-json.__382("roleBoxToken", m_startRoleBoxToken);
-JsonArray jBoxes = json.__390("boxes");
+json.__381("crc", (int)m_crc32);
+json.__382("sid", m_sid);
+json.__384("running", m_running);
+json.__381("token", m_token);
+json.__381("roleBox", m_startRoleBox==null ? 0 : m_startRoleBox.m_id);
+json.__381("roleBoxToken", m_startRoleBoxToken);
+JsonArray jBoxes = json.__389("boxes");
 for ( int i=0 ; i<m_boxes.Length ; i++ )
 {
-JsonObj jBox = jBoxes.__389();
+JsonObj jBox = jBoxes.__388();
 m_boxes[i].__46(jBox);
 }
-JsonArray jStack = json.__390("stack");
+JsonArray jStack = json.__389("stack");
 for ( int i=0 ; i<m_stack.Count ; i++ )
-jStack.__382(m_stack[i].m_id);
+jStack.__381(m_stack[i].m_id);
 }
 public bool __47(JsonObj json)
 {
 uint crc = (uint)json.GetInt("crc");
 if ( crc!=m_crc32 )
 return false;
-m_running = json.__401("running");
+m_running = json.__400("running");
 m_token = json.GetInt("token");
-m_startRoleBox = __497(json.GetInt("roleBox"));
+m_startRoleBox = __496(json.GetInt("roleBox"));
 m_startRoleBoxToken = json.GetInt("roleBoxToken");
-JsonArray jBoxes = json.__395("boxes");
+JsonArray jBoxes = json.__394("boxes");
 if ( jBoxes )
 {
-for ( int i=0 ; i<jBoxes.__67() ; i++ )
+for ( int i=0 ; i<jBoxes.__66() ; i++ )
 {
-JsonObj jBox = jBoxes.__394(i);
+JsonObj jBox = jBoxes.__393(i);
 if ( jBox )
 {
-RoleBox box = __497(jBox.GetInt("id"));
+RoleBox box = __496(jBox.GetInt("id"));
 if ( box )
 box.__47(jBox);
 }
 }
 }
-JsonArray jStack = json.__395("stack");
+JsonArray jStack = json.__394("stack");
 if ( jStack )
 {
-for ( int i=0 ; i<jStack.__67() ; i++ )
+for ( int i=0 ; i<jStack.__66() ; i++ )
 {
-RoleBox box = __497(jStack.GetInt(i));
+RoleBox box = __496(jStack.GetInt(i));
 if ( box )
 m_stack.Add(box);
 }
 }
 return true;
 }
-public void __496()
+public void __495()
 {
 for ( int i=0 ; i<m_stack.Count ; i++ )
 {
@@ -318,7 +317,7 @@ i--;
 }
 }
 }
-public RoleBox __497(int id)
+public RoleBox __496(int id)
 {
 if ( id!=0 )
 {
@@ -367,7 +366,7 @@ if ( m_internalLock!=LOCK.START )
 {
 m_internalLock = LOCK.STOP;
 if ( m_startRoleBox )
-m_startRoleBox.__458(m_startRoleBoxToken);
+m_startRoleBox.__457(m_startRoleBoxToken);
 }
 }
 public void __42()
@@ -379,8 +378,8 @@ if ( m_updateBox )
 #if UNITY_EDITOR
 Debug.Assert(m_stack.Contains(m_updateBox)==false);
 #endif
-m_updateBox.__504();
-__496();
+m_updateBox.__503();
+__495();
 m_updateBox.m_purge = false;
 m_stack.Add(m_updateBox);
 }
@@ -390,7 +389,7 @@ do
 m_stackFrame.Clear();
 for ( int i=0 ; i<m_stack.Count ; i++ )
 {
-__498(m_stack[i]);
+__497(m_stack[i]);
 switch ( m_internalLock )
 {
 case LOCK.STOP:
@@ -424,12 +423,12 @@ m_stack.Add(m_stackFrame[i]);
 } while ( m_stackFrame.Count>0 );
 m_internalLock = LOCK.NONE;
 }
-public void __498(RoleBox box)
+public void __497(RoleBox box)
 {
 bool started = false;
 if ( box.m_enter==false )
 {
-if ( box.__505()==false )
+if ( box.__504()==false )
 return;
 started = true;
 box.m_enter = true;
@@ -437,31 +436,41 @@ box.m_enter = true;
 if ( G.m_game.m_configRun )
 IDE.Post(IDE_MSG.ROLE_ENTER, m_sid, box.m_id);
 #endif
-box.__509();
+box.__508();
 }
 if ( box.m_exit==false )
 {
-bool finished = box.__510();
+bool finished = box.__509();
 if ( box.m_base==RoleBox.BASE.ACTION )
 {
-if ( box.__507(started, finished)!=0 )
+if ( box.__506(started, finished)!=0 )
 finished = true;
 }
 else if ( box.m_base==RoleBox.BASE.SKIP )
 {
 if ( finished==false )
-box.__507();
+box.__506();
 }
 else
-box.__507();
+box.__506();
 if ( finished==false )
 return;
-if ( box.m_plugs!=null && box.m_plugs.Length==1 )
+if ( box.m_plugs!=null )
 {
-if ( box.m_base==RoleBox.BASE.RANDOM )
-__500(box);
-else
-__499(box, 0);
+switch ( box.m_base )
+{
+case RoleBox.BASE.RANDOM:
+__499(box);
+break;
+case RoleBox.BASE.SCHEDULE:
+for ( int i=0 ; i<box.m_plugs.Length ; i++ )
+__498(box, i);
+break;
+default:
+if ( box.m_plugs.Length==1 )
+__498(box, 0);
+break;
+}
 }
 box.m_exit = true;
 #if UNITY_STANDALONE_WIN
@@ -479,7 +488,7 @@ break;
 }
 }
 }
-public int __499(RoleBox box, int iOutPlug)
+public int __498(RoleBox box, int iOutPlug)
 {
 if ( box.m_plugs==null || iOutPlug<0 || iOutPlug>=box.m_plugs.Length )
 return 0;
@@ -505,7 +514,7 @@ m_stackFrame.Add(trg);
 }
 return count;
 }
-public int __500(RoleBox box)
+public int __499(RoleBox box)
 {
 if ( box.m_plugs==null )
 return 0;
@@ -531,14 +540,14 @@ if ( m_stackFrame.IndexOf(trg)==-1 )
 m_stackFrame.Add(trg);
 return count;
 }
-public void __501(RoleBox box)
+public void __500(RoleBox box)
 {
 if ( box.m_script.m_customOuts==null || box.m_script.m_customOuts.Count==0 )
-__499(box, 0);
+__498(box, 0);
 else
 {
 for ( int i=0 ; i<box.m_script.m_customOuts.Count ; i++ )
-__499(box, box.m_script.m_customOuts[i]);
+__498(box, box.m_script.m_customOuts[i]);
 box.m_script.m_customOuts.Clear();
 }
 }
@@ -553,7 +562,7 @@ return true;
 }
 return false;
 }
-public int __502()
+public int __501()
 {
 if ( m_eventRepeatBoxes==null )
 return 0;
@@ -562,7 +571,7 @@ for ( int i=0 ; i<m_eventRepeatBoxes.Count ; i++ )
 {
 RoleBoxEventRepeat box = (RoleBoxEventRepeat)m_eventRepeatBoxes[i];
 box.m_elapsed += G.m_game.m_elapsed;
-float duration = G.__118(G.__97(ref box.m_duration));
+float duration = G.__117(G.__96(ref box.m_duration));
 if ( box.m_elapsed>=duration )
 {
 box.m_elapsed = 0.0f;
@@ -572,10 +581,9 @@ count++;
 }
 return count;
 }
-public int __323(Event evt)
+public int __322(Event evt)
 {
 #if UNITY_EDITOR
-Debug.Assert(m_stackFrame.Count==0);
 #endif
 if ( m_stackFrame.Count>0 )
 return 0;
@@ -588,14 +596,14 @@ int count = 0;
 for ( int i=0 ; i<boxes.Count ; i++ )
 {
 RoleBox box = boxes[i];
-if ( box.__506()==false )
+if ( box.__505()==false )
 continue;
-if ( box.__468(evt) )
+if ( box.__467(evt) )
 {
-box.__504();
-__496();
-int res = box.__507();
-__499(box, 0);
+box.__503();
+__495();
+int res = box.__506();
+__498(box, 0);
 count++;
 if ( evt.hasReturnValue==false && res!=0 )
 {
@@ -640,13 +648,13 @@ return false;
 #if UNITY_EDITOR
 Debug.Assert(m_stackFrame.Count==0);
 #endif
-box.__504();
-__496();
+box.__503();
+__495();
 int count = 0;
 if ( box.m_script==null )
 {
 result = false;
-__499(box, 0);
+__498(box, 0);
 count++;
 }
 else
@@ -654,12 +662,12 @@ else
 G.m_game.m_sysVarArg.m_value = value;
 G.m_game.m_sysVarRes.m_value = "";
 box.m_isCallingByTask = true;
-int res = box.m_script.__690();
+int res = box.m_script.__684();
 box.m_isCallingByTask = false;
-result = G.__113(ref G.m_game.m_sysVarRes.m_value);
+result = G.__112(ref G.m_game.m_sysVarRes.m_value);
 if ( res==0 )
 {
-__501(box);
+__500(box);
 count++;
 }
 }
@@ -722,11 +730,11 @@ public bool m_exit = false;
 public bool m_actionDone = false;
 public bool m_purge = false;
 public static implicit operator bool(RoleBox inst) { return inst!=null; }
-public virtual void __65(Asset asset)
+public virtual void __64(Asset asset)
 {
 m_script = asset.__26();
 }
-public void __503(Asset asset)
+public void __502(Asset asset)
 {
 m_consume = asset.__10();
 m_eventPlayer = asset.__18();
@@ -746,29 +754,29 @@ m_eventVariableValue = asset.__18();
 }
 public virtual void __46(JsonObj jBox)
 {
-jBox.__382("id", m_id);
-jBox.__385("enter", m_enter);
-jBox.__385("exit", m_exit);
-jBox.__385("action", m_actionDone);
+jBox.__381("id", m_id);
+jBox.__384("enter", m_enter);
+jBox.__384("exit", m_exit);
+jBox.__384("action", m_actionDone);
 if ( m_signals!=null )
 {
-JsonArray jSignals = jBox.__390("signals");
+JsonArray jSignals = jBox.__389("signals");
 for ( int i=0 ; i<m_signals.Length ; i++ )
-jSignals.__385(m_signals[i]);
+jSignals.__384(m_signals[i]);
 }
 }
 public virtual void __47(JsonObj jBox)
 {
-m_enter = jBox.__401("enter");
-m_exit = jBox.__401("exit");
-m_actionDone = jBox.__401("action");
+m_enter = jBox.__400("enter");
+m_exit = jBox.__400("exit");
+m_actionDone = jBox.__400("action");
 if ( m_signals!=null )
 {
-JsonArray signals = jBox.__395("signals");
+JsonArray signals = jBox.__394("signals");
 if ( signals!=null )
 {
-for ( int i=0 ; i<signals.__67() && i<m_signals.Length ; i++ )
-m_signals[i] = signals.__401(i);
+for ( int i=0 ; i<signals.__66() && i<m_signals.Length ; i++ )
+m_signals[i] = signals.__400(i);
 }
 }
 }
@@ -783,13 +791,13 @@ if ( m_signals!=null )
 for ( int i=0 ; i<m_signals.Length ; i++ )
 m_signals[i] = false;
 }
-__508();
+__507();
 #if UNITY_STANDALONE_WIN
 if ( single && G.m_game.m_configRun )
 IDE.Post(IDE_MSG.ROLE_RESET, m_parent.m_sid, m_id);
 #endif
 }
-public void __504()
+public void __503()
 {
 #if UNITY_EDITOR
 #endif
@@ -801,7 +809,7 @@ for ( int iPlug=0 ; iPlug<m_plugs.Length ; iPlug++ )
 {
 RolePlug plug = m_plugs[iPlug];
 for ( int iBox=0 ; iBox<plug.m_boxes.Length ; iBox++ )
-plug.m_boxes[iBox].__504();
+plug.m_boxes[iBox].__503();
 }
 }
 }
@@ -811,7 +819,7 @@ if ( m_lock && m_enter && m_exit==false )
 return true;
 return false;
 }
-public bool __505()
+public bool __504()
 {
 if ( m_base==RoleBox.BASE.OR )
 {
@@ -838,29 +846,29 @@ return false;
 return true;
 }
 }
-public bool __506()
+public bool __505()
 {
-if ( m_eventPuzzles[0]!=0 && G.m_game.m_scenario.__522(m_eventPuzzles[0])==false )
+if ( m_eventPuzzles[0]!=0 && G.m_game.m_scenario.__521(m_eventPuzzles[0])==false )
 return false;
-if ( m_eventPuzzles[1]!=0 && G.m_game.m_scenario.__524(m_eventPuzzles[1])==false )
+if ( m_eventPuzzles[1]!=0 && G.m_game.m_scenario.__523(m_eventPuzzles[1])==false )
 return false;
-if ( m_eventPuzzles[2]!=0 && G.m_game.m_scenario.__523(m_eventPuzzles[2])==false )
+if ( m_eventPuzzles[2]!=0 && G.m_game.m_scenario.__522(m_eventPuzzles[2])==false )
 return false;
-if ( m_eventSequences[0]!=0 && G.m_game.m_scenario.__525(m_eventSequences[0])==false )
+if ( m_eventSequences[0]!=0 && G.m_game.m_scenario.__524(m_eventSequences[0])==false )
 return false;
-if ( m_eventSequences[1]!=0 && G.m_game.m_scenario.__528(m_eventSequences[1])==false )
+if ( m_eventSequences[1]!=0 && G.m_game.m_scenario.__527(m_eventSequences[1])==false )
 return false;
-if ( m_eventSequences[2]!=0 && G.m_game.m_scenario.__527(m_eventSequences[2])==false )
+if ( m_eventSequences[2]!=0 && G.m_game.m_scenario.__526(m_eventSequences[2])==false )
 return false;
-if ( m_eventSequences[3]!=0 && G.m_game.m_scenario.__526(m_eventSequences[3])==false )
+if ( m_eventSequences[3]!=0 && G.m_game.m_scenario.__525(m_eventSequences[3])==false )
 return false;
 if ( m_eventVariableName.Length>0 )
 {
 Variable var = G.m_game.__286(ref m_eventVariableName);
 if ( var==null )
 return false;
-string val = G.__97(ref m_eventVariableValue);
-string cmp = G.__97(ref m_eventVariableCompare);
+string val = G.__96(ref m_eventVariableValue);
+string cmp = G.__96(ref m_eventVariableCompare);
 switch ( cmp )
 {
 case "!=":
@@ -868,19 +876,19 @@ if ( var.m_value==val )
 return false;
 break;
 case "<":
-if ( !(G.__114(ref var.m_value)<G.__114(ref val)) )
+if ( !(G.__113(ref var.m_value)<G.__113(ref val)) )
 return false;
 break;
 case "<=":
-if ( !(G.__114(ref var.m_value)<=G.__114(ref val)) )
+if ( !(G.__113(ref var.m_value)<=G.__113(ref val)) )
 return false;
 break;
 case ">":
-if ( !(G.__114(ref var.m_value)>G.__114(ref val)) )
+if ( !(G.__113(ref var.m_value)>G.__113(ref val)) )
 return false;
 break;
 case ">=":
-if ( !(G.__114(ref var.m_value)>=G.__114(ref val)) )
+if ( !(G.__113(ref var.m_value)>=G.__113(ref val)) )
 return false;
 break;
 default:
@@ -889,15 +897,15 @@ return false;
 break;
 }
 }
-string scene = G.__97(ref m_eventScene);
+string scene = G.__96(ref m_eventScene);
 if ( scene.Length>0 && G.m_game.__316(ref scene)==false )
 return false;
-string player = G.__97(ref m_eventPlayer);
+string player = G.__96(ref m_eventPlayer);
 if ( player.Length>0 && G.m_game.__318(ref player)==false )
 return false;
 return true;
 }
-public int __507(bool enter = false, bool exit = false)
+public int __506(bool enter = false, bool exit = false)
 {
 if ( m_script==null )
 return 0;
@@ -907,34 +915,34 @@ case RoleBoxScript.ID:
 case RoleBoxConditionCall.ID:
 return 0;
 }
-return m_script.__690(enter, exit);
+return m_script.__684(enter, exit);
+}
+public virtual void __507()
+{
 }
 public virtual void __508()
 {
 }
-public virtual void __509()
-{
-}
-public virtual bool __510()
+public virtual bool __509()
 {
 return true;
 }
-public bool __458(int token)
+public bool __457(int token)
 {
 if ( m_parent.m_running && m_parent.m_token==token && m_enter && m_exit==false && m_actionDone==false )
 {
-if ( __511()==false )
+if ( __510()==false )
 return false;
 m_actionDone = true;
 return true;
 }
 return false;
 }
-public virtual bool __511()
+public virtual bool __510()
 {
 return true;
 }
-public virtual bool __468(Event evt)
+public virtual bool __467(Event evt)
 {
 return false;
 }
@@ -950,16 +958,16 @@ public class RoleBoxTask : RoleBox
 public const int ID = 0x108;
 public string m_name;
 public bool m_isCallingByTask;
-public override void __65(Asset asset)
+public override void __64(Asset asset)
 {
-base.__65(asset);
+base.__64(asset);
 m_name = asset.__18();
 }
-public override void __508()
+public override void __507()
 {
 m_isCallingByTask = false;
 }
-public override bool __510()
+public override bool __509()
 {
 return true;
 }
@@ -968,25 +976,25 @@ public class RoleBoxNext : RoleBox
 {
 public const int ID = 0x109;
 public bool m_called;
-public override void __65(Asset asset)
+public override void __64(Asset asset)
 {
-base.__65(asset);
+base.__64(asset);
 }
 public override void __46(JsonObj jBox)
 {
 base.__46(jBox);
-jBox.__385("called", m_called);
+jBox.__384("called", m_called);
 }
 public override void __47(JsonObj jBox)
 {
 base.__47(jBox);
-m_called = jBox.__401("called");
+m_called = jBox.__400("called");
 }
-public override void __508()
+public override void __507()
 {
 m_called = false;
 }
-public override bool __510()
+public override bool __509()
 {
 if ( m_called==false )
 {
@@ -999,24 +1007,24 @@ return true;
 public class RoleBoxScript : RoleBox
 {
 public const int ID = 0x201;
-public override void __65(Asset asset)
+public override void __64(Asset asset)
 {
-base.__65(asset);
+base.__64(asset);
 }
-public override void __509()
+public override void __508()
 {
 }
-public override bool __510()
+public override bool __509()
 {
 if ( m_script==null )
 {
-m_parent.__499(this, 0);
+m_parent.__498(this, 0);
 return true;
 }
-int res = m_script.__690();
+int res = m_script.__684();
 if ( res!=0 )
 return false;
-m_parent.__501(this);
+m_parent.__500(this);
 return true;
 }
 }
@@ -1030,9 +1038,9 @@ string m_dir;
 string m_reverse;
 string m_startFrame;
 string m_actionFrame;
-public override void __65(Asset asset)
+public override void __64(Asset asset)
 {
-base.__65(asset);
+base.__64(asset);
 m_scene = asset.__18();
 m_obj = asset.__18();
 m_anim = asset.__18();
@@ -1041,7 +1049,7 @@ m_reverse = asset.__18();
 m_startFrame = asset.__18();
 m_actionFrame = asset.__18();
 }
-public override void __509()
+public override void __508()
 {
 Scene scene = G.m_game.__276(ref m_scene);
 if ( scene==null )
@@ -1049,32 +1057,32 @@ if ( scene==null )
 m_actionDone = true;
 return;
 }
-string obj = G.__97(ref m_obj);
+string obj = G.__96(ref m_obj);
 SceneObj sceneObj = scene.__277(obj);
 if ( sceneObj==null )
 {
 m_actionDone = true;
 return;
 }
-string anim = G.__97(ref m_anim);
+string anim = G.__96(ref m_anim);
 if ( anim.Length>0 )
-sceneObj.__632(ref anim);
-string dir = G.__97(ref m_dir);
+sceneObj.__626(ref anim);
+string dir = G.__96(ref m_dir);
 if ( dir.Length>0 )
-sceneObj.m_anim.__678(G.__151(ref dir));
-string reverse = G.__97(ref m_reverse);
+sceneObj.m_anim.__672(G.__151(ref dir));
+string reverse = G.__96(ref m_reverse);
 if ( reverse.Length>0 )
-sceneObj.m_anim.__676(G.__113(ref reverse));
-string startFrame = G.__97(ref m_startFrame);
+sceneObj.m_anim.__670(G.__112(ref reverse));
+string startFrame = G.__96(ref m_startFrame);
 if ( startFrame.Length>0 )
-sceneObj.m_anim.__677(G.__114(ref startFrame));
-string actionFrame = G.__97(ref m_actionFrame);
+sceneObj.m_anim.__671(G.__113(ref startFrame));
+string actionFrame = G.__96(ref m_actionFrame);
 if ( actionFrame.Length>0 )
-sceneObj.m_anim.notif.actionFrame = G.__114(ref actionFrame);
+sceneObj.m_anim.notif.actionFrame = G.__113(ref actionFrame);
 sceneObj.m_anim.notif.roleBox = this;
 sceneObj.m_anim.notif.roleBoxToken = m_parent.m_token;
 }
-public override bool __510()
+public override bool __509()
 {
 return m_actionDone;
 }
@@ -1096,11 +1104,12 @@ string m_dy;
 string m_axis;
 string m_fadeout;
 string m_fadein;
+string m_fadeColor;
 string m_duration;
 string m_endless;
-public override void __65(Asset asset)
+public override void __64(Asset asset)
 {
-base.__65(asset);
+base.__64(asset);
 m_scene = asset.__18();
 m_shot = asset.__18();
 m_obj = asset.__18();
@@ -1115,12 +1124,13 @@ m_dy = asset.__18();
 m_axis = asset.__18();
 m_fadeout = asset.__18();
 m_fadein = asset.__18();
+m_fadeColor = asset.__18();
 m_duration = asset.__18();
 m_endless = asset.__18();
 }
-public override void __509()
+public override void __508()
 {
-string scene = G.__97(ref m_scene);
+string scene = G.__96(ref m_scene);
 Scene currentScene = G.m_game.__291();
 SceneObj playerSceneObj = G.m_game.__295();
 if ( currentScene==null || playerSceneObj==null || (scene.Length>0 && currentScene.__48(ref scene)==false) )
@@ -1131,60 +1141,60 @@ return;
 float renderX = currentScene.m_renderOrgX;
 float renderY = currentScene.m_renderOrgY;
 float renderScale = currentScene.m_renderScale;
-float duration = G.__118(G.__97(ref m_duration));
+float duration = G.__117(G.__96(ref m_duration));
 bool immediate = duration==0.0f;
-bool endless = G.__113(G.__97(ref m_endless));
-string axis = G.__97(ref m_axis);
+bool endless = G.__112(G.__96(ref m_endless));
+string axis = G.__96(ref m_axis);
 bool horz = axis.Length==0 || G.__148(ref axis, "HORZ");
 bool vert = axis.Length==0 || G.__148(ref axis, "VERT");
-float dx = (float)G.__114(G.__97(ref m_dx));
-float dy = (float)G.__114(G.__97(ref m_dy));
+float dx = (float)G.__113(G.__96(ref m_dx));
+float dy = (float)G.__113(G.__96(ref m_dy));
 Cam camManual = null;
 Cam camTrack = null;
 if ( endless )
-camManual = currentScene.__572(CAMERA.MANUAL);
+camManual = currentScene.__568(CAMERA.MANUAL);
 else
-currentScene.__573(CAMERA.MANUAL);
+currentScene.__569(CAMERA.MANUAL);
 if ( immediate )
-currentScene.__573(CAMERA.TRACK);
+currentScene.__569(CAMERA.TRACK);
 else
-camTrack = currentScene.__572(CAMERA.TRACK);
+camTrack = currentScene.__568(CAMERA.TRACK);
 float fromX = renderX;
 float fromY = renderY;
 float fromScale = renderScale;
 if ( immediate==false )
 {
-fromScale = G.__121(G.__97(ref m_zoom));
-SceneShot fromShot = currentScene.__539(G.__97(ref m_shot));
+fromScale = G.__121(G.__96(ref m_zoom));
+SceneShot fromShot = currentScene.__537(G.__96(ref m_shot));
 if ( fromShot )
 {
 fromScale = fromShot.m_scale;
 if ( horz )
-fromX = currentScene.__557(fromShot.m_x+dx, fromScale);
+fromX = currentScene.__554(fromShot.m_x+dx, fromScale);
 if ( vert )
-fromY = currentScene.__558(fromShot.m_y+dy, fromScale);
+fromY = currentScene.__555(fromShot.m_y+dy, fromScale);
 }
 else
 {
-SceneObj fromObj = currentScene.__277(G.__97(ref m_obj));
+SceneObj fromObj = currentScene.__277(G.__96(ref m_obj));
 if ( fromObj )
 {
 if ( fromScale==0.0f )
 fromScale = fromObj.__34();
-SceneCell fromCell = fromObj.__637(G.__97(ref m_cell));
+SceneCell fromCell = fromObj.__631(G.__96(ref m_cell));
 if ( fromCell )
 {
 if ( horz )
-fromX = currentScene.__557(fromCell.__35(), fromScale);
+fromX = currentScene.__554(fromCell.__35(), fromScale);
 if ( vert )
-fromY = currentScene.__558(fromCell.__36(), fromScale);
+fromY = currentScene.__555(fromCell.__36(), fromScale);
 }
 else
 {
 if ( horz )
-fromX = currentScene.__557(fromObj.__35(), fromScale);
+fromX = currentScene.__554(fromObj.__35(), fromScale);
 if ( vert )
-fromY = currentScene.__558(fromObj.__36(), fromScale);
+fromY = currentScene.__555(fromObj.__36(), fromScale);
 }
 }
 else
@@ -1196,46 +1206,46 @@ fromScale = renderScale;
 }
 if ( endless==false )
 {
-renderScale = playerSceneObj.__628();
-renderX = currentScene.__557(playerSceneObj.__35(), renderScale);
-renderY = currentScene.__558(playerSceneObj.__36(), renderScale);
+renderScale = playerSceneObj.__622();
+renderX = currentScene.__554(playerSceneObj.__35(), renderScale);
+renderY = currentScene.__555(playerSceneObj.__36(), renderScale);
 }
 float toX = renderX;
 float toY = renderY;
 float toScale = renderScale;
 if ( immediate==false || endless )
 {
-toScale = G.__121(G.__97(ref m_zoom2));
-SceneShot toShot = currentScene.__539(G.__97(ref m_shot2));
+toScale = G.__121(G.__96(ref m_zoom2));
+SceneShot toShot = currentScene.__537(G.__96(ref m_shot2));
 if ( toShot )
 {
 toScale = toShot.m_scale;
 if ( horz )
-toX = currentScene.__557(toShot.m_x+dx, toScale);
+toX = currentScene.__554(toShot.m_x+dx, toScale);
 if ( vert )
-toY = currentScene.__558(toShot.m_y+dy, toScale);
+toY = currentScene.__555(toShot.m_y+dy, toScale);
 }
 else
 {
-SceneObj toObj = currentScene.__277(G.__97(ref m_obj2));
+SceneObj toObj = currentScene.__277(G.__96(ref m_obj2));
 if ( toObj )
 {
 if ( toScale==0.0f )
 toScale = toObj.__34();
-SceneCell toCell = toObj.__637(G.__97(ref m_cell2));
+SceneCell toCell = toObj.__631(G.__96(ref m_cell2));
 if ( toCell )
 {
 if ( horz )
-toX = currentScene.__557(toCell.__35()+dx, toScale);
+toX = currentScene.__554(toCell.__35()+dx, toScale);
 if ( vert )
-toY = currentScene.__558(toCell.__36()+dy, toScale);
+toY = currentScene.__555(toCell.__36()+dy, toScale);
 }
 else
 {
 if ( horz )
-toX = currentScene.__557(toObj.__35()+dx, toScale);
+toX = currentScene.__554(toObj.__35()+dx, toScale);
 if ( vert )
-toY = currentScene.__558(toObj.__36()+dy, toScale);
+toY = currentScene.__555(toObj.__36()+dy, toScale);
 }
 }
 else
@@ -1243,9 +1253,9 @@ else
 if ( toScale==0.0f )
 toScale = renderScale;
 if ( horz && dx!=0.0f )
-toX += currentScene.__557(dx, toScale) - renderX;
+toX += currentScene.__554(dx, toScale) - renderX;
 if ( vert && dy!=0.0f )
-toY += currentScene.__558(dy, toScale) - renderY;
+toY += currentScene.__555(dy, toScale) - renderY;
 }
 }
 }
@@ -1269,38 +1279,41 @@ camTrack.m_toScale = toScale;
 camTrack.m_duration = duration;
 camTrack.m_roleBox = this;
 camTrack.m_roleBoxToken = m_parent.m_token;
-bool fadeout = G.__113(G.__97(ref m_fadeout));
-bool fadein = G.__113(G.__97(ref m_fadein));
+bool fadeout = G.__112(G.__96(ref m_fadeout));
+bool fadein = G.__112(G.__96(ref m_fadein));
 if ( fadeout || fadein )
 {
+Color fadeColor = G.__122(G.__96(ref m_fadeColor));
 G.m_game.__300();
 G.m_game.m_fadeRoleBox = this;
 G.m_game.m_fadeRoleBoxToken = m_parent.m_token;
+G.m_game.m_fadeColor = fadeColor;
 if ( fadeout && fadein )
 {
 float fadeDuration = G.__133(duration-0.1f) * 0.5f;
 G.m_game.m_fadeOutDuration = fadeDuration;
 G.m_game.m_fadeWaitDuration = 0.1f;
 G.m_game.m_fadeInDuration = fadeDuration;
-G.m_game.m_fadeColor = new Color(0.0f, 0.0f, 0.0f, 0.0f);
+G.m_game.m_fadeColor.a = 0.0f;
 G.m_game.m_fadeEvent = FADING.OPENED;
 G.m_game.m_fade = FADING.CLOSING;
 }
 else if ( fadeout )
 {
 G.m_game.m_fadeOutDuration = duration;
-G.m_game.m_fadeColor = new Color(0.0f, 0.0f, 0.0f, 0.0f);
+G.m_game.m_fadeColor.a = 0.0f;
 G.m_game.m_fade = FADING.CLOSING;
 }
 else
 {
 G.m_game.m_fadeInDuration = duration;
 G.m_game.m_fadeEvent = FADING.OPENED;
+G.m_game.m_fadeColor.a = 1.0f;
 G.m_game.m_fade = FADING.BLACK;
 }
 }
 }
-public override bool __510()
+public override bool __509()
 {
 return m_actionDone;
 }
@@ -1309,18 +1322,18 @@ public class RoleBoxActionCinematic : RoleBox
 {
 public const int ID = 0x302;
 string m_cinematic;
-public override void __65(Asset asset)
+public override void __64(Asset asset)
 {
-base.__65(asset);
+base.__64(asset);
 m_cinematic = asset.__18();
 }
-public override void __509()
+public override void __508()
 {
-string cinematic = G.__97(ref m_cinematic);
+string cinematic = G.__96(ref m_cinematic);
 if ( G.m_game.m_cinematicPlayer.__39(cinematic, this)==false )
 m_actionDone = true;
 }
-public override bool __510()
+public override bool __509()
 {
 return m_actionDone;
 }
@@ -1331,16 +1344,16 @@ public const int ID = 0x303;
 string m_duration;
 float m_enterDuration;
 float m_enterTime;
-public override void __65(Asset asset)
+public override void __64(Asset asset)
 {
-base.__65(asset);
+base.__64(asset);
 m_duration = asset.__18();
 }
 public override void __46(JsonObj jBox)
 {
 base.__46(jBox);
-jBox.__384("duration", m_enterDuration);
-jBox.__384("time", m_enterTime);
+jBox.__383("duration", m_enterDuration);
+jBox.__383("time", m_enterTime);
 }
 public override void __47(JsonObj jBox)
 {
@@ -1348,17 +1361,17 @@ base.__47(jBox);
 m_enterDuration = jBox.GetFloat("duration");
 m_enterTime = jBox.GetFloat("time");
 }
-public override void __508()
+public override void __507()
 {
 m_enterDuration = 0.0f;
 m_enterTime = 0.0f;
 }
-public override void __509()
+public override void __508()
 {
-m_enterDuration = G.__118(G.__97(ref m_duration));
+m_enterDuration = G.__117(G.__96(ref m_duration));
 m_enterTime = G.m_game.m_time;
 }
-public override bool __510()
+public override bool __509()
 {
 if ( G.m_game.m_time-m_enterTime>m_enterDuration )
 return true;
@@ -1373,26 +1386,26 @@ string m_anim;
 string m_dir;
 string m_scale;
 string m_opacity;
-public override void __65(Asset asset)
+public override void __64(Asset asset)
 {
-base.__65(asset);
+base.__64(asset);
 m_obj = asset.__18();
 m_anim = asset.__18();
 m_dir = asset.__18();
 m_scale = asset.__18();
 m_opacity = asset.__18();
 }
-public override void __509()
+public override void __508()
 {
-string obj = G.__97(ref m_obj);
-string anim = G.__97(ref m_anim);
-int dir = G.__151(G.__97(ref m_dir));
-float scale = G.__119(G.__97(ref m_scale));
-float opacity = G.__119(G.__97(ref m_opacity));
+string obj = G.__96(ref m_obj);
+string anim = G.__96(ref m_anim);
+int dir = G.__151(G.__96(ref m_dir));
+float scale = G.__118(G.__96(ref m_scale));
+float opacity = G.__118(G.__96(ref m_opacity));
 if ( G.m_game.Examine(this, obj, anim, dir, scale, opacity)==false )
 m_actionDone = true;
 }
-public override bool __510()
+public override bool __509()
 {
 return m_actionDone;
 }
@@ -1422,9 +1435,9 @@ float m_runTime;
 bool m_runPausing;
 int m_runLoopIndex;
 bool m_runLoopReverse;
-public override void __65(Asset asset)
+public override void __64(Asset asset)
 {
-base.__65(asset);
+base.__64(asset);
 m_duration = asset.__18();
 m_min = asset.__18();
 m_max = asset.__18();
@@ -1435,17 +1448,17 @@ m_easeIn = asset.__18();
 m_easeOut = asset.__18();
 m_variable = asset.__18();
 }
-public override void __509()
+public override void __508()
 {
-m_runDuration = G.__118(G.__97(ref m_duration));
-m_runMin = G.__114(G.__97(ref m_min));
-m_runMax = G.__114(G.__97(ref m_max));
-m_runLoop = G.__114(G.__97(ref m_loop));
-m_runPause = G.__118(G.__97(ref m_pause));
-m_runReverse = G.__113(G.__97(ref m_reverse));
-m_runEaseIn = G.__113(G.__97(ref m_easeIn));
-m_runEaseOut = G.__113(G.__97(ref m_easeOut));
-m_runVariable = G.m_game.__288(G.__97(ref m_variable));
+m_runDuration = G.__117(G.__96(ref m_duration));
+m_runMin = G.__113(G.__96(ref m_min));
+m_runMax = G.__113(G.__96(ref m_max));
+m_runLoop = G.__113(G.__96(ref m_loop));
+m_runPause = G.__117(G.__96(ref m_pause));
+m_runReverse = G.__112(G.__96(ref m_reverse));
+m_runEaseIn = G.__112(G.__96(ref m_easeIn));
+m_runEaseOut = G.__112(G.__96(ref m_easeOut));
+m_runVariable = G.m_game.__288(G.__96(ref m_variable));
 m_runTime = 0.0f;
 m_runPausing = false;
 m_runLoopIndex = 0;
@@ -1462,7 +1475,7 @@ if ( m_runVariable )
 m_runVariable.m_value = m_runMin.ToString();
 }
 }
-public override bool __510()
+public override bool __509()
 {
 m_runTime += G.m_game.m_elapsed;
 bool nextLoop = false;
@@ -1530,24 +1543,27 @@ string m_scene;
 string m_durationOut;
 string m_durationWait;
 string m_durationIn;
-public override void __65(Asset asset)
+string m_color;
+public override void __64(Asset asset)
 {
-base.__65(asset);
+base.__64(asset);
 m_scene = asset.__18();
 m_durationOut = asset.__18();
 m_durationWait = asset.__18();
 m_durationIn = asset.__18();
+m_color = asset.__18();
 }
-public override void __509()
+public override void __508()
 {
-string scene = G.__97(ref m_scene);
-float durationOut = G.__118(G.__97(ref m_durationOut));
-float durationWait = G.__118(G.__97(ref m_durationWait));
-float durationIn = G.__118(G.__97(ref m_durationIn));
-if ( G.m_game.Jump(this, scene, durationOut, durationWait, durationIn)==false )
+string scene = G.__96(ref m_scene);
+float durationOut = G.__117(G.__96(ref m_durationOut));
+float durationWait = G.__117(G.__96(ref m_durationWait));
+float durationIn = G.__117(G.__96(ref m_durationIn));
+Color color = G.__122(G.__96(ref m_color));
+if ( G.m_game.Jump(this, scene, color, durationOut, durationWait, durationIn)==false )
 m_actionDone = true;
 }
-public override bool __510()
+public override bool __509()
 {
 return m_actionDone;
 }
@@ -1564,9 +1580,9 @@ string m_angle;
 string m_dir;
 string m_dist;
 string m_attn;
-public override void __65(Asset asset)
+public override void __64(Asset asset)
 {
-base.__65(asset);
+base.__64(asset);
 m_scene = asset.__18();
 m_obj = asset.__18();
 m_visible = asset.__18();
@@ -1577,7 +1593,7 @@ m_dir = asset.__18();
 m_dist = asset.__18();
 m_attn = asset.__18();
 }
-public override void __509()
+public override void __508()
 {
 Scene scene = G.m_game.__276(ref m_scene);
 if ( scene==null )
@@ -1585,39 +1601,39 @@ if ( scene==null )
 m_actionDone = true;
 return;
 }
-string obj = G.__97(ref m_obj);
+string obj = G.__96(ref m_obj);
 SceneObj sceneObj = scene.__277(obj);
 if ( sceneObj==null )
 {
 m_actionDone = true;
 return;
 }
-string visible = G.__97(ref m_visible);
+string visible = G.__96(ref m_visible);
 if ( visible.Length>0 )
-sceneObj.m_lightVisible.Set(G.__113(visible));
-string ambient = G.__97(ref m_ambient);
+sceneObj.m_lightVisible.Set(G.__112(visible));
+string ambient = G.__96(ref m_ambient);
 if ( ambient.Length>0 )
-sceneObj.m_lightAmbient.Set(G.__116(ambient));
-string diffuse = G.__97(ref m_diffuse);
+sceneObj.m_lightAmbient.Set(G.__115(ambient));
+string diffuse = G.__96(ref m_diffuse);
 if ( diffuse.Length>0 )
 sceneObj.m_lightDiffuse.Set(G.__123(m_diffuse));
-string angle = G.__97(ref m_angle);
+string angle = G.__96(ref m_angle);
 if ( angle.Length>0 )
-sceneObj.m_lightAngle.Set(G.__114(ref angle) * G.DEG_TO_RAD);
-string dir = G.__97(ref m_dir);
+sceneObj.m_lightAngle.Set(G.__113(ref angle) * G.DEG_TO_RAD);
+string dir = G.__96(ref m_dir);
 if ( dir.Length>0 )
-sceneObj.m_lightDir.Set(G.__142(G.__114(ref dir)));
-string dist = G.__97(ref m_dist);
+sceneObj.m_lightDir.Set(G.__142(G.__113(ref dir)));
+string dist = G.__96(ref m_dist);
 if ( dist.Length>0 )
-sceneObj.m_lightDist.Set((float)G.__114(ref dist));
-string attn = G.__97(ref m_attn);
+sceneObj.m_lightDist.Set((float)G.__113(ref dist));
+string attn = G.__96(ref m_attn);
 if ( attn.Length>0 )
-sceneObj.m_lightAttn.Set(G.__114(ref attn)/100.0f);
+sceneObj.m_lightAttn.Set(G.__113(ref attn)/100.0f);
 sceneObj.m_lightMeshChanged = true;
-scene.__565();
+scene.__561();
 m_actionDone = true;
 }
-public override bool __510()
+public override bool __509()
 {
 return m_actionDone;
 }
@@ -1630,45 +1646,45 @@ string m_obj;
 string m_path;
 string m_spot;
 string m_loop;
-public override void __65(Asset asset)
+public override void __64(Asset asset)
 {
-base.__65(asset);
+base.__64(asset);
 m_scene = asset.__18();
 m_obj = asset.__18();
 m_path = asset.__18();
 m_spot = asset.__18();
 m_loop = asset.__18();
 }
-public override void __509()
+public override void __508()
 {
 Scene currentScene = G.m_game.__291();
-string scene = G.__97(ref m_scene);
+string scene = G.__96(ref m_scene);
 if ( currentScene==null || (scene.Length>0 && currentScene.__48(ref scene)==false) )
 {
 m_actionDone = true;
 return;
 }
-string obj = G.__97(ref m_obj);
+string obj = G.__96(ref m_obj);
 SceneObj sceneObj = currentScene.__277(obj);
 if ( sceneObj==null )
 {
 m_actionDone = true;
 return;
 }
-int path = G.__114(G.__97(ref m_path));
-string spot = G.__97(ref m_spot);
-string loop = G.__97(ref m_loop);
+int path = G.__113(G.__96(ref m_path));
+string spot = G.__96(ref m_spot);
+string loop = G.__96(ref m_loop);
 int iloop = -1;
 if ( loop.Length>0 )
 {
-iloop = G.__114(ref loop);
+iloop = G.__113(ref loop);
 if ( iloop<0 )
 iloop = -2;
 }
-if ( sceneObj.__652(path, spot, iloop, this)==false )
+if ( sceneObj.__646(path, spot, iloop, this)==false )
 m_actionDone = true;
 }
-public override bool __510()
+public override bool __509()
 {
 return m_actionDone;
 }
@@ -1682,9 +1698,9 @@ string m_obj;
 string m_switch;
 string m_empty;
 string m_transfer;
-public override void __65(Asset asset)
+public override void __64(Asset asset)
 {
-base.__65(asset);
+base.__64(asset);
 m_player = asset.__18();
 m_scene = asset.__18();
 m_obj = asset.__18();
@@ -1692,37 +1708,37 @@ m_switch = asset.__18();
 m_empty = asset.__18();
 m_transfer = asset.__18();
 }
-public override void __509()
+public override void __508()
 {
-Player player = G.m_game.__279(G.__97(ref m_player));
+Player player = G.m_game.__279(G.__96(ref m_player));
 if ( player==null )
 {
 m_actionDone = true;
 return;
 }
-if ( G.__113(G.__97(ref m_empty)) )
-player.__482();
+if ( G.__112(G.__96(ref m_empty)) )
+player.__481();
 else
 {
-string transfer = G.__97(ref m_transfer);
+string transfer = G.__96(ref m_transfer);
 if ( transfer.Length>0 )
 {
 Player playerTrg = G.m_game.__279(transfer);
 if ( playerTrg )
-player.__483(playerTrg);
+player.__482(playerTrg);
 }
 }
-string scene = G.__97(ref m_scene);
+string scene = G.__96(ref m_scene);
 if ( scene.Length>0 )
-player.__477(scene);
-string obj = G.__97(ref m_obj);
+player.__476(scene);
+string obj = G.__96(ref m_obj);
 if ( obj.Length>0 )
 G.m_game.__305(player.m_uid, obj);
-if ( G.__113(G.__97(ref m_switch)) )
+if ( G.__112(G.__96(ref m_switch)) )
 G.m_game.__304(player.m_uid);
 m_actionDone = true;
 }
-public override bool __510()
+public override bool __509()
 {
 return m_actionDone;
 }
@@ -1734,27 +1750,27 @@ string m_title;
 string m_message;
 string m_style;
 public POPUPANSWER m_answer;
-public override void __65(Asset asset)
+public override void __64(Asset asset)
 {
-base.__65(asset);
+base.__64(asset);
 m_title = asset.__18();
 m_message = asset.__18();
 m_style = asset.__18();
 }
-public override void __509()
+public override void __508()
 {
 m_answer = POPUPANSWER.OK;
-string title = G.__97(ref m_title);
-string message = G.__97(ref m_message);
-string style = G.__97(ref m_style);
+string title = G.__96(ref m_title);
+string message = G.__96(ref m_message);
+string style = G.__96(ref m_style);
 POPUP id = G.__148(ref style, "QUESTION") ? POPUP.QUESTION : POPUP.DEFAULT;
 G.Popup("", title, message, null, id, true, this);
 }
-public override bool __510()
+public override bool __509()
 {
 if ( m_actionDone==false )
 return false;
-m_parent.__499(this, (int)m_answer);
+m_parent.__498(this, (int)m_answer);
 return true;
 }
 }
@@ -1762,14 +1778,14 @@ public class RoleBoxActionRole : RoleBox
 {
 public const int ID = 0x30A;
 string m_role;
-public override void __65(Asset asset)
+public override void __64(Asset asset)
 {
-base.__65(asset);
+base.__64(asset);
 m_role = asset.__18();
 }
-public override void __509()
+public override void __508()
 {
-string uid = G.__97(ref m_role);
+string uid = G.__96(ref m_role);
 Role role = G.m_game.__283(uid);
 if ( role==null )
 {
@@ -1779,7 +1795,7 @@ return;
 if ( role.Start(this)==false )
 m_actionDone = true;
 }
-public override bool __510()
+public override bool __509()
 {
 return m_actionDone;
 }
@@ -1791,45 +1807,45 @@ string m_player;
 string m_scene;
 string m_obj;
 string m_sub;
-public override void __65(Asset asset)
+public override void __64(Asset asset)
 {
-base.__65(asset);
+base.__64(asset);
 m_player = asset.__18();
 m_scene = asset.__18();
 m_obj = asset.__18();
 m_sub = asset.__18();
 }
-public override void __509()
+public override void __508()
 {
 Player currentPlayer = G.m_game.__293();
-string player = G.__97(ref m_player);
+string player = G.__96(ref m_player);
 if ( currentPlayer==null || (player.Length>0 && currentPlayer.__48(ref player)==false) )
 {
 m_actionDone = true;
 return;
 }
 Scene currentScene = G.m_game.__291();
-string scene = G.__97(ref m_scene);
+string scene = G.__96(ref m_scene);
 if ( currentScene==null || (scene.Length>0 && currentScene.__48(ref scene)==false) )
 {
 m_actionDone = true;
 return;
 }
-string obj = G.__97(ref m_obj);
+string obj = G.__96(ref m_obj);
 SceneObj sceneObj = currentScene.__277(obj);
 if ( sceneObj==null || sceneObj==currentPlayer.m_sceneObj )
 {
 m_actionDone = true;
 return;
 }
-string sub = G.__97(ref m_sub);
-SubObj subObj = sceneObj.m_obj.__470(ref sub);
-SceneCell cell = currentPlayer.m_sceneObj.__642(sceneObj);
+string sub = G.__96(ref m_sub);
+SubObj subObj = sceneObj.m_obj.__469(ref sub);
+SceneCell cell = currentPlayer.m_sceneObj.__636(sceneObj);
 if ( cell==null )
 {
 currentPlayer.m_sceneObj.Stop();
 m_actionDone = true;
-G.m_game.__325(sceneObj.m_obj, subObj, false);
+G.m_game.__324(sceneObj.m_obj, subObj, false);
 return;
 }
 Message msg = new Message();
@@ -1838,23 +1854,23 @@ msg.m_byUser = false;
 msg.m_player = currentPlayer;
 msg.m_sceneObj = sceneObj;
 msg.m_subObj = subObj;
-SceneCellLink link = cell.__604(LINK.SELECT);
+SceneCellLink link = cell.__600(LINK.SELECT);
 msg.m_dist = link.m_dist;
 if ( msg.m_dist==0 )
 {
-msg.m_anim = currentPlayer.m_obj.__471(ref link.m_anim);
+msg.m_anim = currentPlayer.m_obj.__470(ref link.m_anim);
 msg.m_dir = link.m_dir;
 }
 msg.m_roleBox = this;
 msg.m_roleBoxToken = m_parent.m_token;
 msg.m_state = Message.S_MOVE;
-if ( currentPlayer.m_sceneObj.__649(cell.__35(), cell.__36(), msg, true)==false )
+if ( currentPlayer.m_sceneObj.__643(cell.__35(), cell.__36(), msg, true)==false )
 {
 m_actionDone = true;
 return;
 }
 }
-public override bool __510()
+public override bool __509()
 {
 return m_actionDone;
 }
@@ -1871,16 +1887,15 @@ string m_still;
 string m_obj;
 string m_light;
 string m_label;
-string m_door;
 string m_cursor;
 string m_bag;
 string m_menu;
 string m_credits;
 string m_dialog;
 string m_choice;
-public override void __65(Asset asset)
+public override void __64(Asset asset)
 {
-base.__65(asset);
+base.__64(asset);
 m_visible = asset.__18();
 m_duration = asset.__18();
 m_brightness = asset.__18();
@@ -1890,7 +1905,6 @@ m_still = asset.__18();
 m_obj = asset.__18();
 m_light = asset.__18();
 m_label = asset.__18();
-m_door = asset.__18();
 m_cursor = asset.__18();
 m_bag = asset.__18();
 m_menu = asset.__18();
@@ -1898,26 +1912,25 @@ m_credits = asset.__18();
 m_dialog = asset.__18();
 m_choice = asset.__18();
 }
-public override void __509()
+public override void __508()
 {
-string scene = G.__97(ref m_scene);
+string scene = G.__96(ref m_scene);
 Scene assetScene = scene.Length>0 ? G.m_game.__274(scene) : G.m_game.__291();
-string brightness = G.__97(ref m_brightness);
-string layer = G.__97(ref m_layer);
-string still = G.__97(ref m_still);
-string obj = G.__97(ref m_obj);
-string light = G.__97(ref m_light);
-string label = G.__97(ref m_label);
-string door = G.__97(ref m_door);
-string choice = G.__97(ref m_choice);
-string cursor = G.__97(ref m_cursor);
-string bag = G.__97(ref m_bag);
-string menu = G.__97(ref m_menu);
-string credits = G.__97(ref m_credits);
-string dialog = G.__97(ref m_dialog);
+string brightness = G.__96(ref m_brightness);
+string layer = G.__96(ref m_layer);
+string still = G.__96(ref m_still);
+string obj = G.__96(ref m_obj);
+string light = G.__96(ref m_light);
+string label = G.__96(ref m_label);
+string choice = G.__96(ref m_choice);
+string cursor = G.__96(ref m_cursor);
+string bag = G.__96(ref m_bag);
+string menu = G.__96(ref m_menu);
+string credits = G.__96(ref m_credits);
+string dialog = G.__96(ref m_dialog);
 Dialog assetDialog = dialog.Length>0 ? G.m_game.__278(dialog) : null;
-bool visible = G.__113(G.__97(ref m_visible));
-float duration = G.__118(G.__97(ref m_duration));
+bool visible = G.__112(G.__96(ref m_visible));
+float duration = G.__117(G.__96(ref m_duration));
 bool async = false;
 if ( brightness.Length>0 )
 G.m_game.m_brightness = G.__119(brightness);
@@ -1925,7 +1938,7 @@ if ( assetScene )
 {
 if ( layer.Length>0 )
 {
-if ( assetScene.__548(layer, visible, this, duration) )
+if ( assetScene.__545(layer, visible, this, duration) )
 {
 if ( duration!=0.0f )
 async = true;
@@ -1933,7 +1946,7 @@ async = true;
 }
 if ( still.Length>0 )
 {
-SceneStill item = assetScene.__542(still);
+SceneStill item = assetScene.__540(still);
 if ( item )
 item.m_visible.Set(visible);
 }
@@ -1943,37 +1956,31 @@ if ( light.Length>0 )
 {
 SceneObj item = assetScene.__277(light);
 if ( item )
-item.__631(visible);
+item.__625(visible);
 }
 if ( label.Length>0 )
 {
-SceneLabel item = assetScene.__538(label);
-if ( item )
-item.m_visible.Set(visible);
-}
-if ( door.Length>0 )
-{
-SceneDoor item = assetScene.__537(door);
+SceneLabel item = assetScene.__536(label);
 if ( item )
 item.m_visible.Set(visible);
 }
 }
 if ( assetDialog && choice.Length>0 )
-assetDialog.__50(G.__114(choice), visible);
+assetDialog.__50(G.__113(choice), visible);
 if ( cursor.Length>0 )
-G.m_game.m_cursorVisible = G.__113(ref cursor);
+G.m_game.m_cursorVisible = G.__112(ref cursor);
 if ( bag.Length>0 )
-G.m_game.m_layout.m_bagForceHidden = !G.__113(ref bag);
+G.m_game.m_layout.m_bagForceHidden = !G.__112(ref bag);
 if ( menu.Length>0 )
 {
-if ( G.__113(ref menu) )
+if ( G.__112(ref menu) )
 G.m_game.__257();
 else
 G.m_game.__258();
 }
 if ( credits.Length>0 )
 {
-if ( G.__113(ref credits) )
+if ( G.__112(ref credits) )
 G.m_game.__259();
 else if ( G.m_game.m_menuGame.m_id==MenuGame.ID_CREDITS )
 G.m_game.__258();
@@ -1981,7 +1988,7 @@ G.m_game.__258();
 if ( async==false )
 m_actionDone = true;
 }
-public override bool __510()
+public override bool __509()
 {
 return m_actionDone;
 }
@@ -1995,9 +2002,9 @@ string m_volume;
 string m_loop;
 string m_crossfade;
 string m_last;
-public override void __65(Asset asset)
+public override void __64(Asset asset)
 {
-base.__65(asset);
+base.__64(asset);
 m_song = asset.__18();
 m_channel = asset.__18();
 m_volume = asset.__18();
@@ -2005,14 +2012,14 @@ m_loop = asset.__18();
 m_crossfade = asset.__18();
 m_last = asset.__18();
 }
-public override void __509()
+public override void __508()
 {
-string name = G.__97(ref m_song);
-int channel = G.Clamp(G.__114(G.__97(ref m_channel)), -1, G.CHANNEL_COUNT-1);
-float volume = G.__119(G.__97(ref m_volume));
-bool loop = G.__113(G.__97(ref m_loop));
-float crossfade = G.__118(G.__97(ref m_crossfade));
-bool last = G.__113(G.__97(ref m_last));
+string name = G.__96(ref m_song);
+int channel = G.Clamp(G.__113(G.__96(ref m_channel)), -1, G.CHANNEL_COUNT-1);
+float volume = G.__118(G.__96(ref m_volume));
+bool loop = G.__112(G.__96(ref m_loop));
+float crossfade = G.__117(G.__96(ref m_crossfade));
+bool last = G.__112(G.__96(ref m_last));
 if ( crossfade==0.0f )
 {
 if ( last )
@@ -2041,7 +2048,7 @@ G.m_game.__265(channel, name, crossfade, volume, loop);
 }
 m_actionDone = true;
 }
-public override bool __510()
+public override bool __509()
 {
 return m_actionDone;
 }
@@ -2056,9 +2063,9 @@ string m_dialog;
 string m_timeline;
 string m_cinematic;
 string m_song;
-public override void __65(Asset asset)
+public override void __64(Asset asset)
 {
-base.__65(asset);
+base.__64(asset);
 m_obj = asset.__18();
 m_role = asset.__18();
 m_camera = asset.__18();
@@ -2067,18 +2074,18 @@ m_timeline = asset.__18();
 m_cinematic = asset.__18();
 m_song = asset.__18();
 }
-public override void __509()
+public override void __508()
 {
-string channel = G.__97(ref m_song);
+string channel = G.__96(ref m_song);
 if ( channel.Length>0 )
-G.m_game.__262(G.__114(ref channel));
-string cinematic = G.__97(ref m_cinematic);
-if ( G.__113(ref cinematic) )
+G.m_game.__262(G.__113(ref channel));
+string cinematic = G.__96(ref m_cinematic);
+if ( G.__112(ref cinematic) )
 G.m_game.m_cinematicPlayer.Stop();
-string dialog = G.__97(ref m_dialog);
-if ( G.__113(ref dialog) )
+string dialog = G.__96(ref m_dialog);
+if ( G.__112(ref dialog) )
 G.m_game.__309();
-string role = G.__97(ref m_role);
+string role = G.__96(ref m_role);
 if ( role.Length>0 )
 {
 Role r = G.m_game.__283(role);
@@ -2088,26 +2095,26 @@ r.Stop();
 Scene currentScene = G.m_game.__291();
 if ( currentScene )
 {
-string timeline = G.__97(ref m_timeline);
-if ( G.__113(ref timeline) )
+string timeline = G.__96(ref m_timeline);
+if ( G.__112(ref timeline) )
 G.m_game.__273();
-string camera = G.__97(ref m_camera);
-if ( G.__113(ref camera) )
-currentScene.__571(G.m_game.__293());
-string obj = G.__97(ref m_obj);
+string camera = G.__96(ref m_camera);
+if ( G.__112(ref camera) )
+currentScene.__567(G.m_game.__293());
+string obj = G.__96(ref m_obj);
 if ( obj.Length>0 )
 {
 SceneObj sceneObj = currentScene.__277(obj);
 if ( sceneObj )
 {
-sceneObj.__651();
-sceneObj.__653();
+sceneObj.__645();
+sceneObj.__647();
 }
 }
 }
 m_actionDone = true;
 }
-public override bool __510()
+public override bool __509()
 {
 return m_actionDone;
 }
@@ -2116,16 +2123,16 @@ public class RoleBoxActionSuccess : RoleBox
 {
 public const int ID = 0x30C;
 int m_puzzle;
-public override void __65(Asset asset)
+public override void __64(Asset asset)
 {
-base.__65(asset);
+base.__64(asset);
 m_puzzle = asset.__15();
 }
-public override void __509()
+public override void __508()
 {
 G.Success(m_puzzle);
 }
-public override bool __510()
+public override bool __509()
 {
 if ( m_actionDone==false )
 {
@@ -2141,22 +2148,22 @@ public const int ID = 0x30D;
 string m_dialog;
 string m_sentenceStart;
 string m_sentenceEnd;
-public override void __65(Asset asset)
+public override void __64(Asset asset)
 {
-base.__65(asset);
+base.__64(asset);
 m_dialog = asset.__18();
 m_sentenceStart = asset.__18();
 m_sentenceEnd = asset.__18();
 }
-public override void __509()
+public override void __508()
 {
-string dialog = G.__97(ref m_dialog);
-string start = G.__97(ref m_sentenceStart);
-string end = G.__97(ref m_sentenceEnd);
-if ( G.m_game.__308(dialog, G.__114(ref start), this, G.__114(ref end))==false )
+string dialog = G.__96(ref m_dialog);
+string start = G.__96(ref m_sentenceStart);
+string end = G.__96(ref m_sentenceEnd);
+if ( G.m_game.__308(dialog, G.__113(ref start), this, G.__113(ref end))==false )
 m_actionDone = true;
 }
-public override bool __510()
+public override bool __509()
 {
 return m_actionDone;
 }
@@ -2171,9 +2178,9 @@ string m_replace;
 string m_anim;
 string m_dir;
 string m_frame;
-public override void __65(Asset asset)
+public override void __64(Asset asset)
 {
-base.__65(asset);
+base.__64(asset);
 m_player = asset.__18();
 m_obj = asset.__18();
 m_silent = asset.__18();
@@ -2182,7 +2189,7 @@ m_anim = asset.__18();
 m_dir = asset.__18();
 m_frame = asset.__18();
 }
-public override void __509()
+public override void __508()
 {
 Player player = __293();
 if ( player==null )
@@ -2190,7 +2197,7 @@ if ( player==null )
 m_actionDone = true;
 return;
 }
-string anim = G.__97(ref m_anim);
+string anim = G.__96(ref m_anim);
 if ( anim.Length>0 )
 {
 SceneObj sceneObj = player.m_sceneObj;
@@ -2199,13 +2206,13 @@ if ( sceneObj==null )
 m_actionDone = true;
 return;
 }
-sceneObj.__632(ref anim);
-string dir = G.__97(ref m_dir);
+sceneObj.__626(ref anim);
+string dir = G.__96(ref m_dir);
 if ( dir.Length>0 )
-sceneObj.m_anim.__678(G.__151(ref dir));
-string frame = G.__97(ref m_frame);
+sceneObj.m_anim.__672(G.__151(ref dir));
+string frame = G.__96(ref m_frame);
 if ( frame.Length>0 )
-sceneObj.m_anim.notif.actionFrame = G.__114(ref frame);
+sceneObj.m_anim.notif.actionFrame = G.__113(ref frame);
 sceneObj.m_anim.notif.roleBox = this;
 sceneObj.m_anim.notif.roleBoxToken = m_parent.m_token;
 }
@@ -2215,18 +2222,18 @@ Take();
 m_actionDone = true;
 }
 }
-public override bool __510()
+public override bool __509()
 {
 return m_actionDone;
 }
-public override bool __511()
+public override bool __510()
 {
 Take();
 return true;
 }
 Player __293()
 {
-string player = G.__97(ref m_player);
+string player = G.__96(ref m_player);
 if ( player.Length>0 )
 {
 if ( G.__148(player, "DUMP") )
@@ -2241,11 +2248,11 @@ void Take()
 Player player = __293();
 if ( player==null )
 return;
-string obj = G.__97(ref m_obj);
+string obj = G.__96(ref m_obj);
 if ( obj.Length==0 )
 return;
-bool silent = G.__113(G.__97(ref m_silent));
-string replace = G.__97(ref m_replace);
+bool silent = G.__112(G.__96(ref m_silent));
+string replace = G.__96(ref m_replace);
 if ( replace.Length>0 )
 {
 Replace(player, ref obj, ref replace, silent);
@@ -2274,9 +2281,9 @@ G.m_game.__306("", uid, false);
 Obj obj = G.m_game.__277(uid);
 Player objPlayer = obj.__293();
 if ( objPlayer )
-objPlayer.__481(obj);
-player.__480(obj);
-if ( silent==false && obj.__454() )
+objPlayer.__480(obj);
+player.__479(obj);
+if ( silent==false && obj.__453() )
 G.m_game.__313(obj);
 }
 void Replace(Player player, ref string uid, ref string uidReplace, bool silent)
@@ -2289,17 +2296,17 @@ Obj objReplace = G.m_game.__277(uidReplace);
 Player objPlayerReplace = objReplace.__293();
 if ( objPlayer==null || objPlayer!=player || obj==null )
 return;
-if ( player.__485(obj)==-1 )
+if ( player.__484(obj)==-1 )
 return;
 if ( objPlayerReplace )
-objPlayerReplace.__481(objReplace);
-int index = player.__485(obj);
+objPlayerReplace.__480(objReplace);
+int index = player.__484(obj);
 if ( index==-1 )
 return;
-objPlayer.__481(obj);
-G.m_game.__290().__480(obj);
-player.__480(objReplace, index);
-if ( silent==false && objReplace.__454() )
+objPlayer.__480(obj);
+G.m_game.__290().__479(obj);
+player.__479(objReplace, index);
+if ( silent==false && objReplace.__453() )
 G.m_game.__313(objReplace);
 }
 }
@@ -2308,16 +2315,16 @@ public class RoleBoxActionTask : RoleBox
 public const int ID = 0x317;
 string m_name;
 string m_arg;
-public override void __65(Asset asset)
+public override void __64(Asset asset)
 {
-base.__65(asset);
+base.__64(asset);
 m_name = asset.__18();
 m_arg = asset.__18();
 }
-public override void __509()
+public override void __508()
 {
-string name = G.__97(ref m_name);
-string arg = G.__97(ref m_arg);
+string name = G.__96(ref m_name);
+string arg = G.__96(ref m_arg);
 bool result = false;
 if ( m_parent.Task(ref name, ref arg, ref result) )
 {
@@ -2325,7 +2332,7 @@ if ( result==false )
 m_actionDone = true;
 }
 }
-public override bool __510()
+public override bool __509()
 {
 return m_actionDone;
 }
@@ -2335,23 +2342,23 @@ public class RoleBoxActionTimeline : RoleBox
 public const int ID = 0x30E;
 string m_scene;
 string m_timeline;
-public override void __65(Asset asset)
+public override void __64(Asset asset)
 {
-base.__65(asset);
+base.__64(asset);
 m_scene = asset.__18();
 m_timeline = asset.__18();
 }
-public override void __509()
+public override void __508()
 {
 Scene currentScene = G.m_game.__291();
-string scene = G.__97(ref m_scene);
+string scene = G.__96(ref m_scene);
 if ( currentScene==null || (scene.Length>0 && currentScene.__48(ref scene)==false) )
 {
 m_actionDone = true;
 return;
 }
-string tl = G.__97(ref m_timeline);
-Timeline timeline = currentScene.__543(tl);
+string tl = G.__96(ref m_timeline);
+Timeline timeline = currentScene.__541(tl);
 if ( timeline==null )
 {
 m_actionDone = true;
@@ -2359,7 +2366,7 @@ return;
 }
 G.m_game.__272(timeline, this, 0.0f);
 }
-public override bool __510()
+public override bool __509()
 {
 return m_actionDone;
 }
@@ -2381,9 +2388,9 @@ string m_straight;
 string m_duration;
 string m_easeIn;
 string m_easeOut;
-public override void __65(Asset asset)
+public override void __64(Asset asset)
 {
-base.__65(asset);
+base.__64(asset);
 m_scene = asset.__18();
 m_obj = asset.__18();
 m_cell = asset.__18();
@@ -2399,16 +2406,16 @@ m_duration = asset.__18();
 m_easeIn = asset.__18();
 m_easeOut = asset.__18();
 }
-public override void __509()
+public override void __508()
 {
 Scene currentScene = G.m_game.__291();
-string scene = G.__97(ref m_scene);
+string scene = G.__96(ref m_scene);
 if ( currentScene==null || (scene.Length>0 && currentScene.__48(ref scene)==false) )
 {
 m_actionDone = true;
 return;
 }
-string obj = G.__97(ref m_obj);
+string obj = G.__96(ref m_obj);
 SceneObj sceneObj = currentScene.__277(obj);
 if ( sceneObj==null )
 {
@@ -2418,16 +2425,16 @@ return;
 bool hasFrom = false;
 float fromX = 0.0f;
 float fromY = 0.0f;
-SceneCell fromCell = sceneObj.__637(G.__97(ref m_cell2));
+SceneCell fromCell = sceneObj.__631(G.__96(ref m_cell2));
 if ( fromCell==null )
 {
-string x = G.__97(ref m_x2);
-string y = G.__97(ref m_y2);
+string x = G.__96(ref m_x2);
+string y = G.__96(ref m_y2);
 if ( x.Length>0 || y.Length>0 )
 {
 hasFrom = true;
-fromX = x.Length>0 ? G.__114(ref x) : sceneObj.__35();
-fromY = y.Length>0 ? G.__114(ref y) : sceneObj.__36();
+fromX = x.Length>0 ? G.__113(ref x) : sceneObj.__35();
+fromY = y.Length>0 ? G.__113(ref y) : sceneObj.__36();
 }
 }
 else
@@ -2439,22 +2446,22 @@ fromY = fromCell.__36();
 if ( hasFrom )
 {
 sceneObj.Move(fromX, fromY);
-sceneObj.__662();
-G.m_game.m_input.__369();
+sceneObj.__656();
+G.m_game.m_input.__368();
 }
 bool hasTo = false;
 float toX = 0.0f;
 float toY = 0.0f;
-SceneCell toCell = sceneObj.__637(G.__97(ref m_cell));
+SceneCell toCell = sceneObj.__631(G.__96(ref m_cell));
 if ( toCell==null )
 {
-string x = G.__97(ref m_x);
-string y = G.__97(ref m_y);
+string x = G.__96(ref m_x);
+string y = G.__96(ref m_y);
 if ( x.Length>0 || y.Length>0 )
 {
 hasTo = true;
-toX = x.Length>0 ? G.__114(ref x) : sceneObj.__35();
-toY = y.Length>0 ? G.__114(ref y) : sceneObj.__36();
+toX = x.Length>0 ? G.__113(ref x) : sceneObj.__35();
+toY = y.Length>0 ? G.__113(ref y) : sceneObj.__36();
 }
 }
 else
@@ -2473,27 +2480,27 @@ msg.m_type = Message.WALK;
 msg.m_roleBox = this;
 msg.m_roleBoxToken = m_parent.m_token;
 msg.m_state = Message.S_MOVE;
-string anim = G.__97(ref m_anim);
+string anim = G.__96(ref m_anim);
 if ( anim.Length>0 )
-msg.m_anim = sceneObj.m_obj.__471(anim);
-string dir = G.__97(ref m_dir);
+msg.m_anim = sceneObj.m_obj.__470(anim);
+string dir = G.__96(ref m_dir);
 if ( dir.Length>0 )
 msg.m_dir = G.__151(ref dir);
-if ( G.__113(G.__97(ref m_straight)) )
+if ( G.__112(G.__96(ref m_straight)) )
 {
-float duration = G.__118(G.__97(ref m_duration));
-bool easeIn = G.__113(G.__97(ref m_easeIn));
-bool easeOut = G.__113(G.__97(ref m_easeOut));
-if ( sceneObj.__650(toX, toY, duration, easeIn, easeOut, msg)==false )
+float duration = G.__117(G.__96(ref m_duration));
+bool easeIn = G.__112(G.__96(ref m_easeIn));
+bool easeOut = G.__112(G.__96(ref m_easeOut));
+if ( sceneObj.__644(toX, toY, duration, easeIn, easeOut, msg)==false )
 m_actionDone = true;
 }
 else
 {
-if ( sceneObj.__649(toX, toY, msg)==false )
+if ( sceneObj.__643(toX, toY, msg)==false )
 m_actionDone = true;
 }
 }
-public override bool __510()
+public override bool __509()
 {
 return m_actionDone;
 }
@@ -2502,19 +2509,19 @@ public class RoleBoxConditionBool : RoleBox
 {
 public const int ID = 0x401;
 string m_variable;
-public override void __65(Asset asset)
+public override void __64(Asset asset)
 {
-base.__65(asset);
+base.__64(asset);
 m_variable = asset.__18();
 }
-public override bool __510()
+public override bool __509()
 {
 int count = 0;
 Variable var = G.m_game.__286(ref m_variable);
-if ( var==null || G.__113(var.m_value)==false )
-count += m_parent.__499(this, 1);
+if ( var==null || G.__112(var.m_value)==false )
+count += m_parent.__498(this, 1);
 else
-count += m_parent.__499(this, 0);
+count += m_parent.__498(this, 0);
 if ( m_base==BASE.WHILE )
 return count>0;
 return true;
@@ -2523,17 +2530,17 @@ return true;
 public class RoleBoxConditionCall : RoleBox
 {
 public const int ID = 0x402;
-public override void __65(Asset asset)
+public override void __64(Asset asset)
 {
-base.__65(asset);
+base.__64(asset);
 }
-public override bool __510()
+public override bool __509()
 {
 int count = 0;
 if ( m_script && m_script.m_instructions.Length>0 )
 {
-bool res = m_script.m_instructions[0].__690();
-count += m_parent.__499(this, res ? 0 : 1);
+bool res = m_script.m_instructions[0].__684();
+count += m_parent.__498(this, res ? 0 : 1);
 }
 if ( m_base==BASE.WHILE )
 return count>0;
@@ -2545,30 +2552,30 @@ public class RoleBoxConditionDialog : RoleBox
 public const int ID = 0x403;
 string m_dialog;
 string m_sentence;
-public override void __65(Asset asset)
+public override void __64(Asset asset)
 {
-base.__65(asset);
+base.__64(asset);
 m_dialog = asset.__18();
 m_sentence = asset.__18();
 }
-public override bool __510()
+public override bool __509()
 {
 bool ok = true;
 if ( G.m_game.m_menuDialog.__38()==false || G.m_game.m_menuDialog.m_sentence==null )
 ok = false;
 else
 {
-string dialog = G.__97(ref m_dialog);
+string dialog = G.__96(ref m_dialog);
 if ( dialog.Length>0 && G.m_game.m_menuDialog.m_dialog.__48(ref dialog)==false )
 ok = false;
 else
 {
-string sen = G.__97(ref m_sentence);
+string sen = G.__96(ref m_sentence);
 if ( sen.Length>0 && G.m_game.m_menuDialog.m_sentence.__48(ref sen)==false )
 ok = false;
 }
 }
-int count = m_parent.__499(this, ok ? 0 : 1);
+int count = m_parent.__498(this, ok ? 0 : 1);
 if ( m_base==BASE.WHILE )
 return count>0;
 return true;
@@ -2580,18 +2587,18 @@ public const int ID = 0x40B;
 string m_dialog;
 string m_choice;
 string m_said;
-public override void __65(Asset asset)
+public override void __64(Asset asset)
 {
-base.__65(asset);
+base.__64(asset);
 m_dialog = asset.__18();
 m_choice = asset.__18();
 m_said = asset.__18();
 }
-public override bool __510()
+public override bool __509()
 {
 bool ok = true;
 Dialog dlg;
-string dialog = G.__97(ref m_dialog);
+string dialog = G.__96(ref m_dialog);
 if ( dialog.Length>0 )
 dlg = G.m_game.__278(dialog);
 else
@@ -2600,14 +2607,14 @@ if ( dlg==null )
 ok = false;
 else
 {
-int choice = G.__114(G.__97(ref m_choice));
+int choice = G.__113(G.__96(ref m_choice));
 if ( choice!=0 )
 {
 Sentence sentence = dlg.m_root.__49(choice);
 if ( sentence==null || sentence.m_choice==false || sentence.m_visible.cur==false )
 ok = false;
 }
-int said = G.__114(G.__97(ref m_said));
+int said = G.__113(G.__96(ref m_said));
 if ( said!=0 )
 {
 Sentence sentence = dlg.m_root.__49(said);
@@ -2615,7 +2622,7 @@ if ( sentence==null || sentence.m_visited==false )
 ok = false;
 }
 }
-int count = m_parent.__499(this, ok ? 0 : 1);
+int count = m_parent.__498(this, ok ? 0 : 1);
 if ( m_base==BASE.WHILE )
 return count>0;
 return true;
@@ -2626,14 +2633,14 @@ public class RoleBoxConditionList : RoleBox
 public const int ID = 0x404;
 string[] m_values = new string[4];
 string m_variable;
-public override void __65(Asset asset)
+public override void __64(Asset asset)
 {
-base.__65(asset);
+base.__64(asset);
 for ( int i=0 ; i<4 ; i++ )
 m_values[i] = asset.__18();
 m_variable = asset.__18();
 }
-public override bool __510()
+public override bool __509()
 {
 int count = 0;
 bool found = false;
@@ -2642,16 +2649,16 @@ if ( var )
 {
 for ( int i=0 ; i<4 ; i++ )
 {
-string value = G.__97(ref m_values[i]);
+string value = G.__96(ref m_values[i]);
 if ( var.m_value==value )
 {
-count += m_parent.__499(this, i);
+count += m_parent.__498(this, i);
 found = true;
 }
 }
 }
 if ( found==false )
-count += m_parent.__499(this, 4);
+count += m_parent.__498(this, 4);
 if ( m_base==BASE.WHILE )
 return count>0;
 return true;
@@ -2669,9 +2676,9 @@ string m_cell;
 string m_flag;
 string m_sticker;
 string m_visible;
-public override void __65(Asset asset)
+public override void __64(Asset asset)
 {
-base.__65(asset);
+base.__64(asset);
 m_scene = asset.__18();
 m_obj = asset.__18();
 m_anim = asset.__18();
@@ -2682,36 +2689,36 @@ m_flag = asset.__18();
 m_sticker = asset.__18();
 m_visible = asset.__18();
 }
-public override bool __510()
+public override bool __509()
 {
 bool ok = true;
-string scene = G.__97(ref m_scene);
+string scene = G.__96(ref m_scene);
 if ( scene.Length>0 && G.m_game.__292(ref scene)==false )
 ok = false;
 else
 {
 Scene currentScene = G.m_game.__291();
-string obj = G.__97(ref m_obj);
+string obj = G.__96(ref m_obj);
 SceneObj sceneObj = currentScene==null ? null : currentScene.__277(obj);
 if ( sceneObj==null )
 ok = false;
 else
 {
 string currentVisible = sceneObj.m_visible.cur ? "true" : "false";
-string anim = G.__97(ref m_anim);
-string dir = G.__97(ref m_dir);
-string frame = G.__97(ref m_frame);
-string cell = G.__97(ref m_cell);
-string flag = G.__97(ref m_flag);
-string sticker = G.__97(ref m_sticker);
-string visible = G.__97(ref m_visible);
-if ( anim.Length>0 && G.__150(ref anim, sceneObj.m_anim.__393()) )
+string anim = G.__96(ref m_anim);
+string dir = G.__96(ref m_dir);
+string frame = G.__96(ref m_frame);
+string cell = G.__96(ref m_cell);
+string flag = G.__96(ref m_flag);
+string sticker = G.__96(ref m_sticker);
+string visible = G.__96(ref m_visible);
+if ( anim.Length>0 && G.__150(ref anim, sceneObj.m_anim.__392()) )
 ok = false;
-else if ( dir.Length>0 && G.__150(ref dir, sceneObj.m_anim.__680()) )
+else if ( dir.Length>0 && G.__150(ref dir, sceneObj.m_anim.__674()) )
 ok = false;
-else if ( frame.Length>0 && sceneObj.m_anim.__685(G.__114(ref frame))==false )
+else if ( frame.Length>0 && sceneObj.m_anim.__679(G.__113(ref frame))==false )
 ok = false;
-else if ( cell.Length>0 && sceneObj.__637(cell, true)==null )
+else if ( cell.Length>0 && sceneObj.__631(cell, true)==null )
 ok = false;
 else if ( sticker.Length>0 && sticker!=sceneObj.m_sticker.cur )
 ok = false;
@@ -2719,13 +2726,13 @@ else if ( visible.Length>0 && G.__150(ref visible, currentVisible) )
 ok = false;
 else if ( flag.Length>0 )
 {
-SceneCell foundCell = sceneObj.__635(sceneObj.__35(), sceneObj.__36());
-if ( foundCell==null || G.__150(ref flag, foundCell.__597().ToString()) )
+SceneCell foundCell = sceneObj.__629(sceneObj.__35(), sceneObj.__36());
+if ( foundCell==null || G.__150(ref flag, foundCell.__593().ToString()) )
 ok = false;
 }
 }
 }
-int count = m_parent.__499(this, ok ? 0 : 1);
+int count = m_parent.__498(this, ok ? 0 : 1);
 if ( m_base==BASE.WHILE )
 return count>0;
 return true;
@@ -2736,23 +2743,23 @@ public class RoleBoxConditionPlayer : RoleBox
 public const int ID = 0x406;
 string m_player;
 string m_obj;
-public override void __65(Asset asset)
+public override void __64(Asset asset)
 {
-base.__65(asset);
+base.__64(asset);
 m_player = asset.__18();
 m_obj = asset.__18();
 }
-public override bool __510()
+public override bool __509()
 {
 Player player = G.m_game.__293();
-string play = G.__97(ref m_player);
-string obj = G.__97(ref m_obj);
+string play = G.__96(ref m_player);
+string obj = G.__96(ref m_obj);
 bool ok = true;
 if ( play.Length>0 && (player==null || player.__48(ref play)==false) )
 ok = false;
 else if ( obj.Length>0 && (player==null || player.m_sceneObj==null || player.m_sceneObj.__48(ref obj)==false) )
 ok = false;
-int count = m_parent.__499(this, ok ? 0 : 1);
+int count = m_parent.__498(this, ok ? 0 : 1);
 if ( m_base==BASE.WHILE )
 return count>0;
 return true;
@@ -2763,16 +2770,16 @@ public class RoleBoxConditionPlayerItem : RoleBox
 public const int ID = 0x40A;
 string m_player;
 string m_obj;
-public override void __65(Asset asset)
+public override void __64(Asset asset)
 {
-base.__65(asset);
+base.__64(asset);
 m_player = asset.__18();
 m_obj = asset.__18();
 }
-public override bool __510()
+public override bool __509()
 {
-string play = G.__97(ref m_player);
-string obj = G.__97(ref m_obj);
+string play = G.__96(ref m_player);
+string obj = G.__96(ref m_obj);
 Player player;
 if ( play.Length==0 )
 player = G.m_game.__293();
@@ -2783,9 +2790,9 @@ player = G.m_game.__279(play);
 bool ok = true;
 if ( player==null )
 ok = false;
-else if ( obj.Length>0 && player.__484(ref obj)==false )
+else if ( obj.Length>0 && player.__483(ref obj)==false )
 ok = false;
-int count = m_parent.__499(this, ok ? 0 : 1);
+int count = m_parent.__498(this, ok ? 0 : 1);
 if ( m_base==BASE.WHILE )
 return count>0;
 return true;
@@ -2795,27 +2802,27 @@ public class RoleBoxConditionPuzzle : RoleBox
 {
 public const int ID = 0x407;
 int m_puzzle;
-public override void __65(Asset asset)
+public override void __64(Asset asset)
 {
-base.__65(asset);
+base.__64(asset);
 m_puzzle = asset.__15();
 }
-public override bool __510()
+public override bool __509()
 {
 int count = 0;
-Box box = G.m_game.m_scenario.__497(m_puzzle);
+Box box = G.m_game.m_scenario.__496(m_puzzle);
 if ( box && box.m_type==Box.TYPE.PUZZLE )
 {
 if ( box.m_exit )
-count += m_parent.__499(this, 0);
+count += m_parent.__498(this, 0);
 else
 {
 if ( box.m_enter )
-count += m_parent.__499(this, 1);
-count += m_parent.__499(this, 2);
+count += m_parent.__498(this, 1);
+count += m_parent.__498(this, 2);
 }
 if ( count==0 )
-count += m_parent.__499(this, 3);
+count += m_parent.__498(this, 3);
 }
 if ( m_base==BASE.WHILE )
 return count>0;
@@ -2827,22 +2834,22 @@ public class RoleBoxConditionScene : RoleBox
 public const int ID = 0x408;
 string m_scene;
 string m_scene2;
-public override void __65(Asset asset)
+public override void __64(Asset asset)
 {
-base.__65(asset);
+base.__64(asset);
 m_scene = asset.__18();
 m_scene2 = asset.__18();
 }
-public override bool __510()
+public override bool __509()
 {
 bool ok = true;
-string scene = G.__97(ref m_scene);
-string scene2 = G.__97(ref m_scene2);
+string scene = G.__96(ref m_scene);
+string scene2 = G.__96(ref m_scene2);
 if ( scene.Length>0 && G.m_game.__316(ref scene)==false )
 ok = false;
 else if ( scene2.Length>0 && G.m_game.__317(ref scene2)==false )
 ok = false;
-int count = m_parent.__499(this, ok ? 0 : 1);
+int count = m_parent.__498(this, ok ? 0 : 1);
 if ( m_base==BASE.WHILE )
 return count>0;
 return true;
@@ -2855,36 +2862,34 @@ string m_scene;
 string m_still;
 string m_obj;
 string m_label;
-string m_door;
-public override void __65(Asset asset)
+public override void __64(Asset asset)
 {
-base.__65(asset);
+base.__64(asset);
 m_scene = asset.__18();
 m_still = asset.__18();
 m_obj = asset.__18();
 m_label = asset.__18();
-m_door = asset.__18();
 }
-public override bool __510()
+public override bool __509()
 {
 bool ok = true;
-string scene = G.__97(ref m_scene);
+string scene = G.__96(ref m_scene);
 Scene currentScene = scene.Length>0 ? G.m_game.__274(scene) : G.m_game.__291();
 if ( currentScene==null )
 ok = false;
 if ( ok )
 {
-string still = G.__97(ref m_still);
+string still = G.__96(ref m_still);
 if ( still.Length>0 )
 {
-SceneStill item = currentScene.__542(still);
+SceneStill item = currentScene.__540(still);
 if ( item==null || item.m_visible.cur==false )
 ok = false;
 }
 }
 if ( ok )
 {
-string obj = G.__97(ref m_obj);
+string obj = G.__96(ref m_obj);
 if ( obj.Length>0 )
 {
 SceneObj item = currentScene.__277(obj);
@@ -2894,25 +2899,15 @@ ok = false;
 }
 if ( ok )
 {
-string label = G.__97(ref m_label);
+string label = G.__96(ref m_label);
 if ( label.Length>0 )
 {
-SceneLabel item = currentScene.__538(label);
+SceneLabel item = currentScene.__536(label);
 if ( item==null || item.m_visible.cur==false )
 ok = false;
 }
 }
-if ( ok )
-{
-string door = G.__97(ref m_door);
-if ( door.Length>0 )
-{
-SceneDoor item = currentScene.__537(door);
-if ( item==null || item.m_visible.cur==false )
-ok = false;
-}
-}
-int count = m_parent.__499(this, ok ? 0 : 1);
+int count = m_parent.__498(this, ok ? 0 : 1);
 if ( m_base==BASE.WHILE )
 return count>0;
 return true;
@@ -2922,33 +2917,33 @@ public class RoleBoxConditionSequence : RoleBox
 {
 public const int ID = 0x409;
 int m_sequence;
-public override void __65(Asset asset)
+public override void __64(Asset asset)
 {
-base.__65(asset);
+base.__64(asset);
 m_sequence = asset.__15();
 }
-public override bool __510()
+public override bool __509()
 {
 int count = 0;
-Box box = G.m_game.m_scenario.__497(m_sequence);
+Box box = G.m_game.m_scenario.__496(m_sequence);
 if ( box && box.m_type==Box.TYPE.SEQSTART )
 {
 if ( box.m_exit==false )
-count += m_parent.__499(this, 3);
+count += m_parent.__498(this, 3);
 else if ( box.m_seqRef!=0 )
 {
-Box boxEnd = G.m_game.m_scenario.__497(box.m_seqRef);
+Box boxEnd = G.m_game.m_scenario.__496(box.m_seqRef);
 if ( boxEnd && box.m_type==Box.TYPE.SEQEND )
 {
-count += m_parent.__499(this, 0);
+count += m_parent.__498(this, 0);
 if ( boxEnd.m_exit )
-count += m_parent.__499(this, 2);
+count += m_parent.__498(this, 2);
 else
-count += m_parent.__499(this, 1);
+count += m_parent.__498(this, 1);
 }
 }
 if ( count==0 )
-count += m_parent.__499(this, 4);
+count += m_parent.__498(this, 4);
 }
 if ( m_base==BASE.WHILE )
 return count>0;
@@ -2962,29 +2957,54 @@ string m_scene;
 string m_obj;
 string m_cell;
 string m_mode;
-public override void __65(Asset asset)
+public override void __64(Asset asset)
 {
-base.__65(asset);
+base.__64(asset);
 m_scene = asset.__18();
 m_obj = asset.__18();
 m_cell = asset.__18();
 m_mode = asset.__18();
 }
-public override bool __468(Event evt)
+public override bool __467(Event evt)
 {
-string scene = G.__97(ref m_scene);
+string scene = G.__96(ref m_scene);
 if ( scene.Length>0 && G.m_game.__316(ref scene)==false )
 return false;
-string obj = G.__97(ref m_obj);
+string obj = G.__96(ref m_obj);
 if ( obj.Length>0 && G.m_game.__319(ref evt.p1, ref obj)==false )
 return false;
-string cell = G.__97(ref m_cell);
+string cell = G.__96(ref m_cell);
 if ( obj.Length>0 && G.__150(ref evt.p2, ref cell) )
 return false;
-string mode = G.__97(ref m_mode);
+string mode = G.__96(ref m_mode);
 if ( mode.Length>0 && G.__150(ref evt.p3, ref mode) )
 return false;
 G.m_game.m_sysVarObj.m_value = evt.p1;
+return true;
+}
+}
+public class RoleBoxEventChoice : RoleBox
+{
+public const int ID = 0x515;
+string m_dialog;
+string m_choice;
+public override void __64(Asset asset)
+{
+base.__64(asset);
+m_dialog = asset.__18();
+m_choice = asset.__18();
+}
+public override bool __467(Event evt)
+{
+string dialog = G.__96(ref m_dialog);
+if ( dialog.Length>0 && G.__148(ref evt.p1, ref dialog)==false )
+return false;
+Sentence sentence = G.m_game.__49(evt.p1, G.__113(ref evt.p2));
+if ( sentence==null )
+return false;
+string choice = G.__96(ref m_choice);
+if ( choice.Length>0 && sentence.__48(ref choice)==false )
+return false;
 return true;
 }
 }
@@ -2996,25 +3016,25 @@ string m_x;
 string m_y;
 string m_w;
 string m_h;
-public override void __65(Asset asset)
+public override void __64(Asset asset)
 {
-base.__65(asset);
+base.__64(asset);
 m_scene = asset.__18();
 m_x = asset.__18();
 m_y = asset.__18();
 m_w = asset.__18();
 m_h = asset.__18();
 }
-public override bool __468(Event evt)
+public override bool __467(Event evt)
 {
-string scene = G.__97(ref m_scene);
+string scene = G.__96(ref m_scene);
 if ( scene.Length>0 && G.m_game.__316(ref scene)==false )
 return false;
 Rect rc;
-rc.x = G.__114(G.__97(ref m_x));
-rc.y = G.__114(G.__97(ref m_y));
-rc.width = G.__114(G.__97(ref m_w));
-rc.height = G.__114(G.__97(ref m_h));
+rc.x = G.__113(G.__96(ref m_x));
+rc.y = G.__113(G.__96(ref m_y));
+rc.width = G.__113(G.__96(ref m_w));
+rc.height = G.__113(G.__96(ref m_h));
 if ( rc.x==0.0f && rc.y==0.0f && rc.width==0.0f && rc.height==0.0f )
 return true;
 Vec2 pt = G.m_game.__299();
@@ -3025,45 +3045,17 @@ public class RoleBoxEventDetach : RoleBox
 {
 public const int ID = 0x502;
 string m_obj;
-public override void __65(Asset asset)
+public override void __64(Asset asset)
 {
-base.__65(asset);
+base.__64(asset);
 m_obj = asset.__18();
 }
-public override bool __468(Event evt)
+public override bool __467(Event evt)
 {
-string obj = G.__97(ref m_obj);
+string obj = G.__96(ref m_obj);
 if ( obj.Length>0 && G.m_game.__319(ref evt.p1, ref obj)==false )
 return false;
 G.m_game.m_sysVarObj.m_value = evt.p1;
-return true;
-}
-}
-public class RoleBoxEventDoor : RoleBox
-{
-public const int ID = 0x503;
-string m_scene;
-string m_door;
-string m_mode;
-public override void __65(Asset asset)
-{
-base.__65(asset);
-m_scene = asset.__18();
-m_door = asset.__18();
-m_mode = asset.__18();
-}
-public override bool __468(Event evt)
-{
-string scene = G.__97(ref m_scene);
-if ( scene.Length>0 && G.m_game.__316(ref scene)==false )
-return false;
-string door = G.__97(ref m_door);
-if ( door.Length>0 && G.m_game.__321(ref evt.p1, ref door)==false )
-return false;
-string mode = G.__97(ref m_mode);
-if ( mode.Length>0 && G.__150(ref evt.p2, ref mode) )
-return false;
-G.m_game.m_sysVarDoor.m_value = evt.p1;
 return true;
 }
 }
@@ -3073,23 +3065,23 @@ public const int ID = 0x50F;
 string m_scene;
 string m_obj;
 string m_sub;
-public override void __65(Asset asset)
+public override void __64(Asset asset)
 {
-base.__65(asset);
+base.__64(asset);
 m_scene = asset.__18();
 m_obj = asset.__18();
 m_sub = asset.__18();
 }
-public override bool __468(Event evt)
+public override bool __467(Event evt)
 {
-string scene = G.__97(ref m_scene);
+string scene = G.__96(ref m_scene);
 if ( scene.Length>0 && G.m_game.__316(ref scene)==false )
 return false;
-string obj = G.__97(ref m_obj);
+string obj = G.__96(ref m_obj);
 if ( obj.Length>0 && G.m_game.__319(ref evt.p1, ref obj)==false )
 return false;
-string sub = G.__97(ref m_sub);
-if ( sub.Length>0 && G.m_game.__322(ref sub)==false )
+string sub = G.__96(ref m_sub);
+if ( sub.Length>0 && G.m_game.__321(ref sub)==false )
 return false;
 G.m_game.m_sysVarObj.m_value = evt.p1;
 return true;
@@ -3100,18 +3092,18 @@ public class RoleBoxEventDrop : RoleBox
 public const int ID = 0x510;
 string m_scene;
 string m_obj;
-public override void __65(Asset asset)
+public override void __64(Asset asset)
 {
-base.__65(asset);
+base.__64(asset);
 m_scene = asset.__18();
 m_obj = asset.__18();
 }
-public override bool __468(Event evt)
+public override bool __467(Event evt)
 {
-string scene = G.__97(ref m_scene);
+string scene = G.__96(ref m_scene);
 if ( scene.Length>0 && G.m_game.__316(ref scene)==false )
 return false;
-string obj = G.__97(ref m_obj);
+string obj = G.__96(ref m_obj);
 if ( obj.Length>0 && G.m_game.__319(ref evt.p1, ref obj)==false )
 return false;
 G.m_game.m_sysVarObj.m_value = evt.p1;
@@ -3122,14 +3114,14 @@ public class RoleBoxEventEnterDialog : RoleBox
 {
 public const int ID = 0x518;
 string m_dialog;
-public override void __65(Asset asset)
+public override void __64(Asset asset)
 {
-base.__65(asset);
+base.__64(asset);
 m_dialog = asset.__18();
 }
-public override bool __468(Event evt)
+public override bool __467(Event evt)
 {
-string dialog = G.__97(ref m_dialog);
+string dialog = G.__96(ref m_dialog);
 if ( dialog.Length>0 && G.m_game.__315(ref evt.p1, ref dialog)==false )
 return false;
 return true;
@@ -3141,24 +3133,24 @@ public const int ID = 0x504;
 string m_scene;
 string m_mode;
 string m_cell;
-public override void __65(Asset asset)
+public override void __64(Asset asset)
 {
-base.__65(asset);
+base.__64(asset);
 m_scene = asset.__18();
 m_mode = asset.__18();
 m_cell = asset.__18();
 }
-public override bool __468(Event evt)
+public override bool __467(Event evt)
 {
-string scene = G.__97(ref m_scene);
+string scene = G.__96(ref m_scene);
 if ( scene.Length>0 && G.m_game.__316(ref scene)==false )
 return false;
-string mode = G.__97(ref m_mode);
+string mode = G.__96(ref m_mode);
 if ( mode.Length>0 && G.__150(ref evt.p1, ref mode) )
 return false;
 if ( evt.p1=="WALK" )
 {
-string cell = G.__97(ref m_cell);
+string cell = G.__96(ref m_cell);
 if ( cell.Length>0 && G.__150(ref evt.p2, ref cell) )
 return false;
 }
@@ -3169,14 +3161,14 @@ public class RoleBoxEventExitDialog : RoleBox
 {
 public const int ID = 0x519;
 string m_dialog;
-public override void __65(Asset asset)
+public override void __64(Asset asset)
 {
-base.__65(asset);
+base.__64(asset);
 m_dialog = asset.__18();
 }
-public override bool __468(Event evt)
+public override bool __467(Event evt)
 {
-string dialog = G.__97(ref m_dialog);
+string dialog = G.__96(ref m_dialog);
 if ( dialog.Length>0 && G.m_game.__315(ref evt.p1, ref dialog)==false )
 return false;
 return true;
@@ -3186,14 +3178,14 @@ public class RoleBoxEventExitScene : RoleBox
 {
 public const int ID = 0x50D;
 string m_scene;
-public override void __65(Asset asset)
+public override void __64(Asset asset)
 {
-base.__65(asset);
+base.__64(asset);
 m_scene = asset.__18();
 }
-public override bool __468(Event evt)
+public override bool __467(Event evt)
 {
-string scene = G.__97(ref m_scene);
+string scene = G.__96(ref m_scene);
 if ( scene.Length>0 && G.m_game.__316(ref scene)==false )
 return false;
 return true;
@@ -3203,14 +3195,14 @@ public class RoleBoxEventInput : RoleBox
 {
 public const int ID = 0x513;
 string m_button;
-public override void __65(Asset asset)
+public override void __64(Asset asset)
 {
-base.__65(asset);
+base.__64(asset);
 m_button = asset.__18();
 }
-public override bool __468(Event evt)
+public override bool __467(Event evt)
 {
-string button = G.__97(ref m_button);
+string button = G.__96(ref m_button);
 if ( button.Length>0 && evt.p1!=button )
 return false;
 return true;
@@ -3221,19 +3213,24 @@ public class RoleBoxEventLabel : RoleBox
 public const int ID = 0x505;
 string m_scene;
 string m_label;
-public override void __65(Asset asset)
+string m_move;
+public override void __64(Asset asset)
 {
-base.__65(asset);
+base.__64(asset);
 m_scene = asset.__18();
 m_label = asset.__18();
+m_move = asset.__18();
 }
-public override bool __468(Event evt)
+public override bool __467(Event evt)
 {
-string scene = G.__97(ref m_scene);
+string scene = G.__96(ref m_scene);
 if ( scene.Length>0 && G.m_game.__316(ref scene)==false )
 return false;
-string label = G.__97(ref m_label);
+string label = G.__96(ref m_label);
 if ( label.Length>0 && G.m_game.__320(ref evt.p1, ref label)==false )
+return false;
+string move = G.__96(ref m_move);
+if ( move.Length>0 && G.__150(ref evt.p2, ref move) )
 return false;
 G.m_game.m_sysVarLabel.m_value = evt.p1;
 return true;
@@ -3243,14 +3240,14 @@ public class RoleBoxEventLayout : RoleBox
 {
 public const int ID = 0x50C;
 string m_button;
-public override void __65(Asset asset)
+public override void __64(Asset asset)
 {
-base.__65(asset);
+base.__64(asset);
 m_button = asset.__18();
 }
-public override bool __468(Event evt)
+public override bool __467(Event evt)
 {
-string button = G.__97(ref m_button);
+string button = G.__96(ref m_button);
 if ( button.Length>0 && G.__150(ref evt.p1, ref button) )
 return false;
 return true;
@@ -3260,9 +3257,9 @@ public class RoleBoxEventPuzzle : RoleBox
 {
 public const int ID = 0x517;
 public int m_puzzle;
-public override void __65(Asset asset)
+public override void __64(Asset asset)
 {
-base.__65(asset);
+base.__64(asset);
 m_puzzle = asset.__15();
 }
 public override void __46(JsonObj jBox)
@@ -3273,9 +3270,9 @@ public override void __47(JsonObj jBox)
 {
 base.__47(jBox);
 }
-public override bool __468(Event evt)
+public override bool __467(Event evt)
 {
-if ( m_puzzle!=G.__114(ref evt.p1) )
+if ( m_puzzle!=G.__113(ref evt.p1) )
 return false;
 return true;
 }
@@ -3286,26 +3283,26 @@ public const int ID = 0x516;
 public string m_duration;
 public float m_elapsed;
 public uint m_iRender;
-public override void __65(Asset asset)
+public override void __64(Asset asset)
 {
-base.__65(asset);
+base.__64(asset);
 m_duration = asset.__18();
 }
 public override void __46(JsonObj jBox)
 {
 base.__46(jBox);
-jBox.__384("elapsed", m_elapsed);
+jBox.__383("elapsed", m_elapsed);
 }
 public override void __47(JsonObj jBox)
 {
 base.__47(jBox);
 m_elapsed = jBox.GetFloat("elapsed");
 }
-public override void __508()
+public override void __507()
 {
 m_elapsed = 0.0f;
 }
-public override bool __468(Event evt)
+public override bool __467(Event evt)
 {
 if ( m_iRender!=CameraBehavior.s_iRender )
 return false;
@@ -3319,32 +3316,32 @@ string m_dialog;
 string m_sentence;
 string m_said;
 string m_sub;
-public override void __65(Asset asset)
+public override void __64(Asset asset)
 {
-base.__65(asset);
+base.__64(asset);
 m_dialog = asset.__18();
 m_sentence = asset.__18();
 m_said = asset.__18();
 m_sub = asset.__18();
 }
-public override bool __468(Event evt)
+public override bool __467(Event evt)
 {
-string dialog = G.__97(ref m_dialog);
+string dialog = G.__96(ref m_dialog);
 if ( dialog.Length>0 && G.__148(ref evt.p1, ref dialog)==false )
 return false;
-Sentence sentence = G.m_game.__49(evt.p1, G.__114(ref evt.p2));
+Sentence sentence = G.m_game.__49(evt.p1, G.__113(ref evt.p2));
 if ( sentence==null )
 return false;
-string sen = G.__97(ref m_sentence);
+string sen = G.__96(ref m_sentence);
 if ( sen.Length>0 && sentence.__48(ref sen)==false )
 return false;
-string said = G.__97(ref m_said);
-if ( said.Length>0 && G.__113(ref evt.p3)!=G.__113(ref said) )
+string said = G.__96(ref m_said);
+if ( said.Length>0 && G.__112(ref evt.p3)!=G.__112(ref said) )
 return false;
 if ( evt.p4.Length>0 )
 {
-string sub = G.__97(ref m_sub);
-if ( sub.Length>0 && G.__114(ref evt.p4)!=G.__114(ref sub) )
+string sub = G.__96(ref m_sub);
+if ( sub.Length>0 && G.__113(ref evt.p4)!=G.__113(ref sub) )
 return false;
 }
 return true;
@@ -3356,24 +3353,29 @@ public const int ID = 0x507;
 string m_scene;
 string m_obj;
 string m_sub;
+string m_move;
 string m_mode;
-public override void __65(Asset asset)
+public override void __64(Asset asset)
 {
-base.__65(asset);
+base.__64(asset);
 m_scene = asset.__18();
 m_obj = asset.__18();
 m_sub = asset.__18();
+m_move = asset.__18();
 m_mode = asset.__18();
 }
-public override bool __468(Event evt)
+public override bool __467(Event evt)
 {
-string scene = G.__97(ref m_scene);
+string scene = G.__96(ref m_scene);
 if ( scene.Length>0 && G.m_game.__316(ref scene)==false )
 return false;
-string obj = G.__97(ref m_obj);
+string obj = G.__96(ref m_obj);
 if ( obj.Length>0 && G.m_game.__319(ref evt.p1, ref obj)==false )
 return false;
-string mode = G.__97(ref m_mode);
+string move = G.__96(ref m_move);
+if ( move.Length>0 && G.__150(ref evt.p2, ref move) )
+return false;
+string mode = G.__96(ref m_mode);
 if ( G.m_game.m_lastEventByUser )
 {
 if ( mode=="CALL" )
@@ -3384,35 +3386,10 @@ else
 if ( mode=="USER" )
 return false;
 }
-string sub = G.__97(ref m_sub);
-if ( sub.Length>0 && G.m_game.__322(ref sub)==false )
+string sub = G.__96(ref m_sub);
+if ( sub.Length>0 && G.m_game.__321(ref sub)==false )
 return false;
 G.m_game.m_sysVarObj.m_value = evt.p1;
-return true;
-}
-}
-public class RoleBoxEventShow : RoleBox
-{
-public const int ID = 0x515;
-string m_dialog;
-string m_choice;
-public override void __65(Asset asset)
-{
-base.__65(asset);
-m_dialog = asset.__18();
-m_choice = asset.__18();
-}
-public override bool __468(Event evt)
-{
-string dialog = G.__97(ref m_dialog);
-if ( dialog.Length>0 && G.__148(ref evt.p1, ref dialog)==false )
-return false;
-Sentence sentence = G.m_game.__49(evt.p1, G.__114(ref evt.p2));
-if ( sentence==null )
-return false;
-string choice = G.__97(ref m_choice);
-if ( choice.Length>0 && sentence.__48(ref choice)==false )
-return false;
 return true;
 }
 }
@@ -3420,14 +3397,14 @@ public class RoleBoxEventSong : RoleBox
 {
 public const int ID = 0x508;
 string m_song;
-public override void __65(Asset asset)
+public override void __64(Asset asset)
 {
-base.__65(asset);
+base.__64(asset);
 m_song = asset.__18();
 }
-public override bool __468(Event evt)
+public override bool __467(Event evt)
 {
-string song = G.__97(ref m_song);
+string song = G.__96(ref m_song);
 if ( song.Length>0 && G.__150(ref evt.p1, ref song) )
 return false;
 return true;
@@ -3439,22 +3416,22 @@ public const int ID = 0x511;
 string m_scene;
 string m_obj;
 string m_spot;
-public override void __65(Asset asset)
+public override void __64(Asset asset)
 {
-base.__65(asset);
+base.__64(asset);
 m_scene = asset.__18();
 m_obj = asset.__18();
 m_spot = asset.__18();
 }
-public override bool __468(Event evt)
+public override bool __467(Event evt)
 {
-string scene = G.__97(ref m_scene);
+string scene = G.__96(ref m_scene);
 if ( scene.Length>0 && G.m_game.__316(ref scene)==false )
 return false;
-string obj = G.__97(ref m_obj);
+string obj = G.__96(ref m_obj);
 if ( obj.Length>0 && G.m_game.__319(ref evt.p1, ref obj)==false )
 return false;
-string spot = G.__97(ref m_spot);
+string spot = G.__96(ref m_spot);
 if ( spot.Length>0 && G.__150(ref evt.p2, ref spot) )
 return false;
 G.m_game.m_sysVarObj.m_value = evt.p1;
@@ -3466,18 +3443,18 @@ public class RoleBoxEventSwitch : RoleBox
 public const int ID = 0x509;
 string m_player;
 string m_player2;
-public override void __65(Asset asset)
+public override void __64(Asset asset)
 {
-base.__65(asset);
+base.__64(asset);
 m_player = asset.__18();
 m_player2 = asset.__18();
 }
-public override bool __468(Event evt)
+public override bool __467(Event evt)
 {
-string player = G.__97(ref m_player);
+string player = G.__96(ref m_player);
 if ( player.Length>0 && G.m_game.__318(ref evt.p1, ref player)==false )
 return false;
-string player2 = G.__97(ref m_player2);
+string player2 = G.__96(ref m_player2);
 if ( player2.Length>0 && G.m_game.__318(ref evt.p2, ref player2)==false )
 return false;
 G.m_game.m_sysVarPlayer.m_value = evt.p1;
@@ -3491,18 +3468,18 @@ public const int ID = 0x50A;
 string m_obj;
 string m_obj2;
 string m_sub;
-public override void __65(Asset asset)
+public override void __64(Asset asset)
 {
-base.__65(asset);
+base.__64(asset);
 m_obj = asset.__18();
 m_obj2 = asset.__18();
 m_sub = asset.__18();
 }
-public override bool __468(Event evt)
+public override bool __467(Event evt)
 {
 bool bothFromInventory = evt.p3.Length>0;
-string obj = G.__97(ref m_obj);
-string obj2 = G.__97(ref m_obj2);
+string obj = G.__96(ref m_obj);
+string obj2 = G.__96(ref m_obj2);
 if ( obj.Length>0 )
 {
 if ( obj2.Length>0 )
@@ -3545,8 +3522,8 @@ return false;
 }
 }
 }
-string sub = G.__97(ref m_sub);
-if ( sub.Length>0 && G.m_game.__322(ref sub)==false )
+string sub = G.__96(ref m_sub);
+if ( sub.Length>0 && G.m_game.__321(ref sub)==false )
 return false;
 G.m_game.m_sysVarObj.m_value = evt.p1;
 G.m_game.m_sysVarObj2.m_value = evt.p2;
@@ -3559,22 +3536,22 @@ public const int ID = 0x50B;
 string m_scene;
 string m_obj;
 string m_label;
-public override void __65(Asset asset)
+public override void __64(Asset asset)
 {
-base.__65(asset);
+base.__64(asset);
 m_scene = asset.__18();
 m_obj = asset.__18();
 m_label = asset.__18();
 }
-public override bool __468(Event evt)
+public override bool __467(Event evt)
 {
-string scene = G.__97(ref m_scene);
+string scene = G.__96(ref m_scene);
 if ( scene.Length>0 && G.m_game.__316(ref scene)==false )
 return false;
-string obj = G.__97(ref m_obj);
+string obj = G.__96(ref m_obj);
 if ( obj.Length>0 && G.m_game.__319(ref evt.p1, ref obj)==false )
 return false;
-string label = G.__97(ref m_label);
+string label = G.__96(ref m_label);
 if ( label.Length>0 && G.m_game.__320(ref evt.p2, ref label)==false )
 return false;
 G.m_game.m_sysVarObj.m_value = evt.p1;
@@ -3588,22 +3565,22 @@ public const int ID = 0x514;
 string m_scene;
 string m_obj;
 string m_mode;
-public override void __65(Asset asset)
+public override void __64(Asset asset)
 {
-base.__65(asset);
+base.__64(asset);
 m_scene = asset.__18();
 m_obj = asset.__18();
 m_mode = asset.__18();
 }
-public override bool __468(Event evt)
+public override bool __467(Event evt)
 {
-string scene = G.__97(ref m_scene);
+string scene = G.__96(ref m_scene);
 if ( scene.Length>0 && G.m_game.__316(ref scene)==false )
 return false;
-string obj = G.__97(ref m_obj);
+string obj = G.__96(ref m_obj);
 if ( obj.Length>0 && G.m_game.__319(ref evt.p1, ref obj)==false )
 return false;
-string mode = G.__97(ref m_mode);
+string mode = G.__96(ref m_mode);
 if ( mode.Length>0 && G.__150(ref evt.p2, ref mode) )
 return false;
 G.m_game.m_sysVarObj.m_value = evt.p1;

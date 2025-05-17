@@ -8,7 +8,7 @@ public string m_uid;
 public byte[] m_output = new byte[(int)FXO.COUNT];
 public EffectItem[] m_items = null;
 public static implicit operator bool(Effect inst) { return inst!=null; }
-public EffectItem __64(string name)
+public EffectItem __63(string name)
 {
 switch ( name )
 {
@@ -26,7 +26,7 @@ case "RAIN":				return new EffectItem_Rain(this);
 }
 return null;
 }
-public void __65(Asset asset)
+public void __64(Asset asset)
 {
 int count = asset.__12();
 if ( count==0 )
@@ -35,19 +35,19 @@ m_items = new EffectItem[count];
 for ( int i=0 ; i<count ; i++ )
 {
 string name = asset.__18();
-m_items[i] = __64(name);
-m_items[i].__65(asset);
+m_items[i] = __63(name);
+m_items[i].__64(asset);
 }
 for ( int i=0 ; i<m_output.Length ; i++ )
 m_output[i] = (byte)asset.__12();
 }
-public void __66()
+public void __65()
 {
 if ( m_items!=null )
 {
 for ( int i=0 ; i<m_items.Length ; i++ )
 {
-m_items[i].__66();
+m_items[i].__65();
 m_items[i] = null;
 }
 m_items = null;
@@ -61,28 +61,28 @@ for ( int i=0 ; i<m_items.Length ; i++ )
 m_items[i].Reset();
 }
 }
-public int __67()
+public int __66()
 {
 return m_items==null ? 0 : m_items.Length;
 }
-public int __68(FXO output)
+public int __67(FXO output)
 {
 return m_output[(int)output];
 }
-public EffectItem __69(FXO output)
+public EffectItem __68(FXO output)
 {
 for ( int i=0 ; i<m_items.Length ; i++ )
 {
-if ( m_items[i].__75(output) )
+if ( m_items[i].__74(output) )
 return m_items[i];
 }
 return null;
 }
-public bool __70(ref int index, FXO output)
+public bool __69(ref int index, FXO output)
 {
 for ( int i=index+1 ; i<m_items.Length ; i++ )
 {
-if ( m_items[i].__75(output) )
+if ( m_items[i].__74(output) )
 {
 index = i;
 return true;
@@ -90,16 +90,16 @@ return true;
 }
 return false;
 }
-public void __71(FXO output, Texture texture, float nativeWidth = 0.0f, float nativeHeight = 0.0f, float opacity = 1.0f, BLEND blend = BLEND.DEFAULT, Sprite depth = null)
+public void __70(FXO output, Texture texture, float nativeWidth = 0.0f, float nativeHeight = 0.0f, float opacity = 1.0f, BLEND blend = BLEND.DEFAULT, Sprite depth = null)
 {
-int count = __68(output);
+int count = __67(output);
 if ( count==0 )
 return;
 if ( count==1 )
 {
-EffectItem item = __69(output);
+EffectItem item = __68(output);
 if ( item )
-item.__71(texture, nativeWidth, nativeHeight, opacity, blend, depth);
+item.__70(texture, nativeWidth, nativeHeight, opacity, blend, depth);
 }
 else
 {
@@ -112,7 +112,7 @@ G.__172();
 int index = -1;
 for ( int i=0 ; i<count-1 ; i++ )
 {
-__70(ref index, output);
+__69(ref index, output);
 if ( i>0 )
 {
 iRT = 1 - iRT;
@@ -121,12 +121,12 @@ rts[iRT] = G.__168();
 G.__173(rts[iRT]);
 G.__172();
 }
-m_items[index].__71(texture, nativeWidth, nativeHeight, i==0 ? opacity : 1.0f, BLEND.DEFAULT, depth);
+m_items[index].__70(texture, nativeWidth, nativeHeight, i==0 ? opacity : 1.0f, BLEND.DEFAULT, depth);
 texture = rts[iRT];
 }
 G.__173(old);
-__70(ref index, output);
-m_items[index].__71(texture, nativeWidth, nativeHeight, 1.0f, blend, depth);
+__69(ref index, output);
+m_items[index].__70(texture, nativeWidth, nativeHeight, 1.0f, blend, depth);
 G.__170(rts[0]);
 G.__170(rts[1]);
 }
@@ -154,28 +154,14 @@ UP,
 public Effect m_parent;
 public MODEL m_model = MODEL.NONE;
 public Dictionary<string, string> m_params;
-public float m_fusion = 0.0f;
 public bool[] m_output = new bool[(int)FXO.COUNT];
 public static implicit operator bool(EffectItem inst) { return inst!=null; }
-public virtual void __65(Asset asset)
+public virtual void __64(Asset asset)
 {
 int count = asset.__12();
 m_params = new Dictionary<string, string>();
 for ( int i=0 ; i<count ; i++ )
 m_params.Add(asset.__18(), asset.__18());
-string fusion;
-if ( m_params.TryGetValue("fusion", out fusion) )
-{
-switch ( fusion )
-{
-case "Addition":
-m_fusion = 1.0f;
-break;
-case "Mask":
-m_fusion = 2.0f;
-break;
-}
-}
 uint bitset = asset.__16();
 uint mask = 1;
 for ( int i=0 ; i<m_output.Length ; i++ )
@@ -184,7 +170,7 @@ m_output[i] = (bitset & mask)!=0;
 mask <<= 1;
 }
 }
-public virtual void __66()
+public virtual void __65()
 {
 m_params = null;
 }
@@ -202,39 +188,39 @@ public bool __10(string name)
 {
 string value;
 if ( m_params.TryGetValue(name, out value) )
-return G.__113(value);
+return G.__112(value);
 return false;
 }
-public int __72(string name)
+public int __71(string name)
+{
+string value;
+if ( m_params.TryGetValue(name, out value) )
+return G.__113(ref value);
+return 0;
+}
+public float __72(string name)
 {
 string value;
 if ( m_params.TryGetValue(name, out value) )
 return G.__114(ref value);
-return 0;
-}
-public float __73(string name)
-{
-string value;
-if ( m_params.TryGetValue(name, out value) )
-return G.__115(ref value);
 return 0.0f;
 }
-public Color __74(string name)
+public Color __73(string name)
 {
 string value;
 if ( m_params.TryGetValue(name, out value) )
-return G.__125((uint)G.__114(ref value));
+return G.__125((uint)G.__113(ref value));
 return Color.black;
 }
-public bool __75(FXO output)
+public bool __74(FXO output)
 {
 return m_output[(int)output];
 }
-public void __76(Texture texture)
+public void __75(Texture texture)
 {
-G.__71(texture);
+G.__70(texture);
 }
-public virtual void __71(Texture texture, float nativeWidth, float nativeHeight, float opacity, BLEND blend, Sprite depth)
+public virtual void __70(Texture texture, float nativeWidth, float nativeHeight, float opacity, BLEND blend, Sprite depth)
 {
 }
 }
@@ -250,27 +236,27 @@ public EffectItem_BCS(Effect parent)
 m_model = MODEL.BCS;
 m_parent = parent;
 }
-public override void __65(Asset asset)
+public override void __64(Asset asset)
 {
-base.__65(asset);
-m_brightness = __73("brightness");
-m_contrast = __73("contrast");
-m_saturation = __73("saturation");
+base.__64(asset);
+m_brightness = __72("brightness");
+m_contrast = __72("contrast");
+m_saturation = __72("saturation");
 m_material = G.__165(SHADER.BCS);
 m_material.SetFloat("_brightness", m_brightness);
 m_material.SetFloat("_contrast", m_contrast);
 m_material.SetFloat("_saturation", m_saturation);
 }
-public override void __66()
+public override void __65()
 {
 G.Release(m_material);
 m_material = null;
-base.__66();
+base.__65();
 }
-public override void __71(Texture texture, float nativeWidth, float nativeHeight, float opacity, BLEND blend, Sprite depth)
+public override void __70(Texture texture, float nativeWidth, float nativeHeight, float opacity, BLEND blend, Sprite depth)
 {
 m_material.mainTexture = texture;
-G.m_graphics.__364(m_material, opacity, blend);
+G.m_graphics.__363(m_material, opacity, blend);
 m_material.mainTexture = null;
 }
 }
@@ -289,15 +275,15 @@ public EffectItem_Beacon(Effect parent)
 m_model = MODEL.BEACON;
 m_parent = parent;
 }
-public override void __65(Asset asset)
+public override void __64(Asset asset)
 {
-base.__65(asset);
-m_width = __73("width");
-m_speed = __73("speed");
-m_boost = __73("boost");
-m_softness = __73("softness");
-m_angle = __73("angle");
-m_space = __73("space");
+base.__64(asset);
+m_width = __72("width");
+m_speed = __72("speed");
+m_boost = __72("boost");
+m_softness = __72("softness");
+m_angle = __72("angle");
+m_space = __72("space");
 m_material = G.__165(SHADER.BEACON);
 m_material.SetFloat("_width", m_width);
 m_material.SetFloat("_speed", m_speed);
@@ -306,16 +292,16 @@ m_material.SetFloat("_softness", m_softness);
 m_material.SetFloat("_angle", m_angle);
 m_material.SetFloat("_space", m_space);
 }
-public override void __66()
+public override void __65()
 {
 G.Release(m_material);
 m_material = null;
-base.__66();
+base.__65();
 }
-public override void __71(Texture texture, float nativeWidth, float nativeHeight, float opacity, BLEND blend, Sprite depth)
+public override void __70(Texture texture, float nativeWidth, float nativeHeight, float opacity, BLEND blend, Sprite depth)
 {
 m_material.mainTexture = texture;
-G.m_graphics.__364(m_material, opacity, blend);
+G.m_graphics.__363(m_material, opacity, blend);
 m_material.mainTexture = null;
 }
 }
@@ -335,18 +321,18 @@ public EffectItem_Blur(Effect parent)
 m_model = MODEL.BLUR;
 m_parent = parent;
 }
-public override void __65(Asset asset)
+public override void __64(Asset asset)
 {
-base.__65(asset);
-m_size = G.Clamp(__73("size"));
-m_maxSize = G.Clamp(__73("maxSize"), m_size, 1.0f);
-m_maxZoom = G.Clamp(__73("maxZoom"), 1.0f, 4.0f);
+base.__64(asset);
+m_size = G.Clamp(__72("size"));
+m_maxSize = G.Clamp(__72("maxSize"), m_size, 1.0f);
+m_maxZoom = G.Clamp(__72("maxZoom"), 1.0f, 4.0f);
 }
-public override void __66()
+public override void __65()
 {
-base.__66();
+base.__65();
 }
-public override void __71(Texture texture, float nativeWidth, float nativeHeight, float opacity, BLEND blend, Sprite depth)
+public override void __70(Texture texture, float nativeWidth, float nativeHeight, float opacity, BLEND blend, Sprite depth)
 {
 float scale = G.m_game.__291().m_renderScale;
 float size = m_size;
@@ -358,13 +344,13 @@ size = G.Clamp(size, m_size, m_maxSize);
 }
 if ( size==0.0f )
 {
-__76(texture);
+__75(texture);
 return;
 }
 float radius = size * scale * m_tweak;
 G.__176(radius, texture);
 }
-public void __77(float size, float maxZoom)
+public void __76(float size, float maxZoom)
 {
 m_size = size;
 m_maxZoom = maxZoom;
@@ -384,12 +370,12 @@ public EffectItem_Colorization(Effect parent)
 m_model = MODEL.COLORIZATION;
 m_parent = parent;
 }
-public override void __65(Asset asset)
+public override void __64(Asset asset)
 {
-base.__65(asset);
-m_shadowColor = __74("shadow");
-m_highlightColor = __74("highlight");
-m_smooth = G.Clamp(__72("smooth"), 1, 100)/100.0f*0.5f;
+base.__64(asset);
+m_shadowColor = __73("shadow");
+m_highlightColor = __73("highlight");
+m_smooth = G.Clamp(__71("smooth"), 1, 100)/100.0f*0.5f;
 m_smoothMin = 0.5f - m_smooth;
 m_smoothLen = (0.5f+m_smooth) - m_smoothMin;
 m_material = G.__165(SHADER.COLORIZATION);
@@ -398,16 +384,16 @@ m_material.SetColor("_highlightColor", m_highlightColor);
 m_material.SetFloat("_smoothMin", m_smoothMin);
 m_material.SetFloat("_smoothLen", m_smoothLen);
 }
-public override void __66()
+public override void __65()
 {
 G.Release(m_material);
 m_material = null;
-base.__66();
+base.__65();
 }
-public override void __71(Texture texture, float nativeWidth, float nativeHeight, float opacity, BLEND blend, Sprite depth)
+public override void __70(Texture texture, float nativeWidth, float nativeHeight, float opacity, BLEND blend, Sprite depth)
 {
 m_material.mainTexture = texture;
-G.m_graphics.__364(m_material, opacity, blend);
+G.m_graphics.__363(m_material, opacity, blend);
 m_material.mainTexture = null;
 }
 }
@@ -420,9 +406,9 @@ public EffectItem_Curve(Effect parent)
 m_model = MODEL.CURVE;
 m_parent = parent;
 }
-public override void __65(Asset asset)
+public override void __64(Asset asset)
 {
-base.__65(asset);
+base.__64(asset);
 m_material = G.__165(SHADER.CURVE);
 float[] values = new float[256];
 for ( int i=0 ; i<values.Length ; i++ )
@@ -436,16 +422,16 @@ for ( int i=0 ; i<values.Length ; i++ )
 values[i] = asset.__14()/359.0f;
 m_material.SetFloatArray("_hue", values);
 }
-public override void __66()
+public override void __65()
 {
 G.Release(m_material);
 m_material = null;
-base.__66();
+base.__65();
 }
-public override void __71(Texture texture, float nativeWidth, float nativeHeight, float opacity, BLEND blend, Sprite depth)
+public override void __70(Texture texture, float nativeWidth, float nativeHeight, float opacity, BLEND blend, Sprite depth)
 {
 m_material.mainTexture = texture;
-G.m_graphics.__364(m_material, opacity, blend);
+G.m_graphics.__363(m_material, opacity, blend);
 m_material.mainTexture = null;
 }
 }
@@ -460,20 +446,20 @@ public EffectItem_Grain(Effect parent)
 m_model = MODEL.GRAIN;
 m_parent = parent;
 }
-public override void __65(Asset asset)
+public override void __64(Asset asset)
 {
-base.__65(asset);
-m_gain = G.Clamp(__72("gain"), 0, 100)/100.0f;
+base.__64(asset);
+m_gain = G.Clamp(__71("gain"), 0, 100)/100.0f;
 m_material = G.__165(SHADER.GRAIN);
 m_material.SetTexture("_grainTex", null);
 }
-public override void __66()
+public override void __65()
 {
 G.Release(m_material);
 m_material = null;
-base.__66();
+base.__65();
 }
-public override void __71(Texture texture, float nativeWidth, float nativeHeight, float opacity, BLEND blend, Sprite depth)
+public override void __70(Texture texture, float nativeWidth, float nativeHeight, float opacity, BLEND blend, Sprite depth)
 {
 if ( m_initialized==false )
 {
@@ -483,7 +469,7 @@ m_initialized = true;
 m_material.mainTexture = texture;
 m_material.SetFloat("_gain", m_gain);
 m_material.SetFloat("_delta", G.__156(0.0f, 1.0f));
-G.m_graphics.__364(m_material, opacity, blend);
+G.m_graphics.__363(m_material, opacity, blend);
 m_material.mainTexture = null;
 }
 }
@@ -496,21 +482,21 @@ public EffectItem_Grayscale(Effect parent)
 m_model = MODEL.GRAYSCALE;
 m_parent = parent;
 }
-public override void __65(Asset asset)
+public override void __64(Asset asset)
 {
-base.__65(asset);
+base.__64(asset);
 m_material = G.__165(SHADER.GRAYSCALE);
 }
-public override void __66()
+public override void __65()
 {
 G.Release(m_material);
 m_material = null;
-base.__66();
+base.__65();
 }
-public override void __71(Texture texture, float nativeWidth, float nativeHeight, float opacity, BLEND blend, Sprite depth)
+public override void __70(Texture texture, float nativeWidth, float nativeHeight, float opacity, BLEND blend, Sprite depth)
 {
 m_material.mainTexture = texture;
-G.m_graphics.__364(m_material, opacity, blend);
+G.m_graphics.__363(m_material, opacity, blend);
 m_material.mainTexture = null;
 }
 }
@@ -526,9 +512,9 @@ public EffectItem_LUT(Effect parent)
 m_model = MODEL.LUT;
 m_parent = parent;
 }
-public override void __65(Asset asset)
+public override void __64(Asset asset)
 {
-base.__65(asset);
+base.__64(asset);
 if ( G.m_game.m_lutNames.TryGetValue(__18("style"), out m_index)==false )
 m_index = 0;
 m_row = 1.0f-((m_index-1)/255.0f);
@@ -537,26 +523,26 @@ m_materialGray = G.__165(SHADER.GRAYSCALE);
 m_material.SetTexture("_lutTex", G.m_game.m_lutTexture);
 m_material.SetFloat("_row", m_row);
 }
-public override void __66()
+public override void __65()
 {
 G.Release(m_material);
 G.Release(m_materialGray);
 m_material = null;
 m_materialGray = null;
-base.__66();
+base.__65();
 }
-public override void __71(Texture texture, float nativeWidth, float nativeHeight, float opacity, BLEND blend, Sprite depth)
+public override void __70(Texture texture, float nativeWidth, float nativeHeight, float opacity, BLEND blend, Sprite depth)
 {
 if ( m_index==0 )
 {
 m_materialGray.mainTexture = texture;
-G.m_graphics.__364(m_materialGray, opacity);
+G.m_graphics.__363(m_materialGray, opacity);
 m_materialGray.mainTexture = null;
 }
 else
 {
 m_material.mainTexture = texture;
-G.m_graphics.__364(m_material, opacity, blend);
+G.m_graphics.__363(m_material, opacity, blend);
 m_material.mainTexture = null;
 }
 }
@@ -564,6 +550,7 @@ m_material.mainTexture = null;
 public class EffectItem_Fire : EffectItem
 {
 public Material m_material = null;
+public float m_blend;
 public float m_speed;
 public static implicit operator bool(EffectItem_Fire inst) { return inst!=null; }
 public EffectItem_Fire(Effect parent)
@@ -571,25 +558,25 @@ public EffectItem_Fire(Effect parent)
 m_model = MODEL.FIRE;
 m_parent = parent;
 }
-public override void __65(Asset asset)
+public override void __64(Asset asset)
 {
-base.__65(asset);
-m_speed = __73("speed");
+base.__64(asset);
+m_speed = __72("speed");
 m_material = G.__165(SHADER.FIRE);
-m_material.SetFloat("_fusion", m_fusion);
+m_material.SetFloat("_blend", m_blend);
 m_material.SetFloat("_ratio", G.m_gameRatio);
 m_material.SetFloat("_speed", m_speed);
 }
-public override void __66()
+public override void __65()
 {
 G.Release(m_material);
 m_material = null;
-base.__66();
+base.__65();
 }
-public override void __71(Texture texture, float nativeWidth, float nativeHeight, float opacity, BLEND blend, Sprite depth)
+public override void __70(Texture texture, float nativeWidth, float nativeHeight, float opacity, BLEND blend, Sprite depth)
 {
 m_material.mainTexture = texture;
-G.m_graphics.__364(m_material, opacity, blend);
+G.m_graphics.__363(m_material, opacity, blend);
 m_material.mainTexture = null;
 }
 }
@@ -608,20 +595,20 @@ public EffectItem_Parallax(Effect parent)
 m_model = MODEL.PARALLAX;
 m_parent = parent;
 }
-public override void __65(Asset asset)
+public override void __64(Asset asset)
 {
-base.__65(asset);
+base.__64(asset);
 m_material = G.__165(SHADER.PARALLAX);
 m_material.SetTexture("_depthTex", null);
-__77(__72("angle"), __72("scale"), __72("focus"));
+__76(__71("angle"), __71("scale"), __71("focus"));
 }
-public override void __66()
+public override void __65()
 {
 G.Release(m_material);
 m_material = null;
-base.__66();
+base.__65();
 }
-public override void __71(Texture texture, float nativeWidth, float nativeHeight, float opacity, BLEND blend, Sprite depth)
+public override void __70(Texture texture, float nativeWidth, float nativeHeight, float opacity, BLEND blend, Sprite depth)
 {
 m_material.mainTexture = texture;
 if ( depth )
@@ -640,12 +627,12 @@ m_material.SetFloat("_ratioY", ratio);
 }
 m_material.SetTexture("_depthTex", depth.m_texture);
 }
-G.m_graphics.__364(m_material, opacity, blend);
+G.m_graphics.__363(m_material, opacity, blend);
 m_material.mainTexture = null;
 if ( depth )
 m_material.SetTexture("_depthTex", null);
 }
-public void __77(int angle, int scale, int focus)
+public void __76(int angle, int scale, int focus)
 {
 float a = G.__142(angle);
 m_x = Mathf.Sin(a);
@@ -666,9 +653,10 @@ m_material.SetFloat("_ratioY", m_ratioY);
 public class EffectItem_Rain : EffectItem
 {
 public Material m_material = null;
+public float m_blend;
 public int m_count;
 public float m_distance;
-public float m_vertical;
+public float m_direction;
 public Color m_lightColor;
 public static implicit operator bool(EffectItem_Rain inst) { return inst!=null; }
 public EffectItem_Rain(Effect parent)
@@ -676,31 +664,31 @@ public EffectItem_Rain(Effect parent)
 m_model = MODEL.RAIN;
 m_parent = parent;
 }
-public override void __65(Asset asset)
+public override void __64(Asset asset)
 {
-base.__65(asset);
-m_count = G.Clamp(__72("count"), 1, 20);
-m_distance = (float)G.Clamp(__72("distance"), 1, 100);
-m_vertical = __10("vertical") ? 1.0f : 0.0f;
-m_lightColor = __74("color");
+base.__64(asset);
+m_count = G.Clamp(__71("count"), 1, 20);
+m_distance = (float)G.Clamp(__71("distance"), 1, 100);
+m_direction = __72("direction");
+m_lightColor = __73("color");
 m_material = G.__165(SHADER.RAIN);
 m_material.SetTexture("_noiseTex", G.m_spriteNoise.m_texture);
-m_material.SetFloat("_fusion", m_fusion);
+m_material.SetFloat("_blend", m_blend);
 m_material.SetInt("_count", m_count);
 m_material.SetFloat("_distance", m_distance);
-m_material.SetFloat("_vertical", m_vertical);
+m_material.SetFloat("_direction", m_direction);
 m_material.SetColor("_lightColor", m_lightColor);
 }
-public override void __66()
+public override void __65()
 {
 G.Release(m_material);
 m_material = null;
-base.__66();
+base.__65();
 }
-public override void __71(Texture texture, float nativeWidth, float nativeHeight, float opacity, BLEND blend, Sprite depth)
+public override void __70(Texture texture, float nativeWidth, float nativeHeight, float opacity, BLEND blend, Sprite depth)
 {
 m_material.mainTexture = texture;
-G.m_graphics.__364(m_material, opacity, blend);
+G.m_graphics.__363(m_material, opacity, blend);
 m_material.mainTexture = null;
 }
 }

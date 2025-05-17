@@ -13,8 +13,8 @@ public Serial<float> m_anchorY;
 public float m_imgWidth;
 public float m_imgHeight;
 public int m_tolerance;
-public float m_speedX;
-public float m_speedY;
+public Serial<float> m_speedX;
+public Serial<float> m_speedY;
 public ANIMATION m_animation = ANIMATION.NONE;
 public float m_animationSpeed = 1.0f;
 public float m_animationScale = 1.0f;
@@ -55,75 +55,85 @@ m_enabled.Reset();
 m_subEnabled.Reset();
 m_anchorX.Reset();
 m_anchorY.Reset();
+m_speedX.Reset();
+m_speedY.Reset();
 for ( int i=0 ; i<m_anims.Length ; i++ )
 m_anims[i].Reset();
 }
 public void __46(JsonObj json)
 {
-json.__383("sid", m_sid);
-json.__381("uid", m_uid);
-json.__381("tag", m_tags[0]);
+json.__382("sid", m_sid);
+json.__380("uid", m_uid);
+json.__380("tag", m_tags[0]);
 if ( m_icon.modified )
-json.__382("icon", m_icon.cur);
+json.__381("icon", m_icon.cur);
 if ( m_title.m_sub.modified )
-json.__382("title", m_title.m_sub.cur);
+json.__381("title", m_title.m_sub.cur);
 if ( m_killed.modified )
-json.__385("killed", m_killed.cur);
+json.__384("killed", m_killed.cur);
 if ( m_enabled.modified )
-json.__385("enabled", m_enabled.cur);
+json.__384("enabled", m_enabled.cur);
 if ( m_subEnabled.modified )
-json.__385("subEnabled", m_subEnabled.cur);
+json.__384("subEnabled", m_subEnabled.cur);
 if ( m_anchorX.modified )
-json.__382("x", (int)m_anchorX.cur);
+json.__381("x", (int)m_anchorX.cur);
 if ( m_anchorY.modified )
-json.__382("y", (int)m_anchorY.cur);
+json.__381("y", (int)m_anchorY.cur);
+if ( m_speedX.modified )
+json.__381("speedX", (int)m_speedX.cur);
+if ( m_speedY.modified )
+json.__381("speedY", (int)m_speedY.cur);
 if ( m_tint.modified )
-json.__382("tint", (int)G.__128(ref m_tint.cur));
-JsonArray jAnims = json.__390("anims");
+json.__381("tint", (int)G.__128(ref m_tint.cur));
+JsonArray jAnims = json.__389("anims");
 for ( int i=0 ; i<m_anims.Length ; i++ )
 {
-JsonObj jAnim = jAnims.__389();
+JsonObj jAnim = jAnims.__388();
 m_anims[i].__46(jAnim);
 }
 }
 public void __47(JsonObj json)
 {
 m_tags[0] = json.GetString("tag");
-if ( json.__391("icon") )
+if ( json.__390("icon") )
 m_icon.Set(json.GetInt("icon"));
-if ( json.__391("title") )
+if ( json.__390("title") )
 m_title.m_sub.Set(json.GetInt("title"));
-if ( json.__391("killed") )
-m_killed.Set(json.__401("killed"));
-if ( json.__391("enabled") )
-m_enabled.Set(json.__401("enabled"));
-if ( json.__391("subEnabled") )
-m_subEnabled.Set(json.__401("subEnabled"));
-if ( json.__391("x") )
+if ( json.__390("killed") )
+m_killed.Set(json.__400("killed"));
+if ( json.__390("enabled") )
+m_enabled.Set(json.__400("enabled"));
+if ( json.__390("subEnabled") )
+m_subEnabled.Set(json.__400("subEnabled"));
+if ( json.__390("x") )
 m_anchorX.Set(json.GetInt("x"));
-if ( json.__391("y") )
+if ( json.__390("y") )
 m_anchorY.Set(json.GetInt("y"));
-if ( json.__391("tint") )
+if ( json.__390("speedX") )
+m_speedX.Set(json.GetInt("speedX"));
+if ( json.__390("speedY") )
+m_speedY.Set(json.GetInt("speedY"));
+if ( json.__390("tint") )
 m_tint.Set(G.__126((uint)json.GetInt("tint")));
-JsonArray jAnims = json.__395("anims");
+JsonArray jAnims = json.__394("anims");
 if ( jAnims )
 {
-for ( int i=0 ; i<jAnims.__67() ; i++ )
+for ( int i=0 ; i<jAnims.__66() ; i++ )
 {
-JsonObj jAnim = jAnims.__394(i);
+JsonObj jAnim = jAnims.__393(i);
 if ( jAnim )
 {
-Anim anim = __471(jAnim.GetString("name"));
+Anim anim = __470(jAnim.GetString("name"));
 if ( anim )
 anim.__47(jAnim);
 }
 }
 }
 }
-public void __469(Asset asset, Scene scene)
+public void __468(Asset asset, Scene scene)
 {
 if ( m_avatar )
-m_avatar.__469(asset, scene);
+m_avatar.__468(asset, scene);
 if ( m_killed.cur )
 return;
 if ( m_opened )
@@ -136,8 +146,8 @@ if ( m_sprites[i] )
 {
 if ( m_sprites[i].m_packGroupType==PACKGROUP.SCN && m_sprites[i].m_packGroupScene==scene.m_uid )
 {
-if ( m_sprites[i].__995()==false )
-m_sprites[i].__469(asset);
+if ( m_sprites[i].__988()==false )
+m_sprites[i].__468(asset);
 }
 }
 }
@@ -153,8 +163,8 @@ if ( m_sprites[i] )
 {
 if ( m_sprites[i].m_packGroupType==PACKGROUP.OBJ || (m_sprites[i].m_packGroupType==PACKGROUP.SCN && m_sprites[i].m_packGroupScene==scene.m_uid) )
 {
-if ( m_sprites[i].__995()==false )
-m_sprites[i].__469(asset);
+if ( m_sprites[i].__988()==false )
+m_sprites[i].__468(asset);
 }
 }
 }
@@ -162,10 +172,10 @@ for ( int i=0 ; i<m_anims.Length ; i++ )
 {
 for ( int j=0 ; j<m_anims[i].m_dirs.Length ; j++ )
 {
-for ( int k=0 ; k<m_anims[i].m_dirs[j].__476() ; k++ )
+for ( int k=0 ; k<m_anims[i].m_dirs[j].__475() ; k++ )
 {
 if ( m_anims[i].m_dirs[j].m_frames[k].m_mask && m_anims[i].m_dirs[j].m_frames[k].m_maskCloned==false )
-m_anims[i].m_dirs[j].m_frames[k].m_mask.__469(asset);
+m_anims[i].m_dirs[j].m_frames[k].m_mask.__468(asset);
 }
 }
 }
@@ -205,7 +215,7 @@ for ( int i=0 ; i<m_anims.Length ; i++ )
 {
 for ( int j=0 ; j<m_anims[i].m_dirs.Length ; j++ )
 {
-for ( int k=0 ; k<m_anims[i].m_dirs[j].__476() ; k++ )
+for ( int k=0 ; k<m_anims[i].m_dirs[j].__475() ; k++ )
 {
 if ( m_anims[i].m_dirs[j].m_frames[k].m_mask && m_anims[i].m_dirs[j].m_frames[k].m_maskCloned==false )
 m_anims[i].m_dirs[j].m_frames[k].m_mask.End();
@@ -223,7 +233,7 @@ if ( nameOrTag[0]=='@' )
 return G.__149(m_tags, nameOrTag.Substring(1));
 return G.__148(ref m_uid, ref nameOrTag);
 }
-public SubObj __470(ref string name)
+public SubObj __469(ref string name)
 {
 if ( name.Length==0 )
 return null;
@@ -234,7 +244,7 @@ return m_subObjs[i];
 }
 return null;
 }
-public Anim __471(ref string name)
+public Anim __470(ref string name)
 {
 if ( name.Length==0 )
 return null;
@@ -245,9 +255,9 @@ return m_anims[i];
 }
 return null;
 }
-public Anim __471(string name)
+public Anim __470(string name)
 {
-return __471(ref name);
+return __470(ref name);
 }
 public Player __293()
 {
@@ -261,17 +271,17 @@ return G.m_game.m_players[i];
 }
 return null;
 }
-public Sprite __454()
+public Sprite __453()
 {
 return m_icons[m_icon.cur];
 }
-public Sprite __454(int index)
+public Sprite __453(int index)
 {
 if ( index<0 || index>=G.ICON_COUNT )
 return null;
 return m_icons[index];
 }
-public Turn __472(int dir, string stop)
+public Turn __471(int dir, string stop)
 {
 if ( m_turns!=null )
 {
@@ -294,7 +304,7 @@ public Obj m_obj;
 public string m_name;
 public Term m_title;
 public static implicit operator bool(SubObj inst) { return inst!=null; }
-public bool __473()
+public bool __472()
 {
 return m_title.Get().Length>0;
 }
@@ -321,20 +331,20 @@ public static implicit operator bool(Anim inst) { return inst!=null; }
 public void Reset()
 {
 m_speed.Reset();
-__474((int)m_speed.init);
+__473((int)m_speed.init);
 }
 public void __46(JsonObj json)
 {
-json.__381("name", m_name);
+json.__380("name", m_name);
 if ( m_speed.modified )
-json.__382("fps", (int)m_speed.cur);
+json.__381("fps", (int)m_speed.cur);
 }
 public void __47(JsonObj json)
 {
-if ( json.__391("fps") )
-__474(json.GetInt("fps"));
+if ( json.__390("fps") )
+__473(json.GetInt("fps"));
 }
-public void __474(int speed)
+public void __473(int speed)
 {
 speed = G.Clamp(speed, -127, 127);
 m_speed.Set(speed);
@@ -343,11 +353,11 @@ speed = Math.Abs(speed);
 m_fps = (float)speed;
 m_fpsInv = speed==0 ? 0.0f : 1.0f/m_fps;
 }
-public bool __475(int index)
+public bool __474(int index)
 {
 if ( index==-1 )
 return false;
-return m_dirs[index].__476()>0;
+return m_dirs[index].__475()>0;
 }
 }
 public class AnimDir
@@ -364,11 +374,11 @@ public const int BR = 7;
 public int m_id;
 public Frame[] m_frames;
 public static implicit operator bool(AnimDir inst) { return inst!=null; }
-public int __476()
+public int __475()
 {
 return m_frames.Length;
 }
-public string __393()
+public string __392()
 {
 switch ( m_id )
 {
@@ -412,7 +422,7 @@ public int m_offset = 0;
 public int m_size = 0;
 public byte[] m_buffer;
 public static implicit operator bool(Mask inst) { return inst!=null; }
-public void __469(Asset asset)
+public void __468(Asset asset)
 {
 m_buffer = null;
 if ( m_offset==0 )

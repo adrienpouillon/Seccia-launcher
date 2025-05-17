@@ -16,21 +16,21 @@ m_root.Reset();
 }
 public void __46(JsonObj json)
 {
-json.__383("sid", m_sid);
-json.__381("uid", m_uid);
-json.__381("tag", m_tags[0]);
-JsonArray jSentences = json.__390("sentences");
+json.__382("sid", m_sid);
+json.__380("uid", m_uid);
+json.__380("tag", m_tags[0]);
+JsonArray jSentences = json.__389("sentences");
 m_root.__46(jSentences);
 }
 public void __47(JsonObj json)
 {
 m_tags[0] = json.GetString("tag");
-JsonArray jSentences = json.__395("sentences");
+JsonArray jSentences = json.__394("sentences");
 if ( jSentences )
 {
-for ( int i=0 ; i<jSentences.__67() ; i++ )
+for ( int i=0 ; i<jSentences.__66() ; i++ )
 {
-JsonObj jSentence = jSentences.__394(i);
+JsonObj jSentence = jSentences.__393(i);
 if ( jSentence )
 {
 Sentence sentence;
@@ -73,17 +73,17 @@ return;
 if ( sentence.m_visible.cur )
 return;
 sentence.m_visible.Set(true);
-G.m_game.__333(sentence);
+G.m_game.__332(sentence);
 }
 public void __51(int idToShow)
 {
 if ( __52(idToShow) )
 {
 Sentence sentence = __49(idToShow);
-if ( sentence && sentence.__62()==false && sentence.m_visited==false )
+if ( sentence && sentence.m_visited==false )
 {
 sentence.m_visible.Set(true);
-G.m_game.__333(sentence);
+G.m_game.__332(sentence);
 }
 }
 }
@@ -104,9 +104,6 @@ public bool m_hideBranch = false;
 public int m_goto = 0;
 public int[] m_mutualShows = null;
 public bool m_exit = false;
-public int m_onSay = 0;
-public int m_onShow = 0;
-public int m_onSuccess = 0;
 public bool m_task = false;
 public string m_taskRole;
 public string m_taskName;
@@ -129,10 +126,12 @@ public SentenceVoice m_voice = null;
 public Term m_text;
 public Sentence[] m_subs = null;
 public bool m_visited;
+public bool m_unlocked;
 public static implicit operator bool(Sentence inst) { return inst!=null; }
 public void Reset()
 {
 m_visited = false;
+m_unlocked = false;
 m_visible.Reset();
 if ( m_subs!=null )
 {
@@ -142,12 +141,13 @@ m_subs[i].Reset();
 }
 public void __46(JsonArray json)
 {
-JsonObj jSentence = json.__389();
-jSentence.__382("id", m_sid);
-jSentence.__381("tag", m_tags[0]);
+JsonObj jSentence = json.__388();
+jSentence.__381("id", m_sid);
+jSentence.__380("tag", m_tags[0]);
 if ( m_visible.modified )
-jSentence.__385("visible", m_visible.cur);
-jSentence.__385("visited", m_visited);
+jSentence.__384("visible", m_visible.cur);
+jSentence.__384("visited", m_visited);
+jSentence.__384("unlocked", m_unlocked);
 if ( m_subs!=null )
 {
 for ( int i=0 ; i<m_subs.Length ; i++ )
@@ -157,9 +157,10 @@ m_subs[i].__46(json);
 public void __47(JsonObj json)
 {
 m_tags[0] = json.GetString("tag");
-if ( json.__391("visible") )
-m_visible.Set(json.__401("visible"));
-m_visited = json.__401("visited");
+if ( json.__390("visible") )
+m_visible.Set(json.__400("visible"));
+m_visited = json.__400("visited");
+m_unlocked = json.__400("unlocked");
 }
 public bool __48(ref string idOrTag)
 {
@@ -167,7 +168,7 @@ if ( idOrTag.Length==0 )
 return false;
 if ( idOrTag[0]=='@' )
 return G.__149(m_tags, idOrTag.Substring(1));
-return m_sid==G.__114(ref idOrTag);
+return m_sid==G.__113(ref idOrTag);
 }
 public bool __53()
 {
@@ -322,14 +323,6 @@ return false;
 }
 return true;
 }
-public bool __62()
-{
-if ( m_onSuccess==0 )
-return false;
-if ( G.m_game.m_scenario.__522(m_onSuccess) )
-return false;
-return true;
-}
 }
 public class SentenceVoice
 {
@@ -341,7 +334,7 @@ m_paths = new List<string>[G.m_game.m_languages.Length];
 for ( int i=0 ; i<m_paths.Length ; i++ )
 m_paths[i] = new List<string>();
 }
-public string __63(int index)
+public string __62(int index)
 {
 if ( G.m_game.m_optionLanguageAudio>=m_paths.Length )
 return "";

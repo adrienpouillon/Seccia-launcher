@@ -23,7 +23,7 @@ Shader "AGE/Fire"
 			uniform sampler2D _MainTex;
 			uniform half4 _Color;
 
-			uniform half _fusion;
+			uniform half _blend;
 			uniform half _ratio;			// screen ratio
 			uniform half _speed;			// factor
 			
@@ -119,12 +119,10 @@ Shader "AGE/Fire"
 				hsv.y = (2.2-hsv.z*.9)*1.20;
 				color = hsv2rgb(hsv);
 
+				color *= _blend;
 				float4 trg = float4(color, 1.0);
-				if ( _fusion==2.0 ) // mask
-					trg.a = tex2D(_MainTex, i.uv).x;
-				else if ( _fusion==1.0 ) // add
-					trg.rgb += tex2D(_MainTex, i.uv).rgb;
-				trg.a *= _Color.a;
+				trg.rgb += tex2D(_MainTex, i.uv).rgb;
+				//trg.a *= _Color.a;
 				trg.rgb *= trg.a;
 				return trg;
 			}

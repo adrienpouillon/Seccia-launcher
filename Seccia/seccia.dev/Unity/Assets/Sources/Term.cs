@@ -27,7 +27,7 @@ int index2 = text.IndexOf(']', index);
 if ( index2==-1 )
 break;
 string item = text.Substring(index+1, index2-index-1);
-string name = G.__97(ref item);
+string name = G.__96(ref item);
 Obj obj = G.m_game.__277(name);
 if ( obj )
 {

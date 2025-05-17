@@ -24,10 +24,10 @@ Shader "AGE/Rain"
 			uniform half4 _Color;
 
 			uniform sampler2D _noiseTex;
-			uniform float _fusion;
+			uniform half _blend;
 			uniform int _count;
 			uniform half _distance;
-			uniform half _vertical;
+			uniform half _direction;
 			uniform half4 _lightColor;
 
 			v2f vs(appdata_img v)
@@ -44,10 +44,10 @@ Shader "AGE/Rain"
 				float time = _Time.y;
 				float2 q = i.uv;
 				float2 st0 =  q * float2(1.5, 0.05);
-				if ( _vertical==0.0 )
-					st0 += float2(-time*0.1+q.y*0.5, time*0.12);
-				else
+				if ( _direction==0.0 )
 					st0 += float2(1.5, time*0.12);
+				else
+					st0 += float2(-time*0.1+q.y*0.5*_direction, time*0.12);
 
 				float3 color = 0.0;
 				for ( int index=0 ; index<_count ; index++ )
@@ -69,12 +69,10 @@ Shader "AGE/Rain"
 				}
 				color = saturate(color);
 
+				color *= _blend;
 				float4 trg = float4(color, 1.0);
-				if ( _fusion==2.0 ) // mask
-					trg.a = tex2D(_MainTex, i.uv).x;
-				else if ( _fusion==1.0 ) // add
-					trg.rgb += tex2D(_MainTex, i.uv).rgb;
-				trg.a *= _Color.a;
+				trg.rgb += tex2D(_MainTex, i.uv).rgb;
+				//trg.a *= _Color.a;
 				trg.rgb *= trg.a;
 				return trg;
 			}

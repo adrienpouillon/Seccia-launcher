@@ -22,6 +22,8 @@ public float m_speedY;
 public BLEND m_blend;
 public DRAG m_drag;
 public Serial<bool> m_cheat;
+public bool m_door;
+public bool m_skip;
 public bool m_light;
 public Serial<bool> m_lightVisible;
 public Serial<float> m_lightAmbient;
@@ -110,7 +112,7 @@ End();
 if ( m_obj )
 {
 m_parentName.Reset();
-m_parent = m_scene.__536(ref m_parentName.cur);
+m_parent = m_scene.__535(ref m_parentName.cur);
 }
 m_local.Reset();
 m_elevator.Reset();
@@ -141,7 +143,6 @@ m_chaseObjDeltaRow = 0;
 m_chaseObjCol = -1;
 m_chaseObjRow = -1;
 m_opacity.Reset();
-m_storedPos.Init(new Vec2(G.INVALIDCOORD, G.INVALIDCOORD));
 m_draw.Reset();
 m_lightMeshChanged = true;
 m_lightVisible.Reset();
@@ -163,183 +164,176 @@ m_paths[i].Stop();
 }
 if ( m_obj==null )
 return;
-__632(ref m_defaultStopAnim.cur);
+__626(ref m_defaultStopAnim.cur);
 }
 public void __46(JsonObj json)
 {
-json.__382("id", m_sid);
-json.__381("tag", m_tags[0]);
+json.__381("id", m_sid);
+json.__380("tag", m_tags[0]);
 if ( m_defaultStopAnim.modified )
-json.__381("defStop", m_defaultStopAnim.cur);
+json.__380("defStop", m_defaultStopAnim.cur);
 if ( m_defaultWalkAnim.modified )
-json.__381("defWalk", m_defaultWalkAnim.cur);
+json.__380("defWalk", m_defaultWalkAnim.cur);
 if ( m_defaultTalkAnim.modified )
-json.__381("defTalk", m_defaultTalkAnim.cur);
+json.__380("defTalk", m_defaultTalkAnim.cur);
 if ( m_obj && m_parentName.modified )
-json.__381("parent", m_parentName.cur);
+json.__380("parent", m_parentName.cur);
 if ( m_sticker.modified )
-json.__381("sticker", m_sticker.cur);
+json.__380("sticker", m_sticker.cur);
 if ( m_visible.modified )
-json.__385("visible", m_visible.cur);
+json.__384("visible", m_visible.cur);
 if ( m_iPath.modified )
-json.__382("path", m_iPath.cur);
+json.__381("path", m_iPath.cur);
 if ( m_pathStarted.modified )
-json.__385("pathStarted", m_pathStarted.cur);
+json.__384("pathStarted", m_pathStarted.cur);
 if ( m_iGrid.modified )
-json.__382("grid", m_iGrid.cur);
+json.__381("grid", m_iGrid.cur);
 if ( m_opacity.modified )
-json.__384("opacity", m_opacity.cur);
+json.__383("opacity", m_opacity.cur);
 if ( m_angle.modified )
-json.__382("angle", m_angle.cur);
+json.__381("angle", m_angle.cur);
 if ( m_elevator.modified )
-json.__384("elevator", m_elevator.cur);
+json.__383("elevator", m_elevator.cur);
 if ( m_z.modified )
-json.__384("z", m_z.cur);
+json.__383("z", m_z.cur);
 if ( m_autoZ.modified )
-json.__385("autoZ", m_autoZ.cur);
+json.__384("autoZ", m_autoZ.cur);
 if ( m_manualScale.modified )
-json.__384("scale", m_manualScale.cur);
+json.__383("scale", m_manualScale.cur);
 if ( m_manualZoom.modified )
-json.__384("zoom", m_manualZoom.cur);
+json.__383("zoom", m_manualZoom.cur);
 if ( m_cheat.modified )
-json.__385("cheat", m_cheat.cur);
+json.__384("cheat", m_cheat.cur);
 if ( m_placement.modified )
-json.__382("placement", (int)m_placement.cur);
+json.__381("placement", (int)m_placement.cur);
 if ( m_anim.cur==null )
-json.__381("anim", m_defaultStopAnim.cur);
+json.__380("anim", m_defaultStopAnim.cur);
 else
 {
 if ( m_anim.cur.m_name==m_defaultWalkAnim.cur || m_anim.cur.m_name==m_defaultTalkAnim.cur )
-json.__381("anim", m_defaultStopAnim.cur);
+json.__380("anim", m_defaultStopAnim.cur);
 else
-json.__381("anim", m_anim.cur.m_name);
+json.__380("anim", m_anim.cur.m_name);
 }
-json.__382("animAction", m_anim.notif.actionFrame);
-json.__381("animDialog", m_anim.notif.dialog);
-json.__382("animSentence", m_anim.notif.sentence);
-json.__381("animRole", m_anim.notif.roleBox==null ? "" : m_anim.notif.roleBox.m_parent.m_uid);
-json.__382("animRoleBox", m_anim.notif.roleBox==null ? 0 : m_anim.notif.roleBox.m_id);
-json.__382("animRoleBoxToken", m_anim.notif.roleBoxToken);
-json.__382("dir", m_anim.iDir);
-json.__381("chase", m_chaseObj ? m_chaseObj.m_obj.m_uid : "");
-json.__382("chaseCol", m_chaseObjDeltaCol);
-json.__382("chaseRow", m_chaseObjDeltaRow);
+json.__381("animAction", m_anim.notif.actionFrame);
+json.__380("animDialog", m_anim.notif.dialog);
+json.__381("animSentence", m_anim.notif.sentence);
+json.__380("animRole", m_anim.notif.roleBox==null ? "" : m_anim.notif.roleBox.m_parent.m_uid);
+json.__381("animRoleBox", m_anim.notif.roleBox==null ? 0 : m_anim.notif.roleBox.m_id);
+json.__381("animRoleBoxToken", m_anim.notif.roleBoxToken);
+json.__381("dir", m_anim.iDir);
+json.__380("chase", m_chaseObj ? m_chaseObj.m_obj.m_uid : "");
+json.__381("chaseCol", m_chaseObjDeltaCol);
+json.__381("chaseRow", m_chaseObjDeltaRow);
 if ( G.m_game.__291()==m_scene )
 {
-json.__382("x", (int)m_local.cur.x);
-json.__382("y", (int)m_local.cur.y);
-}
-if ( m_storedPos.modified )
-{
-json.__382("storedX", (int)m_storedPos.cur.x);
-json.__382("storedY", (int)m_storedPos.cur.y);
+json.__381("x", (int)m_local.cur.x);
+json.__381("y", (int)m_local.cur.y);
 }
 if ( m_light )
 {
-JsonObj jLight = json.__389("light");
+JsonObj jLight = json.__388("light");
 if ( m_lightVisible.modified )
-jLight.__385("visible", m_lightVisible.cur);
+jLight.__384("visible", m_lightVisible.cur);
 if ( m_lightAmbient.modified )
-jLight.__382("ambient", (int)(m_lightAmbient.cur*255.0f));
+jLight.__381("ambient", (int)(m_lightAmbient.cur*255.0f));
 if ( m_lightDiffuse.modified )
-jLight.__382("diffuse", (int)G.__128(ref m_lightDiffuse.cur));
+jLight.__381("diffuse", (int)G.__128(ref m_lightDiffuse.cur));
 if ( m_lightAngle.modified )
-jLight.__382("angle", (int)(m_lightAngle.cur*G.RAD_TO_DEG));
+jLight.__381("angle", (int)(m_lightAngle.cur*G.RAD_TO_DEG));
 if ( m_lightDir.modified )
-jLight.__382("dir", (int)(m_lightDir.cur*G.RAD_TO_DEG));
+jLight.__381("dir", (int)(m_lightDir.cur*G.RAD_TO_DEG));
 if ( m_lightDist.modified )
-jLight.__382("dist", (int)m_lightDist.cur);
+jLight.__381("dist", (int)m_lightDist.cur);
 if ( m_lightAttn.modified )
-jLight.__384("attn", m_lightAttn.cur);
+jLight.__383("attn", m_lightAttn.cur);
 }
 }
 public void __47(JsonObj json)
 {
 m_tags[0] = json.GetString("tag");
-if ( json.__391("defStop") )
+if ( json.__390("defStop") )
 m_defaultStopAnim.Set(json.GetString("defStop"));
-if ( json.__391("defWalk") )
+if ( json.__390("defWalk") )
 m_defaultWalkAnim.Set(json.GetString("defWalk"));
-if ( json.__391("defTalk") )
+if ( json.__390("defTalk") )
 m_defaultTalkAnim.Set(json.GetString("defTalk"));
-if ( m_obj && json.__391("parent") )
+if ( m_obj && json.__390("parent") )
 {
 m_parentName.Set(json.GetString("parent"));
-m_parent = m_scene.__536(ref m_parentName.cur);
+m_parent = m_scene.__535(ref m_parentName.cur);
 }
-if ( json.__391("sticker") )
+if ( json.__390("sticker") )
 m_sticker.Set(json.GetString("sticker"));
-if ( json.__391("visible") )
-m_visible.Set(json.__401("visible"));
-if ( json.__391("path") )
+if ( json.__390("visible") )
+m_visible.Set(json.__400("visible"));
+if ( json.__390("path") )
 m_iPath.Set(json.GetInt("path"));
-if ( json.__391("pathStarted") )
-m_pathStarted.Set(json.__401("pathStarted"));
-if ( json.__391("grid") )
+if ( json.__390("pathStarted") )
+m_pathStarted.Set(json.__400("pathStarted"));
+if ( json.__390("grid") )
 m_iGrid.Set(json.GetInt("grid"));
-if ( json.__391("opacity") )
+if ( json.__390("opacity") )
 m_opacity.Set(json.GetFloat("opacity"));
-if ( json.__391("angle") )
+if ( json.__390("angle") )
 m_angle.Set(json.GetInt("angle"));
-if ( json.__391("elevator") )
+if ( json.__390("elevator") )
 m_elevator.Set(json.GetFloat("elevator"));
-if ( json.__391("z") )
+if ( json.__390("z") )
 m_z.Set(json.GetFloat("z"));
-if ( json.__391("autoZ") )
-m_autoZ.Set(json.__401("autoZ"));
-if ( json.__391("scale") )
+if ( json.__390("autoZ") )
+m_autoZ.Set(json.__400("autoZ"));
+if ( json.__390("scale") )
 m_manualScale.Set(json.GetFloat("scale"));
-if ( json.__391("zoom") )
+if ( json.__390("zoom") )
 m_manualZoom.Set(json.GetFloat("zoom"));
-if ( json.__391("cheat") )
-m_cheat.Set(json.__401("cheat"));
-if ( json.__391("placement") )
+if ( json.__390("cheat") )
+m_cheat.Set(json.__400("cheat"));
+if ( json.__390("placement") )
 m_placement.Set((PLACEMENT)json.GetInt("placement"));
 string anim = json.GetString("anim");
-__632(ref anim);
+__626(ref anim);
 m_anim.notif.actionFrame = json.GetInt("animAction");
 m_anim.notif.dialog = json.GetString("animDialog");
 m_anim.notif.sentence = json.GetInt("animSentence");
 Role role = G.m_game.__283(json.GetString("animRole"));
-m_anim.notif.roleBox = role==null ? null : role.__497(json.GetInt("animRoleBox"));
+m_anim.notif.roleBox = role==null ? null : role.__496(json.GetInt("animRoleBox"));
 m_anim.notif.roleBoxToken = m_anim.notif.roleBox==null ? 0 : json.GetInt("animRoleBoxToken");
-m_anim.__678(json.GetInt("dir"));
+m_anim.__672(json.GetInt("dir"));
 m_chaseObj = G.m_game.__307(m_scene.m_uid, json.GetString("chase"));
 m_chaseObjDeltaCol = json.GetInt("chaseCol");
 m_chaseObjDeltaRow = json.GetInt("chaseRow");
-if ( json.__391("x") )
+if ( json.__390("x") )
 m_local.Set(new Vec2((float)json.GetInt("x"), (float)json.GetInt("y")));
-if ( json.__391("storedX") )
-m_storedPos.Set(new Vec2((float)json.GetInt("storedX"), (float)json.GetInt("storedY")));
 if ( m_light )
 {
-JsonObj jLight = json.__394("light");
+JsonObj jLight = json.__393("light");
 if ( jLight )
 {
-if ( jLight.__391("visible") )
-m_lightVisible.Set(jLight.__401("visible"));
-if ( jLight.__391("ambient") )
+if ( jLight.__390("visible") )
+m_lightVisible.Set(jLight.__400("visible"));
+if ( jLight.__390("ambient") )
 m_lightAmbient.Set(G.Clamp(jLight.GetInt("ambient")/255.0f));
-if ( jLight.__391("diffuse") )
+if ( jLight.__390("diffuse") )
 m_lightDiffuse.Set(G.__126((uint)jLight.GetInt("diffuse")));
-if ( jLight.__391("angle") )
+if ( jLight.__390("angle") )
 m_lightAngle.Set(jLight.GetInt("angle")*G.DEG_TO_RAD);
-if ( jLight.__391("dir") )
+if ( jLight.__390("dir") )
 m_lightDir.Set(jLight.GetInt("dir")*G.DEG_TO_RAD);
-if ( jLight.__391("dist") )
+if ( jLight.__390("dist") )
 m_lightDist.Set((float)jLight.GetInt("dist"));
-if ( jLight.__391("attn") )
+if ( jLight.__390("attn") )
 m_lightAttn.Set(jLight.GetFloat("attn"));
 }
 }
 }
-public void __469(Asset asset)
+public void __468(Asset asset)
 {
 if ( m_obj==null )
 return;
 m_scrollSmoothSpeed = 0.0f;
 m_zoomSmoothSpeed = 0.0f;
-m_obj.__469(asset, m_scene);
+m_obj.__468(asset, m_scene);
 if ( m_local.modified )
 {
 m_local.modified = false;
@@ -359,7 +353,7 @@ m_pathStarted.Set(false);
 if ( m_paths!=null && m_paths[m_iPath.cur] && m_paths[m_iPath.cur].m_spots.Length>0 )
 Move(m_paths[m_iPath.cur].m_spots[0].m_x, m_paths[m_iPath.cur].m_spots[0].m_y);
 }
-m_eventCell = __638(__35(), __36());
+m_eventCell = __632(__35(), __36());
 if ( m_grids!=null )
 {
 for ( int i=0 ; i<G.PATH_GRID_COUNT ; i++ )
@@ -367,9 +361,9 @@ for ( int i=0 ; i<G.PATH_GRID_COUNT ; i++ )
 if ( m_grids[i] )
 {
 if ( m_grids[i].m_router )
-m_grids[i].m_router.__469();
+m_grids[i].m_router.__468();
 if ( m_grids[i].m_routerHud )
-m_grids[i].m_routerHud.__469();
+m_grids[i].m_routerHud.__468();
 }
 }
 }
@@ -378,7 +372,7 @@ public void End(Scene nextScene = null)
 {
 if ( m_obj==null )
 return;
-m_anim.__688();
+m_anim.__682();
 G.Release(m_lightMesh);
 m_lightMesh = null;
 if ( m_paths!=null )
@@ -423,33 +417,21 @@ return false;
 }
 return G.__148(ref m_obj.m_uid, ref nameOrTag);
 }
-public bool __473()
+public bool __472()
 {
 if ( m_obj && m_obj.m_title.Get().Length>0 )
 return true;
 return false;
 }
-public void __624()
-{
-if ( G.m_game.__291()!=m_scene )
-return;
-m_storedPos.Set(m_local.cur);
-}
-public void __625()
-{
-if ( G.m_game.__291()!=m_scene || m_storedPos.modified==false )
-return;
-__630(m_storedPos.cur.x, m_storedPos.cur.y);
-}
-public int __626()
+public int __620()
 {
 return G.__145(__35());
 }
-public int __627()
+public int __621()
 {
 return G.__145(__36());
 }
-public override float __619()
+public override float __615()
 {
 if ( m_hud )
 return G.INVALIDCOORD;
@@ -470,30 +452,30 @@ public float __34()
 {
 float scale;
 if ( m_manualScale.cur==0.0f )
-scale = __646(__619());
+scale = __640(__615());
 else
 scale = m_manualScale.cur;
-SceneCell cell = __635(__35(), __36());
+SceneCell cell = __629(__35(), __36());
 if ( cell )
-scale *= cell.__600();
+scale *= cell.__596();
 return scale;
 }
-public float __628()
+public float __622()
 {
 if ( m_manualZoom.cur==0.0f )
-return __647(__619());
+return __641(__615());
 return m_manualZoom.cur;
 }
-public void __629()
+public void __623()
 {
-__614(G.__147(__35()), G.__147(__36()));
+__610(G.__147(__35()), G.__147(__36()));
 }
 public void Move(float x, float y)
 {
-__614(x, y);
+__610(x, y);
 m_lightMeshChanged = true;
 }
-public void __630(float x, float y)
+public void __624(float x, float y)
 {
 m_local.cur.x = x;
 m_local.cur.y = y;
@@ -510,30 +492,30 @@ m_rotateSpeed = (float)degreePerSecond;
 m_rotateAngle = (float)m_angle.cur;
 }
 }
-public bool __631(bool visible = true, bool resetLight = true)
+public bool __625(bool visible = true, bool resetLight = true)
 {
 if ( visible==m_lightVisible.cur )
 return false;
 m_lightVisible.Set(visible);
 m_lightMeshChanged = true;
 if ( resetLight )
-m_scene.__565();
+m_scene.__561();
 return true;
 }
-public void __632(ref string name)
+public void __626(ref string name)
 {
-__632(m_obj.__471(ref name));
+__626(m_obj.__470(ref name));
 }
-public void __632(Anim anim)
+public void __626(Anim anim)
 {
-m_anim.__688();
+m_anim.__682();
 bool isSame = m_anim.cur==anim;
 if ( m_anim.cur && m_anim.cur.m_sprites!=null && isSame==false )
 {
 for ( int i=0 ; i<m_anim.cur.m_sprites.Count ; i++ )
 m_anim.cur.m_sprites[i].End();
 }
-m_anim.notif.__689();
+m_anim.notif.__683();
 if ( anim==null )
 m_anim.Reset();
 else
@@ -542,94 +524,94 @@ m_anim.cur = anim;
 bool forceReload = m_anim.cur.m_sprites!=null && m_anim.cur.m_sprites.Count>0 && m_anim.cur.m_sprites[0].m_material==null;
 if ( m_anim.cur.m_sprites!=null && (isSame==false || forceReload) )
 {
-Asset asset = G.__96(G.m_pathGraphics);
+Asset asset = G.__95(G.m_pathGraphics);
 if ( asset )
 {
 for ( int i=0 ; i<m_anim.cur.m_sprites.Count ; i++ )
-m_anim.cur.m_sprites[i].__469(asset);
+m_anim.cur.m_sprites[i].__468(asset);
 asset.Close();
 }
 }
-m_anim.__678(m_anim.iDir);
+m_anim.__672(m_anim.iDir);
 }
 }
-public void __633(SceneObj sceneObj)
+public void __627(SceneObj sceneObj)
 {
 if ( m_anim.cur==null || sceneObj==null )
 return;
-m_anim.__678(__35()>sceneObj.__35() ? AnimDir.LEFT : AnimDir.RIGHT);
+m_anim.__672(__35()>sceneObj.__35() ? AnimDir.LEFT : AnimDir.RIGHT);
 }
-public void __633(SceneLabel sceneLabel)
+public void __627(SceneLabel sceneLabel)
 {
 if ( m_anim.cur==null || sceneLabel==null )
 return;
-m_anim.__678(__35()>sceneLabel.__620() ? AnimDir.LEFT : AnimDir.RIGHT);
+m_anim.__672(__35()>sceneLabel.__616() ? AnimDir.LEFT : AnimDir.RIGHT);
 }
-public bool __634(SceneObj sceneObj, int dir = -1)
+public bool __628(SceneObj sceneObj, int dir = -1)
 {
 if ( m_anim.cur==null || sceneObj==null )
 return false;
 switch ( m_anim.iDir )
 {
 case AnimDir.LEFT:
-if ( (dir==-1 || dir==AnimDir.LEFT) && sceneObj.__626()<__626() )
+if ( (dir==-1 || dir==AnimDir.LEFT) && sceneObj.__620()<__620() )
 return true;
 break;
 case AnimDir.RIGHT:
-if ( (dir==-1 || dir==AnimDir.RIGHT) && sceneObj.__626()>__626() )
+if ( (dir==-1 || dir==AnimDir.RIGHT) && sceneObj.__620()>__620() )
 return true;
 break;
 }
 return false;
 }
-public SceneCell __635(float x, float y)
+public SceneCell __629(float x, float y)
 {
 if ( m_grids==null || m_grids[m_iGrid.cur]==null )
 return null;
 int col = G.__145(x);
 int row = G.__145(y);
-uint index = G.__99(col, row);
+uint index = G.__98(col, row);
 SceneCell cell;
 if ( m_grids[m_iGrid.cur].m_mapCellByIndex.TryGetValue(index, out cell) )
 return cell;
 return null;
 }
-public SceneCell __636(int col, int row)
+public SceneCell __630(int col, int row)
 {
 if ( m_grids==null || m_grids[m_iGrid.cur]==null )
 return null;
-uint index = G.__99(col, row);
+uint index = G.__98(col, row);
 SceneCell cell;
 if ( m_grids[m_iGrid.cur].m_mapCellByIndex.TryGetValue(index, out cell) )
 return cell;
 return null;
 }
-public SceneCell __637(string name, bool objpos = false)
+public SceneCell __631(string name, bool objpos = false)
 {
 if ( m_grids==null || m_grids[m_iGrid.cur]==null )
 return null;
 SceneCell cell;
 if ( m_grids[m_iGrid.cur].m_mapCellByName.TryGetValue(name, out cell) )
 {
-if ( objpos && (__626()!=cell.m_col || __627()!=cell.m_row) )
+if ( objpos && (__620()!=cell.m_col || __621()!=cell.m_row) )
 return null;
 return cell;
 }
 return null;
 }
-public string __638(float x, float y)
+public string __632(float x, float y)
 {
 if ( m_grids==null || m_grids[m_iGrid.cur]==null )
 return "";
 int col = G.__145(x);
 int row = G.__145(y);
-uint index = G.__99(col, row);
+uint index = G.__98(col, row);
 SceneCell cell;
 if ( m_grids[m_iGrid.cur].m_mapEventCellByIndex.TryGetValue(index, out cell) )
-return cell.__393();
+return cell.__392();
 return "";
 }
-public SceneCell __639(float x, float y, out bool exist)
+public SceneCell __633(float x, float y, out bool exist)
 {
 if ( m_grids==null || m_grids[m_iGrid.cur]==null )
 {
@@ -643,7 +625,7 @@ SceneCell closestCell = null;
 for ( int i=0 ; i<m_grids[m_iGrid.cur].m_cells.Length ; i++ )
 {
 SceneCell cell = m_grids[m_iGrid.cur].m_cells[i];
-if ( cell.__596()==false )
+if ( cell.__592()==false )
 continue;
 if ( cell.m_col==col && cell.m_row==row )
 {
@@ -660,7 +642,7 @@ closestCell = cell;
 exist = false;
 return closestCell;
 }
-public SceneCell __640(Scene scene)
+public SceneCell __634(Scene scene)
 {
 if ( m_grids==null || m_grids[m_iGrid.cur]==null || scene==null )
 return null;
@@ -671,7 +653,7 @@ if ( m_grids[m_iGrid.cur].m_mapCellByEnterFromLink.TryGetValue("", out cell) )
 return cell;
 return null;
 }
-public SceneCell __641(Scene scene)
+public SceneCell __635(Scene scene)
 {
 if ( m_grids==null || m_grids[m_iGrid.cur]==null || scene==null )
 return null;
@@ -682,7 +664,7 @@ if ( m_grids[m_iGrid.cur].m_mapCellByEnterToLink.TryGetValue("", out cell) )
 return cell;
 return null;
 }
-public SceneCell __642(SceneObj sceneObj)
+public SceneCell __636(SceneObj sceneObj)
 {
 if ( m_grids==null || m_grids[m_iGrid.cur]==null )
 return null;
@@ -691,7 +673,7 @@ if ( m_grids[m_iGrid.cur].m_mapCellBySelectLink.TryGetValue(sceneObj.m_obj.m_uid
 return cell;
 return null;
 }
-public SceneCell __642(SceneLabel label)
+public SceneCell __636(SceneLabel label)
 {
 if ( m_grids==null || m_grids[m_iGrid.cur]==null )
 return null;
@@ -700,16 +682,7 @@ if ( m_grids[m_iGrid.cur].m_mapCellByLabelLink.TryGetValue(label.m_name, out cel
 return cell;
 return null;
 }
-public SceneCell __642(SceneDoor door)
-{
-if ( m_grids==null || m_grids[m_iGrid.cur]==null )
-return null;
-SceneCell cell;
-if ( m_grids[m_iGrid.cur].m_mapCellByDoorLink.TryGetValue(door.m_name, out cell) )
-return cell;
-return null;
-}
-public SceneCell __643(Obj obj, Obj cursor)
+public SceneCell __637(Obj obj, Obj cursor)
 {
 if ( m_grids==null || m_grids[m_iGrid.cur]==null )
 return null;
@@ -718,7 +691,7 @@ if ( m_grids[m_iGrid.cur].m_mapCellByUseLink.TryGetValue(cursor.m_uid+"+"+obj.m_
 return cell;
 return null;
 }
-public SceneCell __643(SceneLabel label, Obj cursor)
+public SceneCell __637(SceneLabel label, Obj cursor)
 {
 if ( m_grids==null || m_grids[m_iGrid.cur]==null )
 return null;
@@ -727,7 +700,7 @@ if ( m_grids[m_iGrid.cur].m_mapCellByUseLabelLink.TryGetValue(cursor.m_uid+"+"+l
 return cell;
 return null;
 }
-public SceneCell __644(Obj obj)
+public SceneCell __638(Obj obj)
 {
 if ( m_grids==null || m_grids[m_iGrid.cur]==null )
 return null;
@@ -736,18 +709,18 @@ if ( m_grids[m_iGrid.cur].m_mapCellByDetachLink.TryGetValue(obj.m_uid, out cell)
 return cell;
 return null;
 }
-public void __645(out float speedX, out float speedY)
+public void __639(out float speedX, out float speedY)
 {
 speedX = m_speedX;
 speedY = m_speedY;
-SceneCell cell = __635(__35(), __36());
+SceneCell cell = __629(__35(), __36());
 if ( cell )
 {
-speedX *= cell.__598();
-speedY *= cell.__599();
+speedX *= cell.__594();
+speedY *= cell.__595();
 }
 }
-public float __646(float z)
+public float __640(float z)
 {
 if ( m_depthScaleCount<2 )
 return 1.0f;
@@ -780,7 +753,7 @@ break;
 }
 return G.Clamp(scale, 0.0001f, 4.0f);
 }
-public float __647(float z)
+public float __641(float z)
 {
 if ( m_pathStarted.cur )
 {
@@ -830,7 +803,7 @@ return G.Clamp(zoom, 1.0f, 4.0f);
 }
 return 1.0f;
 }
-public void __648()
+public void __642()
 {
 if ( m_parallax==1.0f || m_scene.m_renderScale==1.0f )
 return;
@@ -838,30 +811,30 @@ m_scale /= m_scene.m_renderScale;
 if ( m_parallax!=0.0f )
 m_scale *= Mathf.Pow(m_scene.m_renderScale, m_parallax);
 }
-public bool __649(float x, float y, Message msg = null, bool locked = false)
+public bool __643(float x, float y, Message msg = null, bool locked = false)
 {
 if ( m_grids==null || m_grids[m_iGrid.cur]==null || m_grids[m_iGrid.cur].m_router==null )
 {
-__651();
+__645();
 return false;
 }
 Grid grid = m_grids[m_iGrid.cur];
-if ( m_routeStatus==Router.FOUND && grid.m_router.__514(__35(), __36())==false )
+if ( m_routeStatus==Router.FOUND && grid.m_router.__513(__35(), __36())==false )
 return false;
 bool existingCell;
-SceneCell cell = __639(x, y, out existingCell);
+SceneCell cell = __633(x, y, out existingCell);
 if ( cell==null )
 {
-__651();
+__645();
 return false;
 }
-bool isWalking = __657();
-__651(isWalking);
-bool isSameCell = __626()==cell.m_col && __627()==cell.m_row;
-if ( isSameCell==false && m_obj.m_tolerance>0 && cell.__594()==false && msg==null )
+bool isWalking = __651();
+__645(isWalking);
+bool isSameCell = __620()==cell.m_col && __621()==cell.m_row;
+if ( isSameCell==false && m_obj.m_tolerance>0 && cell.__590()==false && msg==null )
 {
 int tolerance = G.Clamp((int)((m_obj.m_tolerance+1)*m_scale), 0, m_obj.m_tolerance);
-if ( Math.Abs(__626()-cell.m_col)<=tolerance && Math.Abs(__627()-cell.m_row)<=tolerance )
+if ( Math.Abs(__620()-cell.m_col)<=tolerance && Math.Abs(__621()-cell.m_row)<=tolerance )
 isSameCell = true;
 }
 m_routeTurn = false;
@@ -870,10 +843,10 @@ m_routeStraight = false;
 if ( isSameCell )
 m_routeStatus = Router.FOUND;
 else
-m_routeStatus = grid.m_router.__516(__35(), __36(), cell.__35(), cell.__36());
+m_routeStatus = grid.m_router.__515(__35(), __36(), cell.__35(), cell.__36());
 if ( m_routeStatus==Router.FOUND )
 {
-__654();
+__648();
 m_eventCell = "";
 m_message = msg;
 if ( isSameCell )
@@ -883,52 +856,52 @@ return false;
 }
 else
 {
-grid.m_router.__517(__35(), __36(), 0.0f);
+grid.m_router.__516(__35(), __36(), 0.0f);
 m_angleWalk = G.__141(__35(), __36(), grid.m_router.m_xTrg, grid.m_router.m_yTrg);
 if ( m_angleWalk==-1.0f )
-m_angleWalk = m_anim.__681();
-Anim anim = m_obj.__471(ref m_defaultWalkAnim.cur);
+m_angleWalk = m_anim.__675();
+Anim anim = m_obj.__470(ref m_defaultWalkAnim.cur);
 if ( anim==null || anim.m_maxFrameCount==0 )
-__632(ref m_defaultStopAnim.cur);
+__626(ref m_defaultStopAnim.cur);
 else if ( isWalking==false )
-__632(ref m_defaultWalkAnim.cur);
-AnimDir animDir = m_anim.__679();
+__626(ref m_defaultWalkAnim.cur);
+AnimDir animDir = m_anim.__673();
 if ( animDir )
 {
 int dirSrc = animDir.m_id;
 int dirTrg = G.__153(m_angleWalk);
-Turn turn = m_obj.__472(dirTrg, m_defaultStopAnim.cur);
+Turn turn = m_obj.__471(dirTrg, m_defaultStopAnim.cur);
 if ( turn==null )
 {
 dirTrg = G.__152(m_angleWalk, dirSrc);
-turn = m_obj.__472(dirTrg, m_defaultStopAnim.cur);
+turn = m_obj.__471(dirTrg, m_defaultStopAnim.cur);
 }
-if ( turn && turn.m_anim.__475(dirSrc) )
+if ( turn && turn.m_anim.__474(dirSrc) )
 {
 m_routeTurn = true;
 m_routeTurnAnim = m_anim.cur;
 m_routeTurnDir = dirTrg;
-__632(turn.m_anim);
+__626(turn.m_anim);
 }
 }
 if ( isWalking==false )
 {
-G.m_game.__323(RoleBoxEventWalk.ID, m_obj.m_uid, "ENTER");
-__658();
+G.m_game.__322(RoleBoxEventWalk.ID, m_obj.m_uid, "ENTER");
+__652();
 }
 }
 }
 else
 {
-__651();
+__645();
 return false;
 }
 return true;
 }
-public bool __650(float x, float y, float duration, bool easeIn, bool easeOut, Message msg, bool locked = false)
+public bool __644(float x, float y, float duration, bool easeIn, bool easeOut, Message msg, bool locked = false)
 {
-__654();
-__651();
+__648();
+__645();
 m_routeTurn = false;
 m_routeLocked = locked;
 m_routeStatus = Router.FOUND;
@@ -946,8 +919,8 @@ m_eventCell = "";
 m_message = msg;
 m_angleWalk = G.__141(m_routeStraightSrcX, m_routeStraightSrcY, m_routeStraightTrgX, m_routeStraightTrgY);
 if ( m_angleWalk==-1.0f )
-m_angleWalk = m_anim.__681();
-__659(true);
+m_angleWalk = m_anim.__675();
+__653(true);
 return true;
 }
 public void Stop()
@@ -955,7 +928,7 @@ public void Stop()
 if ( m_routeStatus==0 )
 return;
 m_routeStatus = 0;
-__632(ref m_defaultStopAnim.cur);
+__626(ref m_defaultStopAnim.cur);
 if ( m_message && m_message.m_state==Message.S_MOVE )
 {
 Scene scene = m_scene;
@@ -967,21 +940,21 @@ if ( msg.m_anim==null )
 {
 m_message = null;
 if ( msg.m_dir==-1 )
-__633(msg.m_sceneObj);
+__627(msg.m_sceneObj);
 else
-m_anim.__678(msg.m_dir);
-G.m_game.__325(msg.m_sceneObj.m_obj, msg.m_subObj, msg.m_byUser);
+m_anim.__672(msg.m_dir);
+G.m_game.__324(msg.m_sceneObj.m_obj, msg.m_subObj, msg.m_byUser);
 if ( msg.m_roleBox )
-msg.m_roleBox.__458(msg.m_roleBoxToken);
+msg.m_roleBox.__457(msg.m_roleBoxToken);
 }
 else
 {
 msg.m_state++;
-__632(msg.m_anim);
+__626(msg.m_anim);
 if ( msg.m_dir==-1 )
-__633(msg.m_sceneObj);
+__627(msg.m_sceneObj);
 else
-m_anim.__678(msg.m_dir);
+m_anim.__672(msg.m_dir);
 }
 break;
 case Message.USE:
@@ -989,19 +962,19 @@ if ( msg.m_anim==null )
 {
 m_message = null;
 if ( msg.m_dir==-1 )
-__633(msg.m_sceneObj);
+__627(msg.m_sceneObj);
 else
-m_anim.__678(msg.m_dir);
-G.m_game.__326(msg.m_objA, msg.m_objB, msg.m_subObj, msg.m_bothFromInventory);
+m_anim.__672(msg.m_dir);
+G.m_game.__325(msg.m_objA, msg.m_objB, msg.m_subObj, msg.m_bothFromInventory);
 }
 else
 {
 msg.m_state++;
-__632(msg.m_anim);
+__626(msg.m_anim);
 if ( msg.m_dir==-1 )
-__633(msg.m_sceneObj);
+__627(msg.m_sceneObj);
 else
-m_anim.__678(msg.m_dir);
+m_anim.__672(msg.m_dir);
 }
 break;
 case Message.USELABEL:
@@ -1009,19 +982,19 @@ if ( msg.m_anim==null )
 {
 m_message = null;
 if ( msg.m_dir==-1 )
-__633(msg.m_label);
+__627(msg.m_label);
 else
-m_anim.__678(msg.m_dir);
-scene.__562(msg.m_objA, msg.m_label);
+m_anim.__672(msg.m_dir);
+scene.__559(msg.m_objA, msg.m_label);
 }
 else
 {
 msg.m_state++;
-__632(msg.m_anim);
+__626(msg.m_anim);
 if ( msg.m_dir==-1 )
-__633(msg.m_label);
+__627(msg.m_label);
 else
-m_anim.__678(msg.m_dir);
+m_anim.__672(msg.m_dir);
 }
 break;
 case Message.DETACH:
@@ -1029,15 +1002,15 @@ if ( msg.m_anim==null )
 {
 m_message = null;
 if ( msg.m_dir!=-1 )
-m_anim.__678(msg.m_dir);
-G.m_game.__327(msg.m_objA);
+m_anim.__672(msg.m_dir);
+G.m_game.__326(msg.m_objA);
 }
 else
 {
 msg.m_state++;
-__632(msg.m_anim);
+__626(msg.m_anim);
 if ( msg.m_dir!=-1 )
-m_anim.__678(msg.m_dir);
+m_anim.__672(msg.m_dir);
 }
 break;
 case Message.LABEL:
@@ -1045,35 +1018,19 @@ if ( msg.m_anim==null )
 {
 m_message = null;
 if ( msg.m_dir==-1 )
-__633(msg.m_label);
+__627(msg.m_label);
 else
-m_anim.__678(msg.m_dir);
-scene.__561(msg.m_label);
+m_anim.__672(msg.m_dir);
+scene.__558(msg.m_label);
 }
 else
 {
 msg.m_state++;
-__632(msg.m_anim);
+__626(msg.m_anim);
 if ( msg.m_dir==-1 )
-__633(msg.m_label);
+__627(msg.m_label);
 else
-m_anim.__678(msg.m_dir);
-}
-break;
-case Message.DOOR:
-if ( msg.m_anim==null )
-{
-m_message = null;
-if ( msg.m_dir!=-1 )
-m_anim.__678(msg.m_dir);
-scene.__563(msg.m_door);
-}
-else
-{
-msg.m_state++;
-__632(msg.m_anim);
-if ( msg.m_dir!=-1 )
-m_anim.__678(msg.m_dir);
+m_anim.__672(msg.m_dir);
 }
 break;
 case Message.WALK:
@@ -1081,35 +1038,35 @@ if ( msg.m_anim==null )
 {
 m_message = null;
 if ( msg.m_dir!=-1 )
-m_anim.__678(msg.m_dir);
+m_anim.__672(msg.m_dir);
 else if ( msg.m_sceneObj )
-__633(msg.m_sceneObj);
+__627(msg.m_sceneObj);
 if ( msg.m_enter )
-scene.__509("WALK", msg.m_enterCell);
+scene.__508("WALK", msg.m_enterCell);
 if ( msg.m_roleBox )
-msg.m_roleBox.__458(msg.m_roleBoxToken);
+msg.m_roleBox.__457(msg.m_roleBoxToken);
 }
 else
 {
 msg.m_state++;
-__632(msg.m_anim);
+__626(msg.m_anim);
 if ( msg.m_dir!=-1 )
-m_anim.__678(msg.m_dir);
+m_anim.__672(msg.m_dir);
 else if ( msg.m_sceneObj )
-__633(msg.m_sceneObj);
+__627(msg.m_sceneObj);
 }
 break;
 }
 }
 }
-public void __651(bool keepCurAnim = false)
+public void __645(bool keepCurAnim = false)
 {
 m_routeStatus = 0;
 m_message = null;
 if ( keepCurAnim==false )
-__632(ref m_defaultStopAnim.cur);
+__626(ref m_defaultStopAnim.cur);
 }
-public bool __652(int index = -1, string spot = "", int loop = -2, RoleBox box = null)
+public bool __646(int index = -1, string spot = "", int loop = -2, RoleBox box = null)
 {
 if ( m_paths==null )
 return false;
@@ -1123,8 +1080,8 @@ if ( loop<-1 )
 loop = path.m_initLoop;
 int iSpot = 0;
 if ( spot.Length>0 )
-iSpot = path.__674(spot);
-__651();
+iSpot = path.__668(spot);
+__645();
 path.Start(loop, iSpot);
 Move(path.m_spots[path.m_index].m_x, path.m_spots[path.m_index].m_y);
 m_pathRoleBox = box;
@@ -1132,7 +1089,7 @@ m_pathRoleBoxToken = box==null ? 0 : box.m_parent.m_token;
 m_pathStarted.Set(true);
 return true;
 }
-public void __653()
+public void __647()
 {
 if ( m_paths==null )
 return;
@@ -1144,12 +1101,12 @@ Move(path.m_spots[path.m_index].m_x, path.m_spots[path.m_index].m_y);
 m_pathStarted.Set(false);
 if ( m_pathRoleBox )
 {
-m_pathRoleBox.__458(m_pathRoleBoxToken);
+m_pathRoleBox.__457(m_pathRoleBoxToken);
 m_pathRoleBox = null;
 }
 m_pathRoleBoxToken = 0;
 }
-public void __654()
+public void __648()
 {
 if ( m_iSay==-1 )
 return;
@@ -1166,22 +1123,22 @@ if ( m_obj )
 if ( m_sayKeepAnim )
 {
 if ( m_routeStatus==Router.FOUND )
-__632(ref m_defaultWalkAnim.cur);
+__626(ref m_defaultWalkAnim.cur);
 }
 else
 {
 bool animLocked = false;
 if ( m_routeStatus==Router.FOUND )
-__632(ref m_defaultWalkAnim.cur);
+__626(ref m_defaultWalkAnim.cur);
 else
 {
 if ( m_anim.cur==null || m_anim.cur.m_name!=m_defaultStopAnim.cur )
-__632(ref m_defaultStopAnim.cur);
+__626(ref m_defaultStopAnim.cur);
 else
 animLocked = true;
 }
 if ( m_sayAnimDirOld!=-1 && animLocked==false )
-m_anim.__678(m_sayAnimDirOld);
+m_anim.__672(m_sayAnimDirOld);
 }
 }
 G.m_game.__266();
@@ -1206,33 +1163,33 @@ else
 maxWidth = m_obj.m_avatar.m_avatarText.width;
 if ( m_obj )
 {
-AnimDir animDir = m_anim.__679();
+AnimDir animDir = m_anim.__673();
 m_sayAnimDirOld = animDir==null ? -1 : animDir.m_id;
 m_sayHasAnimToWait = false;
 m_sayKeepAnim = false;
 Anim anim = null;
 if ( sentence.m_anim.Length>0 )
 {
-anim = m_obj.__471(ref sentence.m_anim);
+anim = m_obj.__470(ref sentence.m_anim);
 if ( anim && anim.m_maxFrameCount>0 && anim.m_loopCount!=-1 && anim.m_loopRangeCount!=-1 )
 m_sayHasAnimToWait = true;
 }
 if ( anim==null || anim.m_maxFrameCount==0 )
-anim = m_obj.__471(ref m_defaultTalkAnim.cur);
+anim = m_obj.__470(ref m_defaultTalkAnim.cur);
 else
 m_sayKeepAnim = sentence.m_keepAnim;
 if ( anim==null || anim.m_maxFrameCount==0 )
 {
 if ( m_anim.cur==null || m_anim.cur.m_name!=m_defaultStopAnim.cur )
-__632(ref m_defaultStopAnim.cur);
+__626(ref m_defaultStopAnim.cur);
 }
 else
-__632(ref anim.m_name);
+__626(ref anim.m_name);
 SceneObj sceneObj = m_scene.__277(sentence.m_lookat);
 if ( sceneObj )
-__633(sceneObj);
+__627(sceneObj);
 else if ( sentence.m_iDir!=-1 )
-m_anim.__678(sentence.m_iDir);
+m_anim.__672(sentence.m_iDir);
 if ( sentence.m_keepDir && m_anim.iDir!=-1 )
 m_sayAnimDirOld = m_anim.iDir;
 }
@@ -1245,28 +1202,28 @@ m_iSay = 0;
 m_sayCount = 0;
 m_timeSayDurationForced = sentence.m_duration;
 G.__161(m_say, paragraphs[indexParagraph], G.m_game.__215(), maxWidth);
-__655();
+__649();
 if ( sentence.m_voice==null )
 G.m_game.__267("");
 else
-G.m_game.__267(sentence.m_voice.__63(indexParagraph));
+G.m_game.__267(sentence.m_voice.__62(indexParagraph));
 return indexParagraph;
 }
-public void __655()
+public void __649()
 {
 if ( m_iSay==-1 )
 return;
 G.m_game.m_menuDialog.m_timeLastAction = G.m_game.m_time;
 m_iSay += m_sayCount;
-if ( m_iSay>=m_say.__67() )
+if ( m_iSay>=m_say.__66() )
 {
-__654();
+__648();
 return;
 }
 int letterCount = 0;
 int wordCount = 0;
 m_sayCount = 0;
-for ( int i=m_iSay ; i<m_say.__67() ; i++ )
+for ( int i=m_iSay ; i<m_say.__66() ; i++ )
 {
 if ( m_say.m_texts[i].Length==0 )
 {
@@ -1283,85 +1240,85 @@ letterCount += m_say.m_texts[i].Length;
 }
 m_sayDrawnOnce = false;
 m_sayPosition.x = __35();
-m_sayPosition.y = m_scene.__554(m_draw.aabb.y-20.0f);
+m_sayPosition.y = m_scene.__551(m_draw.aabb.y-20.0f);
 m_timeSay = 0.0f;
-m_timeSayDuration = Localization.__433(G.m_game.__206().m_cjk ? letterCount : wordCount);
+m_timeSayDuration = Localization.__432(G.m_game.__206().m_cjk ? letterCount : wordCount);
 m_timeSayTypingFinished = 0.0f;
 m_sayTyping = G.m_game.m_typewriter && G.m_game.m_optionSubtitle!=SUBTITLE.NONE;
 }
-public bool __656()
+public bool __650()
 {
 return m_iSay!=-1;
 }
-public bool __657()
+public bool __651()
 {
 return m_anim.cur && m_anim.cur.m_name==m_defaultWalkAnim.cur;
 }
 public void Update()
 {
-m_anim.__675();
+m_anim.__669();
 if ( m_rotating )
 {
 m_rotateAngle += m_rotateSpeed * G.m_game.m_elapsed;
 m_angle.cur = Mathf.RoundToInt(m_rotateAngle);
 }
 bool sayNext = false;
-if ( __656() )
+if ( __650() )
 {
 m_timeSay += G.m_game.m_elapsed;
 if ( m_timeSay>=m_timeSayDurationForced && m_timeSay>=m_timeSayDuration && m_timeSayDuration!=-1.0f && m_sayTyping==false && (m_timeSayTypingFinished==0.0f || m_timeSay-m_timeSayTypingFinished>1.0f) )
 {
-if ( G.m_game.m_currentVoice==null || m_iSay+m_sayCount<m_say.__67() )
+if ( G.m_game.m_currentVoice==null || m_iSay+m_sayCount<m_say.__66() )
 {
 if ( m_sayHasAnimToWait )
 sayNext = true;
 else
-__655();
+__649();
 }
 }
 }
-__660();
-if ( m_routeStatus==Router.FOUND && __656()==false )
+__654();
+if ( m_routeStatus==Router.FOUND && __650()==false )
 {
 if ( m_routeStraight )
-__659();
+__653();
 else
-__658();
+__652();
 }
-if ( m_chaseObj && __656()==false && m_routeTurn==false )
+if ( m_chaseObj && __650()==false && m_routeTurn==false )
 {
-int col = m_chaseObj.__626();
-int row = m_chaseObj.__627();
+int col = m_chaseObj.__620();
+int row = m_chaseObj.__621();
 if ( m_chaseObjCol!=col || m_chaseObjRow!=row )
 {
 m_chaseObjCol = col;
 m_chaseObjRow = row;
-float x = G.__146(m_chaseObj.__626()+m_chaseObjDeltaCol);
-float y = G.__146(m_chaseObj.__627()+m_chaseObjDeltaRow);
+float x = G.__146(m_chaseObj.__620()+m_chaseObjDeltaCol);
+float y = G.__146(m_chaseObj.__621()+m_chaseObjDeltaRow);
 Message msg = new Message();
 msg.m_type = Message.WALK;
 msg.m_sceneObj = m_chaseObj;
 msg.m_state = Message.S_MOVE;
-__649(x, y, msg, false);
+__643(x, y, msg, false);
 }
 }
-if ( m_anim.__686(sayNext, out bool ended)==false )
+if ( m_anim.__680(sayNext, out bool ended)==false )
 return;
 if ( m_routeTurn )
 return;
 if ( m_message && m_message.m_state==Message.S_ANIM && ended )
-__668();
+__662();
 }
-public void __658()
+public void __652()
 {
 if ( m_routeTurn )
 return;
 Grid grid = m_grids[m_iGrid.cur];
 float speedX, speedY;
-__645(out speedX, out speedY);
+__639(out speedX, out speedY);
 m_scale = __34();
 m_scale *= m_scene.m_renderScale;
-__648();
+__642();
 float xCurTarget = grid.m_router.m_xTrg;
 float yCurTarget = grid.m_router.m_yTrg;
 float oldX = __35();
@@ -1375,8 +1332,8 @@ float speed = (speedX*xabs/total+speedY*yabs/total) * m_scale;
 float len = speed * G.m_game.m_elapsed;
 if ( len>=G.PATH_GRID_CELLSIZE-0.1f )
 len = G.PATH_GRID_CELLSIZE - 0.2f;
-bool changed = grid.m_router.__517(__35(), __36(), len);
-__615(x*len, y*len);
+bool changed = grid.m_router.__516(__35(), __36(), len);
+__611(x*len, y*len);
 if ( len>0.0f )
 m_lightMeshChanged = true;
 m_scrollSmoothSpeed = xabs * (len/G.m_game.m_elapsed);
@@ -1386,37 +1343,37 @@ if ( changed )
 Move(xCurTarget, yCurTarget);
 m_angleWalk = G.__141(__35(), __36(), grid.m_router.m_xTrg, grid.m_router.m_yTrg);
 if ( m_angleWalk==-1.0f )
-m_angleWalk = m_anim.__681();
+m_angleWalk = m_anim.__675();
 }
 bool isArrived = false;
 if ( m_chaseObj==null || m_chaseObj.m_routeStatus==0 )
 {
-if ( grid.m_router.m_pathLocation==grid.m_router.m_pathLength && __626()==G.__145(grid.m_router.m_xTrg) && __627()==G.__145(grid.m_router.m_yTrg) )
+if ( grid.m_router.m_pathLocation==grid.m_router.m_pathLength && __620()==G.__145(grid.m_router.m_xTrg) && __621()==G.__145(grid.m_router.m_yTrg) )
 isArrived = true;
 else if ( m_message && m_message.m_dist>0 )
 {
 float dist = G.__140(__35(), __36(), grid.m_router.m_xFinalTrg, grid.m_router.m_yFinalTrg);
 if ( dist<=m_message.m_dist )
-__668();
+__662();
 }
 }
 if ( isArrived )
 {
-SceneCell cell = __636(__626(), __627());
-if ( cell && cell.__595() )
+SceneCell cell = __630(__620(), __621());
+if ( cell && cell.__591() )
 {
-__629();
+__623();
 m_lightMeshChanged = true;
 }
 Stop();
-G.m_game.__323(RoleBoxEventWalk.ID, m_obj.m_uid, "EXIT");
+G.m_game.__322(RoleBoxEventWalk.ID, m_obj.m_uid, "EXIT");
 }
 else
 {
-SceneCell cell = __635(__35(), __36());
-if ( cell && cell.__601() && m_anim.cur )
+SceneCell cell = __629(__35(), __36());
+if ( cell && cell.__597() && m_anim.cur )
 {
-string name = cell.__602();
+string name = cell.__598();
 if ( name[0]=='*' )
 {
 if ( name=="*STOP" )
@@ -1429,36 +1386,36 @@ else
 name = name.Substring(1);
 }
 if ( name!=m_anim.cur.m_name )
-__632(ref name);
+__626(ref name);
 }
 float angle = m_angleWalk;
 if ( angle!=-1.0f )
 {
 int dir = G.__153(angle);
-if ( dir!=m_anim.iDir && m_anim.cur && m_anim.cur.__475(dir)==false )
+if ( dir!=m_anim.iDir && m_anim.cur && m_anim.cur.__474(dir)==false )
 dir = G.__152(angle, m_anim.iDir);
-if ( dir!=m_anim.iDir && m_anim.cur.__475(dir) )
+if ( dir!=m_anim.iDir && m_anim.cur.__474(dir) )
 {
-if ( cell==null || cell.__603(dir) )
-m_anim.__678(dir);
+if ( cell==null || cell.__599(dir) )
+m_anim.__672(dir);
 }
 }
 }
-if ( __662()==false )
+if ( __656()==false )
 {
-__651();
+__645();
 Move(oldX, oldY);
-m_angleWalk = m_anim.__681();
+m_angleWalk = m_anim.__675();
 m_eventCell = "";
 }
 }
-public void __659(bool init = false)
+public void __653(bool init = false)
 {
 if ( init==false )
 m_routeStraightTime += G.m_game.m_elapsed;
 m_scale = __34();
 m_scale *= m_scene.m_renderScale;
-__648();
+__642();
 if ( m_routeStraightDuration==0.0f )
 {
 float oldX = __35();
@@ -1489,7 +1446,7 @@ m_lightMeshChanged = true;
 }
 else
 {
-__615(s*len, c*len);
+__611(s*len, c*len);
 if ( len>0.0f )
 m_lightMeshChanged = true;
 }
@@ -1515,12 +1472,12 @@ Stop();
 m_lightMeshChanged = true;
 }
 int dir = G.__153(m_angleWalk);
-if ( dir!=m_anim.iDir && m_anim.cur && m_anim.cur.__475(dir)==false )
+if ( dir!=m_anim.iDir && m_anim.cur && m_anim.cur.__474(dir)==false )
 dir = G.__152(m_angleWalk, m_anim.iDir);
-if ( dir!=m_anim.iDir && m_anim.cur.__475(dir) )
-m_anim.__678(dir);
+if ( dir!=m_anim.iDir && m_anim.cur.__474(dir) )
+m_anim.__672(dir);
 }
-public void __660()
+public void __654()
 {
 if ( m_paths==null || m_paths[m_iPath.cur]==null || m_pathStarted.cur==false )
 return;
@@ -1552,18 +1509,18 @@ path.m_passed = false;
 if ( index==nextIndex )
 {
 path.m_offset = offset;
-__614(pt.x, pt.y);
+__610(pt.x, pt.y);
 m_scrollSmoothSpeed = pt.speed;
 m_zoomSmoothSpeed = pt.speed;
 }
 else
 {
 path.m_offset = path.m_spline.m_steps[index].m_offset;
-__614(spot.m_x, spot.m_y);
+__610(spot.m_x, spot.m_y);
 m_scrollSmoothSpeed = spot.m_speed;
 m_zoomSmoothSpeed = spot.m_speed;
 }
-if ( __661(path, spot) )
+if ( __655(path, spot) )
 return;
 if ( finished && index==nextIndex )
 {
@@ -1572,12 +1529,12 @@ if ( path.m_loop!=-1 && path.m_indexLoop>path.m_loop )
 {
 path.Stop();
 m_pathStarted.Set(false);
-__614(path.m_spline.m_pathEnd.x, path.m_spline.m_pathEnd.y);
+__610(path.m_spline.m_pathEnd.x, path.m_spline.m_pathEnd.y);
 m_scrollSmoothSpeed = path.m_spline.m_pathEnd.speed;
 m_zoomSmoothSpeed = path.m_spline.m_pathEnd.speed;
 if ( m_pathRoleBox )
 {
-m_pathRoleBox.__458(m_pathRoleBoxToken);
+m_pathRoleBox.__457(m_pathRoleBoxToken);
 m_pathRoleBox = null;
 }
 m_pathRoleBoxToken = 0;
@@ -1587,14 +1544,14 @@ else
 path.m_index = 0;
 path.m_passed = false;
 path.m_offset = 0.0f;
-__614(path.m_spline.m_pathStart.x, path.m_spline.m_pathStart.y);
+__610(path.m_spline.m_pathStart.x, path.m_spline.m_pathStart.y);
 m_scrollSmoothSpeed = path.m_spline.m_pathStart.speed;
 m_zoomSmoothSpeed = path.m_spline.m_pathStart.speed;
 }
 }
 }
 }
-public bool __661(SpotPath path, Spot spot)
+public bool __655(SpotPath path, Spot spot)
 {
 if ( path.m_passed )
 return false;
@@ -1608,7 +1565,7 @@ quit = true;
 }
 if ( spot.m_name!="SPOT" )
 {
-G.m_game.__323(RoleBoxEventSpot.ID, m_obj.m_uid, spot.m_name);
+G.m_game.__322(RoleBoxEventSpot.ID, m_obj.m_uid, spot.m_name);
 if ( m_pathStarted.cur==false )
 return true;
 }
@@ -1618,39 +1575,39 @@ if ( quit )
 return true;
 return false;
 }
-public bool __662()
+public bool __656()
 {
 string oldEventCell = m_eventCell;
-m_eventCell = __638(__35(), __36());
+m_eventCell = __632(__35(), __36());
 if ( m_eventCell==oldEventCell )
 return true;
 if ( oldEventCell.Length>0 )
 {
-G.m_game.__323(RoleBoxEventCell.ID, m_obj.m_uid, oldEventCell, "OUT");
+G.m_game.__322(RoleBoxEventCell.ID, m_obj.m_uid, oldEventCell, "OUT");
 }
 bool revert = false;
 if ( m_eventCell.Length>0 )
 {
 Variable var = new Variable();
-G.m_game.__323(RoleBoxEventCell.ID, m_obj.m_uid, m_eventCell, "IN", var);
+G.m_game.__322(RoleBoxEventCell.ID, m_obj.m_uid, m_eventCell, "IN", var);
 if ( var.m_value!="0" )
 revert = true;
 }
 return !revert;
 }
-public override void __605()
+public override void __601()
 {
 if ( m_obj==null )
 return;
-Frame frame = m_anim.__683();
+Frame frame = m_anim.__677();
 Rect rc = frame==null ? Rect.Zero : frame.m_rcTrim;
-float xView = m_scene.__549(__35(), m_hud);
-float yView = m_scene.__550(__36(), m_hud);
+float xView = m_scene.__546(__35(), m_hud);
+float yView = m_scene.__547(__36(), m_hud);
 m_scale = __34();
 if ( m_hud==false )
 {
 m_scale *= m_scene.m_renderScale;
-__648();
+__642();
 }
 m_draw.view.x = xView + (rc.x-m_obj.m_anchorX.cur)*m_scale;
 m_draw.view.y = yView + (rc.y-m_obj.m_anchorY.cur)*m_scale;
@@ -1671,17 +1628,17 @@ m_draw.aabb.Set(ref m_draw.obb);
 m_draw.hasObb = true;
 }
 }
-public void __663(out DrawInfo info)
+public void __657(out DrawInfo info)
 {
 info = m_draw;
-Frame frame = m_anim.__683();
+Frame frame = m_anim.__677();
 Rect rc = frame==null ? Rect.Zero : frame.m_rcTrim;
 float scaleOld = m_scale;
 m_scale = __34();
 if ( m_hud==false )
 {
 m_scale *= m_scene.m_renderScale;
-__648();
+__642();
 }
 m_draw.view.x = G.m_game.m_cursorViewX + (rc.x-m_obj.m_anchorX.cur)*m_scale;
 m_draw.view.y = G.m_game.m_cursorViewY + (rc.y-m_obj.m_anchorY.cur)*m_scale;
@@ -1695,15 +1652,15 @@ m_draw.hasObb = true;
 m_draw.aabb.Set(ref m_draw.obb);
 m_scale = scaleOld;
 }
-public void __664(ref DrawInfo info)
+public void __658(ref DrawInfo info)
 {
 m_draw = info;
 }
-public Vec2 __665()
+public Vec2 __659()
 {
 if ( m_draw.hasObb )
-return m_draw.obb.__439();
-return m_draw.aabb.__439();
+return m_draw.obb.__438();
+return m_draw.aabb.__438();
 }
 public bool Contains(float x, float y)
 {
@@ -1711,19 +1668,19 @@ if ( m_draw.hasObb )
 return m_draw.obb.Contains(x, y);
 return m_draw.aabb.Contains(x, y);
 }
-public bool __666(float x, float y)
+public bool __660(float x, float y)
 {
 if ( m_obj.m_bboxDetection )
 return true;
-Frame frame = m_anim.__683();
+Frame frame = m_anim.__677();
 if ( frame==null )
 return false;
 if ( frame.m_mask==null )
 return true;
-__667(ref x, ref y, frame);
-return __666(frame, x, y);
+__661(ref x, ref y, frame);
+return __660(frame, x, y);
 }
-public bool __666(Frame frame, float xLocal, float yLocal)
+public bool __660(Frame frame, float xLocal, float yLocal)
 {
 if ( m_obj.m_bboxDetection )
 return true;
@@ -1740,7 +1697,7 @@ if ( (pack & (0x01<<(7-index%8)))==0 )
 return false;
 return true;
 }
-public void __667(ref float x, ref float y, Frame frame)
+public void __661(ref float x, ref float y, Frame frame)
 {
 if ( m_angle.cur==0 )
 {
@@ -1759,7 +1716,7 @@ v.Rotate(-(float)m_angle.cur);
 x = v.x + dx;
 y = v.y + dy;
 }
-public void __668()
+public void __662()
 {
 if ( m_message==null )
 return;
@@ -1772,7 +1729,6 @@ Obj objA = m_message.m_objA;
 Obj objB = m_message.m_objB;
 bool bothFromInventory = m_message.m_bothFromInventory;
 SceneLabel label = m_message.m_label;
-SceneDoor door = m_message.m_door;
 bool enter = m_message.m_enter;
 string enterCell = m_message.m_enterCell;
 RoleBox roleBox = m_message.m_roleBox;
@@ -1781,30 +1737,27 @@ m_message = null;
 switch ( type )
 {
 case Message.SELECT:
-G.m_game.__325(sceneObj.m_obj, subObj, byUser);
+G.m_game.__324(sceneObj.m_obj, subObj, byUser);
 if ( roleBox )
-roleBox.__458(roleBoxToken);
+roleBox.__457(roleBoxToken);
 break;
 case Message.USE:
-G.m_game.__326(objA, objB, subObj, bothFromInventory);
+G.m_game.__325(objA, objB, subObj, bothFromInventory);
 break;
 case Message.USELABEL:
-scene.__562(objA, label);
+scene.__559(objA, label);
 break;
 case Message.DETACH:
-G.m_game.__327(objA);
+G.m_game.__326(objA);
 break;
 case Message.LABEL:
-scene.__561(label);
-break;
-case Message.DOOR:
-scene.__563(door);
+scene.__558(label);
 break;
 case Message.WALK:
 if ( enter )
-scene.__509("WALK", enterCell);
+scene.__508("WALK", enterCell);
 if ( roleBox )
-roleBox.__458(roleBoxToken);
+roleBox.__457(roleBoxToken);
 break;
 }
 }
@@ -1812,16 +1765,16 @@ public override void __43()
 {
 if ( m_visible.cur==false )
 return;
-Frame frame = m_anim.__683();
-if ( frame && frame.m_sprite && m_scene.__559(ref m_draw.aabb)==false )
+Frame frame = m_anim.__677();
+if ( frame && frame.m_sprite && m_scene.__556(ref m_draw.aabb)==false )
 {
-frame.m_sprite.__996();
-G.m_graphics.__362(this, frame);
+frame.m_sprite.__989();
+G.m_graphics.__361(this, frame);
 }
 #if UNITY_EDITOR
 #endif
 }
-public void __589(bool balloon = false)
+public void __585(bool balloon = false)
 {
 if ( m_iSay==-1 || G.m_game.m_optionSubtitle==SUBTITLE.NONE || G.m_game.m_userSubtitleVisible==false )
 return;
@@ -1838,26 +1791,26 @@ return;
 if ( m_obj==null || m_obj.m_speechMovie )
 {
 if ( balloon==false )
-__669(count);
+__663(count);
 }
 else if ( m_obj.m_avatar==null )
 {
-__670(count, balloon);
+__664(count, balloon);
 }
 else
 {
 if ( balloon==false )
-__671(count);
+__665(count);
 }
 }
-public void __669(int count)
+public void __663(int count)
 {
 Police font = G.m_game.__215();
-bool leftToRight = font.__490();
+bool leftToRight = font.__489();
 string[] lines = new string[count];
 Vec2[] positions = new Vec2[count];
 float sayX = G.m_rcViewUI.x + G.m_rcViewUI.width*0.5f;
-float sayY = G.m_rcViewUI.__438() - G.m_game.m_subtitleMargin;
+float sayY = G.m_rcViewUI.__437() - G.m_game.m_subtitleMargin;
 for ( int i=0,j=0 ; i<m_sayCount ; i++ )
 {
 int index = m_iSay + i;
@@ -1872,7 +1825,7 @@ x += m_say.m_lineRects[index].x;
 else
 {
 x += m_say.m_paraSizes[index].x*0.5f;
-x -= m_say.m_paraSizes[index].x - m_say.m_lineRects[index].__437();
+x -= m_say.m_paraSizes[index].x - m_say.m_lineRects[index].__436();
 }
 float y = sayY;
 y -= m_say.m_paraSizes[index].y;
@@ -1888,26 +1841,26 @@ Color color = m_obj==null ? (G.m_game.m_colorVoiceOver.a==0.0f ? G.m_game.m_colo
 FontDrawInfo info = new FontDrawInfo(lines, positions, ref color);
 info.maxCharCount = maxCharCount;
 info.background = true;
-bool finished = font.__71(ref info);
+bool finished = font.__70(ref info);
 if ( m_sayTyping && finished )
 {
 m_sayTyping = false;
 m_timeSayTypingFinished = m_timeSay;
 }
 }
-public void __670(int count, bool balloon)
+public void __664(int count, bool balloon)
 {
 Police font = G.m_game.__215();
-bool leftToRight = font.__490();
+bool leftToRight = font.__489();
 string[] lines = new string[count];
 Vec2[] positions = new Vec2[count];
 float margin = font.m_spaceWidth;
-float vmargin = font.__447() * 0.5f;
-float sayX = m_scene.__549(m_sayPosition.x);
-float sayY = m_scene.__550(m_sayPosition.y);
-if ( sayY>G.m_rcViewUI.__438()-vmargin )
-sayY = G.m_rcViewUI.__438() - vmargin;
-if ( m_sayDrawnOnce==false && m_scene.__479(CAMERA.TRACK)==null )
+float vmargin = font.__446() * 0.5f;
+float sayX = m_scene.__546(m_sayPosition.x);
+float sayY = m_scene.__547(m_sayPosition.y);
+if ( sayY>G.m_rcViewUI.__437()-vmargin )
+sayY = G.m_rcViewUI.__437() - vmargin;
+if ( m_sayDrawnOnce==false && m_scene.__478(CAMERA.TRACK)==null )
 {
 float paraDocLeft = (float)m_scene.m_width;
 float paraDocRight = 0.0f;
@@ -1916,32 +1869,32 @@ for ( int i=0 ; i<m_sayCount ; i++ )
 int iSay = m_iSay + i;
 if ( m_say.m_paraSizes[iSay].y!=0.0f )
 {
-float x = m_scene.__553(sayX - m_say.m_paraSizes[iSay].x*0.5f + m_say.m_lineRects[iSay].x);
+float x = m_scene.__550(sayX - m_say.m_paraSizes[iSay].x*0.5f + m_say.m_lineRects[iSay].x);
 if ( x<paraDocLeft )
 paraDocLeft = x;
-x = m_scene.__553(sayX - m_say.m_paraSizes[iSay].x*0.5f + m_say.m_lineRects[iSay].__437());
+x = m_scene.__550(sayX - m_say.m_paraSizes[iSay].x*0.5f + m_say.m_lineRects[iSay].__436());
 if ( x>paraDocRight )
 paraDocRight = x;
 }
 }
-float delta = m_scene.__555(G.m_rcViewUI.width)*0.5f;
+float delta = m_scene.__552(G.m_rcViewUI.width)*0.5f;
 m_sayDrawnOnce = true;
-if ( m_scene.__549(paraDocLeft)<G.m_rcViewUI.x )
+if ( m_scene.__546(paraDocLeft)<G.m_rcViewUI.x )
 {
-Cam cam = m_scene.__572(CAMERA.TALK);
+Cam cam = m_scene.__568(CAMERA.TALK);
 cam.m_fromX = m_scene.m_renderX;
-cam.m_toX = m_scene.__557(paraDocLeft+delta);
+cam.m_toX = m_scene.__554(paraDocLeft+delta);
 cam.m_fromY = m_scene.m_renderY;
 cam.m_toY = m_scene.m_renderY;
 cam.m_fromScale = m_scene.m_renderScale;
 cam.m_toScale = m_scene.m_renderScale;
 cam.m_duration = 0.5f;
 }
-else if ( m_scene.__549(paraDocRight)>G.m_rcViewUI.__437() )
+else if ( m_scene.__546(paraDocRight)>G.m_rcViewUI.__436() )
 {
-Cam cam = m_scene.__572(CAMERA.TALK);
+Cam cam = m_scene.__568(CAMERA.TALK);
 cam.m_fromX = m_scene.m_renderX;
-cam.m_toX = m_scene.__557(paraDocRight-delta);
+cam.m_toX = m_scene.__554(paraDocRight-delta);
 cam.m_fromY = m_scene.m_renderY;
 cam.m_toY = m_scene.m_renderY;
 cam.m_fromScale = m_scene.m_renderScale;
@@ -1966,9 +1919,9 @@ x = margin - x;
 if ( x>dxleft )
 dxleft = x;
 }
-else if ( x+m_say.m_lineRects[iSay].width>G.m_rcViewUI.__437()-margin )
+else if ( x+m_say.m_lineRects[iSay].width>G.m_rcViewUI.__436()-margin )
 {
-x = (x+m_say.m_lineRects[iSay].width)-(G.m_rcViewUI.__437()-margin);
+x = (x+m_say.m_lineRects[iSay].width)-(G.m_rcViewUI.__436()-margin);
 if ( x>dxright )
 dxright = x;
 }
@@ -2023,30 +1976,30 @@ Rect rcUV = Rect.Zero;
 Margin marginImage = G.m_game.m_balloonImageMargin;
 Margin marginImage01 = G.m_game.m_balloonImageMargin01;
 Margin marginText = G.m_game.m_balloonTextMargin;
-bool flip = m_anim.__682();
+bool flip = m_anim.__676();
 if ( flip )
 {
-marginImage.__448();
-marginText.__448();
+marginImage.__447();
+marginText.__447();
 }
 Rect rcText = new Rect(paraLeft, paraTop, paraRight-paraLeft, paraBottom-paraTop);
-if ( rcText.width<marginImage.__446() )
+if ( rcText.width<marginImage.__445() )
 {
-float dx = (marginImage.__446()-rcText.width)*0.5f;
+float dx = (marginImage.__445()-rcText.width)*0.5f;
 rcText.x -= dx;
-rcText.width = marginImage.__446();
+rcText.width = marginImage.__445();
 }
-if ( rcText.height<marginImage.__447() )
+if ( rcText.height<marginImage.__446() )
 {
-float dy = (marginImage.__447()-rcText.height)*0.5f;
+float dy = (marginImage.__446()-rcText.height)*0.5f;
 rcText.y -= dy;
-rcText.height = marginImage.__447();
+rcText.height = marginImage.__446();
 }
 Rect rcBalloon = rcText;
 rcBalloon.x -= marginText.left;
 rcBalloon.y -= marginText.top;
-rcBalloon.width += marginText.__446();
-rcBalloon.height += marginText.__447();
+rcBalloon.width += marginText.__445();
+rcBalloon.height += marginText.__446();
 rcUV.x = flip ? 1.0f-marginImage01.right : 0.0f;
 rcUV.width = flip ? marginImage01.right : marginImage01.left;
 rcUV.height = marginImage01.top;
@@ -2054,63 +2007,63 @@ rc.x = rcBalloon.x;
 rc.y = rcBalloon.y;
 rc.width = marginImage.left;
 rc.height = marginImage.top;
-G.m_graphics.__358(G.m_game.m_uiBalloon, ref rcUV, ref rc, flip);
+G.m_graphics.__357(G.m_game.m_uiBalloon, ref rcUV, ref rc, flip);
 rcUV.x = flip ? 0.0f : 1.0f-marginImage01.right;
 rcUV.width = flip ? marginImage01.left : marginImage01.right;
-rc.x = rcBalloon.__437() - marginImage.right;
+rc.x = rcBalloon.__436() - marginImage.right;
 rc.width = marginImage.right;
-G.m_graphics.__358(G.m_game.m_uiBalloon, ref rcUV, ref rc, flip);
+G.m_graphics.__357(G.m_game.m_uiBalloon, ref rcUV, ref rc, flip);
 rcUV.x = flip ? 1.0f-marginImage01.right : 0.0f;
 rcUV.y = 1.0f - marginImage01.bottom;
 rcUV.width = flip ? marginImage01.right : marginImage01.left;
 rcUV.height = marginImage01.bottom;
 rc.x = rcBalloon.x;
-rc.y = rcBalloon.__438() - marginImage.bottom;
+rc.y = rcBalloon.__437() - marginImage.bottom;
 rc.width = marginImage.left;
 rc.height = marginImage.bottom;
-G.m_graphics.__358(G.m_game.m_uiBalloon, ref rcUV, ref rc, flip);
+G.m_graphics.__357(G.m_game.m_uiBalloon, ref rcUV, ref rc, flip);
 rcUV.x = flip ? 0.0f : 1.0f-marginImage01.right;
 rcUV.width = flip ? marginImage01.left : marginImage01.right;
-rc.x = rcBalloon.__437() - marginImage.right;
+rc.x = rcBalloon.__436() - marginImage.right;
 rc.width = marginImage.right;
-G.m_graphics.__358(G.m_game.m_uiBalloon, ref rcUV, ref rc, flip);
+G.m_graphics.__357(G.m_game.m_uiBalloon, ref rcUV, ref rc, flip);
 rcUV.x = marginImage01.left;
 rcUV.y = 0.0f;
-rcUV.width = 1.0f - marginImage01.__446();
+rcUV.width = 1.0f - marginImage01.__445();
 rcUV.height = marginImage01.top;
 rc.x = rcBalloon.x + marginImage.left;
 rc.y = rcBalloon.y;
-rc.width = rcBalloon.width - marginImage.__446();
+rc.width = rcBalloon.width - marginImage.__445();
 rc.height = marginImage.top;
-G.m_graphics.__358(G.m_game.m_uiBalloon, ref rcUV, ref rc, flip);
+G.m_graphics.__357(G.m_game.m_uiBalloon, ref rcUV, ref rc, flip);
 rcUV.y = 1.0f - marginImage01.bottom;
 rcUV.height = marginImage01.bottom;
-rc.y = rcBalloon.__438() - marginImage.bottom;
+rc.y = rcBalloon.__437() - marginImage.bottom;
 rc.height = marginImage.bottom;
-G.m_graphics.__358(G.m_game.m_uiBalloon, ref rcUV, ref rc, flip);
+G.m_graphics.__357(G.m_game.m_uiBalloon, ref rcUV, ref rc, flip);
 rcUV.x = flip ? 1.0f-marginImage01.right : 0.0f;
 rcUV.y = marginImage01.top;
 rcUV.width = flip ? marginImage01.right : marginImage01.left;
-rcUV.height = 1.0f - marginImage01.__447();
+rcUV.height = 1.0f - marginImage01.__446();
 rc.x = rcBalloon.x;
 rc.y = rcBalloon.y + marginImage.top;
 rc.width = marginImage.left;
-rc.height = rcBalloon.height - marginImage.__447();
-G.m_graphics.__358(G.m_game.m_uiBalloon, ref rcUV, ref rc, flip);
+rc.height = rcBalloon.height - marginImage.__446();
+G.m_graphics.__357(G.m_game.m_uiBalloon, ref rcUV, ref rc, flip);
 rcUV.x = flip ? 0.0f : 1.0f-marginImage01.right;
 rcUV.width = flip ? marginImage01.left : marginImage01.right;
-rc.x = rcBalloon.__437() - marginImage.right;
+rc.x = rcBalloon.__436() - marginImage.right;
 rc.width = marginImage.right;
-G.m_graphics.__358(G.m_game.m_uiBalloon, ref rcUV, ref rc, flip);
+G.m_graphics.__357(G.m_game.m_uiBalloon, ref rcUV, ref rc, flip);
 rcUV.x = marginImage01.left;
 rcUV.y = marginImage01.top;
-rcUV.width = 1.0f - marginImage01.__446();
-rcUV.height = 1.0f - marginImage01.__447();
+rcUV.width = 1.0f - marginImage01.__445();
+rcUV.height = 1.0f - marginImage01.__446();
 rc.x = rcBalloon.x + marginImage.left;
 rc.y = rcBalloon.y  + marginImage.top;
-rc.width = rcBalloon.width - marginImage.__446();
-rc.height = rcBalloon.height - marginImage.__447();
-G.m_graphics.__358(G.m_game.m_uiBalloon, ref rcUV, ref rc, flip);
+rc.width = rcBalloon.width - marginImage.__445();
+rc.height = rcBalloon.height - marginImage.__446();
+G.m_graphics.__357(G.m_game.m_uiBalloon, ref rcUV, ref rc, flip);
 return;
 }
 int maxCharCount = -1;
@@ -2119,23 +2072,23 @@ maxCharCount = Mathf.CeilToInt(m_timeSay*50.0f);
 FontDrawInfo info = new FontDrawInfo(lines, positions, ref m_obj.m_speech);
 info.maxCharCount = maxCharCount;
 info.background = true;
-bool finished = font.__71(ref info);
+bool finished = font.__70(ref info);
 if ( m_sayTyping && finished )
 {
 m_sayTyping = false;
 m_timeSayTypingFinished = m_timeSay;
 }
 }
-public void __671(int count)
+public void __665(int count)
 {
 Police font = G.m_game.__215();
-bool leftToRight = font.__490();
+bool leftToRight = font.__489();
 string[] lines = new string[count];
 Vec2[] positions = new Vec2[count];
 Rect rcAvatar = m_obj.m_avatar.m_avatarText;
 int avatarAlign = m_obj.m_avatar.m_avatarTextAlign;
-float fontHeight = font.__447();
-float lineSpacing = font.__491();
+float fontHeight = font.__446();
+float lineSpacing = font.__490();
 float height = 0.0f;
 for ( int i=0,index=0 ; i<m_sayCount ; i++ )
 {
@@ -2151,17 +2104,17 @@ height += m_say.m_lineRects[iSay].height;
 index++;
 }
 float y = rcAvatar.y;
-if ( G.__102(avatarAlign, (int)ALIGN.MIDDLE) )
-y = rcAvatar.__439().y - height*0.5f;
-else if ( G.__102(avatarAlign, (int)ALIGN.BOTTOM) )
-y = rcAvatar.__438() - height;
+if ( G.__101(avatarAlign, (int)ALIGN.MIDDLE) )
+y = rcAvatar.__438().y - height*0.5f;
+else if ( G.__101(avatarAlign, (int)ALIGN.BOTTOM) )
+y = rcAvatar.__437() - height;
 float x;
 ALIGN halign = ALIGN.LEFT;
-if ( G.__102(avatarAlign, (int)ALIGN.JUSTIFY) )
+if ( G.__101(avatarAlign, (int)ALIGN.JUSTIFY) )
 halign = ALIGN.JUSTIFY;
-else if ( G.__102(avatarAlign, (int)ALIGN.CENTER) )
+else if ( G.__101(avatarAlign, (int)ALIGN.CENTER) )
 halign = ALIGN.CENTER;
-else if ( G.__102(avatarAlign, (int)ALIGN.RIGHT) )
+else if ( G.__101(avatarAlign, (int)ALIGN.RIGHT) )
 halign = ALIGN.RIGHT;
 for ( int i=0,index=0 ; i<m_sayCount ; i++ )
 {
@@ -2175,10 +2128,10 @@ case ALIGN.JUSTIFY:
 x = leftToRight ? rcAvatar.x : rcAvatar.x+m_say.m_lineRects[iSay].width;
 break;
 case ALIGN.RIGHT:
-x = leftToRight ? rcAvatar.__437()-m_say.m_lineRects[iSay].width : rcAvatar.__437();
+x = leftToRight ? rcAvatar.__436()-m_say.m_lineRects[iSay].width : rcAvatar.__436();
 break;
 default:
-x = leftToRight ?  rcAvatar.__440()-m_say.m_lineRects[iSay].width*0.5f : rcAvatar.__440()+m_say.m_lineRects[iSay].width*0.5f;
+x = leftToRight ?  rcAvatar.__439()-m_say.m_lineRects[iSay].width*0.5f : rcAvatar.__439()+m_say.m_lineRects[iSay].width*0.5f;
 break;
 }
 lines[index] = m_say.m_texts[iSay];
@@ -2203,7 +2156,7 @@ info.justify = true;
 info.maxRowWidth = m_say.m_maxRowWidth;
 info.lineRects = m_say.m_lineRects;
 }
-bool finished = font.__71(ref info);
+bool finished = font.__70(ref info);
 if ( m_sayTyping && finished )
 {
 m_sayTyping = false;
@@ -2249,16 +2202,16 @@ public void Pause()
 {
 m_paused = true;
 }
-public void __672()
+public void __666()
 {
 m_paused = false;
 }
-public void __673()
+public void __667()
 {
 if ( m_pauseDuration==-1.0f )
 m_pauseDuration = 0.0f;
 }
-public int __674(string name)
+public int __668(string name)
 {
 if ( name.Length==0 )
 return -1;
@@ -2290,7 +2243,6 @@ public Dictionary<string, SceneCell> m_mapCellByEnterFromLink;
 public Dictionary<string, SceneCell> m_mapCellByEnterToLink;
 public Dictionary<string, SceneCell> m_mapCellBySelectLink;
 public Dictionary<string, SceneCell> m_mapCellByLabelLink;
-public Dictionary<string, SceneCell> m_mapCellByDoorLink;
 public Dictionary<string, SceneCell> m_mapCellByUseLink;
 public Dictionary<string, SceneCell> m_mapCellByUseLabelLink;
 public Dictionary<string, SceneCell> m_mapCellByDetachLink;
@@ -2344,12 +2296,12 @@ if ( profileFrames!=null )
 {
 profileFrames[0] = -1;
 profileFrameIndex = -1;
-__687();
+__681();
 }
-__675();
+__669();
 notif.Reset();
 }
-public void __675()
+public void __669()
 {
 if ( passedFrames!=null )
 {
@@ -2357,53 +2309,53 @@ for ( int i=0 ; i<passedFrames.Length ; i++ )
 passedFrames[i] = false;
 }
 }
-public string __393()
+public string __392()
 {
 return cur==null ? "" : cur.m_name;
 }
-public void __676(bool reversed)
+public void __670(bool reversed)
 {
-int lastFrame = G.__133(cur.m_dirs[iDir].__476()-1);
+int lastFrame = G.__133(cur.m_dirs[iDir].__475()-1);
 reverse = reversed;
 iFrame = reverse ? lastFrame : 0;
-__675();
+__669();
 }
-public void __677(int startFrame)
+public void __671(int startFrame)
 {
-int lastFrame = G.__133(cur.m_dirs[iDir].__476()-1);
+int lastFrame = G.__133(cur.m_dirs[iDir].__475()-1);
 if ( startFrame<0 || startFrame>lastFrame )
 iFrame = 0;
 else
 iFrame = startFrame;
-__675();
+__669();
 }
-public void __678(int dir)
+public void __672(int dir)
 {
 if ( cur==null || dir==-1 )
 return;
-__688();
-if ( cur.__475(dir) )
+__682();
+if ( cur.__474(dir) )
 iDir = dir;
-else if ( cur.__475(iDir)==false )
+else if ( cur.__474(iDir)==false )
 iDir = cur.m_defaultDir.m_id;
 iFrame = 0;
 timeFrame = 0.0f;
 iLoop = 0;
 iLoopRange = 0;
-__684();
+__678();
 if ( profileFrames!=null )
 {
 profileFrames[0] = -1;
 profileFrameIndex = -1;
-__687();
-__675();
+__681();
+__669();
 }
 else
 {
-__676(cur.m_reversed);
+__670(cur.m_reversed);
 }
 }
-public AnimDir __679()
+public AnimDir __673()
 {
 if ( cur==null )
 return null;
@@ -2411,15 +2363,15 @@ if ( iDir==-1 )
 return null;
 return cur.m_dirs[iDir];
 }
-public string __680()
+public string __674()
 {
 if ( cur==null )
 return "";
 if ( iDir==-1 )
 return "";
-return cur.m_dirs[iDir].__393();
+return cur.m_dirs[iDir].__392();
 }
-public float __681()
+public float __675()
 {
 if ( cur==null )
 return 0.0f;
@@ -2436,7 +2388,7 @@ case AnimDir.BR:		return G.RAD_135;
 }
 return 0.0f;
 }
-public bool __682()
+public bool __676()
 {
 if ( cur==null )
 return false;
@@ -2449,24 +2401,24 @@ return true;
 }
 return false;
 }
-public Frame __683()
+public Frame __677()
 {
 if ( cur==null )
 return null;
-AnimDir dir = __679();
+AnimDir dir = __673();
 if ( dir==null )
 return null;
-if ( iFrame<0 || iFrame>=dir.__476() )
+if ( iFrame<0 || iFrame>=dir.__475() )
 return null;
 if ( cur.m_random==RANDOM.NONE )
 return dir.m_frames[iFrame];
 return dir.m_frames[randomFrames[iFrame]];
 }
-public void __684()
+public void __678()
 {
 int frameCount = 0;
 if ( iDir!=-1 )
-frameCount = cur.m_dirs[iDir].__476();
+frameCount = cur.m_dirs[iDir].__475();
 switch ( cur.m_random )
 {
 case RANDOM.ANIM:
@@ -2490,27 +2442,27 @@ break;
 }
 }
 }
-public bool __685(int index)
+public bool __679(int index)
 {
 if ( cur==null )
 return false;
-AnimDir dir = __679();
+AnimDir dir = __673();
 if ( dir==null )
 return false;
-if ( index<0 || index>=dir.__476() )
-return iFrame<0 || iFrame>=dir.__476();
+if ( index<0 || index>=dir.__475() )
+return iFrame<0 || iFrame>=dir.__475();
 if ( cur.m_random!=RANDOM.NONE )
 index = dir.m_frames[randomFrames[index]].m_index;
 if ( index==iFrame )
 return true;
 return passedFrames[index];
 }
-public bool __686(bool sayNext, out bool ended)
+public bool __680(bool sayNext, out bool ended)
 {
 ended = false;
 if ( cur==null )
 return false;
-AnimDir dir = __679();
+AnimDir dir = __673();
 if ( dir==null )
 return false;
 int actionFrame = notif.actionFrame==-2 ? cur.m_actionFrame : notif.actionFrame;
@@ -2523,10 +2475,10 @@ frameCountToAdd++;
 }
 if ( frameCountToAdd==0 )
 return true;
-__688();
+__682();
 if ( cur.m_profile!=PROFILE.NONE )
 {
-__687();
+__681();
 return true;
 }
 bool animFinished = false;
@@ -2542,7 +2494,7 @@ if ( iFrame>=0 )
 passedFrames[iFrame] = true;
 if ( cur.m_random==RANDOM.NONE && iLoopRange!=-1 )
 {
-int loopRangeMax = cur.m_loopRangeMax==-1 ? dir.__476()-1 : cur.m_loopRangeMax;
+int loopRangeMax = cur.m_loopRangeMax==-1 ? dir.__475()-1 : cur.m_loopRangeMax;
 if ( iFrame<cur.m_loopRangeMin )
 {
 if ( cur.m_loopRangeCount==-1 )
@@ -2563,7 +2515,7 @@ if ( iFrame<0 )
 {
 if ( cur.m_loopCount==-1 )
 {
-iFrame = G.__133(cur.m_dirs[iDir].__476()-1);
+iFrame = G.__133(cur.m_dirs[iDir].__475()-1);
 iLoopRange = 0;
 }
 else if ( cur.m_loopCount>0 )
@@ -2571,7 +2523,7 @@ else if ( cur.m_loopCount>0 )
 iLoop++;
 if ( iLoop<=cur.m_loopCount )
 {
-iFrame = G.__133(cur.m_dirs[iDir].__476()-1);
+iFrame = G.__133(cur.m_dirs[iDir].__475()-1);
 iLoopRange = 0;
 }
 else
@@ -2588,10 +2540,10 @@ frame = iFrame;
 if ( iFrame<passedFrames.Length )
 passedFrames[iFrame] = true;
 if ( cur.m_random==RANDOM.FRAME )
-__684();
+__678();
 if ( cur.m_random==RANDOM.NONE && iLoopRange!=-1 )
 {
-int loopRangeMax = cur.m_loopRangeMax==-1 ? dir.__476()-1 : cur.m_loopRangeMax;
+int loopRangeMax = cur.m_loopRangeMax==-1 ? dir.__475()-1 : cur.m_loopRangeMax;
 if ( iFrame>loopRangeMax )
 {
 if ( cur.m_loopRangeCount==-1 )
@@ -2608,14 +2560,14 @@ else
 iLoopRange = -1;
 }
 }
-if ( iFrame>=dir.__476() )
+if ( iFrame>=dir.__475() )
 {
 if ( cur.m_loopCount==-1 )
 {
 iFrame = 0;
 iLoopRange = 0;
 if ( cur.m_random==RANDOM.LOOP )
-__684();
+__678();
 }
 else if ( cur.m_loopCount>0 )
 {
@@ -2625,7 +2577,7 @@ if ( iLoop<=cur.m_loopCount )
 iFrame = 0;
 iLoopRange = 0;
 if ( cur.m_random==RANDOM.LOOP )
-__684();
+__678();
 }
 else
 animFinished = true;
@@ -2660,38 +2612,38 @@ if ( animFinished )
 if ( sceneObj.m_routeTurn )
 {
 sceneObj.m_routeTurn = false;
-sceneObj.__632(sceneObj.m_routeTurnAnim);
-__678(sceneObj.m_routeTurnDir);
+sceneObj.__626(sceneObj.m_routeTurnAnim);
+__672(sceneObj.m_routeTurnDir);
 return false;
 }
-sceneObj.__632(ref sceneObj.m_defaultStopAnim.cur);
+sceneObj.__626(ref sceneObj.m_defaultStopAnim.cur);
 if ( sayNext )
-sceneObj.__655();
+sceneObj.__649();
 }
 else if ( actionFrameReached )
 {
-notif.__689();
+notif.__683();
 }
 if ( animFinished || actionFrameReached )
 {
 if ( prevNotif.dialog.Length>0 )
 G.m_game.__308(prevNotif.dialog, prevNotif.sentence);
 if ( prevNotif.roleBox )
-prevNotif.roleBox.__458(prevNotif.roleBoxToken);
+prevNotif.roleBox.__457(prevNotif.roleBoxToken);
 ended = true;
 }
 return true;
 }
-public void __687()
+public void __681()
 {
-AnimDir dir = __679();
-if ( dir==null || dir.__476()==0 )
+AnimDir dir = __673();
+if ( dir==null || dir.__475()==0 )
 return;
 profileFrameIndex++;
 int iRealFrame = profileFrames[profileFrameIndex];
 if ( iRealFrame!=-1 )
 {
-iFrame = iRealFrame<dir.__476() ? iRealFrame : 0;
+iFrame = iRealFrame<dir.__475() ? iRealFrame : 0;
 return;
 }
 int frameCount = 0;
@@ -2713,7 +2665,7 @@ case PROFILE.ANGRY:
 frameCount = G.__156(1, 3);
 break;
 }
-int step = dir.__476()/3;
+int step = dir.__475()/3;
 if ( step==0 )
 return;
 int curPose = iFrame/step;
@@ -2756,11 +2708,11 @@ break;
 }
 iFrame = profileFrames[0]==-1 ? 0 : profileFrames[0];
 }
-public void __688()
+public void __682()
 {
-Frame frame = __683();
+Frame frame = __677();
 if ( frame )
-frame.m_sprite.__688();
+frame.m_sprite.__682();
 }
 }
 public struct AnimNotif
@@ -2780,7 +2732,7 @@ sentence = 0;
 roleBox = null;
 roleBoxToken = 0;
 }
-public void __689()
+public void __683()
 {
 if ( withLock )
 G.m_game.m_lockedByAnim--;

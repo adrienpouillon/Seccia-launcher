@@ -52,8 +52,8 @@ m_frameSize = G.m_game.m_choiceFrameSize;
 m_frameIconSize = G.m_game.m_choiceFrameIconSize;
 m_frameSpaceWidth = G.m_game.m_choiceFrameSpace[0];
 m_frameSpaceHeight = G.m_game.m_choiceFrameSpace[1];
-m_frameTextWidth = m_frameSize - G.m_game.m_choiceFrameMargin.__446();
-m_frameTextHeight = m_frameSize - G.m_game.m_choiceFrameMargin.__447();
+m_frameTextWidth = m_frameSize - G.m_game.m_choiceFrameMargin.__445();
+m_frameTextHeight = m_frameSize - G.m_game.m_choiceFrameMargin.__446();
 }
 }
 public void Reset()
@@ -62,7 +62,7 @@ Quit();
 m_callCount = 0;
 m_roles.Clear();
 }
-public void __450(Dialog dialog, RoleBox box, int sentence)
+public void __449(Dialog dialog, RoleBox box, int sentence)
 {
 if ( dialog==null || box==null )
 return;
@@ -73,7 +73,7 @@ dr.m_sentence = sentence;
 dr.m_token = box.m_parent.m_token;
 m_roles.Add(dr);
 }
-public void __451(int sentence)
+public void __450(int sentence)
 {
 for ( int iRole=0 ; iRole<m_roles.Count ; iRole++ )
 {
@@ -82,12 +82,12 @@ if ( role.m_dialog!=m_dialog )
 continue;
 if ( sentence!=role.m_sentence )
 continue;
-role.m_box.__458(role.m_token);
+role.m_box.__457(role.m_token);
 m_roles.RemoveAt(iRole);
 iRole--;
 }
 }
-public bool __452()
+public bool __451()
 {
 for ( int i=0 ; i<m_roles.Count ; i++ )
 {
@@ -102,10 +102,10 @@ public void Quit()
 if ( __38()==false )
 return;
 if ( m_speaker )
-m_speaker.__654();
-G.m_game.__323(RoleBoxEventExitDialog.ID, m_dialog.m_uid);
-__451(0);
-__455();
+m_speaker.__648();
+G.m_game.__322(RoleBoxEventExitDialog.ID, m_dialog.m_uid);
+__450(0);
+__454();
 m_dialog = null;
 m_speaker = null;
 m_sentence = null;
@@ -123,32 +123,32 @@ m_avatarProfileFrames[0] = -1;
 m_avatarProfileIndex = -1;
 Scene scene = G.m_game.__291();
 if ( scene )
-scene.__573(CAMERA.TALK);
+scene.__569(CAMERA.TALK);
 }
 public bool __38()
 {
 return m_dialog;
 }
-public bool __453(string uid)
+public bool __452(string uid)
 {
 if ( m_dialog==null )
 return false;
 return G.__148(ref m_dialog.m_uid, ref uid);
 }
-public Sprite __454(Sentence sentence)
+public Sprite __453(Sentence sentence)
 {
-Sprite sprite = sentence.m_icon.__454();
-if ( sprite.__995() )
+Sprite sprite = sentence.m_icon.__453();
+if ( sprite.__988() )
 return sprite;
-Asset asset = G.__96(G.m_pathGraphics);
+Asset asset = G.__95(G.m_pathGraphics);
 if ( asset==null )
 return null;
-sprite.__469(asset);
+sprite.__468(asset);
 asset.Close();
 m_icons.Add(sprite);
 return sprite;
 }
-public void __455()
+public void __454()
 {
 for ( int i=0 ; i<m_icons.Count ; i++ )
 m_icons[i].End();
@@ -170,19 +170,15 @@ m_avatarLoopRange = 0;
 m_avatarProfileFrames[0] = -1;
 m_avatarProfileIndex = -1;
 }
-__455();
+__454();
 int callCount = m_callCount;
 if ( init==false )
 {
 bool visited = m_sentence.m_visited;
 if ( m_sentence.m_sid!=0 )
-G.m_game.__332(m_sentence, m_indexParagraph);
+G.m_game.__331(m_sentence, m_indexParagraph);
 if ( visited==false )
-{
 m_sentence.m_visited = true;
-if ( m_sentence.m_sid!=0 )
-G.Success(m_sentence.m_onSay);
-}
 if ( m_sentence.m_mutualShows!=null )
 {
 for ( int i=0 ; i<m_sentence.m_mutualShows.Length ; i++ )
@@ -192,7 +188,7 @@ if ( m_sentence.m_task )
 G.m_game.Task(m_sentence.m_taskRole, m_sentence.m_taskName, m_sentence.m_taskArg);
 }
 if ( m_sentence.m_sid!=0 )
-__451(m_sentence.m_sid);
+__450(m_sentence.m_sid);
 if ( __38()==false || callCount!=m_callCount )
 return;
 if ( init==false && m_sentence.m_hideBranch )
@@ -238,7 +234,7 @@ return;
 m_sentence = sentence;
 m_locked = m_sentence.m_locked;
 if ( m_locked==false )
-m_locked = __452();
+m_locked = __451();
 m_speaker = m_sentence.__55();
 if ( m_speaker==null )
 {
@@ -315,7 +311,7 @@ else
 m_isWaitingUser = true;
 Sentence curSentence = m_sentence;
 m_sentence = m_sentence.m_parent;
-__457();
+__456();
 bool autoSelectEnabled = false;
 if ( autoSelectEnabled && curSentence.m_visited==false && m_sentence.__57()==1 )
 {
@@ -341,7 +337,7 @@ m_indexParagraph = m_speaker.Say(m_sentence, m_indexParagraph);
 }
 }
 }
-public void __456()
+public void __455()
 {
 if ( __38()==false )
 return;
@@ -358,13 +354,13 @@ return;
 }
 m_indexParagraph = m_speaker.Say(m_sentence, m_indexParagraph, true);
 }
-public void __457()
+public void __456()
 {
 m_choices.Clear();
 if ( m_isWaitingUser==false )
 return;
 Police font = G.m_game.__215();
-float y = G.m_rcView.__438();
+float y = G.m_rcView.__437();
 int maxChoiceCount = 32;
 if ( m_mode==MODE.VISUAL_NOVEL )
 {
@@ -391,7 +387,7 @@ choice.m_index = iPar;
 choice.m_text = paragraphs[iPar];
 if ( m_mode==MODE.POINT_AND_CLICK )
 {
-choice.m_textSize = font.__492(choice.m_text);
+choice.m_textSize = font.__491(choice.m_text);
 choice.m_rc.width = choice.m_textSize.x;
 choice.m_rc.height = choice.m_textSize.y;
 choice.m_rc.x = TEXT_OFFSET_X;
@@ -410,11 +406,11 @@ choice.m_info = new BreakTextInfo();
 G.__161(choice.m_info, choice.m_text, font, m_frameTextWidth);
 if ( choice.m_info.m_paraSizes.Count>0 && choice.m_info.m_paraSizes[0].y>m_frameTextHeight )
 {
-for ( int i=0 ; i<choice.m_info.__67() ; i++ )
+for ( int i=0 ; i<choice.m_info.__66() ; i++ )
 {
-if ( choice.m_info.m_lineRects[i].__438()>m_frameTextHeight )
+if ( choice.m_info.m_lineRects[i].__437()>m_frameTextHeight )
 {
-while ( choice.m_info.__67()>i )
+while ( choice.m_info.__66()>i )
 choice.m_info.__202();
 choice.m_info.__203(font);
 break;
@@ -456,16 +452,16 @@ x += m_frameSize + m_frameSpaceWidth;
 choice.m_rcInput = choice.m_rc;
 choice.m_rcInput.x += G.m_game.m_choiceFrameMargin.left;
 choice.m_rcInput.y += G.m_game.m_choiceFrameMargin.top;
-choice.m_rcInput.width -= G.m_game.m_choiceFrameMargin.__446();
-choice.m_rcInput.height -= G.m_game.m_choiceFrameMargin.__447();
-choice.m_rcIcon.x = choice.m_rcInput.__440() - m_frameIconSize*0.5f;
-choice.m_rcIcon.y = choice.m_rcInput.__441() - m_frameIconSize*0.5f;
+choice.m_rcInput.width -= G.m_game.m_choiceFrameMargin.__445();
+choice.m_rcInput.height -= G.m_game.m_choiceFrameMargin.__446();
+choice.m_rcIcon.x = choice.m_rcInput.__439() - m_frameIconSize*0.5f;
+choice.m_rcIcon.y = choice.m_rcInput.__440() - m_frameIconSize*0.5f;
 choice.m_rcIcon.width = m_frameIconSize;
 choice.m_rcIcon.height = m_frameIconSize;
 }
 }
 }
-public void __458(float x, float y)
+public void __457(float x, float y)
 {
 if ( __38()==false )
 return;
@@ -499,7 +495,7 @@ else
 {
 if ( G.m_game.m_layout.Get(LAYOUT_CTRL.SHUTUP).m_active )
 {
-if ( G.m_game.m_layout.__426(LAYOUT_CTRL.SHUTUP, x, y) )
+if ( G.m_game.m_layout.__425(LAYOUT_CTRL.SHUTUP, x, y) )
 {
 Quit();
 return;
@@ -517,7 +513,7 @@ else
 {
 if ( m_speaker && m_speaker.m_timeSay>=m_speaker.m_timeSayDurationForced )
 {
-m_speaker.__655();
+m_speaker.__649();
 m_iScroll = -1;
 }
 }
@@ -555,7 +551,7 @@ m_iScroll = textWidth<=G.m_rcView.width-TEXT_OFFSET_X ? -1 : index;
 }
 if ( m_iScroll!=-1 )
 {
-float speed = (G.m_game.__215().__447()+G.m_game.__215().__491())/G.m_rcView.height * 2000.0f;
+float speed = (G.m_game.__215().__446()+G.m_game.__215().__490())/G.m_rcView.height * 2000.0f;
 m_scroll += G.m_game.m_elapsed*speed;
 float maxScroll = (float)(textWidth-(G.m_rcView.width-TEXT_OFFSET_X));
 if ( m_scroll>maxScroll )
@@ -565,7 +561,7 @@ m_scroll = maxScroll;
 }
 else
 {
-if ( m_speaker && m_speaker.__656()==false )
+if ( m_speaker && m_speaker.__650()==false )
 {
 Next(null, false, false);
 m_iScroll = -1;
@@ -579,14 +575,14 @@ public override void __43()
 if ( __38() && m_isWaitingUser )
 {
 Police font = G.m_game.__215();
-bool leftToRight = font.__490();
+bool leftToRight = font.__489();
 if ( m_mode==MODE.POINT_AND_CLICK )
 {
 float y = m_choices.Count==0 ? 0.0f : m_choices[0].m_rc.y - 8.0f;
 Rect rc = G.m_rcView;
 rc.y = y;
 rc.height -= y;
-G.m_graphics.__355(G.m_game.m_uiDialogBack.m_material, ref rc);
+G.m_graphics.__354(G.m_game.m_uiDialogBack.m_material, ref rc);
 }
 for ( int iChoice=0 ; iChoice<m_choices.Count ; iChoice++ )
 {
@@ -600,63 +596,63 @@ Color color = G.m_game.m_cursor && choice.m_rcInput.Contains(G.m_game.m_cursorVi
 if ( m_mode==MODE.POINT_AND_CLICK )
 {
 int scroll = iChoice==m_iScroll ? (int)m_scroll : 0;
-float x = leftToRight ? choice.m_rc.x-scroll : choice.m_rc.__437()+scroll;
-font.__71(ref choice.m_text, x, choice.m_rc.y, ref color);
+float x = leftToRight ? choice.m_rc.x-scroll : choice.m_rc.__436()+scroll;
+font.__70(ref choice.m_text, x, choice.m_rc.y, ref color);
 }
 else
 {
-float x = leftToRight ? choice.m_rc.x + G.m_game.m_choiceFrameMargin.left : choice.m_rc.__437() - G.m_game.m_choiceFrameMargin.right;
+float x = leftToRight ? choice.m_rc.x + G.m_game.m_choiceFrameMargin.left : choice.m_rc.__436() - G.m_game.m_choiceFrameMargin.right;
 float y = choice.m_rc.y + G.m_game.m_choiceFrameMargin.top;
 if ( G.m_game.m_uiChoice )
-G.m_graphics.__355(G.m_game.m_uiChoice.m_material, ref choice.m_rc);
+G.m_graphics.__354(G.m_game.m_uiChoice.m_material, ref choice.m_rc);
 BreakTextInfo info = choice.m_info;
-for ( int i=0 ; i<info.__67() ; i++ )
+for ( int i=0 ; i<info.__66() ; i++ )
 {
 float dy = (m_frameTextHeight - info.m_paraSizes[i].y)*0.5f;
-float offset = leftToRight ? x+info.m_lineRects[i].x : x-(info.m_paraSizes[i].x-info.m_lineRects[i].__437());
-font.__71(info.m_texts[i], offset, y+info.m_lineRects[i].y+dy, ref color);
+float offset = leftToRight ? x+info.m_lineRects[i].x : x-(info.m_paraSizes[i].x-info.m_lineRects[i].__436());
+font.__70(info.m_texts[i], offset, y+info.m_lineRects[i].y+dy, ref color);
 }
 }
 }
 else
 {
 if ( G.m_game.m_uiChoice )
-G.m_graphics.__355(G.m_game.m_uiChoice.m_material, ref choice.m_rc);
+G.m_graphics.__354(G.m_game.m_uiChoice.m_material, ref choice.m_rc);
 /*
-Anim anim = obj.__471("STOP");
-if ( anim && anim.__475(AnimDir.RIGHT) && anim.m_dirs[AnimDir.RIGHT].__476()>0 )
+Anim anim = obj.__470("STOP");
+if ( anim && anim.__474(AnimDir.RIGHT) && anim.m_dirs[AnimDir.RIGHT].__475()>0 )
 {
 float time = G.m_game.m_time * anim.m_fps;
-int index = (int)(time % anim.m_dirs[AnimDir.RIGHT].__476());
+int index = (int)(time % anim.m_dirs[AnimDir.RIGHT].__475());
 Frame frame = anim.m_dirs[AnimDir.RIGHT].m_frames[index];
 if ( frame && frame.m_sprite )
 {
-if ( frame.m_sprite.__995()==false )
+if ( frame.m_sprite.__988()==false )
 {
-Asset asset = G.__96(G.m_pathGraphics);
+Asset asset = G.__95(G.m_pathGraphics);
 if ( asset )
 {
-frame.m_sprite.__469(asset);
+frame.m_sprite.__468(asset);
 asset.Close();
 m_loadedSprites.Add(frame.m_sprite);
 }
 }
 rc.width = obj.m_imgWidth;
 rc.height = obj.m_imgHeight;
-rc.x = G.m_rcViewUI.__440() - rc.width*0.5f;
+rc.x = G.m_rcViewUI.__439() - rc.width*0.5f;
 rc.y = y;
-G.m_graphics.__360(frame, ref rc);
+G.m_graphics.__359(frame, ref rc);
 y += rc.height;
 }
 }
 */
-Sprite sprite = __454(sentence);
+Sprite sprite = __453(sentence);
 if ( sprite )
 {
 Rect rc = choice.m_rcIcon;
 if ( G.m_game.m_cursor && rc.Contains(G.m_game.m_cursorViewX, G.m_game.m_cursorViewY) )
-rc.__442(ref m_timeIcon, ref m_iRenderIcon);
-G.m_graphics.__355(sprite.m_material, ref rc);
+rc.__441(ref m_timeIcon, ref m_iRenderIcon);
+G.m_graphics.__354(sprite.m_material, ref rc);
 }
 }
 }

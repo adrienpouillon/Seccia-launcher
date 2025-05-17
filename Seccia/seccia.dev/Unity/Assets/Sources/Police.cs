@@ -18,7 +18,7 @@ public FontChar m_fontCharError = null;
 public FontTexture[] m_textures;
 public float m_scale = 1.0f;
 public static implicit operator bool(Police inst) { return inst!=null; }
-public void __489(float scale)
+public void __488(float scale)
 {
 m_isSystem = true;
 TextAsset file = (TextAsset)Resources.Load("Texts/font", typeof(TextAsset));
@@ -54,7 +54,7 @@ m_textures[0].material = G.__165(SHADER.TEXT);
 m_textures[0].material.mainTexture = m_textures[0].texture;
 m_scale = scale;
 }
-public void __65(Asset asset, float scale)
+public void __64(Asset asset, float scale)
 {
 m_textureOffset = asset.__15();
 asset.__13();
@@ -91,10 +91,10 @@ m_textures[i].material = G.__165(SHADER.TEXT);
 }
 m_scale = scale;
 }
-public void __66()
+public void __65()
 {
 for ( int i=0 ; i<m_textures.Length ; i++ )
-m_textures[i].__495(m_isSystem);
+m_textures[i].__494(m_isSystem);
 m_fontCharError = null;
 m_table.Clear();
 m_count = 0;
@@ -106,7 +106,7 @@ m_textureSize = 0.0f;
 m_textureCount = 0;
 m_textureOffset = 0;
 }
-public void __469(Asset assetGraphics)
+public void __468(Asset assetGraphics)
 {
 assetGraphics.__3(m_textureOffset);
 for ( int i=0 ; i<m_textureCount ; i++ )
@@ -131,7 +131,7 @@ G.Release(m_textures[i].texture);
 m_textures[i].texture = null;
 }
 }
-public bool __490()
+public bool __489()
 {
 if ( m_isSystem )
 return true;
@@ -141,23 +141,23 @@ public float __34()
 {
 return m_scale;
 }
-public float __447()
+public float __446()
 {
 return HEIGHT * m_scale;
 }
-public float __447(float scale)
+public float __446(float scale)
 {
 return HEIGHT * scale;
 }
-public float __491()
+public float __490()
 {
 return m_lineSpacing * m_scale;
 }
-public float __491(float scale)
+public float __490(float scale)
 {
 return m_lineSpacing * scale;
 }
-public Vec2 __492(string text, float scale = -1.0f)
+public Vec2 __491(string text, float scale = -1.0f)
 {
 if ( text.Length==0 )
 return Vec2.Zero;
@@ -180,22 +180,22 @@ else
 width += m_fontCharError.w2;
 }
 }
-return new Vec2(width*scale, __447(scale));
+return new Vec2(width*scale, __446(scale));
 }
-public bool __71(string text, float x, float y, ref Color color, float scale = -1.0f, bool drawBack = false)
+public bool __70(string text, float x, float y, ref Color color, float scale = -1.0f, bool drawBack = false)
 {
 FontDrawInfo info = new FontDrawInfo(ref text, x, y, ref color);
 info.scale = scale;
 info.background = drawBack;
-return __71(ref info);
+return __70(ref info);
 }
-public bool __71(ref string text, float x, float y, ref Color color, float scale = -1.0f)
+public bool __70(ref string text, float x, float y, ref Color color, float scale = -1.0f)
 {
 FontDrawInfo info = new FontDrawInfo(ref text, x, y, ref color);
 info.scale = scale;
-return __71(ref info);
+return __70(ref info);
 }
-public bool __71(ref FontDrawInfo info)
+public bool __70(ref FontDrawInfo info)
 {
 bool vibration = G.m_game && G.m_game.m_vibration;
 bool finished = false;
@@ -204,7 +204,7 @@ return finished;
 float scale = info.scale;
 if ( scale==-1.0f )
 scale = m_scale;
-float charHeight = __447(scale);
+float charHeight = __446(scale);
 float spaceWidth = m_spaceWidth * scale;
 float spaceWidthExtra = 0.0f;
 float spacing = m_spacing * scale;
@@ -254,7 +254,7 @@ tex.triangles = new int[tex.charCount*6];
 }
 float minLeft = 1000000.0f;
 float maxRight = 0.0f;
-if ( __490() )
+if ( __489() )
 {
 int iChar = 0;
 for ( int iLine=0 ; iLine<info.lines.Length ; iLine++ )
@@ -327,12 +327,12 @@ tex.vertices[iV+3].x = offsetX + vibrationX;
 tex.vertices[iV+3].y = (offsetY + charHeight) + vibrationY;
 tex.uvs[iV+0].x = fc.x/m_textureSize;
 tex.uvs[iV+0].y = 1.0f - (fc.y/m_textureSize);
-tex.uvs[iV+1].x = fc.__437()/m_textureSize;
+tex.uvs[iV+1].x = fc.__436()/m_textureSize;
 tex.uvs[iV+1].y = 1.0f - (fc.y/m_textureSize);
-tex.uvs[iV+2].x = fc.__437()/m_textureSize;
-tex.uvs[iV+2].y = 1.0f - (fc.__438()/m_textureSize);
+tex.uvs[iV+2].x = fc.__436()/m_textureSize;
+tex.uvs[iV+2].y = 1.0f - (fc.__437()/m_textureSize);
 tex.uvs[iV+3].x = fc.x/m_textureSize;
-tex.uvs[iV+3].y = 1.0f - (fc.__438()/m_textureSize);
+tex.uvs[iV+3].y = 1.0f - (fc.__437()/m_textureSize);
 tex.triangles[iT+0] = iV + 0;
 tex.triangles[iT+1] = iV + 1;
 tex.triangles[iT+2] = iV + 2;
@@ -423,12 +423,12 @@ tex.vertices[iV+3].x = offsetX - fcw + vibrationX;
 tex.vertices[iV+3].y = (offsetY + charHeight) + vibrationY;
 tex.uvs[iV+0].x = fc.x/m_textureSize;
 tex.uvs[iV+0].y = 1.0f - (fc.y/m_textureSize);
-tex.uvs[iV+1].x = fc.__437()/m_textureSize;
+tex.uvs[iV+1].x = fc.__436()/m_textureSize;
 tex.uvs[iV+1].y = 1.0f - (fc.y/m_textureSize);
-tex.uvs[iV+2].x = fc.__437()/m_textureSize;
-tex.uvs[iV+2].y = 1.0f - (fc.__438()/m_textureSize);
+tex.uvs[iV+2].x = fc.__436()/m_textureSize;
+tex.uvs[iV+2].y = 1.0f - (fc.__437()/m_textureSize);
 tex.uvs[iV+3].x = fc.x/m_textureSize;
-tex.uvs[iV+3].y = 1.0f - (fc.__438()/m_textureSize);
+tex.uvs[iV+3].y = 1.0f - (fc.__437()/m_textureSize);
 tex.triangles[iT+0] = iV + 0;
 tex.triangles[iT+1] = iV + 1;
 tex.triangles[iT+2] = iV + 2;
@@ -458,10 +458,10 @@ if ( info.background && G.m_game && G.m_game.m_colorTextBack.a!=0.0f )
 {
 float x = (int)(minLeft-spaceWidth);
 float y = info.positions[0].y;
-float y2 = info.positions[info.positions.Length-1].y + (int)__447(scale);
+float y2 = info.positions[info.positions.Length-1].y + (int)__446(scale);
 Rect rc = new Rect(x, y, maxRight-x+spaceWidth, y2-y);
 G.m_materialBrush.color = G.m_game.m_colorTextBack;
-G.m_graphics.__355(G.m_materialBrush, ref rc);
+G.m_graphics.__354(G.m_materialBrush, ref rc);
 }
 for ( int i=0 ; i<m_textures.Length ; i++ )
 {
@@ -471,72 +471,72 @@ if ( tex.charCount>0 )
 tex.material.color = new Color(info.color.r, info.color.g, info.color.b, 1.0f);
 if ( tex.mesh )
 {
-G.m_graphics.__345();
-G.m_graphics.__365(tex.mesh, tex.material);
+G.m_graphics.__344();
+G.m_graphics.__364(tex.mesh, tex.material);
 }
 }
 }
 return finished;
 }
-public void __493(string text, ref Color color, float maxRowWidth, float vertMargin = G.SUBTITLE_MARGIN)
+public void __492(string text, ref Color color, float maxRowWidth, float vertMargin = G.SUBTITLE_MARGIN)
 {
 BreakTextInfo info = new BreakTextInfo();
 G.__161(info, text, this, maxRowWidth);
-float y = G.m_rcViewUI.__438() - vertMargin;
-for ( int i=0 ; i<info.__67() ; i++ )
+float y = G.m_rcViewUI.__437() - vertMargin;
+for ( int i=0 ; i<info.__66() ; i++ )
 y -= info.m_lineRects[i].height;
-bool leftToRight = __490();
-for ( int i=0 ; i<info.__67() ; i++ )
+bool leftToRight = __489();
+for ( int i=0 ; i<info.__66() ; i++ )
 {
-float x= G.m_rcViewUI.__440();
+float x= G.m_rcViewUI.__439();
 if ( leftToRight )
 x -= info.m_lineRects[i].width * 0.5f;
 else
 x += info.m_lineRects[i].width * 0.5f;
-__71(info.m_texts[i], x, y, ref color, -1.0f, true);
+__70(info.m_texts[i], x, y, ref color, -1.0f, true);
 y += info.m_lineRects[i].height;
 }
 }
-public void __494(string text, Color color)
+public void __493(string text, Color color)
 {
 LayoutCtrl ctrl = G.m_game.m_layout.Get(LAYOUT_CTRL.LEGEND);
 BreakTextInfo info = new BreakTextInfo();
 G.__161(info, text, this, ctrl.m_rcView.width);
 float y;
-if ( G.__102(ctrl.m_align, (int)ALIGN.BOTTOM) )
+if ( G.__101(ctrl.m_align, (int)ALIGN.BOTTOM) )
 {
-y = ctrl.m_rcView.__438();
-for ( int i=0 ; i<info.__67() ; i++ )
+y = ctrl.m_rcView.__437();
+for ( int i=0 ; i<info.__66() ; i++ )
 y -= info.m_lineRects[i].height;
 }
-else if ( G.__102(ctrl.m_align, (int)ALIGN.MIDDLE) )
+else if ( G.__101(ctrl.m_align, (int)ALIGN.MIDDLE) )
 {
 float height = 0.0f;
-for ( int i=0 ; i<info.__67() ; i++ )
+for ( int i=0 ; i<info.__66() ; i++ )
 height += info.m_lineRects[i].height;
-y = ctrl.m_rcView.__441() - height*0.5f;
+y = ctrl.m_rcView.__440() - height*0.5f;
 }
 else
 {
 y = ctrl.m_rcView.y;
 }
-bool leftToRight = __490();
-for ( int i=0 ; i<info.__67() ; i++ )
+bool leftToRight = __489();
+for ( int i=0 ; i<info.__66() ; i++ )
 {
 float x;
-if ( G.__102(ctrl.m_align, (int)ALIGN.RIGHT) )
+if ( G.__101(ctrl.m_align, (int)ALIGN.RIGHT) )
 {
 if ( leftToRight )
-x = ctrl.m_rcView.__437() - info.m_lineRects[i].width;
+x = ctrl.m_rcView.__436() - info.m_lineRects[i].width;
 else
-x = ctrl.m_rcView.__437();
+x = ctrl.m_rcView.__436();
 }
-else if ( G.__102(ctrl.m_align, (int)ALIGN.CENTER) )
+else if ( G.__101(ctrl.m_align, (int)ALIGN.CENTER) )
 {
 if ( leftToRight )
-x = ctrl.m_rcView.__440() - info.m_lineRects[i].width * 0.5f;
+x = ctrl.m_rcView.__439() - info.m_lineRects[i].width * 0.5f;
 else
-x = ctrl.m_rcView.__440() + info.m_lineRects[i].width * 0.5f;
+x = ctrl.m_rcView.__439() + info.m_lineRects[i].width * 0.5f;
 }
 else
 {
@@ -545,7 +545,7 @@ x = ctrl.m_rcView.x;
 else
 x = ctrl.m_rcView.x + info.m_lineRects[i].width;
 }
-__71(info.m_texts[i], x, y, ref color, -1.0f, true);
+__70(info.m_texts[i], x, y, ref color, -1.0f, true);
 y += info.m_lineRects[i].height;
 }
 }
@@ -558,11 +558,11 @@ public float y;
 public float w;
 public float w2;
 public float h;
-public float __437()
+public float __436()
 {
 return x + w;
 }
-public float __438()
+public float __437()
 {
 return y + h;
 }
@@ -585,7 +585,7 @@ mesh.vertices = vertices;
 mesh.uv = uvs;
 mesh.triangles = triangles;
 }
-public void __495(bool sys)
+public void __494(bool sys)
 {
 G.Release(mesh);
 mesh = null;

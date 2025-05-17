@@ -27,13 +27,13 @@ End();
 m_placement.Reset();
 m_visible.Reset();
 }
-public void __469(Asset asset)
+public void __468(Asset asset)
 {
 }
 public void End()
 {
 }
-public override float __619()
+public override float __615()
 {
 return m_z;
 }
@@ -41,6 +41,6 @@ public override void __43()
 {
 if ( m_visible.cur==false )
 return;
-G.m_graphics.__357(m_sprite, ref m_rcSrc, ref m_rcTrg, m_rotated);
+G.m_graphics.__356(m_sprite, ref m_rcSrc, ref m_rcTrg, m_rotated);
 }
 }

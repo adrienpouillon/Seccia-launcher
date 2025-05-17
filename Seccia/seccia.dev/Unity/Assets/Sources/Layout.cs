@@ -35,15 +35,15 @@ public static implicit operator bool(Layout inst) { return inst!=null; }
 public Layout()
 {
 }
-public void __65(Asset asset)
+public void __64(Asset asset)
 {
 for ( int i=0 ; i<m_ctrls.Length ; i++ )
 {
 m_ctrls[i] = new LayoutCtrl(this, (LAYOUT_CTRL)i);
-m_ctrls[i].__65(asset);
+m_ctrls[i].__64(asset);
 }
 }
-public void __417(Asset asset)
+public void __416(Asset asset)
 {
 G.m_game.__237(asset, m_spriteAutoSave);
 G.m_game.__237(asset, m_spriteBag);
@@ -77,14 +77,14 @@ public void __219()
 {
 for ( int i=0 ; i<m_ctrls.Length ; i++ )
 m_ctrls[i].__219();
-m_takerX = Get(LAYOUT_CTRL.BAG).m_rcView.__440();
-m_takerY = Get(LAYOUT_CTRL.BAG).m_rcView.__441();
+m_takerX = Get(LAYOUT_CTRL.BAG).m_rcView.__439();
+m_takerY = Get(LAYOUT_CTRL.BAG).m_rcView.__440();
 }
-public void __418(string[] players)
+public void __417(string[] players)
 {
 for ( int i=0 ; i<m_players.Length ; i++ )
 {
-Sprite icon = m_players[i].__454();
+Sprite icon = m_players[i].__453();
 if ( icon )
 icon.End();
 }
@@ -100,20 +100,20 @@ for ( int i=0 ; i<m_players.Length ; i++ )
 m_players[i] = newPlayers[i];
 m_visiblePlayers = null;
 m_playerScroll = 0;
-Asset asset = G.__96(G.m_pathGraphics);
+Asset asset = G.__95(G.m_pathGraphics);
 if ( asset )
 {
 for ( int i=0 ; i<m_players.Length ; i++ )
 {
-Sprite icon = m_players[i].__454();
+Sprite icon = m_players[i].__453();
 if ( icon )
-icon.__469(asset);
+icon.__468(asset);
 }
 asset.Close();
 }
-__419();
+__418();
 }
-public void __419()
+public void __418()
 {
 Player player = G.m_game.__293();
 int visibleCount = m_players.Length;
@@ -130,7 +130,7 @@ m_visiblePlayers[j++] = m_players[i];
 }
 __219();
 }
-public void __420()
+public void __419()
 {
 if ( m_playerScroll<0 )
 {
@@ -150,7 +150,7 @@ m_playerScroll = m_visiblePlayers.Length - itemCount;
 return;
 }
 }
-public bool __421()
+public bool __420()
 {
 int itemCount = Get(LAYOUT_CTRL.PLAYERS).m_itemCount;
 int emptyCount = itemCount - m_visiblePlayers.Length;
@@ -162,31 +162,31 @@ public LayoutCtrl Get(LAYOUT_CTRL type)
 {
 return m_ctrls[(int)type];
 }
-public Material __422()
+public Material __421()
 {
 if ( m_spriteObjectPrev )
 return m_spriteObjectPrev.m_material;
 if ( m_spritePlayerPrev )
 return m_spritePlayerPrev.m_material;
+return null;
+}
+public Material __422()
+{
+if ( m_spriteObjectNext )
+return m_spriteObjectNext.m_material;
+if ( m_spritePlayerNext )
+return m_spritePlayerNext.m_material;
 return null;
 }
 public Material __423()
 {
-if ( m_spriteObjectNext )
-return m_spriteObjectNext.m_material;
-if ( m_spritePlayerNext )
-return m_spritePlayerNext.m_material;
-return null;
-}
-public Material __424()
-{
 if ( m_spritePlayerPrev )
 return m_spritePlayerPrev.m_material;
 if ( m_spriteObjectPrev )
 return m_spriteObjectPrev.m_material;
 return null;
 }
-public Material __425()
+public Material __424()
 {
 if ( m_spritePlayerNext )
 return m_spritePlayerNext.m_material;
@@ -194,23 +194,23 @@ if ( m_spriteObjectNext )
 return m_spriteObjectNext.m_material;
 return null;
 }
-public bool __426(LAYOUT_CTRL type, float xView, float yView)
+public bool __425(LAYOUT_CTRL type, float xView, float yView)
 {
-return m_ctrls[(int)type].__426(xView, yView);
+return m_ctrls[(int)type].__425(xView, yView);
 }
-public LAYOUT_CTRL __426(float xView, float yView)
+public LAYOUT_CTRL __425(float xView, float yView)
 {
 for ( int i=m_ctrls.Length-1 ; i>=0 ; i-- )
 {
-if ( m_ctrls[i].__426(xView, yView) )
+if ( m_ctrls[i].__425(xView, yView) )
 return (LAYOUT_CTRL)i;
 }
 return LAYOUT_CTRL.COUNT;
 }
-public Player __427(float xView, float yView)
+public Player __426(float xView, float yView)
 {
 LayoutCtrl ctrl = Get(LAYOUT_CTRL.PLAYERS);
-int index = ctrl.__432(xView, yView);
+int index = ctrl.__431(xView, yView);
 if ( index==-1 )
 return null;
 index += m_playerScroll;
@@ -253,7 +253,7 @@ public LayoutCtrl(Layout layout, LAYOUT_CTRL id)
 m_layout = layout;
 m_id = id;
 }
-public void __65(Asset asset)
+public void __64(Asset asset)
 {
 m_active = asset.__10();
 if ( m_active )
@@ -515,7 +515,7 @@ float offset = m_rcView.x + (m_rcView.width-m_cellCount*m_rcView.height)*0.5f;
 if ( m_dynamic==LAYOUT_ALIGN.NEAR )
 offset = m_rcView.x;
 else if ( m_dynamic==LAYOUT_ALIGN.FAR )
-offset = m_rcView.__437() - m_cellCount*m_rcView.height;
+offset = m_rcView.__436() - m_cellCount*m_rcView.height;
 for ( int i=0 ; i<m_cellCount ; i++ )
 {
 m_rcCells[i] = new Rect(offset, m_rcView.y, m_rcView.height, m_rcView.height);
@@ -529,7 +529,7 @@ float offset = m_rcView.y + (m_rcView.height-m_cellCount*m_rcView.width)*0.5f;
 if ( m_dynamic==LAYOUT_ALIGN.NEAR )
 offset = m_rcView.y;
 else if ( m_dynamic==LAYOUT_ALIGN.FAR )
-offset = m_rcView.__438() - m_cellCount*m_rcView.width;
+offset = m_rcView.__437() - m_cellCount*m_rcView.width;
 for ( int i=0 ; i<m_cellCount ; i++ )
 {
 m_rcCells[i] = new Rect(m_rcView.x, offset, m_rcView.width, m_rcView.width);
@@ -561,7 +561,7 @@ break;
 }
 case LAYOUT_ALIGN.CENTER:
 {
-float offsetY = m_rcView.__441() - gridRows*m_grid*0.5f;
+float offsetY = m_rcView.__440() - gridRows*m_grid*0.5f;
 int lastRowSize = m_cellCount % gridCols;
 if ( lastRowSize==0 )
 lastRowSize = gridCols;
@@ -569,7 +569,7 @@ int pos = 0;
 for ( int y=0 ; y<gridRows ; y++ )
 {
 int cols = y==gridRows-1 ? lastRowSize : gridCols;
-float offsetX = m_rcView.__440() - cols*m_grid*0.5f;
+float offsetX = m_rcView.__439() - cols*m_grid*0.5f;
 for ( int x=0 ; x<gridCols && pos<m_cellCount ; x++ )
 {
 m_rcCells[pos++] = new Rect(offsetX, offsetY, m_grid, m_grid);
@@ -582,7 +582,7 @@ break;
 case LAYOUT_ALIGN.FAR:
 {
 float offsetX = m_rcView.x;
-float offsetY = m_rcView.__438() - m_grid;
+float offsetY = m_rcView.__437() - m_grid;
 int pos = 0;
 for ( int y=0 ; y<gridRows ; y++ )
 {
@@ -602,7 +602,7 @@ break;
 }
 }
 }
-public bool __428()
+public bool __427()
 {
 if ( m_active==false )
 return false;
@@ -640,9 +640,9 @@ break;
 }
 return true;
 }
-public bool __426(float xView, float yView)
+public bool __425(float xView, float yView)
 {
-if ( __428()==false )
+if ( __427()==false )
 return false;
 if ( m_input==false )
 return false;
@@ -661,11 +661,11 @@ return true;
 }
 return false;
 }
-public bool __429(float xView, float yView)
+public bool __428(float xView, float yView)
 {
 if ( m_hasArrows==false )
 return false;
-if ( __426(xView, yView)==false )
+if ( __425(xView, yView)==false )
 return false;
 if ( m_rcCells[0].Contains(xView, yView) )
 return true;
@@ -673,25 +673,25 @@ if ( m_rcCells[m_rcCells.Length-1].Contains(xView, yView) )
 return true;
 return false;
 }
+public bool __429(float xView, float yView)
+{
+if ( m_hasArrows==false )
+return false;
+if ( __425(xView, yView)==false )
+return false;
+return m_rcCells[0].Contains(xView, yView);
+}
 public bool __430(float xView, float yView)
 {
 if ( m_hasArrows==false )
 return false;
-if ( __426(xView, yView)==false )
-return false;
-return m_rcCells[0].Contains(xView, yView);
-}
-public bool __431(float xView, float yView)
-{
-if ( m_hasArrows==false )
-return false;
-if ( __426(xView, yView)==false )
+if ( __425(xView, yView)==false )
 return false;
 return m_rcCells[m_rcCells.Length-1].Contains(xView, yView);
 }
-public int __432(float xView, float yView)
+public int __431(float xView, float yView)
 {
-if ( __428()==false )
+if ( __427()==false )
 return -1;
 for ( int i=0 ; i<m_itemCount ; i++ )
 {
@@ -703,7 +703,7 @@ return -1;
 }
 public void __43(bool isPlayable)
 {
-if ( __428()==false )
+if ( __427()==false )
 return;
 switch ( m_id )
 {
@@ -712,20 +712,20 @@ case LAYOUT_CTRL.BAG:
 if ( m_layout.m_bagForceHidden==false )
 {
 if ( m_mode==LAYOUT_MODE.ALWAYS )
-G.m_graphics.__355(m_layout.m_spriteBag.m_material, ref m_rcView);
+G.m_graphics.__354(m_layout.m_spriteBag.m_material, ref m_rcView);
 else
 {
 if ( m_layout.m_bagOpened )
-G.m_graphics.__355(m_layout.m_spriteBag.m_material, ref m_rcView);
+G.m_graphics.__354(m_layout.m_spriteBag.m_material, ref m_rcView);
 else if ( isPlayable && m_layout.m_bagLocked==false && G.m_game.m_dragObj==null && G.m_game.m_input.m_isDown && (G.m_game.m_time-G.m_game.m_input.m_isDownTime)>0.5f )
-G.m_graphics.__355(m_layout.m_spriteBag.m_material, ref m_rcView);
+G.m_graphics.__354(m_layout.m_spriteBag.m_material, ref m_rcView);
 }
 }
 break;
 }
 case LAYOUT_CTRL.DETACH:
 {
-G.m_graphics.__355(m_layout.m_spriteDetach.m_material, ref m_rcView);
+G.m_graphics.__354(m_layout.m_spriteDetach.m_material, ref m_rcView);
 break;
 }
 case LAYOUT_CTRL.ITEMS:
@@ -738,17 +738,17 @@ for ( int iCell=0 ; iCell<m_cellCount ; iCell++ )
 if ( iCell==0 )
 {
 float opacity = player && player.m_scroll==0 ? 0.25f : 1.0f;
-G.m_graphics.__355(m_layout.__422(), ref m_rcCells[iCell], opacity);
+G.m_graphics.__354(m_layout.__421(), ref m_rcCells[iCell], opacity);
 }
 else if ( iCell==m_cellCount-1 )
 {
-float opacity = player.__487() ? 0.25f : 1.0f;
-G.m_graphics.__355(m_layout.__423(), ref m_rcCells[iCell], opacity);
+float opacity = player.__486() ? 0.25f : 1.0f;
+G.m_graphics.__354(m_layout.__422(), ref m_rcCells[iCell], opacity);
 }
 else
 {
 if ( m_layout.m_spriteObject )
-G.m_graphics.__355(m_layout.m_spriteObject.m_material, ref m_rcCells[iCell]);
+G.m_graphics.__354(m_layout.m_spriteObject.m_material, ref m_rcCells[iCell]);
 }
 }
 }
@@ -757,14 +757,14 @@ else
 if ( m_layout.m_spriteObject )
 {
 for ( int iCell=0 ; iCell<m_cellCount ; iCell++ )
-G.m_graphics.__355(m_layout.m_spriteObject.m_material, ref m_rcCells[iCell]);
+G.m_graphics.__354(m_layout.m_spriteObject.m_material, ref m_rcCells[iCell]);
 }
 }
 break;
 }
 case LAYOUT_CTRL.MENU:
 {
-G.m_graphics.__355(m_layout.m_spriteMenu.m_material, ref m_rcView);
+G.m_graphics.__354(m_layout.m_spriteMenu.m_material, ref m_rcView);
 break;
 }
 case LAYOUT_CTRL.PLAYERS:
@@ -776,67 +776,67 @@ for ( int iCell=0 ; iCell<m_cellCount ; iCell++ )
 if ( iCell==0 )
 {
 float opacity = m_layout.m_playerScroll==0 ? 0.25f : 1.0f;
-G.m_graphics.__355(m_layout.__424(), ref m_rcCells[iCell], opacity);
+G.m_graphics.__354(m_layout.__423(), ref m_rcCells[iCell], opacity);
 }
 else if ( iCell==m_cellCount-1 )
 {
-float opacity = m_layout.__421() ? 0.25f : 1.0f;
-G.m_graphics.__355(m_layout.__425(), ref m_rcCells[iCell], opacity);
+float opacity = m_layout.__420() ? 0.25f : 1.0f;
+G.m_graphics.__354(m_layout.__424(), ref m_rcCells[iCell], opacity);
 }
 else
-G.m_graphics.__355(m_layout.m_spritePlayer.m_material, ref m_rcCells[iCell]);
+G.m_graphics.__354(m_layout.m_spritePlayer.m_material, ref m_rcCells[iCell]);
 }
 }
 else
 {
 for ( int iCell=0 ; iCell<m_cellCount ; iCell++ )
-G.m_graphics.__355(m_layout.m_spritePlayer.m_material, ref m_rcCells[iCell]);
+G.m_graphics.__354(m_layout.m_spritePlayer.m_material, ref m_rcCells[iCell]);
 }
 break;
 }
 case LAYOUT_CTRL.SHUTUP:
 {
-G.m_graphics.__355(m_layout.m_spriteShutup.m_material, ref m_rcView);
+G.m_graphics.__354(m_layout.m_spriteShutup.m_material, ref m_rcView);
 break;
 }
 case LAYOUT_CTRL.USER1:
 {
-G.m_graphics.__355(m_layout.m_spriteUser1.m_material, ref m_rcView);
+G.m_graphics.__354(m_layout.m_spriteUser1.m_material, ref m_rcView);
 break;
 }
 case LAYOUT_CTRL.USER2:
 {
-G.m_graphics.__355(m_layout.m_spriteUser2.m_material, ref m_rcView);
+G.m_graphics.__354(m_layout.m_spriteUser2.m_material, ref m_rcView);
 break;
 }
 case LAYOUT_CTRL.USER3:
 {
-G.m_graphics.__355(m_layout.m_spriteUser3.m_material, ref m_rcView);
+G.m_graphics.__354(m_layout.m_spriteUser3.m_material, ref m_rcView);
 break;
 }
 case LAYOUT_CTRL.USER4:
 {
-G.m_graphics.__355(m_layout.m_spriteUser4.m_material, ref m_rcView);
+G.m_graphics.__354(m_layout.m_spriteUser4.m_material, ref m_rcView);
 break;
 }
 case LAYOUT_CTRL.USER5:
 {
-G.m_graphics.__355(m_layout.m_spriteUser5.m_material, ref m_rcView);
+G.m_graphics.__354(m_layout.m_spriteUser5.m_material, ref m_rcView);
 break;
 }
 case LAYOUT_CTRL.USER6:
 {
-G.m_graphics.__355(m_layout.m_spriteUser6.m_material, ref m_rcView);
+G.m_graphics.__354(m_layout.m_spriteUser6.m_material, ref m_rcView);
 break;
 }
 case LAYOUT_CTRL.USER7:
 {
-G.m_graphics.__355(m_layout.m_spriteUser7.m_material, ref m_rcView);
+G.m_graphics.__354(m_layout.m_spriteUser7.m_material, ref m_rcView);
 break;
 }
 case LAYOUT_CTRL.USER8:
 {
-G.m_graphics.__355(m_layout.m_spriteUser8.m_material, ref m_rcView);
+G.m_graphics.__354(m_layout.m_spriteUser8.m_material, ref m_rcView);
 break;
 }
 }

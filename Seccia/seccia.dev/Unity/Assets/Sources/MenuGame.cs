@@ -70,7 +70,7 @@ if ( G.m_game.m_rateUrl.Length==0 )
 m_items.Add("");
 else
 m_items.Add(Localization.m_wordMenuRate.Get());
-if ( G.__88()==false )
+if ( G.__87()==false )
 m_items.Add(Localization.m_wordMenuQuit.Get());
 break;
 }
@@ -292,7 +292,7 @@ else
 m_items.Add(Localization.m_wordMenuQuality.Get());
 m_itemsAlt.Add(G.m_game.__213());
 }
-if ( G.__87() && G.__88()==false && G.m_game.m_forceNativeFullscreen==false )
+if ( G.__86() && G.__87()==false && G.m_game.m_forceNativeFullscreen==false )
 {
 m_items.Add(Localization.m_wordMenuResolution.Get());
 m_itemsAlt.Add(G.m_game.m_resolutionList[G.m_game.m_optionResolution==-1 ? 0 : G.m_game.m_optionResolution]);
@@ -316,10 +316,10 @@ break;
 }
 case ID_HELP:
 {
-Asset asset = G.__96(G.m_pathGraphics);
+Asset asset = G.__95(G.m_pathGraphics);
 if ( asset )
 {
-G.m_game.m_menuHelpSprite.__469(asset);
+G.m_game.m_menuHelpSprite.__468(asset);
 asset.Close();
 }
 break;
@@ -335,13 +335,13 @@ break;
 }
 }
 }
-public void __458(float x, float y)
+public void __457(float x, float y)
 {
 if ( __38() )
 {
 if ( G.m_game.m_time-m_startTime<0.25f )
 return;
-List<Rect> rects = __463();
+List<Rect> rects = __462();
 for ( int iRect=0 ; iRect<rects.Count ; iRect++ )
 {
 if ( rects[iRect].Contains(x, y) )
@@ -355,11 +355,11 @@ switch ( iRect )
 case 0:
 {
 if ( G.m_game.m_savegameEnabled )
-__460(ID_PLAY);
+__459(ID_PLAY);
 else
 {
 if ( m_intro || G.m_game.m_isGameOver )
-__467();
+__466();
 else
 Close();
 }
@@ -367,22 +367,22 @@ break;
 }
 case 1:
 {
-__460(ID_ACCOUNT);
+__459(ID_ACCOUNT);
 break;
 }
 case 2:
 {
-__460(ID_OPTIONS);
+__459(ID_OPTIONS);
 break;
 }
 case 3:
 {
-__460(ID_HELP);
+__459(ID_HELP);
 break;
 }
 case 4:
 {
-__460(ID_CREDITS);
+__459(ID_CREDITS);
 break;
 }
 case 5:
@@ -414,22 +414,22 @@ break;
 }
 case 1:
 {
-__460(ID_SAVEGAME);
+__459(ID_SAVEGAME);
 break;
 }
 case 3:
 {
-__467();
+__466();
 break;
 }
 case 4:
 {
-__460(ID_LOADGAME);
+__459(ID_LOADGAME);
 break;
 }
 case 6:
 {
-__460(ID_MAIN);
+__459(ID_MAIN);
 break;
 }
 }
@@ -472,7 +472,7 @@ break;
 }
 case 9:
 {
-__460(ID_PLAY);
+__459(ID_PLAY);
 break;
 }
 case 10:
@@ -498,7 +498,7 @@ break;
 }
 case 5:
 {
-__460(ID_PLAY);
+__459(ID_PLAY);
 break;
 }
 case 6:
@@ -550,7 +550,7 @@ break;
 case 6:
 {
 if ( G.m_game.m_savegameEnabled )
-__460(ID_UPLOAD);
+__459(ID_UPLOAD);
 else
 G.Popup("upload0", Localization.m_wordMenuAccountUpload.Get(), Localization.m_wordMenuConfirmation.Get(), null, POPUP.QUESTION);
 break;
@@ -570,7 +570,7 @@ break;
 }
 case 11:
 {
-__460(ID_MAIN);
+__459(ID_MAIN);
 break;
 }
 }
@@ -592,7 +592,7 @@ break;
 }
 case 7:
 {
-__460(ID_ACCOUNT);
+__459(ID_ACCOUNT);
 break;
 }
 }
@@ -615,7 +615,7 @@ if ( G.m_game.m_mergeAudioText )
 {
 G.m_game.__218();
 bool old = m_resolutionChanged;
-__459();
+__458();
 m_resolutionChanged = old;
 }
 break;
@@ -629,7 +629,7 @@ m_itemsAlt[iRect] = G.m_game.m_languages[G.m_game.m_optionLanguageText].m_name;
 G.m_game.__248();
 G.m_game.__218();
 bool old = m_resolutionChanged;
-__459();
+__458();
 m_resolutionChanged = old;
 break;
 }
@@ -655,7 +655,7 @@ G.m_game.m_optionVoice = G.m_game.m_optionSound;
 for ( int i=0 ; i<2 ; i++ )
 {
 if ( G.m_game.m_songs[i].m_current )
-G.m_game.m_songs[i].m_current.__993(G.m_game.m_optionSong);
+G.m_game.m_songs[i].m_current.__986(G.m_game.m_optionSong);
 }
 }
 G.m_game.__248();
@@ -671,7 +671,7 @@ G.m_game.__248();
 for ( int i=0 ; i<2 ; i++ )
 {
 if ( G.m_game.m_songs[i].m_current )
-G.m_game.m_songs[i].m_current.__993(G.m_game.m_optionSong);
+G.m_game.m_songs[i].m_current.__986(G.m_game.m_optionSong);
 }
 break;
 }
@@ -734,7 +734,7 @@ case 12:
 {
 if ( m_resolutionChanged )
 G.m_game.__219();
-__460(ID_MAIN);
+__459(ID_MAIN);
 break;
 }
 }
@@ -750,9 +750,9 @@ case ID_MAIN:
 {
 for ( int i=0 ; i<G.m_game.m_menuUserButtonSprites.Length ; i++ )
 {
-if ( __465(i).Contains(x, y) )
+if ( __464(i).Contains(x, y) )
 {
-string url = __466(i);
+string url = __465(i);
 if ( AgePlugin.OnUserButton(i+1, url) )
 G.OpenUrl(url);
 return;
@@ -762,7 +762,7 @@ break;
 }
 case ID_HELP:
 {
-__460(ID_MAIN);
+__459(ID_MAIN);
 break;
 }
 case ID_CREDITS:
@@ -770,7 +770,7 @@ case ID_CREDITS:
 if ( m_onlyOnePageNavigation )
 Close();
 else if ( G.m_game.m_customMenu.Length==0 )
-__460(ID_MAIN);
+__459(ID_MAIN);
 else
 G.m_game.__257();
 break;
@@ -778,13 +778,13 @@ break;
 case ID_SPLASH1:
 {
 if ( G.m_game.m_menuSplashDurations[0]==0 )
-__461();
+__460();
 break;
 }
 case ID_SPLASH2:
 {
 if ( G.m_game.m_menuSplashDurations[1]==0 )
-__461();
+__460();
 break;
 }
 }
@@ -819,24 +819,24 @@ m_loadedSprites.Clear();
 if ( resumeSounds )
 G.m_game.__270();
 }
-public void __459()
+public void __458()
 {
 if ( __38() )
 Open(m_id, m_intro, m_disableSave, true);
 }
-public void __460(int id)
+public void __459(int id)
 {
 if ( __38() )
 Open(id, m_intro, m_disableSave);
 }
-public void __461()
+public void __460()
 {
 if ( m_id==ID_LOGO )
 {
 if ( G.m_game.m_menuSplashSprites[0]==null )
 {
 if ( G.m_game.m_customMenu.Length==0 )
-__460(ID_MAIN);
+__459(ID_MAIN);
 else
 {
 Close();
@@ -844,14 +844,14 @@ G.m_game.__302(G.m_game.m_customMenu);
 }
 }
 else
-__460(ID_SPLASH1);
+__459(ID_SPLASH1);
 }
 else if ( m_id==ID_SPLASH1 )
 {
 if ( G.m_game.m_menuSplashSprites[1]==null )
 {
 if ( G.m_game.m_customMenu.Length==0 )
-__460(ID_MAIN);
+__459(ID_MAIN);
 else
 {
 Close();
@@ -859,12 +859,12 @@ G.m_game.__302(G.m_game.m_customMenu);
 }
 }
 else
-__460(ID_SPLASH2);
+__459(ID_SPLASH2);
 }
 else if ( m_id==ID_SPLASH2 )
 {
 if ( G.m_game.m_customMenu.Length==0 )
-__460(ID_MAIN);
+__459(ID_MAIN);
 else
 {
 Close();
@@ -876,7 +876,7 @@ public bool __38()
 {
 return m_id!=0;
 }
-public bool __462()
+public bool __461()
 {
 switch ( m_id )
 {
@@ -891,13 +891,13 @@ return true;
 }
 return false;
 }
-public List<Rect> __463()
+public List<Rect> __462()
 {
 float width = G.m_rcViewUI.width;
 float height = G.m_rcViewUI.height;
 Police font = G.m_game.__215();
-float fontHeight = font.__447();
-float lineSpacing = font.__491();
+float fontHeight = font.__446();
+float lineSpacing = font.__490();
 float extraLineSpacing = fontHeight*0.2f;
 float separatorLineSpacing = fontHeight*0.5f;
 List<Rect> rects = new List<Rect>();
@@ -916,7 +916,7 @@ continue;
 }
 if ( text.Length>0 && text[0]=='@' )
 text = text.Substring(1);
-Vec2 size = font.__492(text);
+Vec2 size = font.__491(text);
 rc.width = size.x;
 rc.height = size.y;
 rc.y = y;
@@ -946,7 +946,7 @@ rects[i] = rc;
 }
 return rects;
 }
-public List<Rect> __464(List<Rect> mainRects)
+public List<Rect> __463(List<Rect> mainRects)
 {
 float width = G.m_rcViewUI.width;
 Police font = G.m_game.__215();
@@ -954,7 +954,7 @@ List<Rect> rects = new List<Rect>();
 Rect rc = new Rect();
 for ( int i=0 ; i<m_itemsAlt.Count ; i++ )
 {
-Vec2 size = font.__492(m_itemsAlt[i]);
+Vec2 size = font.__491(m_itemsAlt[i]);
 rc.width = size.x;
 rc.height = size.y;
 rc.x = G.m_rcViewUI.x + width*0.5f + 8.0f;
@@ -963,7 +963,7 @@ rects.Add(rc);
 }
 return rects;
 }
-public Rect __465(int index)
+public Rect __464(int index)
 {
 Rect rc = Rect.Zero;
 if ( index<0 || index>=G.m_game.m_menuUserButtonSprites.Length || G.m_game.m_menuUserButtonSprites[index]==null || G.m_game.m_menuUserButtonUrls[index].Length==0 || G.m_game.m_menuUserButtonVisibilities[index]==false )
@@ -981,14 +981,14 @@ switch ( G.m_game.m_menuUserButtonPos )
 {
 case "Left":
 rc.x = G.m_rcViewUI.x + space;
-rc.y = G.m_rcViewUI.__439().y - length*0.5f + index*(size+space);
+rc.y = G.m_rcViewUI.__438().y - length*0.5f + index*(size+space);
 break;
 case "Right":
-rc.x = G.m_rcViewUI.__437() - size - space;
-rc.y = G.m_rcViewUI.__439().y - length*0.5f + index*(size+space);
+rc.x = G.m_rcViewUI.__436() - size - space;
+rc.y = G.m_rcViewUI.__438().y - length*0.5f + index*(size+space);
 break;
 case "Top":
-rc.x = G.m_rcViewUI.__439().x - length*0.5f + index*(size+space);
+rc.x = G.m_rcViewUI.__438().x - length*0.5f + index*(size+space);
 rc.y = G.m_rcViewUI.y + space;
 break;
 case "Top Left":
@@ -996,33 +996,33 @@ rc.x = G.m_rcViewUI.x + space + index*(size+space);
 rc.y = G.m_rcViewUI.y + space;
 break;
 case "Top Right":
-rc.x = G.m_rcViewUI.__437() - length - space + index*(size+space);
+rc.x = G.m_rcViewUI.__436() - length - space + index*(size+space);
 rc.y = G.m_rcViewUI.y + space;
 break;
 case "Bottom Left":
 rc.x = G.m_rcViewUI.x + space + index*(size+space);
-rc.y = G.m_rcViewUI.__438() - size - space;
+rc.y = G.m_rcViewUI.__437() - size - space;
 break;
 case "Bottom Right":
-rc.x = G.m_rcViewUI.__437() - length - space + index*(size+space);
-rc.y = G.m_rcViewUI.__438() - size - space;
+rc.x = G.m_rcViewUI.__436() - length - space + index*(size+space);
+rc.y = G.m_rcViewUI.__437() - size - space;
 break;
 default:
-rc.x = G.m_rcViewUI.__439().x - length/2 + index*(size+space);
-rc.y = G.m_rcViewUI.__438() - size - space;
+rc.x = G.m_rcViewUI.__438().x - length/2 + index*(size+space);
+rc.y = G.m_rcViewUI.__437() - size - space;
 break;
 }
 rc.width = size;
 rc.height = size;
 return rc;
 }
-public string __466(int index)
+public string __465(int index)
 {
 if ( index<0 || index>=G.m_game.m_menuUserButtonSprites.Length )
 return "";
 return G.m_game.m_menuUserButtonUrls[index];
 }
-public void __467()
+public void __466()
 {
 if ( m_intro )
 {
@@ -1060,17 +1060,17 @@ if ( m_id==ID_LOGO )
 {
 float duration = G.m_game.m_licenseWarning ? 5.0f : 2.0f;
 if ( G.m_game.m_time-m_startTime>duration )
-__461();
+__460();
 }
 else if ( m_id==ID_SPLASH1 )
 {
 if ( G.m_game.m_menuSplashDurations[0]!=0 && (G.m_game.m_time-m_startTime)>=G.m_game.m_menuSplashDurations[0] )
-__461();
+__460();
 }
 else if ( m_id==ID_SPLASH2 )
 {
 if ( G.m_game.m_menuSplashDurations[1]!=0 && (G.m_game.m_time-m_startTime)>=G.m_game.m_menuSplashDurations[1] )
-__461();
+__460();
 }
 }
 base.__42();
@@ -1080,13 +1080,13 @@ public override void __43()
 if ( __38() )
 {
 Police font = G.m_game.__215();
-bool leftToRight = font.__490();
+bool leftToRight = font.__489();
 float playtime = G.m_game.m_time - m_startTime;
 bool isReady = playtime>0.25f;
 if ( MessageBox.m_instance.__38() )
 isReady = false;
 Rect rc;
-rc.x = G.m_rcView.__439().x - G.m_rcGame.width*0.5f;
+rc.x = G.m_rcView.__438().x - G.m_rcGame.width*0.5f;
 rc.y = 0.0f;
 rc.width = G.m_rcGame.width;
 rc.height = G.m_rcView.height;
@@ -1099,55 +1099,56 @@ break;
 }
 case ID_HELP:
 {
-G.m_graphics.__355(G.m_game.m_menuHelpSprite.m_material, ref rc);
+G.m_graphics.__354(G.m_game.m_menuHelpSprite.m_material, ref rc);
 break;
 }
 case ID_LOGO:
 {
 float view = Mathf.Min(G.m_rcView.width, G.m_rcView.height);
 float size = view*0.2f;
-rc.x = G.m_rcView.__439().x - size*0.5f;
-rc.y = G.m_rcView.__439().y - size*0.5f;
+rc.x = G.m_rcView.__438().x - size*0.5f;
+rc.y = G.m_rcView.__438().y - size*0.5f;
 rc.width = size;
 rc.height = size;
-G.m_graphics.__355(G.m_game.m_logoMaterial, ref rc);
+G.m_graphics.__354(G.m_game.m_logoMaterial, ref rc);
 if ( G.m_game.m_licenseWarning && Mathf.Repeat(playtime, 0.5f)<0.4f )
-font.__493("Please do not forget to build the Unity project before publishing your game. This build is only intended to debug your game.", ref G.m_colorWhite, G.m_rcView.width);
+font.__492("Please do not forget to build the Unity project before publishing your game. This build is only intended to debug your game.", ref G.m_colorWhite, G.m_rcView.width);
 break;
 }
 case ID_SPLASH1:
 {
-G.m_graphics.__355(G.m_game.m_menuSplashSprites[0].m_material, ref rc);
+G.m_graphics.__354(G.m_game.m_menuSplashSprites[0].m_material, ref rc);
 break;
 }
 case ID_SPLASH2:
 {
-G.m_graphics.__355(G.m_game.m_menuSplashSprites[1].m_material, ref rc);
+G.m_graphics.__354(G.m_game.m_menuSplashSprites[1].m_material, ref rc);
 break;
 }
 default:
 {
-G.m_graphics.__355(G.m_game.m_menuBack.m_material, ref rc);
+if ( G.m_game.m_menuBack )
+G.m_graphics.__354(G.m_game.m_menuBack.m_material, ref rc);
 break;
 }
 }
-G.m_graphics.__353(FXO.MENU_BACK);
+G.m_graphics.__352(FXO.MENU_BACK);
 if ( m_id==ID_MAIN )
 {
 for ( int i=0 ; i<G.m_game.m_menuUserButtonSprites.Length ; i++ )
 {
-rc = __465(i);
+rc = __464(i);
 if ( rc.width>0 )
-G.m_graphics.__355(G.m_game.m_menuUserButtonSprites[i].m_material, ref rc);
+G.m_graphics.__354(G.m_game.m_menuUserButtonSprites[i].m_material, ref rc);
 }
 }
-G.m_graphics.__353(FXO.MENU_HUD);
+G.m_graphics.__352(FXO.MENU_HUD);
 if ( m_id==ID_CREDITS )
 {
-float fontHeight = font.__447();
-float lineSpacing = font.__491();
+float fontHeight = font.__446();
+float lineSpacing = font.__490();
 Vec2 size = Vec2.Zero;
-float y = G.m_rcViewUI.__438() - m_scrollCredits;
+float y = G.m_rcViewUI.__437() - m_scrollCredits;
 for ( int i=0 ; i<m_credits.Count ; i++ )
 {
 string line = m_credits[i].Get();
@@ -1162,7 +1163,7 @@ obj = G.m_game.__277(line);
 }
 if ( obj==null )
 {
-size = font.__492(line);
+size = font.__491(line);
 if ( size.y==0 )
 {
 y += fontHeight;
@@ -1171,35 +1172,35 @@ continue;
 }
 float x = G.m_rcViewUI.x + G.m_rcViewUI.width*0.5f;
 x = leftToRight ? x-size.x*0.5f : x+size.x*0.5f;
-font.__71(ref line, x, y, ref color);
+font.__70(ref line, x, y, ref color);
 y += size.y;
 y += lineSpacing;
 }
 else
 {
-Anim anim = obj.__471("STOP");
-if ( anim && anim.__475(AnimDir.RIGHT) && anim.m_dirs[AnimDir.RIGHT].__476()>0 )
+Anim anim = obj.__470("STOP");
+if ( anim && anim.__474(AnimDir.RIGHT) && anim.m_dirs[AnimDir.RIGHT].__475()>0 )
 {
 float time = G.m_game.m_time * anim.m_fps;
-int index = (int)(time % anim.m_dirs[AnimDir.RIGHT].__476());
+int index = (int)(time % anim.m_dirs[AnimDir.RIGHT].__475());
 Frame frame = anim.m_dirs[AnimDir.RIGHT].m_frames[index];
 if ( frame && frame.m_sprite )
 {
-if ( frame.m_sprite.__995()==false )
+if ( frame.m_sprite.__988()==false )
 {
-Asset asset = G.__96(G.m_pathGraphics);
+Asset asset = G.__95(G.m_pathGraphics);
 if ( asset )
 {
-frame.m_sprite.__469(asset);
+frame.m_sprite.__468(asset);
 asset.Close();
 m_loadedSprites.Add(frame.m_sprite);
 }
 }
 rc.width = obj.m_imgWidth;
 rc.height = obj.m_imgHeight;
-rc.x = G.m_rcViewUI.__440() - rc.width*0.5f;
+rc.x = G.m_rcViewUI.__439() - rc.width*0.5f;
 rc.y = y;
-G.m_graphics.__360(frame, ref rc);
+G.m_graphics.__359(frame, ref rc);
 y += rc.height;
 }
 }
@@ -1210,7 +1211,7 @@ m_scrollCredits = 0.0f;
 }
 else
 {
-List<Rect> rects = __463();
+List<Rect> rects = __462();
 for ( int i=0 ; i<rects.Count ; i++ )
 {
 if ( rects[i].width==0 )
@@ -1231,13 +1232,13 @@ color = G.m_game.m_colorTextMenu4;
 else
 color = G.m_game.m_colorTextMenu1;
 }
-font.__71(ref text, leftToRight ? rects[i].x : rects[i].__437(), rects[i].y, ref color);
+font.__70(ref text, leftToRight ? rects[i].x : rects[i].__436(), rects[i].y, ref color);
 }
-rects = __464(rects);
+rects = __463(rects);
 for ( int i=0 ; i<rects.Count ; i++ )
-font.__71(m_itemsAlt[i], leftToRight ? rects[i].x : rects[i].__437(), rects[i].y, ref G.m_game.m_colorTextMenu3);
+font.__70(m_itemsAlt[i], leftToRight ? rects[i].x : rects[i].__436(), rects[i].y, ref G.m_game.m_colorTextMenu3);
 }
-G.m_graphics.__353(FXO.MENU_TEXT);
+G.m_graphics.__352(FXO.MENU_TEXT);
 }
 base.__43();
 }

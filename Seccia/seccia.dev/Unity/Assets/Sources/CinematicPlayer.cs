@@ -78,7 +78,7 @@ string audioName = m_cinematic.m_descs[G.m_game.m_optionLanguageAudio].m_audio;
 m_sound.m_name = audioName;
 if ( m_sound.m_name.Length>0 )
 {
-if ( m_sound.__989(1.0f) )
+if ( m_sound.__982(1.0f) )
 m_isWaitingAudio = true;
 }
 }
@@ -105,7 +105,7 @@ int roleBoxToken = m_roleBoxToken;
 Stop();
 G.m_game.m_input.Reset();
 if ( roleBox )
-roleBox.__458(roleBoxToken);
+roleBox.__457(roleBoxToken);
 }
 public void __42()
 {
@@ -137,7 +137,7 @@ m_player.Play();
 }
 if ( m_isPlaying==false )
 return;
-if ( m_sound.m_audioSource==null || m_sound.__528()==false )
+if ( m_sound.m_audioSource==null || m_sound.__527()==false )
 m_time += G.m_game.m_elapsed;
 else
 m_time = m_sound.m_audioSource.time;
@@ -159,24 +159,24 @@ public void __43()
 if ( m_isPlaying==false )
 {
 if ( m_cinematic.m_skip==CINEMATICSKIP.DELAY && G.m_game.m_input.m_isDown )
-G.m_graphics.__367();
+G.m_graphics.__366();
 return;
 }
 G.m_materialTexture24.mainTexture = m_player.texture;
-G.m_graphics.__355(G.m_materialTexture24, ref m_rc);
+G.m_graphics.__354(G.m_materialTexture24, ref m_rc);
 G.m_materialTexture24.mainTexture = null;
-G.m_graphics.__353(FXO.CINEMATIC_IMAGE);
+G.m_graphics.__352(FXO.CINEMATIC_IMAGE);
 if ( G.m_game.m_optionSubtitle!=SUBTITLE.NONE )
 {
 CinematicText sub = m_cinematic.__37(m_time, m_iLastSub);
 if ( sub )
 {
 m_iLastSub = sub.m_index;
-G.m_game.__215().__493(sub.m_text.Get(), ref G.m_colorWhite, G.m_rcViewUI.width*G.SUBTITLE_WIDTH, G.m_game.m_subtitleMargin);
+G.m_game.__215().__492(sub.m_text.Get(), ref G.m_colorWhite, G.m_rcViewUI.width*G.SUBTITLE_WIDTH, G.m_game.m_subtitleMargin);
 }
 }
-G.m_graphics.__353(FXO.CINEMATIC_TEXT);
+G.m_graphics.__352(FXO.CINEMATIC_TEXT);
 if ( m_cinematic.m_skip==CINEMATICSKIP.DELAY && G.m_game.m_input.m_isDown )
-G.m_graphics.__367();
+G.m_graphics.__366();
 }
 }

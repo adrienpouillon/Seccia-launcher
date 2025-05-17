@@ -58,7 +58,7 @@ m_mapBridge = new Bridge[m_mapSize];
 for ( int i=0 ; i<m_mapSize ; i++ )
 m_mapBridge[i] = null;
 }
-public void __469()
+public void __468()
 {
 m_openList = new int[m_mapWidth*m_mapHeight+2];
 m_whichList = new int[(m_mapWidth+1)*(m_mapHeight+1)];
@@ -87,37 +87,37 @@ m_Gcost = null;
 m_Hcost = null;
 m_pathBank = null;
 }
-public int __392(int col, int row)
+public int __391(int col, int row)
 {
 return (row-m_mapRowMin)*m_mapWidth + col - m_mapColMin;
 }
-public int __392(float x, float y)
+public int __391(float x, float y)
 {
 return (G.__145(y)-m_mapRowMin)*m_mapWidth + G.__145(x) - m_mapColMin;
 }
-public int __512(int col, int row)
+public int __511(int col, int row)
 {
 return (row-m_mapRowMin)*(m_mapWidth+1) + col - m_mapColMin;
 }
-public bool __513(int index)
+public bool __512(int index)
 {
 return index>=0 && index<m_mapSize;
 }
-public bool __514(float x, float y)
+public bool __513(float x, float y)
 {
-int index = __392(x, y);
+int index = __391(x, y);
 if ( index<0 || index>=m_mapWalkable.Length )
 return false;
 return m_mapWalkable[index]==WALKABLE;
 }
-public void __515()
+public void __514()
 {
 m_pathLocation = 0;
 m_pathLength = 0;
 m_pathStatus = FAILED;
 m_pathBank.Clear();
 }
-public int __516(float x, float y, float targetX, float targetY)
+public int __515(float x, float y, float targetX, float targetY)
 {
 int lastPathStatus = m_pathStatus;
 int lastPathLocation = m_pathLocation;
@@ -142,7 +142,7 @@ int choiceCount = 0;
 int startCol = G.__145(x);
 int startRow = G.__145(y);
 bool isBridge = false;
-if ( __514(x, y)==false )
+if ( __513(x, y)==false )
 {
 isBridge = true;
 int iPath = lastPathLocation - 1;
@@ -155,13 +155,13 @@ else
 {
 }
 }
-int startIndexEx = __512(startCol, startRow);
+int startIndexEx = __511(startCol, startRow);
 if ( startIndexEx<0 || startIndexEx>=m_Gcost.Length )
 goto noPath;
 int targetCol = G.__145(targetX);
 int targetRow = G.__145(targetY);
-int targetIndex = __392(targetCol, targetRow);
-int targetIndexEx = __512(targetCol, targetRow);
+int targetIndex = __391(targetCol, targetRow);
+int targetIndexEx = __511(targetCol, targetRow);
 if ( isBridge==false && startCol==targetCol && startRow==targetRow )
 {
 m_pathStatus = FOUND;
@@ -201,8 +201,8 @@ if ( numberOfOpenListItems!=0 )
 {
 int parentX = m_openX[m_openList[1]];
 int parentY = m_openY[m_openList[1]];
-int parentIndex = __392(parentX, parentY);
-int parentIndexEx = __512(parentX, parentY);
+int parentIndex = __391(parentX, parentY);
+int parentIndexEx = __511(parentX, parentY);
 m_whichList[parentIndexEx] = m_onClosedList;
 numberOfOpenListItems = numberOfOpenListItems - 1;
 m_openList[1] = m_openList[numberOfOpenListItems+1];
@@ -251,8 +251,8 @@ if ( bridge )
 {
 for ( int i=0 ; i<bridge.m_cells.Count ; i++ )
 {
-xChoices[choiceCount] = G.__100(bridge.m_cells[i]);
-yChoices[choiceCount] = G.__101(bridge.m_cells[i]);
+xChoices[choiceCount] = G.__99(bridge.m_cells[i]);
+yChoices[choiceCount] = G.__100(bridge.m_cells[i]);
 choiceCount++;
 }
 }
@@ -260,8 +260,8 @@ for ( int iChoice=0 ; iChoice<choiceCount ; iChoice++ )
 {
 int a = xChoices[iChoice];
 int b = yChoices[iChoice];
-int index = __392(a, b);
-int indexEx = __512(a, b);
+int index = __391(a, b);
+int indexEx = __511(a, b);
 if ( a==m_mapColMin-1 || b==m_mapRowMin-1 || a==m_mapColMax+1 || b==m_mapRowMax+1 )
 continue;
 if ( indexEx<0 || indexEx>=m_whichList.Length )
@@ -363,7 +363,7 @@ pathCol = targetCol;
 pathRow = targetRow;
 do
 {
-int indexEx = __512(pathCol, pathRow);
+int indexEx = __511(pathCol, pathRow);
 tempCol = m_parentX[indexEx];
 pathRow = m_parentY[indexEx];
 pathCol = tempCol;
@@ -380,7 +380,7 @@ do
 cellPosition = cellPosition - 2;
 m_pathBank[cellPosition] = pathCol;
 m_pathBank[cellPosition+1] = pathRow;
-int indexEx = __512(pathCol, pathRow);
+int indexEx = __511(pathCol, pathRow);
 tempCol = m_parentX[indexEx];
 pathRow = m_parentY[indexEx];
 pathCol = tempCol;
@@ -418,7 +418,7 @@ m_yTrg = y;
 m_pathStatus = FAILED;
 return m_pathStatus;
 }
-public bool __517(float currentX, float currentY, float len)
+public bool __516(float currentX, float currentY, float len)
 {
 bool changed = false;
 if ( m_pathStatus==FOUND && m_pathLength>0 )

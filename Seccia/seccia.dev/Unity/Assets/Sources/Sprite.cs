@@ -17,7 +17,7 @@ public Texture2D m_texture = null;
 public Material m_material = null;
 public bool m_visible = true;
 public static implicit operator bool(Sprite inst) { return inst!=null; }
-public void __469(Asset asset, SHADER shaderDef = SHADER.TEXTURE32)
+public void __468(Asset asset, SHADER shaderDef = SHADER.TEXTURE32)
 {
 byte[] buffer = null;
 if ( m_offset==0 )
@@ -92,26 +92,26 @@ m_material = null;
 G.Release(m_texture);
 m_texture = null;
 }
-public bool __995()
+public bool __988()
 {
 return m_texture;
 }
-public void __996()
+public void __989()
 {
 if ( m_packGroupType==PACKGROUP.AIR || m_packGroupType==PACKGROUP.AIR_LOW )
 {
 if ( m_texture==null )
 {
-Asset asset = G.__96(G.m_pathGraphics);
+Asset asset = G.__95(G.m_pathGraphics);
 if ( asset )
 {
-__469(asset);
+__468(asset);
 asset.Close();
 }
 }
 }
 }
-public void __688()
+public void __682()
 {
 if ( m_packGroupType==PACKGROUP.AIR || m_packGroupType==PACKGROUP.AIR_LOW )
 {
@@ -181,21 +181,21 @@ public int m_roleBoxToken;
 public static implicit operator bool(LayerSprite inst) { return inst!=null; }
 public void Reset()
 {
-__997(m_visible);
+__990(m_visible);
 m_fadeDir = 0;
 m_opacity = 1.0f;
 m_curOpacity = 1.0f;
 m_roleBox = null;
 m_roleBoxToken = 0;
 }
-public void __469(Asset asset)
+public void __468(Asset asset)
 {
 for ( int i=0 ; i<m_sprites.Length ; i++ )
-m_sprites[i].__469(asset);
+m_sprites[i].__468(asset);
 if ( m_depth )
-m_depth.__469(asset);
+m_depth.__468(asset);
 if ( m_mask )
-m_mask.__469(asset);
+m_mask.__468(asset);
 }
 public void End()
 {
@@ -206,28 +206,28 @@ m_depth.End();
 if ( m_mask )
 m_mask.End();
 }
-public int __67()
+public int __66()
 {
 return m_sprites.Length;
 }
-public void __997(bool visible)
+public void __990(bool visible)
 {
 for ( int i=0 ; i<m_sprites.Length ; i++ )
 m_sprites[i].m_visible = visible;
 }
-public bool __428()
+public bool __427()
 {
 if ( m_sprites.Length>0 )
 return m_sprites[0].m_visible;
 return false;
 }
-public bool __998(float xView, float yView)
+public bool __991(float xView, float yView)
 {
 if ( m_mask==null || m_mask.m_buffer==null )
 return false;
-if ( __428()==false || m_blend!=BLEND.DEFAULT || m_curOpacity!=1.0f )
+if ( __427()==false || m_blend!=BLEND.DEFAULT || m_curOpacity!=1.0f )
 return false;
-if ( xView>m_curViewRect.__437() )
+if ( xView>m_curViewRect.__436() )
 xView = m_curViewRect.x + Mathf.Repeat(xView-m_curViewRect.x, m_curViewRect.width);
 int x = (int)((xView-m_curViewRect.x)/m_curViewRect.width * m_width);
 int y = (int)((yView-m_curViewRect.y)/m_curViewRect.height * m_height);
@@ -244,7 +244,7 @@ return true;
 }
 public void Update()
 {
-if ( __428()==false )
+if ( __427()==false )
 return;
 bool ended = false;
 float fadeOpacity = m_opacity;
@@ -268,7 +268,7 @@ fadeOpacity = 1.0f - m_fadeTime/m_fadeDuration;
 if ( fadeOpacity<=0.0f )
 {
 m_fadeDir = 0;
-__997(false);
+__990(false);
 ended = true;
 }
 }
@@ -280,7 +280,7 @@ animOpacity = G.__135((Mathf.Cos(G.m_game.m_time*m_speedOpacity)+1.0f)*0.5f, m_m
 m_curOpacity = G.Clamp(fadeOpacity*animOpacity);
 if ( ended && m_roleBox )
 {
-m_roleBox.__458(m_roleBoxToken);
+m_roleBox.__457(m_roleBoxToken);
 m_roleBox = null;
 m_roleBoxToken = 0;
 }

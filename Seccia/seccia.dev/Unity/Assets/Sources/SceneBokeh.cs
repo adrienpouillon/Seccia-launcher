@@ -18,38 +18,38 @@ m_entity = ENTITY.BOKEH;
 public void Reset()
 {
 m_parentName.Reset();
-m_parent = m_scene.__536(ref m_parentName.cur);
+m_parent = m_scene.__535(ref m_parentName.cur);
 m_local.Reset();
 m_placement.Reset();
 m_visible.Reset();
 }
 public void __46(JsonObj json)
 {
-json.__382("id", m_sid);
+json.__381("id", m_sid);
 if ( m_parentName.modified )
-json.__381("parent", m_parentName.cur);
+json.__380("parent", m_parentName.cur);
 if ( G.m_game.__291()==m_scene )
 {
-json.__382("x", (int)m_local.cur.x);
-json.__382("y", (int)m_local.cur.y);
+json.__381("x", (int)m_local.cur.x);
+json.__381("y", (int)m_local.cur.y);
 }
 if ( m_visible.modified )
-json.__385("visible", m_visible.cur);
+json.__384("visible", m_visible.cur);
 }
 public void __47(JsonObj json)
 {
-if ( json.__391("parent") )
+if ( json.__390("parent") )
 {
 m_parentName.Set(json.GetString("parent"));
-m_parent = m_scene.__536(ref m_parentName.cur);
+m_parent = m_scene.__535(ref m_parentName.cur);
 }
-if ( json.__391("x") )
+if ( json.__390("x") )
 {
 m_local.Set(new Vec2((float)json.GetInt("x"), (float)json.GetInt("y")));
 m_local.modified = false;
 }
-if ( json.__391("visible") )
-m_visible.Set(json.__401("visible"));
+if ( json.__390("visible") )
+m_visible.Set(json.__400("visible"));
 }
 public override void __43()
 {

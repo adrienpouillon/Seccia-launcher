@@ -33,20 +33,20 @@ for ( int i=0 ; i<count ; i++ )
 float angleNext = angle + i*G.PI/6.0f;
 rc.x = x + Mathf.Cos(angleNext)*circleRadius - dotSize*0.5f;
 rc.y = y + Mathf.Sin(angleNext)*circleRadius - dotSize*0.5f;
-G.m_graphics.__355(G.m_spriteLoading.m_material, ref rc);
+G.m_graphics.__354(G.m_spriteLoading.m_material, ref rc);
 }
 G.m_spriteLoading.m_material.color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
 Police font = G.__194();
 if ( percent!=-1 )
 {
 string text = percent.ToString();
-Vec2 size = font.__492(text, textScale);
-font.__71(ref text, x-size.x*0.5f, y-size.y*0.5f, ref G.m_colorGray, textScale);
+Vec2 size = font.__491(text, textScale);
+font.__70(ref text, x-size.x*0.5f, y-size.y*0.5f, ref G.m_colorGray, textScale);
 }
 if ( message.Length>0 )
 {
-Vec2 size = font.__492(message, textScale);
-font.__71(ref message, x-size.x*0.5f, y+circleRadius*2.0f+dotSize, ref G.m_colorGray, textScale);
+Vec2 size = font.__491(message, textScale);
+font.__70(ref message, x-size.x*0.5f, y+circleRadius*2.0f+dotSize, ref G.m_colorGray, textScale);
 }
 }
 void Update()
@@ -85,25 +85,25 @@ if ( WebForm.m_instance.IsBusy() )
 if ( PrepareRender()==false )
 return;
 DrawLoadingLogo(WebForm.m_instance.GetProgress(), WebForm.m_instance.m_hasError ? "ERROR" : "");
-G.m_graphics.__352();
+G.m_graphics.__351();
 }
 else if ( FileBehavior.m_instance.IsBusy(2.0f) )
 {
 if ( PrepareRender()==false )
 return;
 DrawLoadingLogo(FileBehavior.m_instance.GetProgress());
-G.m_graphics.__352();
+G.m_graphics.__351();
 }
 else if ( SavegameBehavior.m_instance.IsBusy(1.0f) )
 {
 if ( PrepareRender()==false )
 return;
 DrawLoadingLogo();
-G.m_graphics.__352();
+G.m_graphics.__351();
 }
 else
 {
-G.m_game.__336();
+G.m_game.__335();
 }
 }
 else if ( G.m_isInitialized )
@@ -111,7 +111,7 @@ else if ( G.m_isInitialized )
 G.__171();
 if ( G.m_androidFailed )
 {
-G.__194().__493("Please download the app again and accept permissions", ref G.m_colorWhite, G.m_rcWindow.width);
+G.__194().__492("Please download the app again and accept permissions", ref G.m_colorWhite, G.m_rcWindow.width);
 }
 else if ( WebForm.m_instance.IsBusy() )
 {

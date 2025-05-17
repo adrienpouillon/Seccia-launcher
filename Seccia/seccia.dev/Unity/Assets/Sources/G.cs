@@ -229,7 +229,6 @@ public enum LINK
 ENTER,
 SELECT,
 LABEL,
-DOOR,
 USE,
 USELABEL,
 DETACH,
@@ -337,7 +336,7 @@ public void Reset()
 cur = init;
 modified = false;
 }
-public void __78()
+public void __77()
 {
 cur = init;
 modified = true;
@@ -445,6 +444,7 @@ public static List<int> m_obbSizes = new List<int>();
 #endif
 public static System.Random m_random;
 public static Color m_colorClear = new Color(0.0f, 0.0f, 0.0f, 0.0f);
+public static Color m_colorBlack = new Color(0.0f, 0.0f, 0.0f, 1.0f);
 public static Color m_colorWhite = new Color(1.0f, 1.0f, 1.0f, 1.0f);
 public static Color m_colorGray = new Color(0.5f, 0.5f, 0.5f, 1.0f);
 public static Sprite m_spriteLoading = null;
@@ -474,13 +474,13 @@ public static int m_kernelBlurHorz;
 public static int m_kernelBlurVert;
 public static AgeGame m_game = null;
 public static byte[] m_yek = new byte[128];
-public static void __79(int width, int height, bool fullscreen)
+public static void __78(int width, int height, bool fullscreen)
 {
 m_date[0] = DateTime.Now.Year;
 m_date[1] = DateTime.Now.Month;
 m_date[2] = DateTime.Now.Day;
 Input.simulateMouseWithTouches = false;
-m_mouseCaps = Input.mousePresent || __87();
+m_mouseCaps = Input.mousePresent || __86();
 m_touchCaps = Input.touchSupported;
 m_controller = CONTROLLER.MOUSE;
 Screen.sleepTimeout = SleepTimeout.NeverSleep;
@@ -508,8 +508,7 @@ m_audioExtension = ".ogg";
 string folder = Application.dataPath + "/../";
 #if UNITY_EDITOR
 folder = "s:/seccia.dev/src/setup/demo/pieman/BINARIES/play_windows/";
-folder = "s:/seccia.dev/src/setup/demo/novel/BINARIES/play_windows/";
-folder = "s:/Prog/Venelle/src/BINARIES/play_windows/";
+folder = "s:/seccia.dev/src/Test/pieman15 - copy/BINARIES/play_windows/";
 #endif
 m_folderContent = folder + "Content/";
 m_folderContentSongs = "file://" + m_folderContent + "SONGS/";
@@ -607,13 +606,13 @@ m_spriteNoise.m_texture = (Texture2D)Resources.Load("Textures/noise", typeof(Tex
 m_spriteFlame = new Sprite();
 m_spriteFlame.m_texture = (Texture2D)Resources.Load("Textures/flame", typeof(Texture2D));
 #if UNITY_ANDROID
-if ( __86()==false )
+if ( __85()==false )
 m_androidFailed = true;
 #endif
 m_mainRT = __174();
 m_graphics = new GraphicsDevice();
 m_font = new Police();
-m_font.__489(0.6f);
+m_font.__488(0.6f);
 m_materialBlur = __165(SHADER.BLUR);
 m_materialBokeh = __165(SHADER.BOKEH);
 m_materialBrush = __165(SHADER.BRUSH);
@@ -628,17 +627,17 @@ m_materialTexture32 = __165(SHADER.TEXTURE32);
 m_isInitialized = true;
 }
 #if UNITY_ANDROID
-public static int __80(System.IO.Stream stream)
+public static int __79(System.IO.Stream stream)
 {
 return stream.ReadByte();
 }
-public static ushort __81(System.IO.Stream stream)
+public static ushort __80(System.IO.Stream stream)
 {
 ushort val = (ushort)stream.ReadByte();
 val |= (ushort)(((ushort)stream.ReadByte())<<8);
 return val;
 }
-public static uint __82(System.IO.Stream stream)
+public static uint __81(System.IO.Stream stream)
 {
 uint val = (uint)stream.ReadByte();
 val |= (uint)(((uint)stream.ReadByte())<<8);
@@ -646,14 +645,14 @@ val |= (uint)(((uint)stream.ReadByte())<<16);
 val |= (uint)(((uint)stream.ReadByte())<<24);
 return val;
 }
-public static void __83(System.IO.Stream stream, int val)
+public static void __82(System.IO.Stream stream, int val)
 {
 stream.WriteByte((byte)(uint)val);
 stream.WriteByte((byte)(((uint)val)>>8));
 stream.WriteByte((byte)(((uint)val)>>16));
 stream.WriteByte((byte)(((uint)val)>>24));
 }
-public static string __84(System.IO.Stream stream)
+public static string __83(System.IO.Stream stream)
 {
 string str = "";
 while ( true )
@@ -665,13 +664,13 @@ str += (char)(byte)c;
 }
 return str;
 }
-public static void __85(System.IO.Stream stream, string val)
+public static void __84(System.IO.Stream stream, string val)
 {
 for ( int i=0 ; i<val.Length ; i++ )
 stream.WriteByte((byte)val[i]);
 stream.WriteByte(0);
 }
-public static bool __86()
+public static bool __85()
 {
 m_obbOffset = 0;
 m_obbPath = Application.dataPath;
@@ -680,7 +679,7 @@ if ( fileApk==null )
 return false;
 while ( fileApk.Position<fileApk.Length )
 {
-uint signature = __82(fileApk);
+uint signature = __81(fileApk);
 if ( signature==0x08074B50 )
 {
 fileApk.Position += 12;
@@ -689,13 +688,13 @@ continue;
 if ( signature!=0x04034B50 )
 break;
 fileApk.Position += 14;
-int size = (int)__82(fileApk);
+int size = (int)__81(fileApk);
 fileApk.Position += 4;
-int len = (int)__81(fileApk);
-int extralen = (int)__81(fileApk);
+int len = (int)__80(fileApk);
+int extralen = (int)__80(fileApk);
 string path = "";
 for ( int i=0 ; i<len ; i++ )
-path += (char)(byte)__80(fileApk);
+path += (char)(byte)__79(fileApk);
 fileApk.Position += extralen;
 if ( path.Substring(path.Length-8)=="/age.obb" )
 {
@@ -710,11 +709,11 @@ return false;
 return true;
 }
 #endif
-public static bool __87()
+public static bool __86()
 {
 return SystemInfo.deviceType==DeviceType.Desktop;
 }
-public static bool __88()
+public static bool __87()
 {
 #if UNITY_WEBGL
 return true;
@@ -722,7 +721,7 @@ return true;
 return false;
 #endif
 }
-public static bool __89()
+public static bool __88()
 {
 #if UNITY_EDITOR
 return true;
@@ -730,7 +729,7 @@ return true;
 return false;
 #endif
 }
-public static bool __90()
+public static bool __89()
 {
 #if !UNITY_EDITOR
 #if UNITY_STANDALONE_WIN || UNITY_WEBGL
@@ -738,8 +737,8 @@ Cursor.visible = false;
 #endif
 #endif
 m_game = new AgeGame();
-m_game.__79();
-m_isGameLoaded = m_game.__65();
+m_game.__78();
+m_isGameLoaded = m_game.__64();
 if ( m_isGameLoaded==false )
 return false;
 if ( m_game.__284() )
@@ -768,25 +767,25 @@ m_textureGrain.Apply();
 }
 return true;
 }
-public static bool __91(string path)
+public static bool __90(string path)
 {
 return System.IO.File.Exists(path);
 }
-public static int __92(string path)
+public static int __91(string path)
 {
 System.IO.FileInfo info = new System.IO.FileInfo(path);
 return (int)info.Length;
 }
-public static void __93(string path)
+public static void __92(string path)
 {
 System.IO.File.Delete(path);
 }
-public static void __94(string path, string newPath)
+public static void __93(string path, string newPath)
 {
-if ( __91(path) )
+if ( __90(path) )
 {
-if ( __91(newPath) )
-__93(newPath);
+if ( __90(newPath) )
+__92(newPath);
 System.IO.File.Move(path, newPath);
 }
 }
@@ -800,18 +799,18 @@ return file;
 }
 public static System.IO.Stream OpenFile(string path)
 {
-if ( __91(path)==false )
+if ( __90(path)==false )
 return null;
 return new System.IO.FileStream(path, System.IO.FileMode.Open, System.IO.FileAccess.Read);
 }
-public static void __95(System.IO.Stream stream, string val)
+public static void __94(System.IO.Stream stream, string val)
 {
 for ( int i=0 ; i<val.Length ; i++ )
 stream.WriteByte((byte)val[i]);
 stream.WriteByte(13);
 stream.WriteByte(10);
 }
-public static Asset __96(string path, bool disableYek = false)
+public static Asset __95(string path, bool disableYek = false)
 {
 #if UNITY_WEBGL
 if ( path==m_pathGame )
@@ -901,7 +900,7 @@ if ( buffer==null )
 return null;
 return ZlibStream.UncompressBuffer(buffer);
 }
-public static string __97(ref string str)
+public static string __96(ref string str)
 {
 if ( str.Length==0 )
 return "";
@@ -925,7 +924,7 @@ return variable.m_value;
 }
 return str;
 }
-public static void __98(string uid, ref string uidScene, ref string uidObj)
+public static void __97(string uid, ref string uidScene, ref string uidObj)
 {
 int index = uid.IndexOf('.');
 if ( index==-1 )
@@ -939,31 +938,31 @@ uidScene = uid.Substring(0, index);
 uidObj = uid.Substring(index+1);
 }
 }
-public static uint __99(int l, int h)
+public static uint __98(int l, int h)
 {
 return (uint)( ((ushort)(l)) | (((uint)(ushort)(h))<<16) );
 }
-public static int __100(uint v)
+public static int __99(uint v)
 {
 return (int)(short)(ushort)( ((uint)(v)) & 0x0000FFFF );
 }
-public static int __101(uint v)
+public static int __100(uint v)
 {
 return (int)(short)(ushort)( ((uint)(v)) >> 16 );
 }
-public static bool __102(int a, int b)
+public static bool __101(int a, int b)
 {
 if ( b==0 )
 return true;
 return (a & b)==b;
 }
-public static bool __102(uint a, uint b)
+public static bool __101(uint a, uint b)
 {
 if ( b==0 )
 return true;
 return (a & b)==b;
 }
-public static bool __103(ref string value)
+public static bool __102(ref string value)
 {
 int count = 0;
 for ( int i=0 ; i<value.Length ; i++ )
@@ -986,7 +985,7 @@ return false;
 }
 return false;
 }
-public static bool __104(char c)
+public static bool __103(char c)
 {
 if ( c>=48 && c<58 )
 return true;
@@ -998,18 +997,18 @@ if ( c=='_' )
 return true;
 return false;
 }
-public static bool __105(ref string name)
+public static bool __104(ref string name)
 {
 if ( name.Length==0 )
 return false;
 for ( int i=0 ; i<name.Length ; i++ )
 {
-if ( __104(name[i])==false )
+if ( __103(name[i])==false )
 return false;
 }
 return true;
 }
-public static byte __106(char c)
+public static byte __105(char c)
 {
 if ( c>=48 && c<58 )
 return (byte)(c-48);
@@ -1019,13 +1018,13 @@ if ( c>=97 && c<103 )
 return (byte)(c-87);
 return 0;
 }
-public static int __107(int value)
+public static int __106(int value)
 {
 value = value - ((value >> 1) & 0x55555555);
 value = (value & 0x33333333) + ((value >> 2) & 0x33333333);
 return (((value + (value >> 4)) & 0x0F0F0F0F) * 0x01010101) >> 24;
 }
-public static bool __108(int value)
+public static bool __107(int value)
 {
 int bitcount = 0;
 for ( int i=0 ; i<32 ; i++ )
@@ -1037,11 +1036,11 @@ if ( bitcount==1 )
 return true;
 return false;
 }
-public static int __109(int value, int maxValue)
+public static int __108(int value, int maxValue)
 {
 if ( value>maxValue )
 return maxValue;
-if ( __108(value) )
+if ( __107(value) )
 return value;
 for ( int i=1 ; i<=maxValue ; i*=2 )
 {
@@ -1050,62 +1049,62 @@ return i;
 }
 return 0;
 }
-public static uint __110(float value)
+public static uint __109(float value)
 {
 double d = (double)Clamp(value);
 d *= 0xFFFFFFFF;
 return (uint)d;
 }
-public static float __111(uint value)
+public static float __110(uint value)
 {
 double d = ((double)value)/0xFFFFFFFF;
 return (float)d;
 }
-public static void __112(ref string str, float val)
+public static void __111(ref string str, float val)
 {
 str = val.ToString(CultureInfo.InvariantCulture);
 }
-public static bool __113(string str)
+public static bool __112(string str)
 {
 if ( str.Length==0 || str=="1" || __148(ref str, "true") )
 return true;
 return false;
 }
-public static bool __113(ref string str)
+public static bool __112(ref string str)
 {
 if ( str.Length==0 || str=="1" || __148(ref str, "true") )
 return true;
 return false;
 }
-public static int __114(string str)
+public static int __113(string str)
 {
 int value;
 if ( int.TryParse(str, out value)==false )
 return 0;
 return value;
 }
-public static int __114(ref string str)
+public static int __113(ref string str)
 {
 int value;
 if ( int.TryParse(str, out value)==false )
 return 0;
 return value;
 }
-public static float __115(string str)
+public static float __114(string str)
 {
 float value;
 if ( float.TryParse(str, NumberStyles.Float, CultureInfo.InvariantCulture, out value)==false )
 return 0.0f;
 return value;
 }
-public static float __115(ref string str)
+public static float __114(ref string str)
 {
 float value;
 if ( float.TryParse(str, NumberStyles.Float, CultureInfo.InvariantCulture, out value)==false )
 return 0.0f;
 return value;
 }
-public static float __116(string str, bool acceptMinusOne = false)
+public static float __115(string str, bool acceptMinusOne = false)
 {
 int value;
 if ( int.TryParse(str, out value)==false )
@@ -1114,14 +1113,14 @@ if ( acceptMinusOne && value==-1 )
 return -1.0f;
 return Clamp(value/255.0f);
 }
-public static float __117(ref string str)
+public static float __116(ref string str)
 {
 int value;
 if ( int.TryParse(str, out value)==false )
 return 0.0f;
 return value/1000.0f;
 }
-public static float __118(string str)
+public static float __117(string str)
 {
 int value;
 if ( int.TryParse(str, out value)==false )
@@ -1130,12 +1129,20 @@ if ( value<=0 )
 return 0.0f;
 return value/1000.0f;
 }
-public static float __119(string str)
+public static float __118(string str)
 {
 int value;
 if ( int.TryParse(str, out value)==false )
 value = 0;
 value = Clamp(value, 0, 100);
+return value/100.0f;
+}
+public static float __119(string str)
+{
+int value;
+if ( int.TryParse(str, out value)==false )
+value = 0;
+value = Clamp(value, -100, 100);
 return value/100.0f;
 }
 public static float __120(string str)
@@ -1165,9 +1172,9 @@ return Color.black;
 return __124(uint.Parse(str, NumberStyles.HexNumber));
 }
 string[] values = str.Split(',');
-byte r = (byte)(values.Length>0 ? G.Clamp(G.__114(ref values[0]), 0, 255) : 0);
-byte g = (byte)(values.Length>1 ? G.Clamp(G.__114(ref values[1]), 0, 255) : 0);
-byte b = (byte)(values.Length>2 ? G.Clamp(G.__114(ref values[2]), 0, 255) : 0);
+byte r = (byte)(values.Length>0 ? G.Clamp(G.__113(ref values[0]), 0, 255) : 0);
+byte g = (byte)(values.Length>1 ? G.Clamp(G.__113(ref values[1]), 0, 255) : 0);
+byte b = (byte)(values.Length>2 ? G.Clamp(G.__113(ref values[2]), 0, 255) : 0);
 return new Color(r/255.0f, g/255.0f, b/255.0f, 1.0f);
 }
 public static Color __123(string str)
@@ -1179,10 +1186,10 @@ return Color.black;
 return __126(uint.Parse(str, NumberStyles.HexNumber));
 }
 string[] values = str.Split(',');
-byte r = (byte)(values.Length>0 ? G.Clamp(G.__114(ref values[0]), 0, 255) : 0);
-byte g = (byte)(values.Length>1 ? G.Clamp(G.__114(ref values[1]), 0, 255) : 0);
-byte b = (byte)(values.Length>2 ? G.Clamp(G.__114(ref values[2]), 0, 255) : 0);
-byte a = (byte)(values.Length>3 ? G.Clamp(G.__114(ref values[3]), 0, 255) : 255);
+byte r = (byte)(values.Length>0 ? G.Clamp(G.__113(ref values[0]), 0, 255) : 0);
+byte g = (byte)(values.Length>1 ? G.Clamp(G.__113(ref values[1]), 0, 255) : 0);
+byte b = (byte)(values.Length>2 ? G.Clamp(G.__113(ref values[2]), 0, 255) : 0);
+byte a = (byte)(values.Length>3 ? G.Clamp(G.__113(ref values[3]), 0, 255) : 255);
 return new Color(r/255.0f, g/255.0f, b/255.0f, a/255.0f);
 }
 public static Color __124(uint rgb)
@@ -1638,7 +1645,7 @@ if ( textScale==0.0f )
 return;
 bool cjk = font.m_cjk;
 ALIGN align = ALIGN.CENTER;
-if ( font.__490() )
+if ( font.__489() )
 {
 if ( reading==READING.NEAR )
 align = ALIGN.LEFT;
@@ -1706,7 +1713,7 @@ tmp += words[i];
 else
 tmp += " " + words[i];
 }
-Vec2 size = font.__492(tmp, textScale);
+Vec2 size = font.__491(tmp, textScale);
 if ( size.x>maxRowWidth )
 {
 rc.width = lineWidth;
@@ -1731,7 +1738,7 @@ info.m_lineRects.Add(rc);
 info.m_paraSizes.Add(Vec2.Zero);
 tmp = words[i];
 line = tmp;
-size = font.__492(line, textScale);
+size = font.__491(line, textScale);
 lineWidth = size.x;
 lineHeight = size.y;
 wordCount = words[i].Length>16 ? 2 : 1;
@@ -1964,10 +1971,10 @@ int threadGroupX = Mathf.CeilToInt(width / 8.0f);
 int threadGroupY = Mathf.CeilToInt(height / 8.0f);
 cs.Dispatch(kernel, threadGroupX, threadGroupY, 1);
 }
-public static void __71(Texture input)
+public static void __70(Texture input)
 {
 m_materialTexture32.mainTexture = input;
-m_graphics.__354(m_materialTexture32);
+m_graphics.__353(m_materialTexture32);
 m_materialTexture32.mainTexture = null;
 }
 #if UNITY_WEBGL
@@ -1984,12 +1991,12 @@ RenderTexture old = __173(rtBlur);
 __172();
 m_materialBlur.SetFloat("_size", radius);
 m_materialBlur.mainTexture = texture;
-m_graphics.__364(m_materialBlur);
+m_graphics.__363(m_materialBlur);
 m_materialBlur.mainTexture = null;
 __173(old);
 if ( self )
 __172();
-__71(rtBlur);
+__70(rtBlur);
 __170(rtBlur);
 }
 #else
@@ -2022,7 +2029,7 @@ cs.SetTexture(m_kernelBlurVert, "g_output", rtVert);
 Dispatch(cs, width, height, m_kernelBlurVert);
 if ( self )
 __172();
-__71(rtVert);
+__70(rtVert);
 __170(rtVert);
 __170(rtHorz);
 }
@@ -2030,7 +2037,7 @@ __170(rtHorz);
 public static void FillScreen(Color color)
 {
 m_materialBrush.color = color;
-m_graphics.__355(m_materialBrush, ref m_rcView);
+m_graphics.__354(m_materialBrush, ref m_rcView);
 }
 public static Rect __177(Rect rc)
 {
@@ -2074,13 +2081,13 @@ public static JsonObj __183(string path)
 {
 if ( path.Length==0 )
 return null;
-if ( G.__91(path)==false )
+if ( G.__90(path)==false )
 return null;
-Asset asset = __96(path, true);
+Asset asset = __95(path, true);
 if ( asset==null )
 return null;
 int size = asset.__7();
-JsonObj json = Json.__376(Json.__373(asset.__9(size)));
+JsonObj json = Json.__375(Json.__372(asset.__9(size)));
 asset.Close();
 return json;
 }
@@ -2091,7 +2098,7 @@ return;
 System.IO.Stream file = NewFile(path);
 if ( file==null )
 return;
-json.__378(file);
+json.__377(file);
 file.Close();
 #if UNITY_WEBGL
 WebForm.JavascriptSyncFiles();
@@ -2104,9 +2111,9 @@ return m_folderSavegame + "game.sav";
 public static void __186()
 {
 string path = __185();
-if ( __91(path) )
+if ( __90(path) )
 {
-__93(path);
+__92(path);
 #if UNITY_WEBGL
 WebForm.JavascriptSyncFiles();
 #endif
@@ -2133,13 +2140,13 @@ public static string __189(int index)
 {
 string path = __188(index);
 JsonObj jSystem = null;
-if ( __91(path)==false )
+if ( __90(path)==false )
 return "";
-Asset asset = __96(path, true);
+Asset asset = __95(path, true);
 if ( asset==null )
 return "";
 asset.__4(1);
-jSystem = Json.__376(Json.__373(asset.__9(1024)));
+jSystem = Json.__375(Json.__372(asset.__9(1024)));
 asset.Close();
 if ( m_game.__247(jSystem)==false )
 return "";
@@ -2172,9 +2179,9 @@ return title;
 public static void __192(int index)
 {
 string path = __188(index);
-if ( __91(path) )
+if ( __90(path) )
 {
-__93(path);
+__92(path);
 #if UNITY_WEBGL
 WebForm.JavascriptSyncFiles();
 #endif
@@ -2313,7 +2320,7 @@ public List<int> m_words = new List<int>();
 public List<Rect> m_initLineRects = new List<Rect>();
 public List<Rect> m_lineRects = new List<Rect>();
 public List<Vec2> m_paraSizes = new List<Vec2>();
-public int __67()
+public int __66()
 {
 return m_texts.Count;
 }
@@ -2357,7 +2364,7 @@ m_paraSizes.RemoveAt(m_texts.Count);
 }
 public void __203(Police font)
 {
-for ( int i=0 ; i<__67() ; i++ )
+for ( int i=0 ; i<__66() ; i++ )
 {
 m_lineRects[i] = m_initLineRects[i];
 m_paraSizes[i] = Vec2.Zero;
@@ -2365,9 +2372,9 @@ m_paraSizes[i] = Vec2.Zero;
 int index = 0;
 float height = 0.0f;
 Rect rc;
-for ( int i=0 ; i<=__67() ; i++ )
+for ( int i=0 ; i<=__66() ; i++ )
 {
-if ( i==__67() || m_texts[i].Length==0 )
+if ( i==__66() || m_texts[i].Length==0 )
 {
 if ( height>0.0f )
 {
@@ -2386,7 +2393,7 @@ continue;
 height += font.m_lineSpacing;
 height += m_lineRects[i].height;
 rc = m_lineRects[i];
-rc.y = m_lineRects[i-1].__438() + font.m_lineSpacing;
+rc.y = m_lineRects[i-1].__437() + font.m_lineSpacing;
 m_lineRects[i] = rc;
 }
 }

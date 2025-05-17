@@ -1,6 +1,6 @@
 {
 "general": {
-"version": "15"
+"version": "16"
 },
 "project": {
 "game": {
@@ -371,7 +371,7 @@
 "uid": "R_GAME",
 "graph": {
 "board": {
-"nextid": 7,
+"nextid": 9,
 "boxes": [
 {
 "type": 257,

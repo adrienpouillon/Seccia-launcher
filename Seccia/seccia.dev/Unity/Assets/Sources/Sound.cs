@@ -39,7 +39,7 @@ public bool __42()
 {
 if ( __1()==false )
 return true;
-bool isEnd = __528()==false;
+bool isEnd = __527()==false;
 if ( isEnd )
 {
 if ( m_type==TYPE.MUSIC )
@@ -48,13 +48,13 @@ if ( m_loop )
 {
 if ( m_audioSource )
 m_audioSource.Play();
-G.m_game.__331(m_name);
+G.m_game.__330(m_name);
 return false;
 }
 else
 {
 Stop();
-G.m_game.__331(m_name);
+G.m_game.__330(m_name);
 return true;
 }
 }
@@ -71,7 +71,7 @@ public float[] LoadSFX()
 {
 if ( m_samples!=null )
 return m_samples;
-Asset asset = G.__96(G.m_pathSounds);
+Asset asset = G.__95(G.m_pathSounds);
 if ( asset==null )
 return null;
 asset.__3(m_offset);
@@ -95,7 +95,7 @@ samples[i] = (buffer[i]/255.0f)*2.0f - 1.0f;
 }
 return samples;
 }
-public bool __989(float volume, int channel = 0, float startTime = 0.0f)
+public bool __982(float volume, int channel = 0, float startTime = 0.0f)
 {
 Stop();
 switch ( m_type )
@@ -107,7 +107,7 @@ if ( samples==null )
 return false;
 m_audioClip.SetData(samples, 0);
 m_volume = volume;
-__990(null, "");
+__983(null, "");
 break;
 }
 case TYPE.VOICE:
@@ -144,7 +144,7 @@ break;
 }
 return true;
 }
-public bool __990(UnityWebRequest www, string path)
+public bool __983(UnityWebRequest www, string path)
 {
 if ( m_audioSource )
 return false;
@@ -157,7 +157,7 @@ m_audioSource = GameObject.Find("Audio").AddComponent<AudioSource>();
 m_audioSource.loop = m_loop;
 m_audioSource.spatialBlend = 0.0f;
 m_audioSource.clip = m_audioClip;
-__993(m_volume);
+__986(m_volume);
 m_audioSource.Play();
 switch ( m_type )
 {
@@ -200,28 +200,28 @@ m_audioSource = null;
 m_volume = 1.0f;
 m_startTime = 0.0f;
 }
-public void __991()
+public void __984()
 {
 if ( m_audioSource && m_audioSource.isPlaying==false )
 m_audioSource.Play();
 }
-public void __992()
+public void __985()
 {
 if ( m_audioSource && m_audioSource.isPlaying )
 m_audioSource.Pause();
 }
-public bool __528()
+public bool __527()
 {
 if ( __1()==false )
 return false;
 return m_audioSource.isPlaying;
 }
-public void __993(int volume)
+public void __986(int volume)
 {
 if ( m_audioSource )
 m_audioSource.volume = volume/10.0f;
 }
-public void __993(float volume)
+public void __986(float volume)
 {
 if ( m_audioSource )
 {
@@ -247,7 +247,7 @@ break;
 }
 }
 }
-public float __994()
+public float __987()
 {
 return m_volume;
 }
@@ -272,15 +272,15 @@ m_sound.m_loop = true;
 m_crossfade = new Sound(Sound.TYPE.MUSIC_CROSSFADE);
 m_crossfade.m_loop = true;
 }
-public void __991()
+public void __984()
 {
 if ( m_current )
-m_current.__991();
+m_current.__984();
 }
-public void __992()
+public void __985()
 {
 if ( m_current )
-m_current.__992();
+m_current.__985();
 }
 public void __42()
 {

@@ -107,11 +107,11 @@ m_magnifyTriangles[i+2] = i+3==m_magnifyTriangles.Length ? 1 : j+1;
 }
 m_magnifyUvs = new Vector2[m_magnifyVertices.Length];
 }
-public void __341()
+public void __340()
 {
 m_matrix = Matrix4x4.identity;
 }
-public void __342()
+public void __341()
 {
 Vector3 s;
 s.x = 2.0f* G.m_windowRatio;
@@ -123,7 +123,7 @@ v.y = 1.0f;
 v.z = 0.0f;
 m_matrix.SetTRS(v, Quaternion.identity, s);
 }
-public void __343(ref Rect rc)
+public void __342(ref Rect rc)
 {
 Vector3 s;
 s.x = (rc.width/G.m_rcWindow.width) * G.m_windowRatio * 2.0f;
@@ -138,7 +138,7 @@ v.y = -v.y;
 v.z = 0.0f;
 m_matrix.SetTRS(v, Quaternion.identity, s);
 }
-public void __344(ref Rect rcDoc)
+public void __343(ref Rect rcDoc)
 {
 Vector3 s;
 s.x = rcDoc.width/G.m_rcView.width * G.m_windowRatio * 2.0f;
@@ -150,7 +150,7 @@ v.y = -rcDoc.y/G.m_rcView.height * 2.0f + 1.0f;
 v.z = 0.0f;
 m_matrix.SetTRS(v, Quaternion.identity, s);
 }
-public void __344(ref Obb obb)
+public void __343(ref Obb obb)
 {
 m_useTempVertices = true;
 for ( int i=0 ; i<4 ; i++ )
@@ -158,9 +158,9 @@ for ( int i=0 ; i<4 ; i++ )
 m_tempVertices[i].x = (obb.pts[i].x/G.m_rcView.width * 2.0f - 1.0f) * G.m_windowRatio;
 m_tempVertices[i].y = -obb.pts[i].y/G.m_rcView.height * 2.0f + 1.0f;
 }
-__341();
+__340();
 }
-public void __345()
+public void __344()
 {
 Vector3 s;
 s.x = 2.0f / G.m_rcView.width * G.m_windowRatio;
@@ -172,7 +172,7 @@ v.y = 1.0f;
 v.z = 0.0f;
 m_matrix.SetTRS(v, Quaternion.identity, s);
 }
-public void __346(Scene scene)
+public void __345(Scene scene)
 {
 Vector3 s;
 s.x = 2.0f / G.m_rcView.width * scene.m_renderScale * G.m_windowRatio;
@@ -186,7 +186,7 @@ v.y = (-v.y/G.m_rcView.height-0.5f) * -2.0f;
 v.z = 0.0f;
 m_matrix.SetTRS(v, Quaternion.identity, s);
 }
-public void __346(SceneObj obj)
+public void __345(SceneObj obj)
 {
 Scene scene = obj.m_scene;
 Vector3 s;
@@ -217,7 +217,7 @@ v.x = (-v.x/G.m_rcView.width-0.5f) * 2.0f * G.m_windowRatio;
 v.y = (-v.y/G.m_rcView.height-0.5f) * -2.0f;
 m_matrix.SetTRS(v, Quaternion.identity, s);
 }
-public void __347(SceneObj obj)
+public void __346(SceneObj obj)
 {
 Scene scene = obj.m_scene;
 Vector3 s;
@@ -240,12 +240,12 @@ v.x = (v.x/G.m_rcView.width-0.5f) * 2.0f * G.m_windowRatio;
 v.y = (v.y/G.m_rcView.height-0.5f) * -2.0f;
 m_matrix.SetTRS(v, Quaternion.identity, s);
 }
-public void __348(ref Rect rc, float texWidth, float texHeight, bool rotated = false, bool flipped = false)
+public void __347(ref Rect rc, float texWidth, float texHeight, bool rotated = false, bool flipped = false)
 {
 float left = rc.x/texWidth;
 float top = 1.0f - rc.y/texHeight;
-float right = rc.__437()/texWidth;
-float bottom = 1.0f - rc.__438()/texHeight;
+float right = rc.__436()/texWidth;
+float bottom = 1.0f - rc.__437()/texHeight;
 if ( rotated )
 {
 if ( flipped )
@@ -281,9 +281,9 @@ m_tempUvs[3].Set(left, bottom);
 }
 }
 m_useMesh = MESH.TEMP;
-__349();
+__348();
 }
-public void __349()
+public void __348()
 {
 G.__178(ref m_meshTemp);
 if ( m_useTempVertices )
@@ -293,10 +293,10 @@ m_meshTemp.vertices = m_vertices;
 m_meshTemp.uv = m_tempUvs;
 m_meshTemp.triangles = m_triangles;
 }
-public void __350(ref Rect rc, float texWidth, float texHeight)
+public void __349(ref Rect rc, float texWidth, float texHeight)
 {
-float x = rc.__440()/texWidth;
-float y = rc.__441()/texHeight;
+float x = rc.__439()/texWidth;
+float y = rc.__440()/texHeight;
 float w = rc.width/texWidth * 0.5f;
 float h = rc.height/texHeight * 0.5f;
 float angle = 0.0f;
@@ -314,17 +314,17 @@ m_meshMagnify.uv = m_magnifyUvs;
 m_meshMagnify.triangles = m_magnifyTriangles;
 m_useMesh = MESH.MAGNIFY;
 }
-public void __351()
+public void __350()
 {
 m_useMesh = MESH.DEFAULT;
 m_useTempVertices = false;
 }
-public void __352()
+public void __351()
 {
-__343(ref G.m_rcClient);
+__342(ref G.m_rcClient);
 RenderTexture rt = G.__173(G.m_mainRT);
 G.m_materialTexture24.mainTexture = rt;
-__364(G.m_materialTexture24);
+__363(G.m_materialTexture24);
 G.m_materialTexture24.mainTexture = null;
 G.__170(rt);
 Rect rc = Rect.Zero;
@@ -338,11 +338,11 @@ float height = (G.m_rcWindow.height - G.m_rcClient.height)*0.5f;
 if ( height>0.0f )
 {
 rc.Set(0.0f, 0.0f, G.m_rcWindow.width, height);
-__343(ref rc);
-__364(G.m_materialErase);
+__342(ref rc);
+__363(G.m_materialErase);
 rc.Set(0.0f, G.m_rcWindow.height-height, G.m_rcWindow.width, height);
-__343(ref rc);
-__364(G.m_materialErase);
+__342(ref rc);
+__363(G.m_materialErase);
 }
 break;
 }
@@ -352,8 +352,8 @@ float height = G.m_rcWindow.height - G.m_rcClient.height;
 if ( height>0.0f )
 {
 rc.Set(0.0f, 0.0f, G.m_rcWindow.width, height);
-__343(ref rc);
-__364(G.m_materialErase);
+__342(ref rc);
+__363(G.m_materialErase);
 }
 break;
 }
@@ -363,8 +363,8 @@ float height = G.m_rcWindow.height - G.m_rcClient.height;
 if ( height>0.0f )
 {
 rc.Set(0.0f, G.m_rcWindow.height-height, G.m_rcWindow.width, height);
-__343(ref rc);
-__364(G.m_materialErase);
+__342(ref rc);
+__363(G.m_materialErase);
 }
 break;
 }
@@ -380,11 +380,11 @@ float width = (G.m_rcWindow.width - G.m_rcClient.width)*0.5f;
 if ( width>0.0f )
 {
 rc.Set(0.0f, 0.0f, width, G.m_rcWindow.height);
-__343(ref rc);
-__364(G.m_materialErase);
+__342(ref rc);
+__363(G.m_materialErase);
 rc.Set(G.m_rcWindow.width-width, 0, width, G.m_rcWindow.height);
-__343(ref rc);
-__364(G.m_materialErase);
+__342(ref rc);
+__363(G.m_materialErase);
 }
 break;
 }
@@ -394,8 +394,8 @@ float width = G.m_rcWindow.width - G.m_rcClient.width;
 if ( width>0.0f )
 {
 rc.Set(0.0f, 0.0f, width, G.m_rcWindow.height);
-__343(ref rc);
-__364(G.m_materialErase);
+__342(ref rc);
+__363(G.m_materialErase);
 }
 break;
 }
@@ -405,8 +405,8 @@ float width = G.m_rcWindow.width - G.m_rcClient.width;
 if ( width>0.0f )
 {
 rc.Set(G.m_rcWindow.width-width, 0.0f, width, G.m_rcWindow.height);
-__343(ref rc);
-__364(G.m_materialErase);
+__342(ref rc);
+__363(G.m_materialErase);
 }
 break;
 }
@@ -418,18 +418,18 @@ int space = G.m_rcWindow.width - G.m_rcClient.width;
 int spaceHalf = space/2;
 int leftWidth = spaceHalf;
 int rightWidth = spaceHalf + space%2;
-__343(new Rectangle(0, 0, leftWidth, G.m_rcWindow.height));
-__364(G.m_materialErase);
-__343(new Rectangle(G.m_rcWindow.width-rightWidth, 0, rightWidth, G.m_rcWindow.height));
-__364(G.m_materialErase);
+__342(new Rectangle(0, 0, leftWidth, G.m_rcWindow.height));
+__363(G.m_materialErase);
+__342(new Rectangle(G.m_rcWindow.width-rightWidth, 0, rightWidth, G.m_rcWindow.height));
+__363(G.m_materialErase);
 }*/
 }
-public bool __353(FXO fxo)
+public bool __352(FXO fxo)
 {
 Effect effect = G.m_game.__285();
 if ( effect==null )
 return false;
-int count = effect.__68(fxo);
+int count = effect.__67(fxo);
 if ( count==0 )
 return false;
 if ( count==1 )
@@ -437,82 +437,82 @@ if ( count==1 )
 RenderTexture rt = G.__168();
 RenderTexture old = G.__173(rt);
 G.__171();
-G.__71(old);
+G.__70(old);
 G.__173(old);
-__354(rt, effect, fxo);
+__353(rt, effect, fxo);
 G.__170(rt);
 }
 else
 {
-__354(G.__174(), effect, fxo);
+__353(G.__174(), effect, fxo);
 }
 return true;
 }
-public void __354(Material material)
+public void __353(Material material)
 {
-__344(ref G.m_rcView);
-__364(material);
+__343(ref G.m_rcView);
+__363(material);
 }
-public void __354(Texture texture, Effect effect, FXO fxo)
+public void __353(Texture texture, Effect effect, FXO fxo)
 {
-__344(ref G.m_rcView);
-effect.__71(fxo, texture);
+__343(ref G.m_rcView);
+effect.__70(fxo, texture);
 }
-public void __355(Material material, ref Rect rc, float opacity = 1.0f, BLEND blend = BLEND.DEFAULT)
+public void __354(Material material, ref Rect rc, float opacity = 1.0f, BLEND blend = BLEND.DEFAULT)
 {
-__344(ref rc);
-__364(material, opacity, blend);
+__343(ref rc);
+__363(material, opacity, blend);
 }
-public void __356(RenderTexture rt, ref Rect rcSrc)
+public void __355(RenderTexture rt, ref Rect rcSrc)
 {
-__342();
-__350(ref rcSrc, (float)rt.width, (float)rt.height);
-G.__71(rt);
-__351();
+__341();
+__349(ref rcSrc, (float)rt.width, (float)rt.height);
+G.__70(rt);
+__350();
 }
-public void __357(Sprite sprite, ref Rect rcSrc, ref Rect rcTrg, bool rotated = false, bool flipped = false)
+public void __356(Sprite sprite, ref Rect rcSrc, ref Rect rcTrg, bool rotated = false, bool flipped = false)
 {
-__344(ref rcTrg);
-__348(ref rcSrc, sprite.m_width, sprite.m_height, rotated, flipped);
-__364(sprite.m_material);
-__351();
+__343(ref rcTrg);
+__347(ref rcSrc, sprite.m_width, sprite.m_height, rotated, flipped);
+__363(sprite.m_material);
+__350();
 }
-public void __358(Sprite sprite, ref Rect rcSrcUV, ref Rect rc, bool flip = false)
+public void __357(Sprite sprite, ref Rect rcSrcUV, ref Rect rc, bool flip = false)
 {
-__344(ref rc);
+__343(ref rc);
 if ( flip )
 {
-m_tempUvs[0].Set(rcSrcUV.__437(), 1.0f-rcSrcUV.y);
+m_tempUvs[0].Set(rcSrcUV.__436(), 1.0f-rcSrcUV.y);
 m_tempUvs[1].Set(rcSrcUV.x, 1.0f-rcSrcUV.y);
-m_tempUvs[2].Set(rcSrcUV.x, 1.0f-rcSrcUV.__438());
-m_tempUvs[3].Set(rcSrcUV.__437(), 1.0f-rcSrcUV.__438());
+m_tempUvs[2].Set(rcSrcUV.x, 1.0f-rcSrcUV.__437());
+m_tempUvs[3].Set(rcSrcUV.__436(), 1.0f-rcSrcUV.__437());
 }
 else
 {
 m_tempUvs[0].Set(rcSrcUV.x, 1.0f-rcSrcUV.y);
-m_tempUvs[1].Set(rcSrcUV.__437(), 1.0f-rcSrcUV.y);
-m_tempUvs[2].Set(rcSrcUV.__437(), 1.0f-rcSrcUV.__438());
-m_tempUvs[3].Set(rcSrcUV.x, 1.0f-rcSrcUV.__438());
+m_tempUvs[1].Set(rcSrcUV.__436(), 1.0f-rcSrcUV.y);
+m_tempUvs[2].Set(rcSrcUV.__436(), 1.0f-rcSrcUV.__437());
+m_tempUvs[3].Set(rcSrcUV.x, 1.0f-rcSrcUV.__437());
 }
-__349();
+__348();
 m_useMesh = MESH.TEMP;
-__364(sprite.m_material);
-__351();
+__363(sprite.m_material);
+__350();
 }
-public bool __359(LayerSprite sprite, ref Rect rc, Effect effect = null, FXO output = FXO.COUNT, float opacity = 1.0f)
+public bool __358(LayerSprite sprite, ref Rect rc, Effect effect = null, FXO output = FXO.COUNT, float opacity = 1.0f)
 {
 if ( sprite.m_sprites.Length==0 )
 return false;
-if ( effect && effect.__68(output)==0 )
+if ( effect && effect.__67(output)==0 )
 effect = null;
 if ( sprite.m_rowCount==0 )
 {
 if ( effect==null )
-__355(sprite.m_sprites[0].m_material, ref rc, opacity, sprite.m_blend);
+__354(sprite.m_sprites[0].m_material, ref rc, opacity, sprite.m_blend);
 else
 {
-__344(ref rc);
-effect.__71(output, sprite.m_sprites[0].m_texture, sprite.m_width, sprite.m_height, opacity, sprite.m_blend, sprite.m_depth);
+__343(ref rc);
+effect.__70(output, sprite.m_sprites[0].m_texture, sprite.m_width, sprite.m_height, opacity, sprite.m_blend, sprite.m_depth);
 }
 }
 else
@@ -528,80 +528,80 @@ for ( int col=0 ; col<sprite.m_colCount ; col++ )
 {
 int index = row*sprite.m_colCount + col;
 rcPart.Set(rc.x+col*partWidth, rc.y+row*partHeight, partWidth, partHeight);
-__344(ref rcPart);
+__343(ref rcPart);
 if ( effect==null )
-__364(sprite.m_sprites[index].m_material, opacity, sprite.m_blend);
+__363(sprite.m_sprites[index].m_material, opacity, sprite.m_blend);
 else
-effect.__71(output, sprite.m_sprites[index].m_texture, sprite.m_width, sprite.m_height, opacity, sprite.m_blend, sprite.m_depth);
+effect.__70(output, sprite.m_sprites[index].m_texture, sprite.m_width, sprite.m_height, opacity, sprite.m_blend, sprite.m_depth);
 }
 }
 }
 return true;
 }
-public void __360(Frame frame, ref Rect rc)
+public void __359(Frame frame, ref Rect rc)
 {
-__344(ref rc);
-__348(ref frame.m_source, frame.m_sprite.m_width, frame.m_sprite.m_height, frame.m_rotated, frame.m_flipped);
-__364(frame.m_sprite.m_material);
-__351();
+__343(ref rc);
+__347(ref frame.m_source, frame.m_sprite.m_width, frame.m_sprite.m_height, frame.m_rotated, frame.m_flipped);
+__363(frame.m_sprite.m_material);
+__350();
 }
-public void __361(Color tint, Frame frame, ref Rect rc)
+public void __360(Color tint, Frame frame, ref Rect rc)
 {
-__344(ref rc);
-__348(ref frame.m_source, frame.m_sprite.m_width, frame.m_sprite.m_height, frame.m_rotated, frame.m_flipped);
+__343(ref rc);
+__347(ref frame.m_source, frame.m_sprite.m_width, frame.m_sprite.m_height, frame.m_rotated, frame.m_flipped);
 Material material = frame.m_sprite.m_material;
 material.SetColor("_tint", tint);
 material.SetFloat("_layer", (float)(frame.m_layer/8));
 material.SetFloat("_layer2", (float)(Mathf.Pow(2.0f, frame.m_layer%8)));
-__364(material);
-__351();
+__363(material);
+__350();
+}
+public void __361(SceneObj sceneObj, Frame frame)
+{
+if ( sceneObj.m_blend==BLEND.SOFTLIGHT )
+__362(sceneObj, frame);
+else if ( sceneObj.m_obj.m_monochrome )
+__360(sceneObj, frame);
+else
+__359(sceneObj, frame);
+}
+public void __359(SceneObj sceneObj, Frame frame)
+{
+if ( sceneObj.m_draw.hasObb )
+__343(ref sceneObj.m_draw.obb);
+else
+__343(ref sceneObj.m_draw.view);
+__347(ref frame.m_source, frame.m_sprite.m_width, frame.m_sprite.m_height, frame.m_rotated, frame.m_flipped);
+__363(frame.m_sprite.m_material, sceneObj.m_opacity.cur, sceneObj.m_blend);
+__350();
 }
 public void __362(SceneObj sceneObj, Frame frame)
 {
-if ( sceneObj.m_blend==BLEND.SOFTLIGHT )
-__363(sceneObj, frame);
-else if ( sceneObj.m_obj.m_monochrome )
-__361(sceneObj, frame);
+G.m_materialSoftLight.mainTexture = frame.m_sprite.m_texture;
+if ( sceneObj.m_draw.hasObb )
+__343(ref sceneObj.m_draw.obb);
 else
-__360(sceneObj, frame);
+__343(ref sceneObj.m_draw.view);
+__347(ref frame.m_source, frame.m_sprite.m_width, frame.m_sprite.m_height, frame.m_rotated, frame.m_flipped);
+__363(G.m_materialSoftLight);
+__350();
+G.m_materialSoftLight.mainTexture = null;
 }
 public void __360(SceneObj sceneObj, Frame frame)
 {
 if ( sceneObj.m_draw.hasObb )
-__344(ref sceneObj.m_draw.obb);
+__343(ref sceneObj.m_draw.obb);
 else
-__344(ref sceneObj.m_draw.view);
-__348(ref frame.m_source, frame.m_sprite.m_width, frame.m_sprite.m_height, frame.m_rotated, frame.m_flipped);
-__364(frame.m_sprite.m_material, sceneObj.m_opacity.cur, sceneObj.m_blend);
-__351();
-}
-public void __363(SceneObj sceneObj, Frame frame)
-{
-G.m_materialSoftLight.mainTexture = frame.m_sprite.m_texture;
-if ( sceneObj.m_draw.hasObb )
-__344(ref sceneObj.m_draw.obb);
-else
-__344(ref sceneObj.m_draw.view);
-__348(ref frame.m_source, frame.m_sprite.m_width, frame.m_sprite.m_height, frame.m_rotated, frame.m_flipped);
-__364(G.m_materialSoftLight);
-__351();
-G.m_materialSoftLight.mainTexture = null;
-}
-public void __361(SceneObj sceneObj, Frame frame)
-{
-if ( sceneObj.m_draw.hasObb )
-__344(ref sceneObj.m_draw.obb);
-else
-__344(ref sceneObj.m_draw.view);
-__348(ref frame.m_source, frame.m_sprite.m_width, frame.m_sprite.m_height, frame.m_rotated, frame.m_flipped);
+__343(ref sceneObj.m_draw.view);
+__347(ref frame.m_source, frame.m_sprite.m_width, frame.m_sprite.m_height, frame.m_rotated, frame.m_flipped);
 Material material = frame.m_sprite.m_material;
 material.SetColor("_tint", sceneObj.m_obj.m_tint.cur);
 material.SetFloat("_layer", (float)(frame.m_layer/8));
 material.SetFloat("_layer2", (float)Mathf.Pow(2.0f, frame.m_layer%8));
-__364(material, sceneObj.m_opacity.cur, sceneObj.m_blend);
-__351();
+__363(material, sceneObj.m_opacity.cur, sceneObj.m_blend);
+__350();
 }
-public void __364(Material material, float opacity = 1.0f, BLEND blend = BLEND.DEFAULT)
+public void __363(Material material, float opacity = 1.0f, BLEND blend = BLEND.DEFAULT)
 {
 if ( material )
 {
@@ -643,7 +643,7 @@ material.SetInt("_DstBlend", dstBlend);
 }
 }
 }
-public void __365(Mesh mesh, Material material, float opacity = 1.0f, BLEND blend = BLEND.DEFAULT)
+public void __364(Mesh mesh, Material material, float opacity = 1.0f, BLEND blend = BLEND.DEFAULT)
 {
 if ( mesh && material )
 {
@@ -672,7 +672,7 @@ material.SetInt("_DstBlend", dstBlend);
 }
 }
 }
-public void __366(float ax, float ay, float bx, float by, Color color, float size = 1.0f)
+public void __365(float ax, float ay, float bx, float by, Color color, float size = 1.0f)
 {
 if ( ax==bx && ay==by )
 return;
@@ -681,12 +681,12 @@ G.m_materialErase.color = color;
 if ( ax==bx )
 {
 Rect rc = new Rect(ax-half, Mathf.Min(ay, by), size, Mathf.Abs(ay-by));
-__355(G.m_materialErase, ref rc);
+__354(G.m_materialErase, ref rc);
 }
 else if ( ay==by )
 {
 Rect rc = new Rect(Mathf.Min(ax, bx), ay-half, Mathf.Abs(ax-bx), size);
-__355(G.m_materialErase, ref rc);
+__354(G.m_materialErase, ref rc);
 }
 else
 {
@@ -705,18 +705,18 @@ t = Vector2.Lerp(p1, p2, ctr);
 ctr += frac;
 rc.x = (int)(t.x-half);
 rc.y = (int)(t.y-half);
-__355(G.m_materialErase, ref rc);
+__354(G.m_materialErase, ref rc);
 }
 }
 G.m_materialErase.color = Color.black;
 }
-public void __367()
+public void __366()
 {
 const int maxCount = 64;
 const float dotSize = 8.0f;
 const float circleRadius = 32.0f;
-float x = G.m_rcViewUI.__440();
-float y = G.m_rcViewUI.__441();
+float x = G.m_rcViewUI.__439();
+float y = G.m_rcViewUI.__440();
 float ratio = G.Clamp((G.m_game.m_time-G.m_game.m_input.m_isDownTime)/G.SKIP_DELAY);
 int count = (int)(ratio*maxCount);
 Rect rc = new Rect(0.0f, 0.0f, dotSize, dotSize);
@@ -725,7 +725,7 @@ for ( int i=0 ; i<count ; i++ )
 float angle = i * G.RAD_360 / maxCount - G.RAD_90;
 rc.x = x + Mathf.Cos(angle)*circleRadius - dotSize*0.5f;
 rc.y = y + Mathf.Sin(angle)*circleRadius - dotSize*0.5f;
-__355(G.m_spriteSkip.m_material, ref rc);
+__354(G.m_spriteSkip.m_material, ref rc);
 }
 }
 }

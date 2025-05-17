@@ -7,7 +7,7 @@ public SceneCursor()
 {
 m_entity = ENTITY.CURSOR;
 }
-public override void __605()
+public override void __601()
 {
 }
 }
